@@ -1,0 +1,14 @@
+# Text is stored with LF line endings and checked out with the line endings of the platform.
+* text=auto
+
+# The Unix wrapper scripts must keep LF line endings to run.
+mvnw text eol=lf
+rango-game/gradlew text eol=lf
+
+*.png binary
+*.jpg binary
+*.gif binary
+*.jar binary
+*.pdf binary
+*.mp3 binary
+*.ttf binary

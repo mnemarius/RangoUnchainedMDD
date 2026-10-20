@@ -1,0 +1,134 @@
+package io.github.RangoUnchained.Views;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import io.github.RangoUnchained.Controllers.GameController;
+import io.github.RangoUnchained.Controllers.LevelController;
+import io.github.RangoUnchained.Model.Firebase.MultiplayerManager;
+import io.github.RangoUnchained.Model.Firebase.Utils.LobbyInfo;
+import io.github.RangoUnchained.Model.level.GameFileHandler;
+import io.github.RangoUnchained.Modes.GameModeDefinition;
+import io.github.RangoUnchained.Views.Utils.BaseScreen;
+import io.github.RangoUnchained.Views.Utils.ButtonFactory;
+import io.github.RangoUnchained.Views.Utils.Constants;
+import io.github.RangoUnchained.Views.Utils.SliderFactory;
+
+public class PauseMenu extends Stage {
+    private boolean isPaused = false;
+    private final GameController game;
+    private final int levelNumber;
+    private final boolean isMultiplayer;
+    private LobbyInfo lobby;
+    /** The game mode being played, or null for campaign levels and multiplayer. */
+    private GameModeDefinition mode;
+
+    public PauseMenu(GameController game, int levelNumber) {
+        super(new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
+        this.game = game;
+        this.levelNumber = levelNumber;
+        this.isMultiplayer = false;
+        createUI();
+    }
+
+    // Constructor for game modes
+    public PauseMenu(GameController game, GameModeDefinition mode) {
+        super(new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
+        this.game = game;
+        this.levelNumber = -1;
+        this.isMultiplayer = false;
+        this.mode = mode;
+        createUI();
+    }
+
+    // Constructor for Multiplayer
+    public PauseMenu(GameController game, int levelNumber, LobbyInfo lobby) {
+        super(new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
+        this.game = game;
+        this.levelNumber = levelNumber;
+        this.lobby = lobby;
+        this.isMultiplayer = true;
+        createUI();
+    }
+
+    private void createUI() {
+        Table table = new Table();
+        table.setFillParent(true);
+        table.center();
+
+        ButtonFactory.createDefaultButton("Back to game", this::togglePause, table);
+        if (!isMultiplayer) {
+            ButtonFactory.createDefaultButton("Restart", this::restart, table);
+            if (levelNumber > 0) {
+                ButtonFactory.createDefaultButton("Continue later", this::continueLater, table);
+            }
+        }
+        ButtonFactory.createDefaultButton("End game", this::endGame, table);
+        
+
+        Table bottomTable = new Table();
+        bottomTable.setFillParent(true);
+        bottomTable.bottom().padBottom(20);
+
+        Table volumeSlider = SliderFactory.createVolumeSlider(game, GameController.getSkin());
+
+        bottomTable.add(volumeSlider);
+
+        Table sfxSlider = SliderFactory.createSFXVolumeSlider(game, GameController.getSkin());
+        bottomTable.add(sfxSlider).width(300).pad(20);
+        addActor(table);
+        addActor(bottomTable);
+
+    }
+
+    public void togglePause() {
+        isPaused = !isPaused;
+        if (!isPaused) {
+            if (game.getScreen() instanceof BaseScreen) {
+                Gdx.input.setInputProcessor(((BaseScreen) game.getScreen()).getStage());
+            }
+        } else {
+            Gdx.input.setInputProcessor(this);
+        }
+    }
+
+    private void restart() {
+        Gdx.input.setInputProcessor(null);
+        GameFileHandler.getInstance().resetCheckpointFile();
+        isPaused = false;
+
+        Gdx.app.postRunnable(() -> {
+            game.setView(mode != null ? new GamePlayView(mode) : new GamePlayView(levelNumber));
+        });
+    }
+
+    private void endGame() {
+        if (isMultiplayer) {
+            game.getMultiplayerManager().leaveLobby(lobby.lobbyId, game.getCurrentUser(), new MultiplayerManager.Callback<Void>() {
+                @Override
+                public void onSuccess(Void result) {
+                    Gdx.app.postRunnable(() -> game.setView(new GameLobbyView()));
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println("Error leaving lobby: " + e.getMessage());
+                }
+            });
+        }
+        game.setView(mode != null ? new GameOverView(mode, false) : new GameOverView(levelNumber,false));
+        GameFileHandler.getInstance().resetCheckpointFile();
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    private void continueLater() {
+        // Save the game state and return to the main menu
+        LevelController.getInstance().getLevel().checkpoint(3f);
+        game.setView(new MainMenuView());
+    }
+}

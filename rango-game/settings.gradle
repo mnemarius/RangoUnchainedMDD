@@ -1,0 +1,10 @@
+// A list of which subprojects to load as part of the same larger project.
+// You can remove Strings from the list and reload the Gradle project
+// if you want to temporarily disable a subproject.
+include 'lwjgl3', 'core'
+
+// The Android module needs the Android SDK. It is left out when no SDK is configured, so that the
+// desktop game and the generated game modes can be built on any machine.
+if (System.getenv('ANDROID_HOME') != null || System.getenv('ANDROID_SDK_ROOT') != null || file('local.properties').exists()) {
+  include 'android'
+}

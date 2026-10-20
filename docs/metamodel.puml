@@ -1,0 +1,308 @@
+' Generated from gamemode.ecore. Render with: java -jar plantuml.jar metamodel.puml
+@startuml metamodel
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+skinparam class {
+  BackgroundColor #FFFDF7
+  BorderColor #6D4C41
+}
+hide empty members
+hide circle
+left to right direction
+abstract class NamedElement {
+  name : String
+  --
+  <<nameUniqueAmongSiblings>>
+}
+abstract class Positioned {
+  x : Float
+  y : Float
+  --
+  <<insideArena>>
+}
+class Edition {
+  title : String [0..1]
+}
+class BallType {
+  sprite : String
+  scale : Float [0..1]
+  bounce : Float [0..1]
+  speed : Float [0..1]
+  points : Int [0..1]
+  /producedTypes : BallType [*]
+  --
+  <<positiveScale>>
+  <<positiveBounce>>
+  <<positiveSpeed>>
+  <<nonNegativePoints>>
+  <<distinctEffectKinds>>
+}
+abstract class SplitRule {
+}
+class Vanish {
+}
+abstract class Fragmenting {
+  fragments : Int
+  launchSpeed : Float [0..1]
+  /resultType : BallType
+  --
+  <<atLeastOneFragment>>
+  <<positiveLaunchSpeed>>
+}
+class Split {
+}
+class Burst {
+  --
+  <<enoughFragmentsToBurst>>
+}
+abstract class PlayerEffect {
+}
+class Damage {
+  amount : Int
+  --
+  <<positiveAmount>>
+}
+class Heal {
+  amount : Int
+  --
+  <<positiveAmount>>
+}
+abstract class TimedEffect {
+  duration : Float
+  --
+  <<positiveDuration>>
+}
+class Shield {
+}
+class SpeedChange {
+  factor : Float
+  --
+  <<factorChangesSpeed>>
+}
+class Poison {
+  amount : Int
+  interval : Float
+  --
+  <<positiveAmount>>
+  <<intervalWithinDuration>>
+}
+class PowerUp {
+  sprite : String
+  --
+  <<distinctEffectKinds>>
+}
+class Material {
+  bounce : Float [0..1]
+  sprite : String [0..1]
+  --
+  <<bounceInRange>>
+}
+class PlayerProfile {
+  character : String [0..1]
+  health : Int
+  maxHealth : Int [0..1]
+  speed : Float [0..1]
+  tongueTime : Float [0..1]
+  cooldown : Float [0..1]
+  graceTime : Float [0..1]
+  --
+  <<positiveHealth>>
+  <<healthWithinMaximum>>
+  <<positiveSpeed>>
+  <<positiveTongueTime>>
+  <<nonNegativeTimes>>
+}
+class GameMode {
+  title : String
+  description : String [0..1]
+  gravity : Float [0..1]
+  scoring : Scoring [0..1]
+  /popsToClear : Int [0..1]
+  /maxScore : Int [0..1]
+  /powerUps : PowerUp [*]
+  --
+  <<positiveGravity>>
+  <<fragmentTypesAvailable>>
+  <<noSimultaneousOutcome>>
+  <<winnable>>
+  <<endsSomehow>>
+  <<healthDepletedWhenHarmful>>
+}
+enum Scoring {
+  POINTS
+  SPEED_BONUS
+}
+class Arena {
+  background : String
+  playerStart : Float [0..1]
+  --
+  <<playerStartInside>>
+}
+abstract class Obstacle {
+}
+class Block {
+  width : Int
+  height : Int
+  --
+  <<positiveSize>>
+}
+abstract class Trigger {
+  affects : Target [0..1]
+}
+class JumpPad {
+  launch : Float
+  --
+  <<positiveLaunch>>
+}
+class Teleporter {
+  --
+  <<notToItself>>
+  <<targetInSameArena>>
+}
+enum Target {
+  ALL
+  BALLS
+  PLAYER
+}
+abstract class SpawnStrategy {
+  /popsToClear : Int [0..1]
+}
+class FixedLayout {
+}
+class WaveSchedule {
+  loop : Boolean [0..1]
+  escalation : Int [0..1]
+  --
+  <<nonNegativeEscalation>>
+  <<escalationNeedsLoop>>
+}
+class Wave {
+  delay : Float [0..1]
+  /number : Int [0..1]
+  /popsToClear : Int [0..1]
+  --
+  <<nonNegativeDelay>>
+}
+class BallSpawn {
+  size : Int [0..1]
+  count : Int [0..1]
+  direction : Direction [0..1]
+  /popsToClear : Int [0..1]
+  --
+  <<sizeInRange>>
+  <<positiveCount>>
+  <<typeAvailableInMode>>
+}
+enum Direction {
+  LEFT
+  RIGHT
+}
+class DropTable {
+  chance : Float
+  /totalWeight : Int [0..1]
+  --
+  <<chanceIsPercentage>>
+  <<distinctPowerUps>>
+}
+class Drop {
+  weight : Int [0..1]
+  /probability : Float [0..1]
+  --
+  <<positiveWeight>>
+}
+abstract class EndCondition {
+  /win : Boolean [0..1]
+  --
+  <<fitsRole>>
+}
+class Cleared {
+}
+class TimeReached {
+  seconds : Float
+  --
+  <<positiveSeconds>>
+}
+class ScoreReached {
+  points : Int
+  --
+  <<positivePoints>>
+}
+class BallsPopped {
+  count : Int
+  --
+  <<positiveCount>>
+}
+class WavesSurvived {
+  count : Int
+  --
+  <<positiveCount>>
+}
+class HealthDepleted {
+}
+class BallsAlive {
+  count : Int
+  --
+  <<positiveCount>>
+}
+Edition *--> "ballTypes *" BallType
+Edition *--> "powerUps *" PowerUp
+Edition *--> "materials *" Material
+Edition *--> "players 1..*" PlayerProfile
+Edition *--> "modes 1..*" GameMode
+NamedElement <|-- Edition
+BallType *--> "splitRule 1" SplitRule
+BallType *--> "contactEffects 1..*" PlayerEffect
+NamedElement <|-- BallType
+SplitRule <|-- Vanish
+Fragmenting --> "fragmentType 0..1" BallType
+SplitRule <|-- Fragmenting
+Fragmenting <|-- Split
+Fragmenting <|-- Burst
+PlayerEffect <|-- Damage
+PlayerEffect <|-- Heal
+PlayerEffect <|-- TimedEffect
+TimedEffect <|-- Shield
+TimedEffect <|-- SpeedChange
+TimedEffect <|-- Poison
+PowerUp *--> "effects 1..*" PlayerEffect
+NamedElement <|-- PowerUp
+NamedElement <|-- Material
+NamedElement <|-- PlayerProfile
+GameMode --> "player 1" PlayerProfile
+GameMode --> "ballTypes 1..*" BallType
+GameMode *--> "arena 1" Arena
+GameMode *--> "spawning 1" SpawnStrategy
+GameMode *--> "drops 0..1" DropTable
+GameMode *--> "winConditions *" EndCondition
+GameMode *--> "loseConditions 1..*" EndCondition
+NamedElement <|-- GameMode
+Arena --> "floor 0..1" Material
+Arena --> "walls 0..1" Material
+Arena *--> "obstacles *" Obstacle
+NamedElement <|-- Obstacle
+Positioned <|-- Obstacle
+Block --> "material 0..1" Material
+Obstacle <|-- Block
+Obstacle <|-- Trigger
+Trigger <|-- JumpPad
+Teleporter --> "target 1" Teleporter
+Trigger <|-- Teleporter
+FixedLayout *--> "spawns 1..*" BallSpawn
+SpawnStrategy <|-- FixedLayout
+WaveSchedule *--> "waves 1..*" Wave
+SpawnStrategy <|-- WaveSchedule
+Wave *--> "spawns 1..*" BallSpawn
+BallSpawn --> "type 1" BallType
+Positioned <|-- BallSpawn
+DropTable *--> "entries 1..*" Drop
+Drop --> "powerUp 1" PowerUp
+EndCondition <|-- Cleared
+EndCondition <|-- TimeReached
+EndCondition <|-- ScoreReached
+EndCondition <|-- BallsPopped
+EndCondition <|-- WavesSurvived
+EndCondition <|-- HealthDepleted
+EndCondition <|-- BallsAlive
+@enduml

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The p2 update site of the game mode DSL: Help > Install New Software... > Add... > Local... -->
+<site>
+   <feature id="no.ntnu.tdt4250.rango.gamemode.feature" version="0.0.0">
+      <category name="rango"/>
+   </feature>
+   <category-def name="rango" label="Rango Unchained Game Modes">
+      <description>The game mode DSL of the Rango Unchained product line.</description>
+   </category-def>
+   <repository-reference location="https://download.eclipse.org/releases/2026-06" enabled="true"/>
+</site>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="no.ntnu.tdt4250.rango.gamemode.feature"
+      label="Rango Unchained Game Mode DSL"
+      version="1.0.0.qualifier"
+      provider-name="TDT4250 Group 6, NTNU">
+
+   <description>
+      A domain-specific language for the game modes of Rango Unchained: an Ecore metamodel with OCL
+      and Java constraints, a textual editor (Xtext) and a generator that turns an edition model into
+      the game modes of the game.
+   </description>
+
+   <copyright>
+      Copyright (c) 2026 TDT4250 Group 6, NTNU.
+   </copyright>
+
+   <license url="https://opensource.org/licenses/MIT">
+      MIT License. See LICENSE.md in the repository.
+   </license>
+
+   <plugin
+         id="no.ntnu.tdt4250.rango.gamemode"
+         version="0.0.0"/>
+
+   <plugin
+         id="no.ntnu.tdt4250.rango.gamemode.dsl"
+         version="0.0.0"/>
+
+   <plugin
+         id="no.ntnu.tdt4250.rango.gamemode.dsl.ide"
+         version="0.0.0"/>
+
+   <plugin
+         id="no.ntnu.tdt4250.rango.gamemode.dsl.ui"
+         version="0.0.0"/>
+
+</feature>

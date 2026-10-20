@@ -1,0 +1,138 @@
+// A survival edition: waves instead of fixed levels, four ball types with their own behaviour
+// (a bomb bursts into tumbleweeds, a cactus poisons), surfaces of different materials, a jump pad,
+// a pair of teleporters, and power-ups dropped at random. Endless Survival never ends until it is
+// lost; Wave Rush is won by getting through five waves.
+
+edition Survival "Rango Unchained: Survival"
+
+ball Tumbleweed {
+	sprite "Ball/Tumbleweed.png"
+	points 10
+	on pop: split into 2
+	on contact: damage 1
+}
+
+ball Armadillo {
+	sprite "Ball/Armedillo.png"
+	scale 1.2
+	bounce 1.15
+	speed 4
+	points 20
+	on pop: split into 3 launched at 6
+	on contact: damage 2
+}
+
+ball Cactus {
+	sprite "Ball/Cactus.png"
+	bounce 0.8
+	points 15
+	on pop: split into 1
+	on contact: damage 1, poison 1 every 2 s for 6 s
+}
+
+ball Bomb {
+	sprite "Ball/Bomb.png"
+	speed 3
+	points 25
+	on pop: burst into 6 Tumbleweed launched at 6
+	on contact: damage 2
+}
+
+powerup Shield {
+	sprite "Powerup/Shield.png"
+	gives: shield for 8 s
+}
+
+powerup Speed {
+	sprite "Powerup/Speed.png"
+	gives: speed * 1.8 for 8 s
+}
+
+powerup Health {
+	sprite "Powerup/Health.png"
+	gives: heal 2
+}
+
+material Ice {
+	bounce 0.7
+	sprite "Obstacles/Ice.png"
+}
+
+material Grass {
+	bounce 1.3
+	sprite "Obstacles/Grass.png"
+}
+
+material Stone {
+	bounce 1.0
+	sprite "Obstacles/Stone.png"
+}
+
+player Rango {
+	health 5 max 8
+	grace 1 s
+}
+
+mode Endless "Endless Survival" {
+	description "The waves never stop, and grow every round. Survive as long as you can."
+	player Rango
+	balls Tumbleweed, Armadillo, Cactus, Bomb
+	arena {
+		background "Desert"
+		floor Grass
+		walls Ice
+		player starts at 35%
+		block Ledge at (25%, 45%) size 180 by 24 of Ice
+		block Shelf at (75%, 45%) size 180 by 24 of Grass
+		jumppad Spring at (50%, 0%) launch 12 affects everything
+		teleporter West at (6%, 20%) to East affects balls
+		teleporter East at (94%, 20%) to West affects balls
+	}
+	waves looping escalate by 1 {
+		wave {
+			2 * Tumbleweed size 3 at (30%, 75%) moving right
+		}
+		wave after 3 s {
+			Cactus size 3 at (70%, 80%) moving left
+			Armadillo size 2 at (20%, 70%)
+		}
+		wave after 5 s {
+			Bomb size 3 at (50%, 85%)
+		}
+	}
+	drops 25% { Shield weight 2, Speed, Health }
+	lose when health depleted or 25 balls alive
+}
+
+mode WaveRush "Wave Rush" {
+	description "Five waves with hardly a break between them. Get through all of them."
+	player Rango
+	balls Tumbleweed, Armadillo
+	gravity 12
+	arena {
+		background "Desert"
+		floor Stone
+		walls Stone
+	}
+	waves {
+		wave {
+			Tumbleweed size 3 at (50%, 70%)
+		}
+		wave after 1 s {
+			2 * Tumbleweed size 2 at (50%, 75%) moving left
+		}
+		wave after 1 s {
+			Armadillo size 3 at (40%, 70%)
+		}
+		wave after 1 s {
+			3 * Tumbleweed size 2 at (60%, 75%)
+		}
+		wave after 1 s {
+			Armadillo size 3 at (30%, 70%)
+			Tumbleweed size 3 at (70%, 70%) moving left
+		}
+	}
+	drops 10% { Health }
+	win when 5 waves survived
+	lose when health depleted
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated gamemode -->
+      <package
+            uri="http://www.ntnu.no/tdt4250/rango/gamemode/1.0"
+            class="no.ntnu.tdt4250.rango.gamemode.GamemodePackage"
+            genModel="model/gamemode.genmodel"/>
+   </extension>
+
+</plugin>

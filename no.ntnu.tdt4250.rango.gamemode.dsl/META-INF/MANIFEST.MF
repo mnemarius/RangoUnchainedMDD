@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: no.ntnu.tdt4250.rango.gamemode.dsl
+Bundle-ManifestVersion: 2
+Bundle-Name: Rango Unchained Game Mode DSL
+Bundle-Vendor: TDT4250 Group 6, NTNU
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: no.ntnu.tdt4250.rango.gamemode.dsl;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: no.ntnu.tdt4250.rango.gamemode;visibility:=reexport,
+ org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.43.0",
+ org.eclipse.xtend.lib,
+ org.eclipse.equinox.common,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.eclipse.xtext.util,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ org.eclipse.xtext.xtext.generator;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: no.ntnu.tdt4250.rango.gamemode.dsl.parser.antlr.internal,
+ no.ntnu.tdt4250.rango.gamemode.dsl.scoping,
+ no.ntnu.tdt4250.rango.gamemode.dsl.validation,
+ no.ntnu.tdt4250.rango.gamemode.dsl.generator,
+ no.ntnu.tdt4250.rango.gamemode.dsl.serializer,
+ no.ntnu.tdt4250.rango.gamemode.dsl.services,
+ no.ntnu.tdt4250.rango.gamemode.dsl.parser.antlr,
+ no.ntnu.tdt4250.rango.gamemode.dsl.formatting2,
+ no.ntnu.tdt4250.rango.gamemode.dsl
+Import-Package: org.apache.log4j

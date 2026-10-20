@@ -1,0 +1,167 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    google()
+  }
+}
+
+plugins {
+  id 'com.android.application'
+  id 'com.google.gms.google-services'
+}
+
+
+android {
+  namespace "io.github.RangoUnchained"
+  compileSdk 34
+  sourceSets {
+    main {
+      manifest.srcFile 'AndroidManifest.xml'
+      java.setSrcDirs(['src/main/java'])
+      aidl.setSrcDirs(['src/main/java'])
+      renderscript.setSrcDirs(['src/main/java'])
+      res.setSrcDirs(['res'])
+      assets.setSrcDirs(['../assets'])
+      jniLibs.setSrcDirs(['libs'])
+    }
+  }
+  packagingOptions {
+    resources {
+      excludes += [
+        'META-INF/robovm/ios/robovm.xml',
+        'META-INF/DEPENDENCIES.txt',
+        'META-INF/DEPENDENCIES',
+        'META-INF/dependencies.txt',
+        '**/*.gwt.xml'
+      ]
+      pickFirsts += [
+        'META-INF/LICENSE.txt',
+        'META-INF/LICENSE',
+        'META-INF/license.txt',
+        'META-INF/LGPL2.1',
+        'META-INF/NOTICE.txt',
+        'META-INF/NOTICE',
+        'META-INF/notice.txt'
+      ]
+    }
+  }
+  defaultConfig {
+    applicationId 'io.github.RangoUnchained'
+    minSdkVersion 23
+    targetSdkVersion 34
+    versionCode 1
+    versionName "1.0"
+    multiDexEnabled true
+  }
+  compileOptions {
+    sourceCompatibility "8"
+    targetCompatibility "8"
+    coreLibraryDesugaringEnabled true
+  }
+  buildTypes {
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  aaptOptions {
+    noCompress 'png', 'jpg', 'jpeg', 'gif'
+  }
+}
+
+repositories {
+  google()
+  mavenCentral()
+}
+
+configurations {
+  natives
+}
+
+dependencies {
+  // Core LibGDX dependencies
+  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+  implementation project(':core')
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+
+  // gdx-platform natives for multiple ABIs
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+
+  // Box2D natives for multiple ABIs
+  natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
+  natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi-v7a"
+  natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
+  natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
+
+  // Dependencies for Firebase
+  implementation platform("com.google.firebase:firebase-bom:33.12.0")
+  implementation("com.google.firebase:firebase-auth")
+  implementation("com.google.firebase:firebase-firestore")
+  implementation 'com.google.firebase:firebase-database:21.0.0'
+
+  // FreeType dependencies
+  implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
+  natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
+  natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
+  natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
+}
+
+// This task extracts the native .so files from the 'natives' configuration into the libs folder
+tasks.register('copyAndroidNatives') {
+  doFirst {
+    file("libs/armeabi-v7a/").mkdirs()
+    file("libs/arm64-v8a/").mkdirs()
+    file("libs/x86/").mkdirs()
+    file("libs/x86_64/").mkdirs()
+
+    configurations.natives.copy().files.each { jar ->
+      def outputDir = null
+      if (jar.name.endsWith("natives-armeabi-v7a.jar"))
+        outputDir = file("libs/armeabi-v7a")
+      else if (jar.name.endsWith("natives-arm64-v8a.jar"))
+        outputDir = file("libs/arm64-v8a")
+      else if (jar.name.endsWith("natives-x86.jar"))
+        outputDir = file("libs/x86")
+      else if (jar.name.endsWith("natives-x86_64.jar"))
+        outputDir = file("libs/x86_64")
+
+      if (outputDir != null) {
+        copy {
+          from zipTree(jar)
+          into outputDir
+          include "*.so"
+        }
+      }
+    }
+  }
+}
+
+// Ensure the copy task runs before merging JNI libraries
+tasks.matching { it.name.contains("merge") && it.name.contains("JniLibFolders") }.configureEach { packageTask ->
+  packageTask.dependsOn 'copyAndroidNatives'
+}
+
+// Optional: Task to run the app on a device via adb
+tasks.register('run', Exec) {
+  def sdkPath
+  def localProperties = project.file("../local.properties")
+  if (localProperties.exists()) {
+    Properties properties = new Properties()
+    localProperties.withInputStream { instr ->
+      properties.load(instr)
+    }
+    sdkPath = properties.getProperty('sdk.dir') ?: System.env.ANDROID_SDK_ROOT
+  } else {
+    sdkPath = System.env.ANDROID_SDK_ROOT
+  }
+  def adb = sdkPath + "/platform-tools/adb"
+  commandLine "$adb", 'shell', 'am', 'start', '-n', 'io.github.RangoUnchained/io.github.RangoUnchained.android.AndroidLauncher'
+}
+
+eclipse.project.name = appName + "-android"

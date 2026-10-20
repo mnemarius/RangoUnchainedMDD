@@ -1,0 +1,255 @@
+/**
+ */
+package no.ntnu.tdt4250.rango.gamemode.impl;
+
+import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.Obstacle;
+import no.ntnu.tdt4250.rango.gamemode.Positioned;
+
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Obstacle</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl#getX <em>X</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl#getY <em>Y</em>}</li>
+ * </ul>
+ *
+ * @generated
+ */
+public abstract class ObstacleImpl extends NamedElementImpl implements Obstacle {
+	/**
+	 * The default value of the '{@link #getX() <em>X</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getX()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final float X_EDEFAULT = 0.0F;
+
+	/**
+	 * The cached value of the '{@link #getX() <em>X</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getX()
+	 * @generated
+	 * @ordered
+	 */
+	protected float x = X_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getY() <em>Y</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getY()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final float Y_EDEFAULT = 0.0F;
+
+	/**
+	 * The cached value of the '{@link #getY() <em>Y</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getY()
+	 * @generated
+	 * @ordered
+	 */
+	protected float y = Y_EDEFAULT;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ObstacleImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return GamemodePackage.Literals.OBSTACLE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public float getX() {
+		return x;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setX(float newX) {
+		float oldX = x;
+		x = newX;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.OBSTACLE__X, oldX, x));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public float getY() {
+		return y;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setY(float newY) {
+		float oldY = y;
+		y = newY;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.OBSTACLE__Y, oldY, y));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case GamemodePackage.OBSTACLE__X:
+				return getX();
+			case GamemodePackage.OBSTACLE__Y:
+				return getY();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GamemodePackage.OBSTACLE__X:
+				setX((Float)newValue);
+				return;
+			case GamemodePackage.OBSTACLE__Y:
+				setY((Float)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GamemodePackage.OBSTACLE__X:
+				setX(X_EDEFAULT);
+				return;
+			case GamemodePackage.OBSTACLE__Y:
+				setY(Y_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case GamemodePackage.OBSTACLE__X:
+				return x != X_EDEFAULT;
+			case GamemodePackage.OBSTACLE__Y:
+				return y != Y_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == Positioned.class) {
+			switch (derivedFeatureID) {
+				case GamemodePackage.OBSTACLE__X: return GamemodePackage.POSITIONED__X;
+				case GamemodePackage.OBSTACLE__Y: return GamemodePackage.POSITIONED__Y;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == Positioned.class) {
+			switch (baseFeatureID) {
+				case GamemodePackage.POSITIONED__X: return GamemodePackage.OBSTACLE__X;
+				case GamemodePackage.POSITIONED__Y: return GamemodePackage.OBSTACLE__Y;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (x: ");
+		result.append(x);
+		result.append(", y: ");
+		result.append(y);
+		result.append(')');
+		return result.toString();
+	}
+
+} //ObstacleImpl

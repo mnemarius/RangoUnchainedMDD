@@ -1,0 +1,216 @@
+// Concrete syntax of the Rango Unchained game mode DSL. The abstract syntax is the hand-made
+// metamodel gamemode.ecore (imported, not inferred), so its OCL and Java constraints and its derived
+// features apply to every model written in this language.
+grammar no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode with org.eclipse.xtext.common.Terminals
+
+import "http://www.ntnu.no/tdt4250/rango/gamemode/1.0"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+// ---------------------------------------------------------------------------------------------
+// The edition: the building blocks of the product, then its game modes, in any order.
+
+Edition returns Edition:
+	'edition' name=ID (title=STRING)?
+	(	ballTypes+=BallType
+	|	powerUps+=PowerUp
+	|	materials+=Material
+	|	players+=PlayerProfile
+	|	modes+=GameMode
+	)*;
+
+// ---------------------------------------------------------------------------------------------
+// Ball types: tuning in any order, then what happens on a pop and on contact with the player.
+//
+//   ball Cactus {
+//       sprite "Ball/Cactus.png" scale 1.2 points 15
+//       on pop: split into 1
+//       on contact: damage 1, poison 1 every 2 s for 6 s
+//   }
+
+BallType returns BallType:
+	'ball' name=ID '{'
+	(	('sprite' sprite=STRING)
+	&	('scale' scale=Decimal)?
+	&	('bounce' bounce=Decimal)?
+	&	('speed' speed=Decimal)?
+	&	('points' points=INT)?
+	)
+	'on' 'pop' ':' splitRule=SplitRule
+	'on' 'contact' ':' contactEffects+=PlayerEffect (',' contactEffects+=PlayerEffect)*
+	'}';
+
+SplitRule returns SplitRule:
+	Vanish | Split | Burst;
+
+Vanish returns Vanish:
+	{Vanish} 'vanish';
+
+Split returns Split:
+	'split' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
+
+Burst returns Burst:
+	'burst' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
+
+// ---------------------------------------------------------------------------------------------
+// Effects on the player, shared by ball contacts and power-ups.
+
+PlayerEffect returns PlayerEffect:
+	Damage | Heal | Shield | SpeedChange | Poison;
+
+Damage returns Damage:
+	'damage' amount=INT;
+
+Heal returns Heal:
+	'heal' amount=INT;
+
+Shield returns Shield:
+	'shield' 'for' duration=Decimal 's';
+
+SpeedChange returns SpeedChange:
+	'speed' '*' factor=Decimal 'for' duration=Decimal 's';
+
+Poison returns Poison:
+	'poison' amount=INT 'every' interval=Decimal 's' 'for' duration=Decimal 's';
+
+// ---------------------------------------------------------------------------------------------
+// Power-ups, materials and player profiles.
+
+PowerUp returns PowerUp:
+	'powerup' name=ID '{'
+	'sprite' sprite=STRING
+	'gives' ':' effects+=PlayerEffect (',' effects+=PlayerEffect)*
+	'}';
+
+Material returns Material:
+	'material' name=ID '{'
+	(	('bounce' bounce=Decimal)?
+	&	('sprite' sprite=STRING)?
+	)
+	'}';
+
+PlayerProfile returns PlayerProfile:
+	'player' name=ID '{'
+	(	('character' character=STRING)?
+	&	('health' health=INT ('max' maxHealth=INT)?)
+	&	('speed' speed=Decimal)?
+	&	('tongue' tongueTime=Decimal 's')?
+	&	('cooldown' cooldown=Decimal 's')?
+	&	('grace' graceTime=Decimal 's')?
+	)
+	'}';
+
+// ---------------------------------------------------------------------------------------------
+// Game modes.
+
+GameMode returns GameMode:
+	'mode' name=ID title=STRING '{'
+	('description' description=STRING)?
+	'player' player=[PlayerProfile]
+	'balls' ballTypes+=[BallType] (',' ballTypes+=[BallType])*
+	(	('gravity' gravity=Decimal)?
+	&	('scoring' scoring=Scoring)?
+	)
+	arena=Arena
+	spawning=SpawnStrategy
+	(drops=DropTable)?
+	('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
+	'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
+	'}';
+
+enum Scoring returns Scoring:
+	POINTS='points' | SPEED_BONUS='speed-bonus';
+
+// ---------------------------------------------------------------------------------------------
+// The arena. Positions are percentages of the arena: (0%, 0%) is the left end of the floor.
+
+Arena returns Arena:
+	'arena' '{'
+	'background' background=STRING
+	(	('floor' floor=[Material])?
+	&	('walls' walls=[Material])?
+	&	('player' 'starts' 'at' playerStart=Decimal '%')?
+	)
+	(obstacles+=Obstacle)*
+	'}';
+
+fragment At returns Positioned:
+	'at' '(' x=Decimal '%' ',' y=Decimal '%' ')';
+
+Obstacle returns Obstacle:
+	Block | JumpPad | Teleporter;
+
+Block returns Block:
+	'block' name=ID At 'size' width=INT 'by' height=INT ('of' material=[Material])?;
+
+JumpPad returns JumpPad:
+	'jumppad' name=ID At 'launch' launch=Decimal ('affects' affects=Target)?;
+
+Teleporter returns Teleporter:
+	'teleporter' name=ID At 'to' target=[Teleporter] ('affects' affects=Target)?;
+
+enum Target returns Target:
+	ALL='everything' | BALLS='balls' | PLAYER='player';
+
+// ---------------------------------------------------------------------------------------------
+// Spawning: a fixed layout, or waves.
+//
+//   waves looping escalate by 1 {
+//       wave { 2 * Tumbleweed size 3 at (50%, 70%) moving left }
+//       wave after 3 s { Bomb size 2 at (30%, 80%) }
+//   }
+
+SpawnStrategy returns SpawnStrategy:
+	FixedLayout | WaveSchedule;
+
+FixedLayout returns FixedLayout:
+	'layout' '{' (spawns+=BallSpawn)+ '}';
+
+WaveSchedule returns WaveSchedule:
+	'waves' (loop?='looping' ('escalate' 'by' escalation=INT)?)? '{' (waves+=Wave)+ '}';
+
+Wave returns Wave:
+	'wave' ('after' delay=Decimal 's')? '{' (spawns+=BallSpawn)+ '}';
+
+BallSpawn returns BallSpawn:
+	(count=INT '*')? type=[BallType] 'size' size=INT At ('moving' direction=Direction)?;
+
+enum Direction returns Direction:
+	LEFT='left' | RIGHT='right';
+
+// ---------------------------------------------------------------------------------------------
+// Drops and end conditions.
+
+DropTable returns DropTable:
+	'drops' chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
+
+Drop returns Drop:
+	powerUp=[PowerUp] ('weight' weight=INT)?;
+
+EndCondition returns EndCondition:
+	Cleared | TimeReached | ScoreReached | BallsPopped | WavesSurvived | HealthDepleted | BallsAlive;
+
+Cleared returns Cleared:
+	{Cleared} 'all' 'balls' 'cleared';
+
+TimeReached returns TimeReached:
+	'time' 'reaches' seconds=Decimal 's';
+
+ScoreReached returns ScoreReached:
+	'score' 'reaches' points=INT;
+
+BallsPopped returns BallsPopped:
+	count=INT 'balls' 'popped';
+
+WavesSurvived returns WavesSurvived:
+	count=INT 'waves' 'survived';
+
+HealthDepleted returns HealthDepleted:
+	{HealthDepleted} 'health' 'depleted';
+
+BallsAlive returns BallsAlive:
+	count=INT 'balls' 'alive';
+
+// ---------------------------------------------------------------------------------------------
+
+Decimal returns ecore::EFloat:
+	INT ('.' INT)?;

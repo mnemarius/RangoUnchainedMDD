@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rango Unchained Game Mode Metamodel Tests
+Bundle-SymbolicName: no.ntnu.tdt4250.rango.gamemode.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: TDT4250 Group 6, NTNU
+Automatic-Module-Name: no.ntnu.tdt4250.rango.gamemode.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Require-Bundle: no.ntnu.tdt4250.rango.gamemode,
+ junit-jupiter-api;bundle-version="[6.0.0,7.0.0)",
+ org.opentest4j
+Export-Package: no.ntnu.tdt4250.rango.gamemode.tests;x-internal:=true

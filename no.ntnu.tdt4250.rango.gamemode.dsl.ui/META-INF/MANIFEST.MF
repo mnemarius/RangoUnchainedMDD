@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: no.ntnu.tdt4250.rango.gamemode.dsl.ui
+Bundle-ManifestVersion: 2
+Bundle-Name: Rango Unchained Game Mode DSL Editor
+Bundle-Vendor: TDT4250 Group 6, NTNU
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: no.ntnu.tdt4250.rango.gamemode.dsl.ui;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: no.ntnu.tdt4250.rango.gamemode.dsl,
+ org.eclipse.core.resources,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ide,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.ide,
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder,
+ org.eclipse.xtend.lib;resolution:=optional,
+ org.eclipse.xtext.xbase.lib
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: no.ntnu.tdt4250.rango.gamemode.dsl.ui,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ui.contentassist,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ui.generate,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ui.hover,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ui.internal,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ui.labeling,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ui.outline,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ui.quickfix
+Bundle-Activator: no.ntnu.tdt4250.rango.gamemode.dsl.ui.internal.DslActivator

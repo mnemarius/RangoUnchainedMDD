@@ -1,0 +1,141 @@
+// An arcade edition: three short modes with different goals (a score to reach under a time limit,
+// a number of pops, a time to survive), two player profiles to choose between per mode, harmless
+// bubbles that vanish when popped but slow the player down, and a trap among the power-ups.
+
+edition Arcade "Rango Unchained: Arcade"
+
+ball Bubble {
+	sprite "Ball/Small ball.png"
+	scale 1.3
+	bounce 1.2
+	points 5
+	on pop: vanish
+	on contact: speed * 0.6 for 3 s
+}
+
+ball Tumbleweed {
+	sprite "Ball/Tumbleweed.png"
+	points 10
+	on pop: split into 2
+	on contact: damage 1
+}
+
+ball Weed {
+	sprite "Ball/Plant.png"
+	scale 0.9
+	speed 6
+	points 15
+	on pop: split into 2 launched at 7
+	on contact: damage 1
+}
+
+ball Mine {
+	sprite "Ball/Bomb.png"
+	points 30
+	on pop: burst into 4 Weed
+	on contact: damage 2
+}
+
+powerup Heart {
+	sprite "Powerup/Health.png"
+	gives: heal 1
+}
+
+powerup Rush {
+	sprite "Powerup/Speed.png"
+	gives: speed * 2 for 6 s, shield for 6 s
+}
+
+powerup Thorns {
+	sprite "Powerup/WoodShield.png"
+	gives: damage 1, speed * 0.5 for 4 s
+}
+
+material Rubber {
+	bounce 1.5
+}
+
+player Sprinter {
+	character "Rango"
+	health 2 max 3
+	speed 8
+	tongue 0.8 s
+	cooldown 0.4 s
+	grace 1.5 s
+}
+
+player Tank {
+	health 6 max 6
+	speed 4
+	tongue 1.2 s
+	cooldown 1.2 s
+}
+
+mode TimeAttack "Time Attack" {
+	description "Score 1500 points before 90 seconds have passed. Early pops are worth up to double."
+	player Sprinter
+	balls Tumbleweed, Weed, Mine
+	scoring speed-bonus
+	arena {
+		background "Desert"
+		walls Rubber
+		block Bumper at (50%, 55%) size 120 by 24 of Rubber
+		jumppad Launcher at (25%, 0%) launch 10 affects player
+	}
+	waves looping escalate by 1 {
+		wave {
+			2 * Tumbleweed size 3 at (50%, 80%)
+		}
+		wave after 2 s {
+			Mine size 3 at (50%, 85%)
+			Weed size 2 at (20%, 70%) moving right
+		}
+	}
+	drops 20% { Rush weight 3, Heart }
+	win when score reaches 1500
+	lose when time reaches 90 s or health depleted
+}
+
+mode PopFrenzy "Pop Frenzy" {
+	description "A sky full of bubbles in low gravity. Pop 20 balls, or everything there is."
+	player Tank
+	balls Bubble, Tumbleweed
+	gravity 6
+	scoring points
+	arena {
+		background "Desert"
+		floor Rubber
+		player starts at 50%
+	}
+	layout {
+		6 * Bubble size 3 at (50%, 85%)
+		Tumbleweed size 3 at (15%, 60%) moving right
+		Tumbleweed size 3 at (85%, 60%) moving left
+	}
+	drops 15% { Thorns }
+	win when 20 balls popped or all balls cleared
+	lose when health depleted or time reaches 120 s
+}
+
+mode Survivor "Survivor" {
+	description "Stay alive for a minute. A pillar splits the arena: use the teleporters to cross it."
+	player Tank
+	balls Tumbleweed, Weed, Mine
+	arena {
+		background "Desert"
+		block Pillar at (50%, 20%) size 40 by 160
+		teleporter LeftGate at (8%, 5%) to RightGate affects player
+		teleporter RightGate at (92%, 5%) to LeftGate affects player
+	}
+	waves looping {
+		wave after 1 s {
+			Mine size 2 at (50%, 85%)
+		}
+		wave after 2 s {
+			2 * Weed size 3 at (50%, 75%) moving left
+		}
+	}
+	drops 30% { Heart weight 2, Thorns }
+	win when time reaches 60 s
+	lose when health depleted
+}

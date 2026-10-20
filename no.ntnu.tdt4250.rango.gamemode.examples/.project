@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>no.ntnu.tdt4250.rango.gamemode.examples</name>
+	<comment>The example editions of the Rango Unchained game mode DSL. On save, the Xtext builder writes a preview of the generated game modes to generated-game/.</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+	</natures>
+</projectDescription>

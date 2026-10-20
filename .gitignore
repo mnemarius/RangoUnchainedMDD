@@ -1,0 +1,26 @@
+# Build output of the Eclipse plug-ins (Maven/Tycho and the Eclipse IDE)
+target/
+bin/
+*.class
+
+# Downloaded by the Xtext generator when it runs inside Eclipse
+.antlr-generator-*.jar
+
+# Preview of the generated game modes, written by the Eclipse builder next to the models
+generated-game/
+
+# Eclipse workspace metadata (the .project / .classpath / .settings files of the projects are
+# versioned on purpose: they are needed to import the projects into Eclipse)
+.metadata/
+*.launch.bak
+
+# Maven wrapper download
+.mvn/wrapper/maven-wrapper.jar
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+*~
+*.bak
+*.tmp

@@ -1,0 +1,124 @@
+package io.github.RangoUnchained.Model.Systems;
+
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+
+import io.github.RangoUnchained.Controllers.LevelController;
+import io.github.RangoUnchained.Model.Components.BodyComponent;
+import io.github.RangoUnchained.Model.Components.InputComponent;
+import io.github.RangoUnchained.Model.Components.SpriteComponent;
+import io.github.RangoUnchained.Model.Entities.Entity;
+import io.github.RangoUnchained.Model.level.GameLevel.LevelData.EntityData;
+import io.github.RangoUnchained.Model.level.GameLevel.LevelData.EntityData.Dimension;
+import io.github.RangoUnchained.Model.level.GameLevel.LevelData.EntityData.TypeInfo;
+import io.github.RangoUnchained.Modes.ModeSession;
+import io.github.RangoUnchained.Modes.PlayerSpec;
+import io.github.RangoUnchained.Views.Utils.Constants;
+
+/**
+ * System responsible for processing player input from keyboard or touchpad.
+ */
+public class InputSystem implements Systems {
+
+    private Touchpad touchpad;
+    private ComponentFilter filter = new ComponentFilter();
+
+    public InputSystem() {
+        filter
+        .require(InputComponent.class);
+    }
+
+    public void setTouchpad(Touchpad touchpad){
+        this.touchpad = touchpad;
+    }
+
+    @Override
+    public void updateEntity(Entity entity, float delta) {
+
+        InputComponent p1_input = (InputComponent) entity.getComponent(InputComponent.class);
+        if (!p1_input.isLocked()){
+            handleInput(p1_input, entity);
+        } else {
+            p1_input.decrementInputLock();
+        }
+    }
+
+    private synchronized void handleInput(InputComponent p1_input, Entity entity) {
+
+        p1_input.setShoot(false);
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !p1_input.isShoot()){
+            p1_input.setShoot(true);
+            handleShoot(entity);
+            p1_input.setLeft(false);
+            p1_input.setRight(false);
+            p1_input.setTimer(shotCooldown());
+
+        } else {
+            p1_input.setLeft(Gdx.input.isKeyPressed(Input.Keys.A));
+            p1_input.setRight(Gdx.input.isKeyPressed(Input.Keys.D));
+        }
+
+        if (Gdx.input.isTouched()){
+            p1_input.setLeft(touchpad.getKnobPercentX() < 0);
+            p1_input.setRight(0.5 < touchpad.getKnobPercentX());
+        }
+    }
+
+    public synchronized void handleShoot(ArrayList<Entity> entities) {
+        if (entities == null) return;
+
+        for(Entity entity : entities){
+            if(filter.matches(entity)){
+                handleShoot(entity);
+            }
+        }
+    }
+
+    private void handleShoot(Entity entity){
+        SpriteComponent spriteComp = (SpriteComponent)entity.getComponent(SpriteComponent.class);
+        InputComponent p1_input = (InputComponent) entity.getComponent(InputComponent.class);
+
+        if (!p1_input.isLocked()){
+            p1_input.setShoot(true);
+            p1_input.setLeft(false);
+            p1_input.setRight(false);
+
+            p1_input.setTimer(shotCooldown());
+            filter.require(BodyComponent.class);
+            filter.require(SpriteComponent.class);
+
+            if(filter.matches(entity)){
+                Sprite sprite = spriteComp.getSprite();
+                Body body = ((BodyComponent) entity.getComponent(BodyComponent.class)).getBody();
+                              EntityData data = new EntityData();
+                data.dimension = new Dimension();
+                data.dimension.x = body.getPosition().x*Constants.PPM;
+                data.dimension.y = body.getPosition().y*Constants.PPM + sprite.getHeight()-22;
+                data.name = "Projectile";
+                data.typeInfo = new TypeInfo();
+                data.typeInfo.type = "Projectile";
+                data.typeInfo.subType = "Tongue";
+
+                LevelController.getInstance().handleSpawnRequests(data);
+
+            }
+            filter.ignore(BodyComponent.class);
+        }
+    }
+
+    /** Frames between two shots: one second, or the cooldown of the player profile of a game mode. */
+    private int shotCooldown() {
+        ModeSession session = ModeSession.active();
+        return session == null ? 60 : PlayerSpec.frames(session.getMode().player().cooldown);
+    }
+
+    @Override
+    public boolean filter(Entity entity) {
+        return (filter.matches(entity));
+    }
+}

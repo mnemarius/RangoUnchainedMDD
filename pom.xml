@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--
+		Builds the Rango Unchained game mode DSL with Maven/Tycho: the metamodel, the Xtext language
+		(regenerated from its grammar in every build), the editor, the tests, an Eclipse feature and a
+		p2 update site.
+
+		  ./mvnw verify            build everything and run the tests
+		  ./mvnw verify -Pgame     also generate an edition into rango-game and build the game
+		                           (-Dedition=arcade selects another example, default survival)
+	-->
+
+	<groupId>no.ntnu.tdt4250.rango</groupId>
+	<artifactId>no.ntnu.tdt4250.rango.gamemode.parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Rango Unchained Game Mode DSL</name>
+
+	<properties>
+		<tycho-version>5.0.4</tycho-version>
+		<xtextVersion>2.43.0</xtextVersion>
+		<mwe2Version>2.26.0</mwe2Version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
+	</properties>
+
+	<modules>
+		<module>no.ntnu.tdt4250.rango.gamemode.target</module>
+		<module>no.ntnu.tdt4250.rango.gamemode</module>
+		<module>no.ntnu.tdt4250.rango.gamemode.tests</module>
+		<module>no.ntnu.tdt4250.rango.gamemode.dsl</module>
+		<module>no.ntnu.tdt4250.rango.gamemode.dsl.ide</module>
+		<module>no.ntnu.tdt4250.rango.gamemode.dsl.ui</module>
+		<module>no.ntnu.tdt4250.rango.gamemode.dsl.tests</module>
+		<module>no.ntnu.tdt4250.rango.gamemode.feature</module>
+		<module>no.ntnu.tdt4250.rango.gamemode.repository</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<target>
+						<artifact>
+							<groupId>no.ntnu.tdt4250.rango</groupId>
+							<artifactId>no.ntnu.tdt4250.rango.gamemode.target</artifactId>
+							<version>1.0.0-SNAPSHOT</version>
+						</artifact>
+					</target>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>aarch64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<useUIHarness>false</useUIHarness>
+						<useUIThread>false</useUIThread>
+						<failIfNoTests>true</failIfNoTests>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtextVersion}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>xtend-install-debug-info</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
+						<javaSourceVersion>21</javaSourceVersion>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.4.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.6.4</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

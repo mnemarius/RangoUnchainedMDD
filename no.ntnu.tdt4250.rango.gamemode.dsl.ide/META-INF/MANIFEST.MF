@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: no.ntnu.tdt4250.rango.gamemode.dsl.ide
+Bundle-ManifestVersion: 2
+Bundle-Name: Rango Unchained Game Mode DSL IDE Services
+Bundle-Vendor: TDT4250 Group 6, NTNU
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: no.ntnu.tdt4250.rango.gamemode.dsl.ide;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: no.ntnu.tdt4250.rango.gamemode.dsl,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: no.ntnu.tdt4250.rango.gamemode.dsl.ide,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ide.contentassist.antlr,
+ no.ntnu.tdt4250.rango.gamemode.dsl.ide.contentassist.antlr.internal

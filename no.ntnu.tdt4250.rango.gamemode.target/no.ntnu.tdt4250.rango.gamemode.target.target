@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<!-- The target platform of the build: Eclipse 2026-06 with EMF, Eclipse OCL and Xtext 2.43. -->
+<target name="Rango Unchained Game Mode DSL" sequenceNumber="1">
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.emf.ecore.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.emf.ecore.edit.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.emf.codegen.ecore.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.ocl.ecore" version="0.0.0"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="0.0.0"/>
+			<unit id="junit-jupiter-api" version="0.0.0"/>
+			<unit id="junit-jupiter-engine" version="0.0.0"/>
+			<unit id="junit-jupiter-params" version="0.0.0"/>
+			<unit id="junit-platform-launcher" version="0.0.0"/>
+			<unit id="junit-platform-suite-api" version="0.0.0"/>
+			<unit id="org.opentest4j" version="0.0.0"/>
+			<repository location="https://download.eclipse.org/releases/2026-06"/>
+		</location>
+	</locations>
+</target>
