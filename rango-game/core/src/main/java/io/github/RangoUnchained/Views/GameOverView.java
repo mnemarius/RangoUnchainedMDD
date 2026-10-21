@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import io.github.RangoUnchained.Controllers.GameController;
 import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Firebase.FirebaseManager;
-import io.github.RangoUnchained.Model.level.GameFileHandler;
 import io.github.RangoUnchained.Modes.GameModeDefinition;
 import io.github.RangoUnchained.Views.Utils.BaseScreen;
 import io.github.RangoUnchained.Views.Utils.ButtonFactory;
@@ -19,8 +18,10 @@ public class GameOverView extends BaseScreen {
     private Label scoreLabel;
 
     boolean completed;
-    /** The game mode that was played, or null for campaign levels. */
+    /** The game mode that was played, or null for the tutorial. */
     private GameModeDefinition mode;
+    /** The level of the mode that was played, counting from 0. */
+    private int modeLevel;
 
     public GameOverView(int levelNumber, boolean completed) {
         super(GameController.getInstance());
@@ -30,9 +31,10 @@ public class GameOverView extends BaseScreen {
     }
 
     // Constructor for game modes, whose scores are not saved to the level scoreboards
-    public GameOverView(GameModeDefinition mode, boolean completed) {
+    public GameOverView(GameModeDefinition mode, int level, boolean completed) {
         this(-1, completed);
         this.mode = mode;
+        this.modeLevel = level;
     }
 
     @Override
@@ -66,8 +68,8 @@ public class GameOverView extends BaseScreen {
     }
 
     private void createUI() {
-        String titleText = mode != null ? mode.title() + (completed ? " won" : " lost")
-            : completed ? "Level Completed" : "Level Failed";
+        String titleText = mode != null ? modeTitle() + (completed ? " won" : " lost")
+            : completed ? "Tutorial Completed" : "Tutorial Failed";
 
         Label titleLabel = LabelFactory.createLabel(titleText, getSkin(), "defaultFont", null);
         scoreLabel = LabelFactory.createLabel("", getSkin(), "defaultFont", null);
@@ -89,18 +91,17 @@ public class GameOverView extends BaseScreen {
 
 
 
-        // Retry button (goes back to level selection)
         if (mode != null) {
-            ButtonFactory.createDefaultButton("Play again", () -> game.setView(new GamePlayView(mode)), table);
-            ButtonFactory.createDefaultButton("Game modes", () -> game.setView(new SelectModeView()), table);
+            if (completed && modeLevel + 1 < mode.levelCount()) {
+                ButtonFactory.createDefaultButton("Next level", () -> game.setView(new GamePlayView(mode, modeLevel + 1)), table);
+            }
+            ButtonFactory.createDefaultButton("Play again", () -> game.setView(new GamePlayView(mode, modeLevel)), table);
+            if (mode.levelCount() > 1) {
+                ButtonFactory.createDefaultButton("Levels", () -> game.setView(new SelectModeLevelView(mode)), table);
+            }
         } else {
-            ButtonFactory.createDefaultButton("Play again", () -> game.setView(new SelectLevelView()), table);
+            ButtonFactory.createDefaultButton("Play again", () -> game.setView(new GamePlayView(levelNumber)), table);
         }
-
-         // Retry button (goes back to level selection)
-         if (mode == null && levelNumber < 5 && (completed || GameFileHandler.getInstance().getProgress() > levelNumber)) {
-            ButtonFactory.createDefaultButton("Next level", () -> game.setView(new GamePlayView(levelNumber+1)), table);
-         }
 
         ButtonFactory.createDefaultButton("Scoreboard", () -> game.setView(new ScoreboardView()), table);
 
@@ -108,5 +109,10 @@ public class GameOverView extends BaseScreen {
         ButtonFactory.createDefaultButton("Main Menu", () -> game.setView(new MainMenuView()), table);
 
         stage.addActor(table);
+    }
+
+    /** The mode's title, and the level's if the mode has several. */
+    private String modeTitle() {
+        return mode.levelCount() > 1 ? mode.title() + ": " + mode.levelTitle(modeLevel) : mode.title();
     }
 }

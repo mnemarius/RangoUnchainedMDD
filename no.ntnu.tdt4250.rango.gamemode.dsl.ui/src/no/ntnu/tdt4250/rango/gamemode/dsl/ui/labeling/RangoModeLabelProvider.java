@@ -22,6 +22,7 @@ import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
@@ -116,6 +117,14 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 
 	String image(GameMode mode) {
 		return "mode.png";
+	}
+
+	String text(Level level) {
+		return "level " + level.getNumber() + (level.getTitle() != null ? ": " + level.getTitle() : "");
+	}
+
+	String image(Level level) {
+		return "arena.png";
 	}
 
 	String text(Arena arena) {

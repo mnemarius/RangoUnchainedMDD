@@ -1,9 +1,10 @@
 // A survival edition: waves instead of fixed levels, four enemy types with their own behaviour
 // (a bomb explodes into a ring of tumbleweeds, a cactus poisons), surfaces of different materials, a
 // jump pad, a pair of teleporters, and power-ups dropped at random: the tougher the enemy, the likelier
-// and the better its drop. The edition's drop tables apply to Endless Survival; Wave Rush has its own,
-// stingier ones. Endless Survival never ends until it is lost; Wave Rush is won by getting through
-// five waves.
+// and the better its drop. The edition's drop tables apply to Endless Survival and the Campaign; Wave
+// Rush has its own, stingier ones. Endless Survival never ends until it is lost; Wave Rush is won by
+// getting through five waves. The Campaign is the original game's five levels, each cleared to unlock
+// the next.
 
 edition Survival "Rango Unchained: Survival"
 
@@ -143,5 +144,69 @@ mode WaveRush "Wave Rush" {
 		Armadillo 20% { Health weight 3, Shield }
 	}
 	win when 5 waves survived
+	lose when health depleted
+}
+
+mode Campaign "Campaign" {
+	description "Five levels of the original game. Clear a level to unlock the next."
+	player Rango
+	level "Tumbleweed Flats" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block West at (31.7%, 47.4%) size 80 by 180 of Stone
+			block Middle at (70.9%, 47.4%) size 80 by 180 of Stone
+			block East at (97%, 47.4%) size 80 by 180 of Stone
+		}
+		layout {
+			Tumbleweed size 2 at (64.4%, 66.4%) moving left
+		}
+	}
+	level "Cactus Garden" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block Pillar at (51.3%, 47.4%) size 80 by 180 of Stone
+		}
+		layout {
+			Cactus size 2 at (31.7%, 66.4%) moving left
+			Cactus size 2 at (64.4%, 66.4%) moving left
+		}
+	}
+	level "Armadillo Canyon" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block West at (25.1%, 47.4%) size 80 by 180 of Stone
+			block Overhang at (51.3%, 85.4%) size 160 by 300 of Stone
+			block Mesa at (77.5%, 47.4%) size 260 by 180 of Stone
+		}
+		layout {
+			Armadillo size 2 at (31.7%, 66.4%) moving left
+			Armadillo size 2 at (64.4%, 66.4%) moving left
+			Armadillo size 3 at (64.4%, 66.4%) moving left
+		}
+	}
+	level "Mixed Company" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block Overhang at (64.4%, 85.4%) size 400 by 300 of Stone
+		}
+		layout {
+			Armadillo size 3 at (31.7%, 66.4%) moving left
+			Tumbleweed size 2 at (64.4%, 66.4%) moving left
+		}
+	}
+	level "Powder Keg" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+		}
+		layout {
+			Bomb size 2 at (64.4%, 66.4%) moving left
+		}
+	}
+	win when all enemies cleared
 	lose when health depleted
 }

@@ -10,6 +10,7 @@ import no.ntnu.tdt4250.rango.gamemode.GameMode
 import no.ntnu.tdt4250.rango.gamemode.Heal
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted
 import no.ntnu.tdt4250.rango.gamemode.JumpPad
+import no.ntnu.tdt4250.rango.gamemode.Level
 import no.ntnu.tdt4250.rango.gamemode.Poison
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached
 import no.ntnu.tdt4250.rango.gamemode.Shield
@@ -51,10 +52,12 @@ class ModeClassTemplate {
 
 		/**
 		 * «mode.title.comment»«IF mode.description !== null»: «mode.description.comment»«ENDIF»
-		 «IF mode.popsToClear >= 0»
+		 «IF mode.levels.exists[popsToClear >= 0]»
 		 * <p>
-		 * Clearing everything takes «mode.popsToClear» pops and is worth «mode.maxScore» points before bonuses.
 		 «ENDIF»
+		 «FOR level : mode.levels.filter[popsToClear >= 0]»
+		 * «IF mode.levels.size > 1»«level.levelTitle.comment»: clearing«ELSE»Clearing«ENDIF» everything takes «level.popsToClear» pops and is worth «level.maxScore» points before bonuses.
+		 «ENDFOR»
 		 */
 		public final class «mode.className» extends GameModeDefinition {
 
@@ -82,8 +85,32 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
-		    public String arenaFile() {
-		        return «mode.arenaResource.javaString»;
+		    public int levelCount() {
+		        return «mode.levels.size»;
+		    }
+
+		    @Override
+		    public String levelTitle(int level) {
+		        switch (level) {
+		            «FOR level : mode.levels»
+		            case «level.number - 1»:
+		                return «level.levelTitle.javaString»;
+		            «ENDFOR»
+		            default:
+		                return null;
+		        }
+		    }
+
+		    @Override
+		    public String arenaFile(int level) {
+		        switch (level) {
+		            «FOR level : mode.levels»
+		            case «level.number - 1»:
+		                return «level.arenaResource.javaString»;
+		            «ENDFOR»
+		            default:
+		                return null;
+		        }
 		    }
 
 		    @Override
@@ -150,45 +177,84 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
-		    public void buildArena(ArenaBuilder arena) {
-		        «FOR pad : mode.arena.obstacles.filter(JumpPad)»
-		        arena.jumpPad(«pad.name.javaString», «pad.x.javaFloat», «pad.y.javaFloat», «pad.launch.javaFloat», «pad.affects.enemies», «pad.affects.player»);
-		        «ENDFOR»
-		        «FOR teleporter : mode.arena.obstacles.filter(Teleporter)»
-		        arena.teleporter(«teleporter.name.javaString», «teleporter.x.javaFloat», «teleporter.y.javaFloat», «teleporter.target.name.javaString», «teleporter.affects.enemies», «teleporter.affects.player»);
-		        «ENDFOR»
+		    public void buildArena(int level, ArenaBuilder arena) {
+		        switch (level) {
+		            «FOR level : mode.levels.filter[!arena.obstacles.filter(JumpPad).empty || !arena.obstacles.filter(Teleporter).empty]»
+		            case «level.number - 1»:
+		                «FOR pad : level.arena.obstacles.filter(JumpPad)»
+		                arena.jumpPad(«pad.name.javaString», «pad.x.javaFloat», «pad.y.javaFloat», «pad.launch.javaFloat», «pad.affects.enemies», «pad.affects.player»);
+		                «ENDFOR»
+		                «FOR teleporter : level.arena.obstacles.filter(Teleporter)»
+		                arena.teleporter(«teleporter.name.javaString», «teleporter.x.javaFloat», «teleporter.y.javaFloat», «teleporter.target.name.javaString», «teleporter.affects.enemies», «teleporter.affects.player»);
+		                «ENDFOR»
+		                break;
+		            «ENDFOR»
+		            default:
+		                break; // only blocks, which the arena resource places
+		        }
 		    }
 
 		    @Override
-		    public int waveCount() {
-		        return «mode.waves.size»;
+		    public int waveCount(int level) {
+		        switch (level) {
+		            «FOR level : mode.levels»
+		            case «level.number - 1»:
+		                return «level.waves.size»;
+		            «ENDFOR»
+		            default:
+		                return 0;
+		        }
 		    }
 
 		    @Override
-		    public boolean loopsWaves() {
-		        return «(mode.spawning instanceof WaveSchedule) && (mode.spawning as WaveSchedule).loop»;
+		    public boolean loopsWaves(int level) {
+		        switch (level) {
+		            «FOR level : mode.levels»
+		            case «level.number - 1»:
+		                return «(level.spawning instanceof WaveSchedule) && (level.spawning as WaveSchedule).loop»;
+		            «ENDFOR»
+		            default:
+		                return false;
+		        }
 		    }
 
 		    @Override
-		    public float waveDelay(int wave) {
-		        «IF mode.waves.empty»
-		        return 0f;
-		        «ELSE»
-		        switch (wave) {
-		            «FOR wave : mode.waves»
-		            case «wave.number - 1»:
-		                return «wave.delay.javaFloat»;
+		    public float waveDelay(int level, int wave) {
+		        switch (level) {
+		            «FOR level : mode.levels.filter[!waves.empty]»
+		            case «level.number - 1»:
+		                switch (wave) {
+		                    «FOR wave : level.waves»
+		                    case «wave.number - 1»:
+		                        return «wave.delay.javaFloat»;
+		                    «ENDFOR»
+		                    default:
+		                        return 0f;
+		                }
 		            «ENDFOR»
 		            default:
 		                return 0f;
 		        }
-		        «ENDIF»
 		    }
 
 		    @Override
-		    public void spawnWave(int wave, int cycle, Spawner spawner) {
-		        «spawnWaves(mode.spawning, mode)»
+		    public void spawnWave(int level, int wave, int cycle, Spawner spawner) {
+		        switch (level) {
+		            «FOR level : mode.levels»
+		            case «level.number - 1»:
+		                spawnWaveOfLevel«level.number»(wave, cycle, spawner);
+		                break;
+		            «ENDFOR»
+		            default:
+		                break;
+		        }
 		    }
+		    «FOR level : mode.levels»
+
+		    private void spawnWaveOfLevel«level.number»(int wave, int cycle, Spawner spawner) {
+		        «spawnWaves(level.spawning, level)»
+		    }
+		    «ENDFOR»
 
 		    @Override
 		    public void onEnemyPopped(EnemyState enemy, ModeContext context) {
@@ -259,11 +325,11 @@ class ModeClassTemplate {
 		}
 	'''
 
-	def dispatch spawnWaves(FixedLayout layout, GameMode mode) '''
-		// all enemies are placed at the start by the arena resource «mode.arenaResource»
+	def dispatch spawnWaves(FixedLayout layout, Level level) '''
+		// all enemies are placed at the start by the arena resource «level.arenaResource»
 	'''
 
-	def dispatch spawnWaves(WaveSchedule schedule, GameMode mode) '''
+	def dispatch spawnWaves(WaveSchedule schedule, Level level) '''
 		«IF schedule.escalation > 0»
 		int extra = cycle * «schedule.escalation»;
 		«ENDIF»

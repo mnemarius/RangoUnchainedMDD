@@ -22,7 +22,7 @@ public class PauseMenu extends Stage {
     private final int levelNumber;
     private final boolean isMultiplayer;
     private LobbyInfo lobby;
-    /** The game mode being played, or null for campaign levels and multiplayer. */
+    /** The game mode being played, or null for the tutorial and multiplayer. */
     private GameModeDefinition mode;
 
     public PauseMenu(GameController game, int levelNumber) {
@@ -33,11 +33,11 @@ public class PauseMenu extends Stage {
         createUI();
     }
 
-    // Constructor for game modes
-    public PauseMenu(GameController game, GameModeDefinition mode) {
+    // Constructor for game modes: the level of the mode, counting from 0
+    public PauseMenu(GameController game, GameModeDefinition mode, int level) {
         super(new FitViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT));
         this.game = game;
-        this.levelNumber = -1;
+        this.levelNumber = level;
         this.isMultiplayer = false;
         this.mode = mode;
         createUI();
@@ -61,7 +61,7 @@ public class PauseMenu extends Stage {
         ButtonFactory.createDefaultButton("Back to game", this::togglePause, table);
         if (!isMultiplayer) {
             ButtonFactory.createDefaultButton("Restart", this::restart, table);
-            if (levelNumber > 0) {
+            if (mode == null && levelNumber > 0) {
                 ButtonFactory.createDefaultButton("Continue later", this::continueLater, table);
             }
         }
@@ -100,7 +100,7 @@ public class PauseMenu extends Stage {
         isPaused = false;
 
         Gdx.app.postRunnable(() -> {
-            game.setView(mode != null ? new GamePlayView(mode) : new GamePlayView(levelNumber));
+            game.setView(mode != null ? new GamePlayView(mode, levelNumber) : new GamePlayView(levelNumber));
         });
     }
 
@@ -118,7 +118,7 @@ public class PauseMenu extends Stage {
                 }
             });
         }
-        game.setView(mode != null ? new GameOverView(mode, false) : new GameOverView(levelNumber,false));
+        game.setView(mode != null ? new GameOverView(mode, levelNumber, false) : new GameOverView(levelNumber,false));
         GameFileHandler.getInstance().resetCheckpointFile();
     }
 

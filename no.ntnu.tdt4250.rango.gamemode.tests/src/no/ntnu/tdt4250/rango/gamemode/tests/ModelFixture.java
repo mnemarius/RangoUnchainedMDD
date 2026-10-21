@@ -3,6 +3,7 @@ package no.ntnu.tdt4250.rango.gamemode.tests;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
@@ -15,6 +16,7 @@ import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
@@ -28,6 +30,7 @@ import no.ntnu.tdt4250.rango.gamemode.util.GamemodeOCL;
  * <ul>
  * <li>Tumbleweed splits into 2 (10 points); Bomb splits into 4 Tumbleweed (25 points).</li>
  * <li>The edition's drop tables: Tumbleweed drops Heart at 5 %, Bomb drops Heart at 10 %.</li>
+ * <li>Every mode has one level, whose arena has a desert background.</li>
  * <li>Mode Clear: a fixed layout of one large Tumbleweed and one large Bomb, won when cleared. It
  * uses the edition's drop tables.</li>
  * <li>Mode Waves: two waves (one large Tumbleweed, then two medium Bombs), won after two waves. Its
@@ -92,7 +95,7 @@ public class ModelFixture {
 		mode(clear, "Clear");
 		layout.getSpawns().add(spawn(tumbleweed, 3, 1));
 		layout.getSpawns().add(spawn(bomb, 3, 1));
-		clear.setSpawning(layout);
+		level(clear).setSpawning(layout);
 		clear.getWinConditions().add(F.createCleared());
 
 		mode(waves, "Waves");
@@ -103,7 +106,7 @@ public class ModelFixture {
 		second.getSpawns().add(spawn(bomb, 2, 2));
 		schedule.getWaves().add(first);
 		schedule.getWaves().add(second);
-		waves.setSpawning(schedule);
+		level(waves).setSpawning(schedule);
 		drops.getEntries().add(drop(shield, 3));
 		drops.getEntries().add(drop(heart, 1));
 		tumbleweedDrops.getEntries().add(drop(heart, 1));
@@ -129,11 +132,27 @@ public class ModelFixture {
 		mode.setName(name);
 		mode.setTitle(name);
 		mode.setPlayer(rango);
-		Arena arena = F.createArena();
-		arena.setBackground("Desert");
-		mode.setArena(arena);
+		mode.getLevels().add(level());
 		mode.getLoseConditions().add(F.createHealthDepleted());
 		edition.getModes().add(mode);
+	}
+
+	/** A level with an empty desert arena and no spawning yet. */
+	static Level level() {
+		Level level = F.createLevel();
+		Arena arena = F.createArena();
+		arena.setBackground("Desert");
+		level.setArena(arena);
+		return level;
+	}
+
+	static <T extends EObject> T copyOf(T object) {
+		return EcoreUtil.copy(object);
+	}
+
+	/** The first level of a mode. */
+	static Level level(GameMode mode) {
+		return mode.getLevels().get(0);
 	}
 
 	static EnemySpawn spawn(EnemyType type, int size, int count) {

@@ -22,6 +22,7 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
@@ -53,12 +54,14 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 				used.addAll(type.getProducedTypes());
 			}
 			used.addAll(mode.getPowerUps());
-			Arena arena = mode.getArena();
-			if (arena != null) {
-				used.add(arena.getFloor());
-				used.add(arena.getWalls());
-				for (Block block : EcoreUtil2.typeSelect(arena.getObstacles(), Block.class)) {
-					used.add(block.getMaterial());
+			for (Level level : mode.getLevels()) {
+				Arena arena = level.getArena();
+				if (arena != null) {
+					used.add(arena.getFloor());
+					used.add(arena.getWalls());
+					for (Block block : EcoreUtil2.typeSelect(arena.getObstacles(), Block.class)) {
+						used.add(block.getMaterial());
+					}
 				}
 			}
 		}
@@ -148,8 +151,8 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	/** Tells the designer which modes are endless, which is easy to miss when reading a mode. */
 	@Check
 	public void checkEndless(GameMode mode) {
-		if (mode.getWinConditions().isEmpty() && mode.getSpawning() instanceof WaveSchedule schedule
-				&& schedule.isLoop()) {
+		if (mode.getWinConditions().isEmpty() && mode.getLevels().size() == 1
+				&& mode.getLevels().get(0).getSpawning() instanceof WaveSchedule schedule && schedule.isLoop()) {
 			info("Endless mode: rounds only end when they are lost", mode, GamemodePackage.Literals.NAMED_ELEMENT__NAME);
 		}
 	}

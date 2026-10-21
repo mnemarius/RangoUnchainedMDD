@@ -7,6 +7,7 @@ import no.ntnu.tdt4250.rango.gamemode.Block
 import no.ntnu.tdt4250.rango.gamemode.DropTable
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import no.ntnu.tdt4250.rango.gamemode.GameMode
+import no.ntnu.tdt4250.rango.gamemode.Level
 import no.ntnu.tdt4250.rango.gamemode.Material
 import no.ntnu.tdt4250.rango.gamemode.NamedElement
 import no.ntnu.tdt4250.rango.gamemode.Target
@@ -40,13 +41,23 @@ class GeneratorNames {
 		JAVA_FOLDER + PACKAGE.replace('.', '/') + '/' + className + '.java'
 	}
 
-	/** The arena resource of a mode as the game loads it, relative to the assets folder. */
-	def static arenaResource(GameMode mode) {
-		'modes/' + mode.name + '.json'
+	/** The mode a level belongs to. */
+	def static mode(Level level) {
+		level.eContainer as GameMode
 	}
 
-	def static arenaFile(GameMode mode) {
-		'assets/' + mode.arenaResource
+	/** The arena resource of a level as the game loads it, relative to the assets folder. */
+	def static arenaResource(Level level) {
+		'modes/' + level.mode.name + '-' + level.number + '.json'
+	}
+
+	def static arenaFile(Level level) {
+		'assets/' + level.arenaResource
+	}
+
+	/** The name of a level in the menus: its title, or else its number. */
+	def static levelTitle(Level level) {
+		level.title ?: 'Level ' + level.number
 	}
 
 	/** A Java constant name for a enemy type: PricklyPear becomes ENEMY_PRICKLY_PEAR. */
@@ -88,16 +99,15 @@ class GeneratorNames {
 		target == Target.ALL || target == Target.PLAYER
 	}
 
-	/** The waves of a mode; none if its enemies are all placed at the start. */
-	def static List<Wave> waves(GameMode mode) {
-		val spawning = mode.spawning
+	/** The waves of a level; none if its enemies are all placed at the start. */
+	def static List<Wave> waves(Level level) {
+		val spawning = level.spawning
 		if (spawning instanceof WaveSchedule) spawning.waves else #[]
 	}
 
-	/** The materials a mode's arena is built from: its floor, its walls and its blocks. */
+	/** The materials the arenas of a mode are built from: their floors, walls and blocks. */
 	def static Set<Material> materials(GameMode mode) {
-		val arena = mode.arena
-		val surfaces = #[arena.floor, arena.walls] + arena.obstacles.filter(Block).map[material]
+		val surfaces = mode.levels.map[arena].flatMap[#[floor, walls] + obstacles.filter(Block).map[material]]
 		surfaces.filterNull.toSet
 	}
 

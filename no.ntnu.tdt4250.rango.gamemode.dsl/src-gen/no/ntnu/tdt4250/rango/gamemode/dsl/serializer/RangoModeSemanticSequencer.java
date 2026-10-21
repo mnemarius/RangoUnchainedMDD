@@ -22,6 +22,7 @@ import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
@@ -110,6 +111,16 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case GamemodePackage.JUMP_PAD:
 				sequence_At_JumpPad(context, (JumpPad) semanticObject); 
 				return; 
+			case GamemodePackage.LEVEL:
+				if (rule == grammarAccess.getLevelRule()) {
+					sequence_Level(context, (Level) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getSingleLevelRule()) {
+					sequence_SingleLevel(context, (Level) semanticObject); 
+					return; 
+				}
+				else break;
 			case GamemodePackage.MATERIAL:
 				sequence_Material(context, (Material) semanticObject); 
 				return; 
@@ -348,8 +359,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *         description=STRING? 
 	 *         player=[PlayerProfile|ID] 
 	 *         (gravity=Decimal | speedBonus=SpeedBonus)* 
-	 *         arena=Arena 
-	 *         spawning=SpawnStrategy 
+	 *         (levels+=SingleLevel | levels+=Level+) 
 	 *         drops+=DropTable* 
 	 *         (winConditions+=EndCondition winConditions+=EndCondition*)? 
 	 *         loseConditions+=EndCondition 
@@ -478,6 +488,20 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     Level returns Level
+	 *
+	 * Constraint:
+	 *     (title=STRING? arena=Arena spawning=SpawnStrategy)
+	 * </pre>
+	 */
+	protected void sequence_Level(ISerializationContext context, Level semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     Material returns Material
 	 *
 	 * Constraint:
@@ -582,6 +606,29 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getShieldAccess().getDurationDecimalParserRuleCall_2_0(), semanticObject.getDuration());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     SingleLevel returns Level
+	 *
+	 * Constraint:
+	 *     (arena=Arena spawning=SpawnStrategy)
+	 * </pre>
+	 */
+	protected void sequence_SingleLevel(ISerializationContext context, Level semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.LEVEL__ARENA) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.LEVEL__ARENA));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.LEVEL__SPAWNING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.LEVEL__SPAWNING));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getSingleLevelAccess().getArenaArenaParserRuleCall_0_0(), semanticObject.getArena());
+		feeder.accept(grammarAccess.getSingleLevelAccess().getSpawningSpawnStrategyParserRuleCall_1_0(), semanticObject.getSpawning());
 		feeder.finish();
 	}
 	

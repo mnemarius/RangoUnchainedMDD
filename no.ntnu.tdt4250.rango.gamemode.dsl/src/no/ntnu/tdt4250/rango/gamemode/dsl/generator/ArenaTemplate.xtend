@@ -5,13 +5,13 @@ import no.ntnu.tdt4250.rango.gamemode.EnemySpawn
 import no.ntnu.tdt4250.rango.gamemode.Block
 import no.ntnu.tdt4250.rango.gamemode.Direction
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout
-import no.ntnu.tdt4250.rango.gamemode.GameMode
+import no.ntnu.tdt4250.rango.gamemode.Level
 import no.ntnu.tdt4250.rango.gamemode.Material
 
 import static extension no.ntnu.tdt4250.rango.gamemode.dsl.generator.GeneratorNames.*
 
 /**
- * Generates the arena resource of a game mode, in the JSON level format that the game's level loader
+ * Generates the arena resource of a level of a game mode, in the JSON level format that the game's level loader
  * already reads: the background, the player, the walls, floor and roof with their materials, the
  * blocks, and the enemies of a fixed layout. Positions are written relative to the arena and converted
  * to pixels by the game when the arena is loaded. Triggers (jump pads, teleporters) need behaviour
@@ -22,22 +22,23 @@ class ArenaTemplate {
 	/** The texture of blocks whose material has none. */
 	public static val DEFAULT_BLOCK_SPRITE = 'Obstacles/Stone.png'
 
-	def generate(GameMode mode) '''
+	def generate(Level level) '''
 		{
 		  "metaData": {
 		    "levelnr": -1,
-		    "theme": «mode.arena.background.javaString»
+		    "theme": «level.arena.background.javaString»
 		  },
 		  "entitiesData": [
-		    «FOR entity : mode.entities SEPARATOR ','»
+		    «FOR entity : level.entities SEPARATOR ','»
 		    «entity»
 		    «ENDFOR»
 		  ]
 		}
 	'''
 
-	def List<CharSequence> entities(GameMode mode) {
-		val arena = mode.arena
+	def List<CharSequence> entities(Level level) {
+		val mode = level.mode
+		val arena = level.arena
 		val entities = <CharSequence>newArrayList
 		entities += '''{ "name": "Background", "dimension": {}, "typeInfo": { "type": "Background", "subType": «arena.background.javaString» } }'''
 		entities += '''{ "name": «('Player-' + mode.player.name).javaString», "health": «mode.player.health», "dimension": { "x": «arena.playerStart.jsonFloat», "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": «mode.player.character.javaString» } }'''
@@ -48,7 +49,7 @@ class ArenaTemplate {
 		for (block : arena.obstacles.filter(Block)) {
 			entities += block(block)
 		}
-		val spawning = mode.spawning
+		val spawning = level.spawning
 		if (spawning instanceof FixedLayout) {
 			for (spawn : spawning.spawns) {
 				for (x : spawn.spreadX) {

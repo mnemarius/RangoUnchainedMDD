@@ -11,6 +11,7 @@ import no.ntnu.tdt4250.rango.gamemode.Direction;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import org.eclipse.emf.common.util.EList;
@@ -18,7 +19,7 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 
 /**
- * Generates the arena resource of a game mode, in the JSON level format that the game's level loader
+ * Generates the arena resource of a level of a game mode, in the JSON level format that the game's level loader
  * already reads: the background, the player, the walls, floor and roof with their materials, the
  * blocks, and the enemies of a fixed layout. Positions are written relative to the arena and converted
  * to pixels by the game when the arena is loaded. Triggers (jump pads, teleporters) need behaviour
@@ -31,7 +32,7 @@ public class ArenaTemplate {
    */
   public static final String DEFAULT_BLOCK_SPRITE = "Obstacles/Stone.png";
 
-  public CharSequence generate(final GameMode mode) {
+  public CharSequence generate(final Level level) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("{");
     _builder.newLine();
@@ -43,7 +44,7 @@ public class ArenaTemplate {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("\"theme\": ");
-    String _javaString = GeneratorNames.javaString(mode.getArena().getBackground());
+    String _javaString = GeneratorNames.javaString(level.getArena().getBackground());
     _builder.append(_javaString, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
@@ -53,7 +54,7 @@ public class ArenaTemplate {
     _builder.append("\"entitiesData\": [");
     _builder.newLine();
     {
-      List<CharSequence> _entities = this.entities(mode);
+      List<CharSequence> _entities = this.entities(level);
       boolean _hasElements = false;
       for(final CharSequence entity : _entities) {
         if (!_hasElements) {
@@ -74,10 +75,11 @@ public class ArenaTemplate {
     return _builder;
   }
 
-  public List<CharSequence> entities(final GameMode mode) {
+  public List<CharSequence> entities(final Level level) {
     ArrayList<CharSequence> _xblockexpression = null;
     {
-      final Arena arena = mode.getArena();
+      final GameMode mode = GeneratorNames.mode(level);
+      final Arena arena = level.getArena();
       final ArrayList<CharSequence> entities = CollectionLiterals.<CharSequence>newArrayList();
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("{ \"name\": \"Background\", \"dimension\": {}, \"typeInfo\": { \"type\": \"Background\", \"subType\": ");
@@ -112,7 +114,7 @@ public class ArenaTemplate {
         CharSequence _block = this.block(block);
         entities.add(_block);
       }
-      final SpawnStrategy spawning = mode.getSpawning();
+      final SpawnStrategy spawning = level.getSpawning();
       if ((spawning instanceof FixedLayout)) {
         EList<EnemySpawn> _spawns = ((FixedLayout)spawning).getSpawns();
         for (final EnemySpawn spawn : _spawns) {

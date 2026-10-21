@@ -19,6 +19,7 @@ import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
@@ -118,50 +119,60 @@ public final class GamemodeConstraints {
 				}
 			}
 		}
-		int initialEnemies = GamemodeDerivations.initialEnemies(mode.getSpawning());
-		for (EndCondition lose : mode.getLoseConditions()) {
-			if (lose instanceof EnemiesAlive overrun && overrun.getCount() <= initialEnemies) {
-				violations.add(new Violation(LOST_AT_START,
-						"The round starts with " + initialEnemies + " enemies, so it would be lost at once by having "
-								+ overrun.getCount() + " enemies alive",
-						overrun, GamemodePackage.Literals.ENEMIES_ALIVE__COUNT));
+		for (Level level : mode.getLevels()) {
+			int initialEnemies = GamemodeDerivations.initialEnemies(level.getSpawning());
+			for (EndCondition lose : mode.getLoseConditions()) {
+				if (lose instanceof EnemiesAlive overrun && overrun.getCount() <= initialEnemies) {
+					violations.add(new Violation(LOST_AT_START,
+							about(level, "The round starts with " + initialEnemies + " enemies, so it would be lost at once by having "
+									+ overrun.getCount() + " enemies alive"),
+							overrun, GamemodePackage.Literals.ENEMIES_ALIVE__COUNT));
+				}
 			}
 		}
 		return violations;
 	}
 
-	/** Every win condition can actually be met, given what the mode spawns. */
+	/** Every win condition can actually be met in every level, given what the level spawns. */
 	public static List<Violation> winnable(GameMode mode) {
 		List<Violation> violations = new ArrayList<>();
-		SpawnStrategy spawning = mode.getSpawning();
+		for (Level level : mode.getLevels()) {
+			violations.addAll(winnable(mode, level));
+		}
+		return violations;
+	}
+
+	private static List<Violation> winnable(GameMode mode, Level level) {
+		List<Violation> violations = new ArrayList<>();
+		SpawnStrategy spawning = level.getSpawning();
 		boolean looping = spawning instanceof WaveSchedule schedule && schedule.isLoop();
 		for (EndCondition win : mode.getWinConditions()) {
 			if (win instanceof Cleared && looping) {
 				violations.add(new Violation(CONDITION_UNREACHABLE,
-						"The waves loop, so the arena is never cleared for good", win, null));
+						about(level, "The waves loop, so the arena is never cleared for good"), win, null));
 			} else if (win instanceof WavesSurvived waves) {
 				if (!(spawning instanceof WaveSchedule schedule)) {
 					violations.add(new Violation(CONDITION_UNREACHABLE,
-							"The mode has no waves to survive", win, null));
+							about(level, "The " + kind(level) + " has no waves to survive"), win, null));
 				} else if (!schedule.isLoop() && waves.getCount() > schedule.getWaves().size()) {
 					violations.add(new Violation(CONDITION_UNREACHABLE,
-							"The mode only has " + schedule.getWaves().size() + " waves, and they do not loop",
+							about(level, "The " + kind(level) + " only has " + schedule.getWaves().size() + " waves, and they do not loop"),
 							win, GamemodePackage.Literals.WAVES_SURVIVED__COUNT));
 				}
 			} else if (win instanceof EnemiesPopped popped) {
-				int available = mode.getPopsToClear();
+				int available = level.getPopsToClear();
 				if (available != GamemodeDerivations.UNBOUNDED && popped.getCount() > available) {
 					violations.add(new Violation(CONDITION_UNREACHABLE,
-							"Only " + available + " pops are possible in this mode",
+							about(level, "Only " + available + " pops are possible in this " + kind(level)),
 							win, GamemodePackage.Literals.ENEMIES_POPPED__COUNT));
 				}
 			} else if (win instanceof ScoreReached score) {
-				int maxScore = mode.getMaxScore();
+				int maxScore = level.getMaxScore();
 				float bonus = mode.getSpeedBonus() != null ? mode.getSpeedBonus().getMaxFactor() : 1;
 				long reachable = (long) Math.floor((double) maxScore * bonus);
 				if (maxScore != GamemodeDerivations.UNBOUNDED && score.getPoints() > reachable) {
 					violations.add(new Violation(CONDITION_UNREACHABLE,
-							"At most " + reachable + " points can be scored in this mode",
+							about(level, "At most " + reachable + " points can be scored in this " + kind(level)),
 							win, GamemodePackage.Literals.SCORE_REACHED__POINTS));
 				}
 			}
@@ -171,17 +182,47 @@ public final class GamemodeConstraints {
 
 	/**
 	 * A mode without win conditions keeps sending enemies (its waves loop); otherwise the round would
-	 * never end once everything has been popped.
+	 * never end once everything has been popped. A mode with several levels needs a win condition,
+	 * since only winning a level moves on to the next.
 	 */
 	public static List<Violation> endsSomehow(GameMode mode) {
 		List<Violation> violations = new ArrayList<>();
-		boolean looping = mode.getSpawning() instanceof WaveSchedule schedule && schedule.isLoop();
-		if (mode.getWinConditions().isEmpty() && !looping) {
+		if (!mode.getWinConditions().isEmpty()) {
+			return violations;
+		}
+		if (mode.getLevels().size() > 1) {
 			violations.add(new Violation(NEVER_ENDS,
-					"Mode " + mode.getName() + " has no win condition and its enemies run out, so a round could never end",
+					"Mode " + mode.getName() + " has several levels but no win condition, so no level could ever be completed",
 					mode, GamemodePackage.Literals.GAME_MODE__WIN_CONDITIONS));
+			return violations;
+		}
+		for (Level level : mode.getLevels()) {
+			boolean looping = level.getSpawning() instanceof WaveSchedule schedule && schedule.isLoop();
+			if (!looping) {
+				violations.add(new Violation(NEVER_ENDS,
+						"Mode " + mode.getName() + " has no win condition and its enemies run out, so a round could never end",
+						mode, GamemodePackage.Literals.GAME_MODE__WIN_CONDITIONS));
+			}
 		}
 		return violations;
+	}
+
+	/** Whether a level is one of several in its mode, and so has to be named in messages. */
+	private static boolean oneOfSeveral(Level level) {
+		return level.eContainer() instanceof GameMode mode && mode.getLevels().size() > 1;
+	}
+
+	/** What a message calls the scope of a level: the mode itself if it has only this level. */
+	private static String kind(Level level) {
+		return oneOfSeveral(level) ? "level" : "mode";
+	}
+
+	/** A message about a level, which says which level it is about if the mode has several. */
+	private static String about(Level level, String message) {
+		if (!oneOfSeveral(level)) {
+			return message;
+		}
+		return "In level " + level.getNumber() + ", " + Character.toLowerCase(message.charAt(0)) + message.substring(1);
 	}
 
 	/**

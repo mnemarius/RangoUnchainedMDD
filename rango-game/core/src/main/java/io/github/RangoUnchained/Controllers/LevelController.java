@@ -25,6 +25,7 @@ import io.github.RangoUnchained.Model.level.GameLevel;
 import io.github.RangoUnchained.Model.level.GameLevel.LevelData.EntityData;
 import io.github.RangoUnchained.Modes.GameModeDefinition;
 import io.github.RangoUnchained.Modes.ModeContactRules;
+import io.github.RangoUnchained.Modes.ModeProgress;
 import io.github.RangoUnchained.Modes.ModeSession;
 
 public class LevelController {
@@ -37,7 +38,7 @@ public class LevelController {
     private SpawnQueue spawnQueue;
     private RemovalQueue removalQueue;
     private boolean isActive = true;
-    /** The game mode being played, or null when a campaign level is played. */
+    /** The game mode being played, or null when the tutorial or a multiplayer level is played. */
     private ModeSession modeSession;
 
 
@@ -99,26 +100,27 @@ public class LevelController {
     }
 
     /**
-     * Initializes systems for a round of a game mode. The rules of the mode replace the fixed contact
-     * strategies of the campaign; game modes keep no checkpoints.
+     * Initializes systems for a round of a game mode: one of its levels, counting from 0. The rules of
+     * the mode replace the fixed contact strategies of the tutorial and multiplayer levels; game modes
+     * keep no checkpoints.
      */
-    public void initializeMode(GameModeDefinition mode) {
+    public void initializeMode(GameModeDefinition mode, int levelNumber) {
         this.isActive = true;
         this.systemManager = new SystemManager();
         getWorld().setGravity(new Vector2(0, -mode.gravity()));
-        this.modeSession = new ModeSession(mode);
+        this.modeSession = new ModeSession(mode, levelNumber);
         this.spawnQueue = new SpawnQueue();
         this.removalQueue = new RemovalQueue();
-        this.level = new GameLevel(mode);
+        this.level = new GameLevel(mode, levelNumber);
 
         getSystem(PhysicsSystem.class).setContactStrategies();
         getSystem(AudioSystem.class).setContactStrategies();
         new ModeContactRules(modeSession).setContactStrategies();
 
-        mode.buildArena(modeSession);
+        mode.buildArena(levelNumber, modeSession);
     }
 
-    /** The game mode being played, or null when a campaign level is played. */
+    /** The game mode being played, or null when the tutorial or a multiplayer level is played. */
     public ModeSession getModeSession() {
         return modeSession;
     }
@@ -147,7 +149,11 @@ public class LevelController {
             return false;
         }
         if (modeSession != null) {
-            return modeSession.isLost() || modeSession.isWon();
+            if (modeSession.isWon()) {
+                ModeProgress.complete(modeSession.getMode(), modeSession.getLevel());
+                return true;
+            }
+            return modeSession.isLost();
         }
         if (hasDied()){
             level.resetCheckpoint();

@@ -63,7 +63,7 @@ Gradle 8.12 runs on JDK 21 to 23.
 ./mvnw verify                      # build the plug-ins, regenerate the language, run all tests
 ./mvnw verify -Pgame               # also generate the Survival edition into rango-game/ and build the game
 ./mvnw verify -Pgame -Dedition=arcade   # derive another product (classic, survival or arcade)
-cd rango-game && ./gradlew lwjgl3:run   # play: main menu > Game Modes
+cd rango-game && ./gradlew lwjgl3:run   # play: pick a mode in the main menu
 ```
 
 The build also produces an update site in
@@ -109,8 +109,10 @@ behaviour*, not enumerations of the enemies we happen to have. A enemy type is d
 the split rule it owns, and by the effects it has on contact. "Cactus", "Bomb" or "Bubble" are just
 instances. Everything in the model is implemented in the game, and the examples show it working.
 
-Out of scope: sound, animation, rendering, the tutorial and multiplayer, and the campaign levels (they
-keep working as before).
+The campaign is a game mode too: its five levels are written in the model (`Campaign` in
+`survival.rango`), so single player is no longer a separate system next to the modes. Out of scope:
+sound, animation, rendering, the tutorial and multiplayer. The tutorial is hand-written and listed in
+the main menu next to the modes; multiplayer keeps playing the original JSON levels.
 
 ## The metamodel
 
@@ -131,9 +133,12 @@ them:
 - **PowerUp**: sprite and the effects it gives. **Material**: bounce factor and texture. **PlayerProfile**:
   health, max health, speed, tongue time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
-- **GameMode** *references* a player profile, and *contains* an **Arena**, a **SpawnStrategy**, an
-  optional **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types
-  are not written down: they are derived from what it spawns.
+- **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
+  **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
+  written down: they are derived from what its levels spawn.
+  - A **Level** (optional title) *contains* an **Arena** and a **SpawnStrategy**. Each level is one
+    round under the rules of the mode: the win and lose conditions are checked per level, and winning
+    a level unlocks the next. A mode of one level can leave out the `level { ... }` block.
   - Each pop is worth the points of its enemy type. A **SpeedBonus** makes early pops worth up to
     `maxFactor` times as much, falling to plain points over `duration` seconds.
   - The **Arena** has a background, floor and wall materials, and **Obstacle**s: a **Block** (size,
@@ -160,8 +165,9 @@ them:
 | `EnemyType.producedTypes`, `Split.resultType` | What popping a enemy creates (the fragment type defaults to the enemy's own type). |
 | `Split.spacing` | Degrees between neighbouring fragments: 45, or 360 over the count above eight. |
 | `GameMode.enemyTypes` | The enemy types of a mode: those it spawns, and everything popping them can produce (recursively). |
-| `EnemySpawn/Wave/SpawnStrategy/GameMode.popsToClear` | Tongue hits needed to clear everything. Recursive over split rules and fragment types; -1 for looping waves. |
-| `GameMode.maxScore` | Points for clearing everything. |
+| `EnemySpawn/Wave/SpawnStrategy/Level/GameMode.popsToClear` | Tongue hits needed to clear everything. Recursive over split rules and fragment types; -1 for looping waves. A mode sums its levels. |
+| `Level/GameMode.maxScore` | Points for clearing everything. A mode sums its levels. |
+| `Level.number` | Position of a level in its mode. |
 | `GameMode.effectiveDrops` | The drop tables that apply in a mode: its own if it has any, otherwise the edition's. |
 | `GameMode.powerUps` | The power-ups of the mode's effective drop tables. |
 | `DropTable.totalWeight`, `Drop.share`, `Drop.probability` | How likely a power-up is when a pop drops something (`share`), and the chance that a single pop of the table's enemy type drops it (`probability`). |
@@ -185,9 +191,9 @@ codes, which the quick fixes use:
 | --- | --- |
 | `nameUniqueAmongSiblings` | No two elements of a list share a name. |
 | `distinctEffectKinds` | A enemy type or power-up has at most one effect of each kind. |
-| `noSimultaneousOutcome` | A round cannot be won and lost by the same event (survive 60 s vs. a 60 s time limit), nor start already lost (`EnemiesAlive` at or below the starting number of enemies). |
-| `winnable` | Every win condition can be met: no "all enemies cleared" with looping waves, no "8 waves survived" with 5 non-looping waves, no more pops or points than the mode can give. |
-| `endsSomehow` | A mode without win conditions must loop its waves. |
+| `noSimultaneousOutcome` | In no level can a round be won and lost by the same event (survive 60 s vs. a 60 s time limit), nor start already lost (`EnemiesAlive` at or below the starting number of enemies). |
+| `winnable` | Every win condition can be met in every level: no "all enemies cleared" with looping waves, no "8 waves survived" with 5 non-looping waves, no more pops or points than the mode can give. |
+| `endsSomehow` | A mode without win conditions must loop its waves, and a mode of several levels needs a win condition to move on. |
 | `healthDepletedWhenHarmful` | If anything can hurt the player, the mode is lost when health runs out. |
 | `everyEnemyDrops` | Every enemy type that can appear in a mode has a drop table there (the mode's own, or the edition's), so popping any enemy has a chance to drop a power-up. |
 | `oneTablePerEnemy` | A list of drop tables (of a mode or of the edition) has at most one table per enemy type. |
@@ -225,8 +231,8 @@ The editor adds:
 | Generated file | Content |
 | --- | --- |
 | `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split` calls (with the derived spacing), effects become calls on the player, each enemy type's drop table becomes a chance roll and a weighted pick inside that enemy's case of `onEnemyPopped` (commented with the derived shares and probabilities), waves become spawn schedules with escalation, materials become bounce factors, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
-| `assets/modes/<Mode>.json` | The arena in the game's existing level format: background, player (with the profile's health), walls, floor and roof with their materials and textures, blocks, and the enemies of a fixed layout. Positions are relative to the arena. |
-| `core/src/generated/java/.../Modes/Generated/GeneratedEdition.java` | The product name and the modes in menu order, read by the main menu, the mode menu and the desktop launcher's window title. |
+| `assets/modes/<Mode>-<n>.json` | The arena of each level in the game's existing level format: background, player (with the profile's health), walls, floor and roof with their materials and textures, blocks, and the enemies of a fixed layout. Positions are relative to the arena. |
+| `core/src/generated/java/.../Modes/Generated/GeneratedEdition.java` | The product name and the modes in menu order, read by the main menu and the desktop launcher's window title. |
 | `android/res/values/edition.xml` | The product name for the Android launcher label. |
 
 Earlier generated files are removed first, so a mode deleted from the model disappears from the game.
@@ -235,26 +241,28 @@ Earlier generated files are removed first, so a mode deleted from the model disa
 
 The generated classes plug into a small runtime added to the game:
 
-- `GameModeDefinition` is the contract.
-- `ModeSession` runs a round: the wave scheduler, timed effects (shield, speed, poison), grace time,
+- `GameModeDefinition` is the contract. Level-specific parts (arena, triggers, waves) take the level.
+- `ModeSession` runs a round, that is one level: the wave scheduler, timed effects (shield, speed, poison), grace time,
   teleports, and the statistics the end conditions check.
-- `ModeContactRules` replaces the campaign's fixed contact strategies when a mode is played.
+- `ModeContactRules` replaces the original fixed contact strategies when a mode is played.
+- `ModeProgress` remembers the unlocked levels of each mode across restarts.
 
 Hooks in the existing code are kept small:
 
 - Factories read enemy kinds, materials, sprites, player speed, tongue time and cooldown from the mode.
 - The physics system applies enemy bounce and floor materials.
 - The level loader accepts arena-relative positions.
-- There is a *Game Modes* menu.
+- The main menu lists the modes of the edition and the tutorial. A mode of several levels opens a
+  level list (`SelectModeLevelView`), and the game over screen offers the next level once one is won.
 
-Campaign levels, the tutorial and multiplayer are unchanged.
+The tutorial and multiplayer are unchanged.
 
 ## The three example editions
 
 | Edition | Product | What it shows |
 | --- | --- | --- |
 | `classic.rango` | *Rango Unchained*, one mode | The minimal valid configuration (the draft's baseline): one enemy type that splits in two, a fixed layout, won when cleared, lost on health, and a single edition-level drop table (the one power-up every enemy must be able to drop). Only mandatory features. |
-| `survival.rango` | *Rango Unchained: Survival*, two modes | **Endless Survival**: four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, ice and grass materials, a jump pad, teleporters for enemies, three power-ups, and lost when overrun by 25 enemies. The *edition's drop tables* apply: the tougher the enemy, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. |
+| `survival.rango` | *Rango Unchained: Survival*, three modes | **Endless Survival**: four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, ice and grass materials, a jump pad, teleporters for enemies, three power-ups, and lost when overrun by 25 enemies. The *edition's drop tables* apply: the tougher the enemy, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other. |
 | `arcade.rango` | *Rango Unchained: Arcade*, three modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. Every mode has *its own drop tables* (no edition defaults), and the Mine drops the best power-up. |
 
 The tests check that all three are valid and that together they use every concrete class, every

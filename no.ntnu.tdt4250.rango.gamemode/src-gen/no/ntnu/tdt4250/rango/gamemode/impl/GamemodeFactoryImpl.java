@@ -70,6 +70,7 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 			case GamemodePackage.MATERIAL: return createMaterial();
 			case GamemodePackage.PLAYER_PROFILE: return createPlayerProfile();
 			case GamemodePackage.GAME_MODE: return createGameMode();
+			case GamemodePackage.LEVEL: return createLevel();
 			case GamemodePackage.SPEED_BONUS: return createSpeedBonus();
 			case GamemodePackage.ARENA: return createArena();
 			case GamemodePackage.BLOCK: return createBlock();
@@ -268,6 +269,17 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	public GameMode createGameMode() {
 		GameModeImpl gameMode = new GameModeImpl();
 		return gameMode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Level createLevel() {
+		LevelImpl level = new LevelImpl();
+		return level;
 	}
 
 	/**

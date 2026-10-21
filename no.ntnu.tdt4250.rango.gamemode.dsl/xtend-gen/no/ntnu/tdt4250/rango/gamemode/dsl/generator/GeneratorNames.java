@@ -12,18 +12,21 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.Target;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.util.Strings;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
@@ -66,17 +69,44 @@ public class GeneratorNames {
   }
 
   /**
-   * The arena resource of a mode as the game loads it, relative to the assets folder.
+   * The mode a level belongs to.
    */
-  public static String arenaResource(final GameMode mode) {
-    String _name = mode.getName();
-    String _plus = ("modes/" + _name);
-    return (_plus + ".json");
+  public static GameMode mode(final Level level) {
+    EObject _eContainer = level.eContainer();
+    return ((GameMode) _eContainer);
   }
 
-  public static String arenaFile(final GameMode mode) {
-    String _arenaResource = GeneratorNames.arenaResource(mode);
+  /**
+   * The arena resource of a level as the game loads it, relative to the assets folder.
+   */
+  public static String arenaResource(final Level level) {
+    String _name = GeneratorNames.mode(level).getName();
+    String _plus = ("modes/" + _name);
+    String _plus_1 = (_plus + "-");
+    int _number = level.getNumber();
+    String _plus_2 = (_plus_1 + Integer.valueOf(_number));
+    return (_plus_2 + ".json");
+  }
+
+  public static String arenaFile(final Level level) {
+    String _arenaResource = GeneratorNames.arenaResource(level);
     return ("assets/" + _arenaResource);
+  }
+
+  /**
+   * The name of a level in the menus: its title, or else its number.
+   */
+  public static String levelTitle(final Level level) {
+    String _elvis = null;
+    String _title = level.getTitle();
+    if (_title != null) {
+      _elvis = _title;
+    } else {
+      int _number = level.getNumber();
+      String _plus = ("Level " + Integer.valueOf(_number));
+      _elvis = _plus;
+    }
+    return _elvis;
   }
 
   /**
@@ -155,12 +185,12 @@ public class GeneratorNames {
   }
 
   /**
-   * The waves of a mode; none if its enemies are all placed at the start.
+   * The waves of a level; none if its enemies are all placed at the start.
    */
-  public static List<Wave> waves(final GameMode mode) {
+  public static List<Wave> waves(final Level level) {
     List<Wave> _xblockexpression = null;
     {
-      final SpawnStrategy spawning = mode.getSpawning();
+      final SpawnStrategy spawning = level.getSpawning();
       List<Wave> _xifexpression = null;
       if ((spawning instanceof WaveSchedule)) {
         _xifexpression = ((WaveSchedule)spawning).getWaves();
@@ -173,19 +203,24 @@ public class GeneratorNames {
   }
 
   /**
-   * The materials a mode's arena is built from: its floor, its walls and its blocks.
+   * The materials the arenas of a mode are built from: their floors, walls and blocks.
    */
   public static Set<Material> materials(final GameMode mode) {
     Set<Material> _xblockexpression = null;
     {
-      final Arena arena = mode.getArena();
-      Material _floor = arena.getFloor();
-      Material _walls = arena.getWalls();
-      final Function1<Block, Material> _function = (Block it) -> {
-        return it.getMaterial();
+      final Function1<Level, Arena> _function = (Level it) -> {
+        return it.getArena();
       };
-      Iterable<Material> _map = IterableExtensions.<Block, Material>map(Iterables.<Block>filter(arena.getObstacles(), Block.class), _function);
-      final Iterable<Material> surfaces = Iterables.<Material>concat(Collections.<Material>unmodifiableList(CollectionLiterals.<Material>newArrayList(_floor, _walls)), _map);
+      final Function1<Arena, Iterable<Material>> _function_1 = (Arena it) -> {
+        Material _floor = it.getFloor();
+        Material _walls = it.getWalls();
+        final Function1<Block, Material> _function_2 = (Block it_1) -> {
+          return it_1.getMaterial();
+        };
+        Iterable<Material> _map = IterableExtensions.<Block, Material>map(Iterables.<Block>filter(it.getObstacles(), Block.class), _function_2);
+        return Iterables.<Material>concat(Collections.<Material>unmodifiableList(CollectionLiterals.<Material>newArrayList(_floor, _walls)), _map);
+      };
+      final Iterable<Material> surfaces = IterableExtensions.<Arena, Material>flatMap(ListExtensions.<Level, Arena>map(mode.getLevels(), _function), _function_1);
       _xblockexpression = IterableExtensions.<Material>toSet(IterableExtensions.<Material>filterNull(surfaces));
     }
     return _xblockexpression;

@@ -26,7 +26,8 @@ public final class GeneratedEdition {
     public static List<GameModeDefinition> modes() {
         return Arrays.<GameModeDefinition>asList(
             new EndlessMode(),
-            new WaveRushMode()
+            new WaveRushMode(),
+            new CampaignMode()
         );
     }
 }

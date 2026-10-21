@@ -35,14 +35,16 @@ public class GameLevel {
     }
 
     /**
-     * Loads the arena of a game mode, generated from its model into assets/modes. Positions in arena
-     * resources are relative to the arena (see {@link ArenaGeometry}) and are converted to pixels here.
+     * Loads the arena of a level of a game mode, generated from its model into assets/modes. Positions
+     * in arena resources are relative to the arena (see {@link ArenaGeometry}) and are converted to
+     * pixels here.
      *
      * @param mode the game mode being played
+     * @param level the level of the mode, counting from 0
      */
-    public GameLevel(GameModeDefinition mode) {
+    public GameLevel(GameModeDefinition mode, int level) {
         levelNumber = -1;
-        LevelData levelData = GameFileHandler.getInstance().readLevelDataFromAssets(mode.arenaFile());
+        LevelData levelData = GameFileHandler.getInstance().readLevelDataFromAssets(mode.arenaFile(level));
         if (levelData == null) {
             levelData = new LevelData();
         }

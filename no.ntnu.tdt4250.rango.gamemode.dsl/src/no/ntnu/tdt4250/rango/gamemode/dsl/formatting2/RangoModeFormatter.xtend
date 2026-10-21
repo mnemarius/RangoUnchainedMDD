@@ -9,6 +9,7 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout
 import no.ntnu.tdt4250.rango.gamemode.GameMode
+import no.ntnu.tdt4250.rango.gamemode.Level
 import no.ntnu.tdt4250.rango.gamemode.Material
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile
 import no.ntnu.tdt4250.rango.gamemode.Positioned
@@ -64,12 +65,26 @@ class RangoModeFormatter extends AbstractFormatter2 {
 		mode.lines(document, 'description', 'player', 'gravity', 'win', 'lose')
 		mode.lists(document)
 		mode.regionFor.keywords('or').forEach[surround[oneSpace]]
-		for (part : #[mode.speedBonus, mode.arena, mode.spawning].filterNull) {
-			part.prepend[newLine]
-			part.format
+		mode.speedBonus?.prepend[newLine]
+		mode.speedBonus?.format
+		for (level : mode.levels) {
+			level.prepend[newLine]
+			level.format
 		}
 		mode.regionFor.keyword('drops').prepend[newLine]
 		mode.drops(document)
+	}
+
+	/** A level block, or the arena and spawning of a mode's only level written without one. */
+	def dispatch void format(Level level, extension IFormattableDocument document) {
+		if (level.regionFor.keyword('level') !== null) {
+			level.block(document)
+			level.regionFor.keyword('level').append[oneSpace]
+		}
+		for (part : #[level.arena, level.spawning].filterNull) {
+			part.prepend[newLine]
+			part.format
+		}
 	}
 
 	def dispatch void format(Arena arena, extension IFormattableDocument document) {

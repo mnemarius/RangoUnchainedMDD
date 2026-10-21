@@ -54,7 +54,7 @@ public class GamePlayView extends BaseScreen {
     private boolean initialized = false;
     private Table centralTable;
     private Table shootTable;
-    /** The game mode being played, or null for campaign levels and multiplayer. */
+    /** The game mode being played, or null for the tutorial and multiplayer. */
     private GameModeDefinition mode;
     private final Map<String, Texture> effectIcons = new HashMap<>();
 
@@ -74,10 +74,10 @@ public class GamePlayView extends BaseScreen {
         removeBackground();
     }
 
-    // Constructor for game modes
-    public GamePlayView(GameModeDefinition mode) {
+    // Constructor for game modes: the level of the mode, counting from 0
+    public GamePlayView(GameModeDefinition mode, int level) {
         super(GameController.getInstance());
-        this.levelNumber = -1;
+        this.levelNumber = level;
         this.mode = mode;
         removeBackground();
     }
@@ -92,8 +92,8 @@ public class GamePlayView extends BaseScreen {
             Gdx.app.postRunnable(() -> {
                 controller = LevelController.getInstance();
                 if (mode != null) {
-                    controller.initializeMode(mode);
-                    pauseMenu = new PauseMenu(game, mode);
+                    controller.initializeMode(mode, levelNumber);
+                    pauseMenu = new PauseMenu(game, mode, levelNumber);
                 } else {
                     controller.initializeSystems(levelNumber);
                     // Initialize pause menu based on multiplayer flag
@@ -453,7 +453,7 @@ public class GamePlayView extends BaseScreen {
             Gdx.app.postRunnable(() -> {
                 HintUtil.setHint(level);
                 if (mode != null) {
-                    game.setView(new GameOverView(mode, completed));
+                    game.setView(new GameOverView(mode, levelNumber, completed));
                 } else {
                     game.setView(new GameOverView(level.levelNumber, completed));
                 }

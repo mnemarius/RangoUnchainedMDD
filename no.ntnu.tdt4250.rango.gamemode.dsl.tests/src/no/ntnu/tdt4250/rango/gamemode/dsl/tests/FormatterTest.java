@@ -65,4 +65,48 @@ public class FormatterTest {
 					}""");
 		});
 	}
+
+	@Test
+	public void formatsLevels() {
+		formatter.assertFormatted(request -> {
+			request.preferences(preferences -> preferences.put(FormatterPreferenceKeys.lineSeparator, "\n"));
+			request.setToBeFormatted("edition Tiny enemy Weed { sprite \"Enemy/Plant.png\" on pop : vanish on contact : damage 1 }"
+					+ " player P { health 3 } mode M \"M\" { player P level \"First\" { arena { background \"Desert\" } layout { Weed size 1 at ( 50 % , 70 % ) } }"
+					+ " level { arena { background \"Desert\" } layout { Weed size 2 at ( 50 % , 70 % ) } } win when all enemies cleared lose when health depleted }");
+			request.setExpectation("""
+					edition Tiny
+
+					enemy Weed {
+						sprite "Enemy/Plant.png"
+						on pop: vanish
+						on contact: damage 1
+					}
+
+					player P {
+						health 3
+					}
+
+					mode M "M" {
+						player P
+						level "First" {
+							arena {
+								background "Desert"
+							}
+							layout {
+								Weed size 1 at (50%, 70%)
+							}
+						}
+						level {
+							arena {
+								background "Desert"
+							}
+							layout {
+								Weed size 2 at (50%, 70%)
+							}
+						}
+						win when all enemies cleared
+						lose when health depleted
+					}""");
+		});
+	}
 }

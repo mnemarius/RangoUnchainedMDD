@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A way to play the game: the rules of one round, from what spawns to when the round ends.
+ * A way to play the game: the rules its rounds are played by, from what popping an enemy does to when a round ends, and the levels it is played in.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -23,8 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getGravity <em>Gravity</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus <em>Speed Bonus</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getArena <em>Arena</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpawning <em>Spawning</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLevels <em>Levels</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops <em>Drops</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getWinConditions <em>Win Conditions</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLoseConditions <em>Lose Conditions</em>}</li>
@@ -121,7 +120,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The enemy types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them.
+	 * The enemy types that can appear in this mode: those its levels spawn, and everything popping them can produce, in the order the edition declares them.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enemy Types</em>' reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_EnemyTypes()
@@ -182,54 +181,19 @@ public interface GameMode extends NamedElement {
 	void setSpeedBonus(SpeedBonus value);
 
 	/**
-	 * Returns the value of the '<em><b>Arena</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Levels</b></em>' containment reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.Level}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The playing field of the mode.
+	 * The levels of the mode, in the order they are played. Each level is one round under the rules of the mode; winning it unlocks the next.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Arena</em>' containment reference.
-	 * @see #setArena(Arena)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Arena()
+	 * @return the value of the '<em>Levels</em>' containment reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Levels()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Arena getArena();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getArena <em>Arena</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Arena</em>' containment reference.
-	 * @see #getArena()
-	 * @generated
-	 */
-	void setArena(Arena value);
-
-	/**
-	 * Returns the value of the '<em><b>Spawning</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Which enemies enter the arena, where and when.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Spawning</em>' containment reference.
-	 * @see #setSpawning(SpawnStrategy)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Spawning()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	SpawnStrategy getSpawning();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpawning <em>Spawning</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Spawning</em>' containment reference.
-	 * @see #getSpawning()
-	 * @generated
-	 */
-	void setSpawning(SpawnStrategy value);
+	EList<Level> getLevels();
 
 	/**
 	 * Returns the value of the '<em><b>Drops</b></em>' containment reference list.
@@ -296,7 +260,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The tongue hits needed to pop every enemy the mode spawns, counting all fragments. -1 if the waves loop, since the mode then never runs out of enemies.
+	 * The tongue hits needed to pop every enemy of every level, counting all fragments. -1 if the waves of a level loop, since that level then never runs out of enemies.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Pops To Clear</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_PopsToClear()
@@ -310,7 +274,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The points earned by popping everything the mode spawns, before any speed bonus. -1 if the waves loop.
+	 * The points earned by popping everything in every level, before any speed bonus. -1 if the waves of a level loop.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Max Score</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_MaxScore()

@@ -22,6 +22,7 @@ import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
@@ -190,6 +191,13 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	private EClass gameModeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass levelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1075,7 +1083,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_Arena() {
+	public EReference getGameMode_Levels() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1085,7 +1093,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_Spawning() {
+	public EReference getGameMode_Drops() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1095,7 +1103,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_Drops() {
+	public EReference getGameMode_WinConditions() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1105,7 +1113,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_WinConditions() {
+	public EReference getGameMode_LoseConditions() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1115,7 +1123,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_LoseConditions() {
+	public EReference getGameMode_PowerUps() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -1125,18 +1133,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_PowerUps() {
-		return (EReference)gameModeEClass.getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EAttribute getGameMode_PopsToClear() {
-		return (EAttribute)gameModeEClass.getEStructuralFeatures().get(12);
+		return (EAttribute)gameModeEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1146,7 +1144,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 */
 	@Override
 	public EAttribute getGameMode_MaxScore() {
-		return (EAttribute)gameModeEClass.getEStructuralFeatures().get(13);
+		return (EAttribute)gameModeEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1156,7 +1154,77 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 */
 	@Override
 	public EReference getGameMode_EffectiveDrops() {
-		return (EReference)gameModeEClass.getEStructuralFeatures().get(14);
+		return (EReference)gameModeEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getLevel() {
+		return levelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLevel_Title() {
+		return (EAttribute)levelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLevel_Arena() {
+		return (EReference)levelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLevel_Spawning() {
+		return (EReference)levelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLevel_Number() {
+		return (EAttribute)levelEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLevel_PopsToClear() {
+		return (EAttribute)levelEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLevel_MaxScore() {
+		return (EAttribute)levelEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1929,8 +1997,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEReference(gameModeEClass, GAME_MODE__ENEMY_TYPES);
 		createEAttribute(gameModeEClass, GAME_MODE__GRAVITY);
 		createEReference(gameModeEClass, GAME_MODE__SPEED_BONUS);
-		createEReference(gameModeEClass, GAME_MODE__ARENA);
-		createEReference(gameModeEClass, GAME_MODE__SPAWNING);
+		createEReference(gameModeEClass, GAME_MODE__LEVELS);
 		createEReference(gameModeEClass, GAME_MODE__DROPS);
 		createEReference(gameModeEClass, GAME_MODE__WIN_CONDITIONS);
 		createEReference(gameModeEClass, GAME_MODE__LOSE_CONDITIONS);
@@ -1938,6 +2005,14 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(gameModeEClass, GAME_MODE__POPS_TO_CLEAR);
 		createEAttribute(gameModeEClass, GAME_MODE__MAX_SCORE);
 		createEReference(gameModeEClass, GAME_MODE__EFFECTIVE_DROPS);
+
+		levelEClass = createEClass(LEVEL);
+		createEAttribute(levelEClass, LEVEL__TITLE);
+		createEReference(levelEClass, LEVEL__ARENA);
+		createEReference(levelEClass, LEVEL__SPAWNING);
+		createEAttribute(levelEClass, LEVEL__NUMBER);
+		createEAttribute(levelEClass, LEVEL__POPS_TO_CLEAR);
+		createEAttribute(levelEClass, LEVEL__MAX_SCORE);
 
 		speedBonusEClass = createEClass(SPEED_BONUS);
 		createEAttribute(speedBonusEClass, SPEED_BONUS__MAX_FACTOR);
@@ -2171,8 +2246,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEReference(getGameMode_EnemyTypes(), this.getEnemyType(), null, "enemyTypes", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_Gravity(), ecorePackage.getEFloat(), "gravity", "10.0", 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_SpeedBonus(), this.getSpeedBonus(), null, "speedBonus", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGameMode_Arena(), this.getArena(), null, "arena", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGameMode_Spawning(), this.getSpawnStrategy(), null, "spawning", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_Levels(), this.getLevel(), null, "levels", null, 1, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Drops(), this.getDropTable(), null, "drops", null, 0, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_WinConditions(), this.getEndCondition(), null, "winConditions", null, 0, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_LoseConditions(), this.getEndCondition(), null, "loseConditions", null, 1, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2180,6 +2254,14 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getGameMode_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_MaxScore(), ecorePackage.getEInt(), "maxScore", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_EffectiveDrops(), this.getDropTable(), null, "effectiveDrops", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+		initEClass(levelEClass, Level.class, "Level", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLevel_Title(), ecorePackage.getEString(), "title", null, 0, 1, Level.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLevel_Arena(), this.getArena(), null, "arena", null, 1, 1, Level.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLevel_Spawning(), this.getSpawnStrategy(), null, "spawning", null, 1, 1, Level.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLevel_Number(), ecorePackage.getEInt(), "number", null, 0, 1, Level.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLevel_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, Level.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLevel_MaxScore(), ecorePackage.getEInt(), "maxScore", null, 0, 1, Level.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(speedBonusEClass, SpeedBonus.class, "SpeedBonus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSpeedBonus_MaxFactor(), ecorePackage.getEFloat(), "maxFactor", "2.0", 0, 1, SpeedBonus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

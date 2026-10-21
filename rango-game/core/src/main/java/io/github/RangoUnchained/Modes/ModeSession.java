@@ -30,7 +30,7 @@ import io.github.RangoUnchained.Model.level.GameLevel.LevelData.EntityData.TypeI
 import io.github.RangoUnchained.Views.Utils.Constants;
 
 /**
- * A round of a game mode in progress. The session runs what the generated
+ * A round of a game mode in progress: one level of the mode. The session runs what the generated
  * {@link GameModeDefinition} decides: it schedules the waves, carries out the effects on the player,
  * moves things through teleporters, and keeps the statistics that win and lose conditions check.
  */
@@ -44,6 +44,7 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     private static final String POISON = "poison";
 
     private final GameModeDefinition mode;
+    private final int level;
     private final Random random = new Random();
 
     private float elapsed;
@@ -63,8 +64,9 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     private final List<Teleport> teleports = new ArrayList<Teleport>();
     private final Map<Entity, Float> teleportCooldowns = new HashMap<Entity, Float>();
 
-    public ModeSession(GameModeDefinition mode) {
+    public ModeSession(GameModeDefinition mode, int level) {
         this.mode = mode;
+        this.level = level;
     }
 
     /** The session of the mode being played, or null when a campaign level is played. */
@@ -74,6 +76,15 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
 
     public GameModeDefinition getMode() {
         return mode;
+    }
+
+    /** The level being played, counting from 0. */
+    public int getLevel() {
+        return level;
+    }
+
+    public boolean hasNextLevel() {
+        return level + 1 < mode.levelCount();
     }
 
     /** Advances the round by one frame. Called after the physics step, so bodies may be moved. */
@@ -101,13 +112,13 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     // ------------------------------------------------------------------ waves
 
     private void updateWaves(float delta) {
-        if (mode.waveCount() == 0 || wavesFinished) {
+        if (mode.waveCount(level) == 0 || wavesFinished) {
             return;
         }
         if (!waveRunning) {
             calm += delta;
-            if (calm >= mode.waveDelay(nextWave)) {
-                mode.spawnWave(nextWave, cycle, this);
+            if (calm >= mode.waveDelay(level, nextWave)) {
+                mode.spawnWave(level, nextWave, cycle, this);
                 waveRunning = true;
                 settleFrames = 2;
                 calm = 0;
@@ -116,8 +127,8 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
             waveRunning = false;
             wavesCleared++;
             nextWave++;
-            if (nextWave >= mode.waveCount()) {
-                if (mode.loopsWaves()) {
+            if (nextWave >= mode.waveCount(level)) {
+                if (mode.loopsWaves(level)) {
                     nextWave = 0;
                     cycle++;
                 } else {
@@ -217,7 +228,7 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
 
     @Override
     public boolean cleared() {
-        return settleFrames == 0 && enemiesAlive() == 0 && (mode.waveCount() == 0 || wavesFinished);
+        return settleFrames == 0 && enemiesAlive() == 0 && (mode.waveCount(level) == 0 || wavesFinished);
     }
 
     // ------------------------------------------------------------------ ModeContext

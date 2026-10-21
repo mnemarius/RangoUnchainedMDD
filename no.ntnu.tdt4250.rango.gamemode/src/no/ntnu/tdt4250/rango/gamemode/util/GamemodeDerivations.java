@@ -19,6 +19,7 @@ import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.Split;
@@ -122,12 +123,12 @@ public final class GamemodeDerivations {
 		return saturate(pops);
 	}
 
-	public static int popsToClear(GameMode mode) {
-		return mode.getSpawning() == null ? 0 : mode.getSpawning().getPopsToClear();
+	public static int popsToClear(Level level) {
+		return level.getSpawning() == null ? 0 : level.getSpawning().getPopsToClear();
 	}
 
-	public static int maxScore(GameMode mode) {
-		SpawnStrategy strategy = mode.getSpawning();
+	public static int maxScore(Level level) {
+		SpawnStrategy strategy = level.getSpawning();
 		if (strategy instanceof WaveSchedule schedule && schedule.isLoop()) {
 			return UNBOUNDED;
 		}
@@ -136,6 +137,44 @@ public final class GamemodeDerivations {
 			points += spawn.getCount() * pointsFor(spawn.getType(), spawn.getSize());
 		}
 		return saturate(points);
+	}
+
+	/** The pops of all levels of a mode; unbounded if any level never runs out of enemies. */
+	public static int popsToClear(GameMode mode) {
+		long pops = 0;
+		for (Level level : mode.getLevels()) {
+			if (level.getPopsToClear() == UNBOUNDED) {
+				return UNBOUNDED;
+			}
+			pops += level.getPopsToClear();
+		}
+		return saturate(pops);
+	}
+
+	/** The points of all levels of a mode; unbounded if any level never runs out of enemies. */
+	public static int maxScore(GameMode mode) {
+		long points = 0;
+		for (Level level : mode.getLevels()) {
+			if (level.getMaxScore() == UNBOUNDED) {
+				return UNBOUNDED;
+			}
+			points += level.getMaxScore();
+		}
+		return saturate(points);
+	}
+
+	public static int number(Level level) {
+		return level.eContainer() instanceof GameMode mode ? mode.getLevels().indexOf(level) + 1 : 0;
+	}
+
+	/** The level an element belongs to, or null if it is not inside a level. */
+	public static Level levelOf(EObject element) {
+		for (EObject current = element; current != null; current = current.eContainer()) {
+			if (current instanceof Level level) {
+				return level;
+			}
+		}
+		return null;
 	}
 
 	/** All spawns of a strategy, in order: those of the layout, or those of every wave. */
@@ -214,14 +253,16 @@ public final class GamemodeDerivations {
 	}
 
 	/**
-	 * The enemy types that can appear in a mode: those it spawns, and everything popping them can
-	 * produce, in the order the edition declares them.
+	 * The enemy types that can appear in a mode: those its levels spawn, and everything popping them
+	 * can produce, in the order the edition declares them.
 	 */
 	public static EList<EnemyType> enemyTypes(GameMode mode) {
 		Set<EnemyType> reachable = new LinkedHashSet<>();
 		List<EnemyType> pending = new ArrayList<>();
-		for (EnemySpawn spawn : allSpawns(mode.getSpawning())) {
-			pending.add(spawn.getType());
+		for (Level level : mode.getLevels()) {
+			for (EnemySpawn spawn : allSpawns(level.getSpawning())) {
+				pending.add(spawn.getType());
+			}
 		}
 		while (!pending.isEmpty()) {
 			EnemyType type = pending.remove(pending.size() - 1);

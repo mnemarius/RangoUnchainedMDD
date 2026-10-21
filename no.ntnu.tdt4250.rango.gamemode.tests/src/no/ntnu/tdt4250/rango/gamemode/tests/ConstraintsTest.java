@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
 import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
+import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
@@ -98,7 +100,7 @@ public class ConstraintsTest {
 		Teleporter teleporter = ModelFixture.F.createTeleporter();
 		teleporter.setName("Loop");
 		teleporter.setTarget(teleporter);
-		f.clear.getArena().getObstacles().add(teleporter);
+		ModelFixture.level(f.clear).getArena().getObstacles().add(teleporter);
 		assertViolated("notToItself");
 	}
 
@@ -189,6 +191,33 @@ public class ConstraintsTest {
 	}
 
 	@Test
+	public void modeWithSeveralLevelsNeedsAWinCondition() {
+		f.waves.getWinConditions().clear();
+		f.schedule.setLoop(true);
+		Level second = ModelFixture.level();
+		second.setSpawning(ModelFixture.copyOf(f.schedule));
+		f.waves.getLevels().add(second);
+		assertCode(GamemodeConstraints.NEVER_ENDS);
+	}
+
+	@Test
+	public void winConditionsMustBeReachableInEveryLevel() {
+		// Clear is won after 20 pops, which its first level offers; a second level with a small
+		// tumbleweed only offers 1
+		EnemiesPopped popped = ModelFixture.F.createEnemiesPopped();
+		popped.setCount(20);
+		f.clear.getWinConditions().add(popped);
+		Level small = ModelFixture.level();
+		FixedLayout layout = ModelFixture.F.createFixedLayout();
+		layout.getSpawns().add(ModelFixture.spawn(f.tumbleweed, 1, 1));
+		small.setSpawning(layout);
+		f.clear.getLevels().add(small);
+		List<String> messages = messages(ModelFixture.validate(f.edition));
+		assertEquals(1, messages.size(), messages.toString());
+		assertTrue(messages.get(0).startsWith("In level 2, only 1 pops"), messages.toString());
+	}
+
+	@Test
 	public void harmfulModesAreLostOnHealth() {
 		f.clear.getLoseConditions().clear();
 		TimeReached limit = ModelFixture.F.createTimeReached();
@@ -239,8 +268,8 @@ public class ConstraintsTest {
 		there.setName("There");
 		here.setTarget(there);
 		there.setTarget(here);
-		f.clear.getArena().getObstacles().add(here);
-		f.waves.getArena().getObstacles().add(there);
+		ModelFixture.level(f.clear).getArena().getObstacles().add(here);
+		ModelFixture.level(f.waves).getArena().getObstacles().add(there);
 		assertCode(GamemodeConstraints.TELEPORTER_ELSEWHERE);
 	}
 

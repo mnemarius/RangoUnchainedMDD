@@ -140,6 +140,10 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createGameModeAdapter();
 			}
 			@Override
+			public Adapter caseLevel(Level object) {
+				return createLevelAdapter();
+			}
+			@Override
 			public Adapter caseSpeedBonus(SpeedBonus object) {
 				return createSpeedBonusAdapter();
 			}
@@ -496,6 +500,20 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGameModeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Level <em>Level</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Level
+	 * @generated
+	 */
+	public Adapter createLevelAdapter() {
 		return null;
 	}
 

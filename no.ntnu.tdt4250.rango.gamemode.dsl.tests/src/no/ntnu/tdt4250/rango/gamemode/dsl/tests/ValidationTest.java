@@ -198,7 +198,7 @@ public class ValidationTest {
 				teleporter B at (90%, 5%) to A
 				teleporter Lonely at (50%, 5%) to Lonely
 				"""));
-		var teleporters = edition.getModes().get(0).getArena().getObstacles();
+		var teleporters = edition.getModes().get(0).getLevels().get(0).getArena().getObstacles();
 		assertEquals("B", ((Teleporter) teleporters.get(0)).getTarget().getName());
 		assertEquals("A", ((Teleporter) teleporters.get(1)).getTarget().getName());
 		// a teleporter cannot lead to itself: the reference does not resolve
@@ -206,6 +206,40 @@ public class ValidationTest {
 		assertTrue(lonely.getTarget() == null || lonely.getTarget().eIsProxy());
 		validation.assertError(edition, GamemodePackage.Literals.TELEPORTER,
 				org.eclipse.xtext.diagnostics.Diagnostic.LINKING_DIAGNOSTIC, "Lonely");
+	}
+
+	@Test
+	public void levelsAreCheckedOneByOne() throws Exception {
+		// the first level can be cleared, but the second loops, so it is never cleared
+		Edition edition = edition("", VALID_BODY.replace("""
+				arena {
+					background "Desert"
+				}
+				layout {
+					Bomb size 3 at (50%, 70%)
+				}
+				""", """
+				level "One" {
+					arena {
+						background "Desert"
+					}
+					layout {
+						Bomb size 3 at (50%, 70%)
+					}
+				}
+				level {
+					arena {
+						background "Desert"
+					}
+					waves looping {
+						wave { Bomb size 1 at (50%, 70%) }
+					}
+				}
+				"""));
+		assertEquals(2, edition.getModes().get(0).getLevels().size());
+		assertEquals("One", edition.getModes().get(0).getLevels().get(0).getTitle());
+		validation.assertError(edition, GamemodePackage.Literals.CLEARED, GamemodeConstraints.SOURCE + "." + GamemodeConstraints.CONDITION_UNREACHABLE,
+				"In level 2, the waves loop");
 	}
 
 	@Test

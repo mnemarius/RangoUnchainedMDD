@@ -63,7 +63,8 @@ public class ExamplesTest {
 	@Test
 	public void examplesDiffer() {
 		assertEquals(1, load("classic").getModes().size());
-		assertEquals(2, load("survival").getModes().size());
+		assertEquals(3, load("survival").getModes().size());
+		assertEquals(5, load("survival").getModes().get(2).getLevels().size());
 		assertEquals(3, load("arcade").getModes().size());
 		assertEquals(2, load("arcade").getPlayers().size());
 	}

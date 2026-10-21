@@ -15,6 +15,7 @@ import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
@@ -104,9 +105,49 @@ public class RangoModeFormatter extends AbstractFormatter2 {
     };
     this.textRegionExtensions.regionFor(mode).keywords("or").forEach(_function);
     SpeedBonus _speedBonus = mode.getSpeedBonus();
-    Arena _arena = mode.getArena();
-    SpawnStrategy _spawning = mode.getSpawning();
-    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_speedBonus, _arena, _spawning)));
+    if (_speedBonus!=null) {
+      final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+        it.newLine();
+      };
+      document.<SpeedBonus>prepend(_speedBonus, _function_1);
+    }
+    SpeedBonus _speedBonus_1 = mode.getSpeedBonus();
+    if (_speedBonus_1!=null) {
+      document.<SpeedBonus>format(_speedBonus_1);
+    }
+    EList<Level> _levels = mode.getLevels();
+    for (final Level level : _levels) {
+      {
+        final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
+          it.newLine();
+        };
+        document.<Level>prepend(level, _function_2);
+        document.<Level>format(level);
+      }
+    }
+    final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
+      it.newLine();
+    };
+    document.prepend(this.textRegionExtensions.regionFor(mode).keyword("drops"), _function_2);
+    this.drops(mode, document);
+  }
+
+  /**
+   * A level block, or the arena and spawning of a mode's only level written without one.
+   */
+  protected void _format(final Level level, @Extension final IFormattableDocument document) {
+    ISemanticRegion _keyword = this.textRegionExtensions.regionFor(level).keyword("level");
+    boolean _tripleNotEquals = (_keyword != null);
+    if (_tripleNotEquals) {
+      this.block(level, document);
+      final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
+        it.oneSpace();
+      };
+      document.append(this.textRegionExtensions.regionFor(level).keyword("level"), _function);
+    }
+    Arena _arena = level.getArena();
+    SpawnStrategy _spawning = level.getSpawning();
+    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_arena, _spawning)));
     for (final EObject part : _filterNull) {
       {
         final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
@@ -116,11 +157,6 @@ public class RangoModeFormatter extends AbstractFormatter2 {
         document.<EObject>format(part);
       }
     }
-    final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
-      it.newLine();
-    };
-    document.prepend(this.textRegionExtensions.regionFor(mode).keyword("drops"), _function_1);
-    this.drops(mode, document);
   }
 
   protected void _format(final Arena arena, @Extension final IFormattableDocument document) {
@@ -354,6 +390,9 @@ public class RangoModeFormatter extends AbstractFormatter2 {
       return;
     } else if (edition instanceof DropTable) {
       _format((DropTable)edition, document);
+      return;
+    } else if (edition instanceof Level) {
+      _format((Level)edition, document);
       return;
     } else if (edition instanceof Positioned) {
       _format((Positioned)edition, document);

@@ -1003,32 +1003,45 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cGravityDecimalParserRuleCall_7_0_1_0 = (RuleCall)cGravityAssignment_7_0_1.eContents().get(0);
 		private final Assignment cSpeedBonusAssignment_7_1 = (Assignment)cUnorderedGroup_7.eContents().get(1);
 		private final RuleCall cSpeedBonusSpeedBonusParserRuleCall_7_1_0 = (RuleCall)cSpeedBonusAssignment_7_1.eContents().get(0);
-		private final Assignment cArenaAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cArenaArenaParserRuleCall_8_0 = (RuleCall)cArenaAssignment_8.eContents().get(0);
-		private final Assignment cSpawningAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final RuleCall cSpawningSpawnStrategyParserRuleCall_9_0 = (RuleCall)cSpawningAssignment_9.eContents().get(0);
-		private final RuleCall cDropsParserRuleCall_10 = (RuleCall)cGroup.eContents().get(10);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cWinKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Keyword cWhenKeyword_11_1 = (Keyword)cGroup_11.eContents().get(1);
-		private final Assignment cWinConditionsAssignment_11_2 = (Assignment)cGroup_11.eContents().get(2);
-		private final RuleCall cWinConditionsEndConditionParserRuleCall_11_2_0 = (RuleCall)cWinConditionsAssignment_11_2.eContents().get(0);
-		private final Group cGroup_11_3 = (Group)cGroup_11.eContents().get(3);
-		private final Keyword cOrKeyword_11_3_0 = (Keyword)cGroup_11_3.eContents().get(0);
-		private final Assignment cWinConditionsAssignment_11_3_1 = (Assignment)cGroup_11_3.eContents().get(1);
-		private final RuleCall cWinConditionsEndConditionParserRuleCall_11_3_1_0 = (RuleCall)cWinConditionsAssignment_11_3_1.eContents().get(0);
-		private final Keyword cLoseKeyword_12 = (Keyword)cGroup.eContents().get(12);
-		private final Keyword cWhenKeyword_13 = (Keyword)cGroup.eContents().get(13);
-		private final Assignment cLoseConditionsAssignment_14 = (Assignment)cGroup.eContents().get(14);
-		private final RuleCall cLoseConditionsEndConditionParserRuleCall_14_0 = (RuleCall)cLoseConditionsAssignment_14.eContents().get(0);
-		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
-		private final Keyword cOrKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
-		private final Assignment cLoseConditionsAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
-		private final RuleCall cLoseConditionsEndConditionParserRuleCall_15_1_0 = (RuleCall)cLoseConditionsAssignment_15_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_16 = (Keyword)cGroup.eContents().get(16);
+		private final Alternatives cAlternatives_8 = (Alternatives)cGroup.eContents().get(8);
+		private final Assignment cLevelsAssignment_8_0 = (Assignment)cAlternatives_8.eContents().get(0);
+		private final RuleCall cLevelsSingleLevelParserRuleCall_8_0_0 = (RuleCall)cLevelsAssignment_8_0.eContents().get(0);
+		private final Assignment cLevelsAssignment_8_1 = (Assignment)cAlternatives_8.eContents().get(1);
+		private final RuleCall cLevelsLevelParserRuleCall_8_1_0 = (RuleCall)cLevelsAssignment_8_1.eContents().get(0);
+		private final RuleCall cDropsParserRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
+		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
+		private final Keyword cWinKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Keyword cWhenKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
+		private final Assignment cWinConditionsAssignment_10_2 = (Assignment)cGroup_10.eContents().get(2);
+		private final RuleCall cWinConditionsEndConditionParserRuleCall_10_2_0 = (RuleCall)cWinConditionsAssignment_10_2.eContents().get(0);
+		private final Group cGroup_10_3 = (Group)cGroup_10.eContents().get(3);
+		private final Keyword cOrKeyword_10_3_0 = (Keyword)cGroup_10_3.eContents().get(0);
+		private final Assignment cWinConditionsAssignment_10_3_1 = (Assignment)cGroup_10_3.eContents().get(1);
+		private final RuleCall cWinConditionsEndConditionParserRuleCall_10_3_1_0 = (RuleCall)cWinConditionsAssignment_10_3_1.eContents().get(0);
+		private final Keyword cLoseKeyword_11 = (Keyword)cGroup.eContents().get(11);
+		private final Keyword cWhenKeyword_12 = (Keyword)cGroup.eContents().get(12);
+		private final Assignment cLoseConditionsAssignment_13 = (Assignment)cGroup.eContents().get(13);
+		private final RuleCall cLoseConditionsEndConditionParserRuleCall_13_0 = (RuleCall)cLoseConditionsAssignment_13.eContents().get(0);
+		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
+		private final Keyword cOrKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
+		private final Assignment cLoseConditionsAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
+		private final RuleCall cLoseConditionsEndConditionParserRuleCall_14_1_0 = (RuleCall)cLoseConditionsAssignment_14_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_15 = (Keyword)cGroup.eContents().get(15);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// Game modes.
+		//// Game modes. A mode is played in one or more levels: a mode of one level just gives its arena and
+		//// spawning, a mode of several levels gives them per level, in the order they are played.
+		////
+		////   mode Campaign "Campaign" {
+		////       player Rango
+		////       level "First steps" {
+		////           arena { background "Desert" }
+		////           layout { Tumbleweed size 2 at (60%, 40%) moving left }
+		////       }
+		////       level { ... }
+		////       win when all enemies cleared
+		////       lose when health depleted
+		////   }
 		//GameMode returns GameMode:
 		//    'mode' name=ID title=STRING '{'
 		//    ('description' description=STRING)?
@@ -1036,8 +1049,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//    (    ('gravity' gravity=Decimal)?
 		//    &    (speedBonus=SpeedBonus)?
 		//    )
-		//    arena=Arena
-		//    spawning=SpawnStrategy
+		//    (levels+=SingleLevel | levels+=Level+)
 		//    Drops?
 		//    ('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 		//    'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
@@ -1050,8 +1062,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//(    ('gravity' gravity=Decimal)?
 		//&    (speedBonus=SpeedBonus)?
 		//)
-		//arena=Arena
-		//spawning=SpawnStrategy
+		//(levels+=SingleLevel | levels+=Level+)
 		//Drops?
 		//('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 		//'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
@@ -1123,74 +1134,160 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//SpeedBonus
 		public RuleCall getSpeedBonusSpeedBonusParserRuleCall_7_1_0() { return cSpeedBonusSpeedBonusParserRuleCall_7_1_0; }
 		
-		//arena=Arena
-		public Assignment getArenaAssignment_8() { return cArenaAssignment_8; }
+		//(levels+=SingleLevel | levels+=Level+)
+		public Alternatives getAlternatives_8() { return cAlternatives_8; }
 		
-		//Arena
-		public RuleCall getArenaArenaParserRuleCall_8_0() { return cArenaArenaParserRuleCall_8_0; }
+		//levels+=SingleLevel
+		public Assignment getLevelsAssignment_8_0() { return cLevelsAssignment_8_0; }
 		
-		//spawning=SpawnStrategy
-		public Assignment getSpawningAssignment_9() { return cSpawningAssignment_9; }
+		//SingleLevel
+		public RuleCall getLevelsSingleLevelParserRuleCall_8_0_0() { return cLevelsSingleLevelParserRuleCall_8_0_0; }
 		
-		//SpawnStrategy
-		public RuleCall getSpawningSpawnStrategyParserRuleCall_9_0() { return cSpawningSpawnStrategyParserRuleCall_9_0; }
+		//levels+=Level+
+		public Assignment getLevelsAssignment_8_1() { return cLevelsAssignment_8_1; }
+		
+		//Level
+		public RuleCall getLevelsLevelParserRuleCall_8_1_0() { return cLevelsLevelParserRuleCall_8_1_0; }
 		
 		//Drops?
-		public RuleCall getDropsParserRuleCall_10() { return cDropsParserRuleCall_10; }
+		public RuleCall getDropsParserRuleCall_9() { return cDropsParserRuleCall_9; }
 		
 		//('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
-		public Group getGroup_11() { return cGroup_11; }
+		public Group getGroup_10() { return cGroup_10; }
 		
 		//'win'
-		public Keyword getWinKeyword_11_0() { return cWinKeyword_11_0; }
+		public Keyword getWinKeyword_10_0() { return cWinKeyword_10_0; }
 		
 		//'when'
-		public Keyword getWhenKeyword_11_1() { return cWhenKeyword_11_1; }
+		public Keyword getWhenKeyword_10_1() { return cWhenKeyword_10_1; }
 		
 		//winConditions+=EndCondition
-		public Assignment getWinConditionsAssignment_11_2() { return cWinConditionsAssignment_11_2; }
+		public Assignment getWinConditionsAssignment_10_2() { return cWinConditionsAssignment_10_2; }
 		
 		//EndCondition
-		public RuleCall getWinConditionsEndConditionParserRuleCall_11_2_0() { return cWinConditionsEndConditionParserRuleCall_11_2_0; }
+		public RuleCall getWinConditionsEndConditionParserRuleCall_10_2_0() { return cWinConditionsEndConditionParserRuleCall_10_2_0; }
 		
 		//('or' winConditions+=EndCondition)*
-		public Group getGroup_11_3() { return cGroup_11_3; }
+		public Group getGroup_10_3() { return cGroup_10_3; }
 		
 		//'or'
-		public Keyword getOrKeyword_11_3_0() { return cOrKeyword_11_3_0; }
+		public Keyword getOrKeyword_10_3_0() { return cOrKeyword_10_3_0; }
 		
 		//winConditions+=EndCondition
-		public Assignment getWinConditionsAssignment_11_3_1() { return cWinConditionsAssignment_11_3_1; }
+		public Assignment getWinConditionsAssignment_10_3_1() { return cWinConditionsAssignment_10_3_1; }
 		
 		//EndCondition
-		public RuleCall getWinConditionsEndConditionParserRuleCall_11_3_1_0() { return cWinConditionsEndConditionParserRuleCall_11_3_1_0; }
+		public RuleCall getWinConditionsEndConditionParserRuleCall_10_3_1_0() { return cWinConditionsEndConditionParserRuleCall_10_3_1_0; }
 		
 		//'lose'
-		public Keyword getLoseKeyword_12() { return cLoseKeyword_12; }
+		public Keyword getLoseKeyword_11() { return cLoseKeyword_11; }
 		
 		//'when'
-		public Keyword getWhenKeyword_13() { return cWhenKeyword_13; }
+		public Keyword getWhenKeyword_12() { return cWhenKeyword_12; }
 		
 		//loseConditions+=EndCondition
-		public Assignment getLoseConditionsAssignment_14() { return cLoseConditionsAssignment_14; }
+		public Assignment getLoseConditionsAssignment_13() { return cLoseConditionsAssignment_13; }
 		
 		//EndCondition
-		public RuleCall getLoseConditionsEndConditionParserRuleCall_14_0() { return cLoseConditionsEndConditionParserRuleCall_14_0; }
+		public RuleCall getLoseConditionsEndConditionParserRuleCall_13_0() { return cLoseConditionsEndConditionParserRuleCall_13_0; }
 		
 		//('or' loseConditions+=EndCondition)*
-		public Group getGroup_15() { return cGroup_15; }
+		public Group getGroup_14() { return cGroup_14; }
 		
 		//'or'
-		public Keyword getOrKeyword_15_0() { return cOrKeyword_15_0; }
+		public Keyword getOrKeyword_14_0() { return cOrKeyword_14_0; }
 		
 		//loseConditions+=EndCondition
-		public Assignment getLoseConditionsAssignment_15_1() { return cLoseConditionsAssignment_15_1; }
+		public Assignment getLoseConditionsAssignment_14_1() { return cLoseConditionsAssignment_14_1; }
 		
 		//EndCondition
-		public RuleCall getLoseConditionsEndConditionParserRuleCall_15_1_0() { return cLoseConditionsEndConditionParserRuleCall_15_1_0; }
+		public RuleCall getLoseConditionsEndConditionParserRuleCall_14_1_0() { return cLoseConditionsEndConditionParserRuleCall_14_1_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_16() { return cRightCurlyBracketKeyword_16; }
+		public Keyword getRightCurlyBracketKeyword_15() { return cRightCurlyBracketKeyword_15; }
+	}
+	public class SingleLevelElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SingleLevel");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cArenaAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cArenaArenaParserRuleCall_0_0 = (RuleCall)cArenaAssignment_0.eContents().get(0);
+		private final Assignment cSpawningAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cSpawningSpawnStrategyParserRuleCall_1_0 = (RuleCall)cSpawningAssignment_1.eContents().get(0);
+		
+		//// The only level of a mode, written without a level block.
+		//SingleLevel returns Level:
+		//    arena=Arena
+		//    spawning=SpawnStrategy;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//arena=Arena
+		//spawning=SpawnStrategy
+		public Group getGroup() { return cGroup; }
+		
+		//arena=Arena
+		public Assignment getArenaAssignment_0() { return cArenaAssignment_0; }
+		
+		//Arena
+		public RuleCall getArenaArenaParserRuleCall_0_0() { return cArenaArenaParserRuleCall_0_0; }
+		
+		//spawning=SpawnStrategy
+		public Assignment getSpawningAssignment_1() { return cSpawningAssignment_1; }
+		
+		//SpawnStrategy
+		public RuleCall getSpawningSpawnStrategyParserRuleCall_1_0() { return cSpawningSpawnStrategyParserRuleCall_1_0; }
+	}
+	public class LevelElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Level");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLevelKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cTitleAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_1_0 = (RuleCall)cTitleAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cArenaAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cArenaArenaParserRuleCall_3_0 = (RuleCall)cArenaAssignment_3.eContents().get(0);
+		private final Assignment cSpawningAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cSpawningSpawnStrategyParserRuleCall_4_0 = (RuleCall)cSpawningAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//Level returns Level:
+		//    'level' (title=STRING)? '{'
+		//    arena=Arena
+		//    spawning=SpawnStrategy
+		//    '}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'level' (title=STRING)? '{'
+		//arena=Arena
+		//spawning=SpawnStrategy
+		//'}'
+		public Group getGroup() { return cGroup; }
+		
+		//'level'
+		public Keyword getLevelKeyword_0() { return cLevelKeyword_0; }
+		
+		//(title=STRING)?
+		public Assignment getTitleAssignment_1() { return cTitleAssignment_1; }
+		
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_1_0() { return cTitleSTRINGTerminalRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//arena=Arena
+		public Assignment getArenaAssignment_3() { return cArenaAssignment_3; }
+		
+		//Arena
+		public RuleCall getArenaArenaParserRuleCall_3_0() { return cArenaArenaParserRuleCall_3_0; }
+		
+		//spawning=SpawnStrategy
+		public Assignment getSpawningAssignment_4() { return cSpawningAssignment_4; }
+		
+		//SpawnStrategy
+		public RuleCall getSpawningSpawnStrategyParserRuleCall_4_0() { return cSpawningSpawnStrategyParserRuleCall_4_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 	public class SpeedBonusElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpeedBonus");
@@ -1292,7 +1389,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// The arena. Positions are percentages of the arena: (0%, 0%) is the left end of the floor.
+		//// The arena of a level. Positions are percentages of the arena: (0%, 0%) is the left end of the floor.
 		//Arena returns Arena:
 		//    'arena' '{'
 		//    'background' background=STRING
@@ -2376,6 +2473,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	private final MaterialElements pMaterial;
 	private final PlayerProfileElements pPlayerProfile;
 	private final GameModeElements pGameMode;
+	private final SingleLevelElements pSingleLevel;
+	private final LevelElements pLevel;
 	private final SpeedBonusElements pSpeedBonus;
 	private final ArenaElements pArena;
 	private final AtElements pAt;
@@ -2427,6 +2526,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.pMaterial = new MaterialElements();
 		this.pPlayerProfile = new PlayerProfileElements();
 		this.pGameMode = new GameModeElements();
+		this.pSingleLevel = new SingleLevelElements();
+		this.pLevel = new LevelElements();
 		this.pSpeedBonus = new SpeedBonusElements();
 		this.pArena = new ArenaElements();
 		this.pAt = new AtElements();
@@ -2671,7 +2772,19 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// Game modes.
+	//// Game modes. A mode is played in one or more levels: a mode of one level just gives its arena and
+	//// spawning, a mode of several levels gives them per level, in the order they are played.
+	////
+	////   mode Campaign "Campaign" {
+	////       player Rango
+	////       level "First steps" {
+	////           arena { background "Desert" }
+	////           layout { Tumbleweed size 2 at (60%, 40%) moving left }
+	////       }
+	////       level { ... }
+	////       win when all enemies cleared
+	////       lose when health depleted
+	////   }
 	//GameMode returns GameMode:
 	//    'mode' name=ID title=STRING '{'
 	//    ('description' description=STRING)?
@@ -2679,8 +2792,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    (    ('gravity' gravity=Decimal)?
 	//    &    (speedBonus=SpeedBonus)?
 	//    )
-	//    arena=Arena
-	//    spawning=SpawnStrategy
+	//    (levels+=SingleLevel | levels+=Level+)
 	//    Drops?
 	//    ('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 	//    'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
@@ -2691,6 +2803,31 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	
 	public ParserRule getGameModeRule() {
 		return getGameModeAccess().getRule();
+	}
+	
+	//// The only level of a mode, written without a level block.
+	//SingleLevel returns Level:
+	//    arena=Arena
+	//    spawning=SpawnStrategy;
+	public SingleLevelElements getSingleLevelAccess() {
+		return pSingleLevel;
+	}
+	
+	public ParserRule getSingleLevelRule() {
+		return getSingleLevelAccess().getRule();
+	}
+	
+	//Level returns Level:
+	//    'level' (title=STRING)? '{'
+	//    arena=Arena
+	//    spawning=SpawnStrategy
+	//    '}';
+	public LevelElements getLevelAccess() {
+		return pLevel;
+	}
+	
+	public ParserRule getLevelRule() {
+		return getLevelAccess().getRule();
 	}
 	
 	//// Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
@@ -2706,7 +2843,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// The arena. Positions are percentages of the arena: (0%, 0%) is the left end of the floor.
+	//// The arena of a level. Positions are percentages of the arena: (0%, 0%) is the left end of the floor.
 	//Arena returns Arena:
 	//    'arena' '{'
 	//    'background' background=STRING

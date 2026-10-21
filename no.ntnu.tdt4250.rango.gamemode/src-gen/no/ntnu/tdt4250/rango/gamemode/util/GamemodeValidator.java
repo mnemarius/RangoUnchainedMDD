@@ -126,6 +126,8 @@ public class GamemodeValidator extends EObjectValidator {
 				return validatePlayerProfile((PlayerProfile)value, diagnostics, context);
 			case GamemodePackage.GAME_MODE:
 				return validateGameMode((GameMode)value, diagnostics, context);
+			case GamemodePackage.LEVEL:
+				return validateLevel((Level)value, diagnostics, context);
 			case GamemodePackage.SPEED_BONUS:
 				return validateSpeedBonus((SpeedBonus)value, diagnostics, context);
 			case GamemodePackage.ARENA:
@@ -1201,6 +1203,15 @@ public class GamemodeValidator extends EObjectValidator {
 	 */
 	public boolean validateGameMode_everyEnemyDrops(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return report(GamemodeConstraints.everyEnemyDrops(gameMode), diagnostics);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLevel(Level level, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(level, diagnostics, context);
 	}
 
 	/**

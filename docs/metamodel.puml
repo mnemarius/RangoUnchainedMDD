@@ -127,6 +127,12 @@ class GameMode {
   <<healthDepletedWhenHarmful>>
   <<everyEnemyDrops>>
 }
+class Level {
+  title : String [0..1]
+  /number : Int [0..1]
+  /popsToClear : Int [0..1]
+  /maxScore : Int [0..1]
+}
 class SpeedBonus {
   maxFactor : Float [0..1]
   duration : Float [0..1]
@@ -271,8 +277,9 @@ NamedElement <|-- PowerUp
 NamedElement <|-- Material
 NamedElement <|-- PlayerProfile
 GameMode --> "player 1" PlayerProfile
-GameMode *--> "arena 1" Arena
-GameMode *--> "spawning 1" SpawnStrategy
+GameMode *--> "levels 1..*" Level
+Level *--> "arena 1" Arena
+Level *--> "spawning 1" SpawnStrategy
 GameMode *--> "speedBonus 0..1" SpeedBonus
 GameMode *--> "drops *" DropTable
 GameMode *--> "winConditions *" EndCondition

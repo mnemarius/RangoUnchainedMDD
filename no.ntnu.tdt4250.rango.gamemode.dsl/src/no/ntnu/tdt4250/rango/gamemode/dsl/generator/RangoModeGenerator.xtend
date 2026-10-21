@@ -18,7 +18,8 @@ import static extension no.ntnu.tdt4250.rango.gamemode.dsl.generator.GeneratorNa
  * game by the command-line generator ({@link Main}) or into the preview folder of the Eclipse builder:
  * <ul>
  * <li>{@code core/src/generated/java/.../Modes/Generated/<Mode>Mode.java}: the rules of each mode;</li>
- * <li>{@code assets/modes/<Mode>.json}: the arena of each mode, in the game's level format;</li>
+ * <li>{@code assets/modes/<Mode>-<n>.json}: the arena of each level of each mode, in the game's level
+ * format;</li>
  * <li>{@code core/src/generated/java/.../Modes/Generated/GeneratedEdition.java}: the product name and
  * the modes in menu order, read by the menus and the desktop launcher;</li>
  * <li>{@code android/res/values/edition.xml}: the product name for the Android launcher.</li>
@@ -37,7 +38,9 @@ class RangoModeGenerator extends AbstractGenerator {
 		val source = resource.URI.lastSegment
 		for (mode : edition.modes) {
 			fsa.generateFile(javaFile(mode.className), modeClass.generate(mode, source))
-			fsa.generateFile(mode.arenaFile, arena.generate(mode))
+			for (level : mode.levels) {
+				fsa.generateFile(level.arenaFile, arena.generate(level))
+			}
 		}
 		fsa.generateFile(javaFile('GeneratedEdition'), edition.editionClass(source))
 		fsa.generateFile(ANDROID_VALUES, edition.androidValues(source))

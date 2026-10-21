@@ -58,8 +58,8 @@ public class GeneratorTest {
 		Set<String> paths = new TreeSet<>();
 		generate("arcade").getTextFiles().keySet().forEach(path -> paths.add(path.substring(IFileSystemAccess.DEFAULT_OUTPUT.length())));
 		assertEquals(Set.of(JAVA + "GeneratedEdition.java", JAVA + "TimeAttackMode.java", JAVA + "PopFrenzyMode.java",
-				JAVA + "SurvivorMode.java", "assets/modes/TimeAttack.json", "assets/modes/PopFrenzy.json",
-				"assets/modes/Survivor.json", "android/res/values/edition.xml"), paths);
+				JAVA + "SurvivorMode.java", "assets/modes/TimeAttack-1.json", "assets/modes/PopFrenzy-1.json",
+				"assets/modes/Survivor-1.json", "android/res/values/edition.xml"), paths);
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class GeneratorTest {
 		String endless = file(generate("survival"), JAVA + "EndlessMode.java");
 		assertTrue(endless.contains("int extra = cycle * 1;"));
 		assertTrue(endless.contains("spawner.spawn(\"Tumbleweed\", 3, 2 + extra, 30.0f, 75.0f, RIGHT);"));
-		assertTrue(endless.contains("public boolean loopsWaves() {\n        return true;"));
+		assertTrue(endless.contains("public boolean loopsWaves(int level) {\n        switch (level) {\n            case 0:\n                return true;"), endless);
 		assertTrue(endless.contains("arena.teleporter(\"West\", 6.0f, 20.0f, \"East\", true, false);"));
 	}
 
@@ -138,14 +138,29 @@ public class GeneratorTest {
 	}
 
 	@Test
+	public void eachLevelGetsItsArenaAndSpawning() {
+		InMemoryFileSystemAccess files = generate("survival");
+		String campaign = file(files, JAVA + "CampaignMode.java");
+		assertTrue(campaign.contains("public int levelCount() {\n        return 5;"), campaign);
+		assertTrue(campaign.contains("case 1:\n                return \"Cactus Garden\";"), campaign);
+		assertTrue(campaign.contains("case 4:\n                return \"modes/Campaign-5.json\";"), campaign);
+		assertTrue(campaign.contains("private void spawnWaveOfLevel5(int wave, int cycle, Spawner spawner) {"), campaign);
+		for (int level = 1; level <= 5; level++) {
+			file(files, "assets/modes/Campaign-" + level + ".json");
+		}
+		assertTrue(file(files, "assets/modes/Campaign-2.json").contains("\"subType\": \"Cactus\""));
+		assertTrue(file(files, "assets/modes/Campaign-3.json").contains("{ \"name\": \"Mesa\""));
+	}
+
+	@Test
 	public void arenasUseTheLevelFormat() {
 		InMemoryFileSystemAccess files = generate("arcade");
-		String popFrenzy = file(files, "assets/modes/PopFrenzy.json");
+		String popFrenzy = file(files, "assets/modes/PopFrenzy-1.json");
 		// six bubbles spread out around 50 %, then the two tumbleweeds of the layout
 		assertEquals(8, popFrenzy.split("\"type\": \"Enemy\"").length - 1);
 		assertTrue(popFrenzy.contains("\"subType\": \"Floor\", \"material\": \"Rubber\""));
 		assertTrue(popFrenzy.contains("\"health\": 6"));
-		String survivor = file(files, "assets/modes/Survivor.json");
+		String survivor = file(files, "assets/modes/Survivor-1.json");
 		assertTrue(survivor.contains("{ \"name\": \"Pillar\", \"dimension\": { \"x\": 50.0, \"y\": 20.0, \"width\": 40, \"height\": 160, \"relative\": true }"));
 		assertTrue(file(files, "android/res/values/edition.xml").contains("Rango Unchained: Arcade"));
 	}

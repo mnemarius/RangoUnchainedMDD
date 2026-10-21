@@ -46,8 +46,28 @@ public final class EndlessMode extends GameModeDefinition {
     }
 
     @Override
-    public String arenaFile() {
-        return "modes/Endless.json";
+    public int levelCount() {
+        return 1;
+    }
+
+    @Override
+    public String levelTitle(int level) {
+        switch (level) {
+            case 0:
+                return "Level 1";
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public String arenaFile(int level) {
+        switch (level) {
+            case 0:
+                return "modes/Endless-1.json";
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -112,38 +132,69 @@ public final class EndlessMode extends GameModeDefinition {
     }
 
     @Override
-    public void buildArena(ArenaBuilder arena) {
-        arena.jumpPad("Spring", 50.0f, 0.0f, 12.0f, true, true);
-        arena.teleporter("West", 6.0f, 20.0f, "East", true, false);
-        arena.teleporter("East", 94.0f, 20.0f, "West", true, false);
-    }
-
-    @Override
-    public int waveCount() {
-        return 3;
-    }
-
-    @Override
-    public boolean loopsWaves() {
-        return true;
-    }
-
-    @Override
-    public float waveDelay(int wave) {
-        switch (wave) {
+    public void buildArena(int level, ArenaBuilder arena) {
+        switch (level) {
             case 0:
-                return 0.0f;
-            case 1:
-                return 3.0f;
-            case 2:
-                return 5.0f;
+                arena.jumpPad("Spring", 50.0f, 0.0f, 12.0f, true, true);
+                arena.teleporter("West", 6.0f, 20.0f, "East", true, false);
+                arena.teleporter("East", 94.0f, 20.0f, "West", true, false);
+                break;
+            default:
+                break; // only blocks, which the arena resource places
+        }
+    }
+
+    @Override
+    public int waveCount(int level) {
+        switch (level) {
+            case 0:
+                return 3;
+            default:
+                return 0;
+        }
+    }
+
+    @Override
+    public boolean loopsWaves(int level) {
+        switch (level) {
+            case 0:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public float waveDelay(int level, int wave) {
+        switch (level) {
+            case 0:
+                switch (wave) {
+                    case 0:
+                        return 0.0f;
+                    case 1:
+                        return 3.0f;
+                    case 2:
+                        return 5.0f;
+                    default:
+                        return 0f;
+                }
             default:
                 return 0f;
         }
     }
 
     @Override
-    public void spawnWave(int wave, int cycle, Spawner spawner) {
+    public void spawnWave(int level, int wave, int cycle, Spawner spawner) {
+        switch (level) {
+            case 0:
+                spawnWaveOfLevel1(wave, cycle, spawner);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void spawnWaveOfLevel1(int wave, int cycle, Spawner spawner) {
         int extra = cycle * 1;
         switch (wave) {
             case 0:

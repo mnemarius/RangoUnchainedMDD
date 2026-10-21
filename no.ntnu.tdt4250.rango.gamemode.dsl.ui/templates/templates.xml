@@ -57,4 +57,34 @@
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Obstacle" deleted="false" description="Two teleporters leading to each other" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.teleporters" name="teleporter pair">teleporter ${West} at (${6}%, ${10}%) to ${East} affects ${everything}
 teleporter ${East} at (${94}%, ${10}%) to ${West} affects ${everything}</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable" deleted="false" description="The drop table of one enemy type: its chance to drop, then the power-ups by weight" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.droptable" name="drop table">${enemy:CrossReference('DropTable.enemyType')} ${10}% { ${powerUp:CrossReference('Drop.powerUp')} weight ${2}, ${other:CrossReference('Drop.powerUp')} }</template>
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode" deleted="false" description="A mode of several levels, each cleared to unlock the next" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.levels" name="mode (levels)">mode ${Name} "${Title}" {
+	description "${Clear every level.}"
+	player ${player:CrossReference('GameMode.player')}
+	level "${First}" {
+		arena {
+			background "Desert"
+		}
+		layout {
+			${type:CrossReference('EnemySpawn.type')} size 2 at (${60}%, ${50}%) moving left
+		}
+	}
+	level "${Second}" {
+		arena {
+			background "Desert"
+		}
+		layout {
+			${type} size 3 at (${60}%, ${50}%) moving left
+		}
+	}
+	win when all enemies cleared
+	lose when health depleted
+}</template>
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Level" deleted="false" description="A level with its own arena and enemies" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.level" name="level">level "${Title}" {
+	arena {
+		background "Desert"
+	}
+	layout {
+		${type:CrossReference('EnemySpawn.type')} size 3 at (${60}%, ${50}%) moving left
+	}
+}</template>
 </templates>

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import io.github.RangoUnchained.Controllers.GameController;
+import io.github.RangoUnchained.Modes.GameModeDefinition;
 import io.github.RangoUnchained.Modes.Generated.GeneratedEdition;
 import io.github.RangoUnchained.Views.Utils.BaseScreen;
 import io.github.RangoUnchained.Views.Utils.ButtonFactory;
@@ -72,9 +73,6 @@ public class MainMenuView extends BaseScreen {
     if (game.getIsLoggedIn())
         LabelFactory.createLabel("Hi, " + game.getCurrentUser().getDisplayName(), getSkin(), "defaultFont", Color.BLACK, 10, table).row();
 
-        // Display login state
-        String userState = game.getIsLoggedIn() ? "Play" : "Play as guest";
-
         Table volumeTable = new Table();
         Table volumeSlider = SliderFactory.createVolumeSlider(game, getSkin()); 
         volumeTable.add(volumeSlider).width(BUTTON_WIDTH).pad(20);
@@ -85,8 +83,11 @@ public class MainMenuView extends BaseScreen {
             ButtonFactory.createDefaultButton("Log In", () -> game.setView(new LoginView()), table);
         }
 
-        ButtonFactory.createDefaultButton(userState, () -> game.setView(new SelectLevelView()), table);
-        ButtonFactory.createDefaultButton("Game Modes", () -> game.setView(new SelectModeView()), table);
+        // The game modes of the edition, generated from its model, and the hand-written tutorial
+        for (final GameModeDefinition mode : GeneratedEdition.modes()) {
+            ButtonFactory.createDefaultButton(mode.title(), () -> SelectModeLevelView.open(game, mode), table);
+        }
+        ButtonFactory.createDefaultButton("Tutorial", () -> game.setView(new GamePlayView(0)), table);
         ButtonFactory.createDefaultButton("Scoreboard", () -> game.setView(new ScoreboardView()), table);
         // Add extra options for logged in users
         if (game.getIsLoggedIn()) {

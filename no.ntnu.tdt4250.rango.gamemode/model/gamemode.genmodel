@@ -3,6 +3,10 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/no.ntnu.tdt4250.rango.gamemode/src-gen"
     modelPluginID="no.ntnu.tdt4250.rango.gamemode" modelName="Gamemode" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="21.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <genAnnotations source="http://www.eclipse.org/OCL/GenModel">
+    <details key="Use Delegates" value="true"/>
+    <details key="Use Null Annotations" value="false"/>
+  </genAnnotations>
   <foreignModel>gamemode.ecore</foreignModel>
   <genPackages prefix="Gamemode" basePackage="no.ntnu.tdt4250.rango" disposableProviderFactory="true"
       ecorePackage="gamemode.ecore#/">
@@ -92,8 +96,7 @@
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/enemyTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/gravity"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/speedBonus"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/arena"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/spawning"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/levels"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/drops"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/winConditions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/loseConditions"/>
@@ -101,6 +104,14 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/popsToClear"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/maxScore"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/effectiveDrops"/>
+    </genClasses>
+    <genClasses ecoreClass="gamemode.ecore#//Level">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Level/arena"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Level/spawning"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/number"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/popsToClear"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/maxScore"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//SpeedBonus">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//SpeedBonus/maxFactor"/>

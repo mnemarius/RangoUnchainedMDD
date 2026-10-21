@@ -4,17 +4,14 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 import java.util.Collection;
-
-import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
-import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
-
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -43,8 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getGravity <em>Gravity</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getSpeedBonus <em>Speed Bonus</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getArena <em>Arena</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getSpawning <em>Spawning</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getLevels <em>Levels</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getDrops <em>Drops</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getWinConditions <em>Win Conditions</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getLoseConditions <em>Lose Conditions</em>}</li>
@@ -138,24 +134,14 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	protected SpeedBonus speedBonus;
 
 	/**
-	 * The cached value of the '{@link #getArena() <em>Arena</em>}' containment reference.
+	 * The cached value of the '{@link #getLevels() <em>Levels</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArena()
+	 * @see #getLevels()
 	 * @generated
 	 * @ordered
 	 */
-	protected Arena arena;
-
-	/**
-	 * The cached value of the '{@link #getSpawning() <em>Spawning</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSpawning()
-	 * @generated
-	 * @ordered
-	 */
-	protected SpawnStrategy spawning;
+	protected EList<Level> levels;
 
 	/**
 	 * The cached value of the '{@link #getDrops() <em>Drops</em>}' containment reference list.
@@ -396,88 +382,11 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	 * @generated
 	 */
 	@Override
-	public Arena getArena() {
-		return arena;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetArena(Arena newArena, NotificationChain msgs) {
-		Arena oldArena = arena;
-		arena = newArena;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__ARENA, oldArena, newArena);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Level> getLevels() {
+		if (levels == null) {
+			levels = new EObjectContainmentEList<Level>(Level.class, this, GamemodePackage.GAME_MODE__LEVELS);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setArena(Arena newArena) {
-		if (newArena != arena) {
-			NotificationChain msgs = null;
-			if (arena != null)
-				msgs = ((InternalEObject)arena).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__ARENA, null, msgs);
-			if (newArena != null)
-				msgs = ((InternalEObject)newArena).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__ARENA, null, msgs);
-			msgs = basicSetArena(newArena, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__ARENA, newArena, newArena));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public SpawnStrategy getSpawning() {
-		return spawning;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetSpawning(SpawnStrategy newSpawning, NotificationChain msgs) {
-		SpawnStrategy oldSpawning = spawning;
-		spawning = newSpawning;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__SPAWNING, oldSpawning, newSpawning);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setSpawning(SpawnStrategy newSpawning) {
-		if (newSpawning != spawning) {
-			NotificationChain msgs = null;
-			if (spawning != null)
-				msgs = ((InternalEObject)spawning).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__SPAWNING, null, msgs);
-			if (newSpawning != null)
-				msgs = ((InternalEObject)newSpawning).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__SPAWNING, null, msgs);
-			msgs = basicSetSpawning(newSpawning, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__SPAWNING, newSpawning, newSpawning));
+		return levels;
 	}
 
 	/**
@@ -569,10 +478,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 		switch (featureID) {
 			case GamemodePackage.GAME_MODE__SPEED_BONUS:
 				return basicSetSpeedBonus(null, msgs);
-			case GamemodePackage.GAME_MODE__ARENA:
-				return basicSetArena(null, msgs);
-			case GamemodePackage.GAME_MODE__SPAWNING:
-				return basicSetSpawning(null, msgs);
+			case GamemodePackage.GAME_MODE__LEVELS:
+				return ((InternalEList<?>)getLevels()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.GAME_MODE__DROPS:
 				return ((InternalEList<?>)getDrops()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.GAME_MODE__WIN_CONDITIONS:
@@ -604,10 +511,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return getGravity();
 			case GamemodePackage.GAME_MODE__SPEED_BONUS:
 				return getSpeedBonus();
-			case GamemodePackage.GAME_MODE__ARENA:
-				return getArena();
-			case GamemodePackage.GAME_MODE__SPAWNING:
-				return getSpawning();
+			case GamemodePackage.GAME_MODE__LEVELS:
+				return getLevels();
 			case GamemodePackage.GAME_MODE__DROPS:
 				return getDrops();
 			case GamemodePackage.GAME_MODE__WIN_CONDITIONS:
@@ -650,11 +555,9 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__SPEED_BONUS:
 				setSpeedBonus((SpeedBonus)newValue);
 				return;
-			case GamemodePackage.GAME_MODE__ARENA:
-				setArena((Arena)newValue);
-				return;
-			case GamemodePackage.GAME_MODE__SPAWNING:
-				setSpawning((SpawnStrategy)newValue);
+			case GamemodePackage.GAME_MODE__LEVELS:
+				getLevels().clear();
+				getLevels().addAll((Collection<? extends Level>)newValue);
 				return;
 			case GamemodePackage.GAME_MODE__DROPS:
 				getDrops().clear();
@@ -695,11 +598,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__SPEED_BONUS:
 				setSpeedBonus((SpeedBonus)null);
 				return;
-			case GamemodePackage.GAME_MODE__ARENA:
-				setArena((Arena)null);
-				return;
-			case GamemodePackage.GAME_MODE__SPAWNING:
-				setSpawning((SpawnStrategy)null);
+			case GamemodePackage.GAME_MODE__LEVELS:
+				getLevels().clear();
 				return;
 			case GamemodePackage.GAME_MODE__DROPS:
 				getDrops().clear();
@@ -734,10 +634,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return gravity != GRAVITY_EDEFAULT;
 			case GamemodePackage.GAME_MODE__SPEED_BONUS:
 				return speedBonus != null;
-			case GamemodePackage.GAME_MODE__ARENA:
-				return arena != null;
-			case GamemodePackage.GAME_MODE__SPAWNING:
-				return spawning != null;
+			case GamemodePackage.GAME_MODE__LEVELS:
+				return levels != null && !levels.isEmpty();
 			case GamemodePackage.GAME_MODE__DROPS:
 				return drops != null && !drops.isEmpty();
 			case GamemodePackage.GAME_MODE__WIN_CONDITIONS:

@@ -7,6 +7,7 @@ import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -21,7 +22,8 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  * game by the command-line generator ({@link Main}) or into the preview folder of the Eclipse builder:
  * <ul>
  * <li>{@code core/src/generated/java/.../Modes/Generated/<Mode>Mode.java}: the rules of each mode;</li>
- * <li>{@code assets/modes/<Mode>.json}: the arena of each mode, in the game's level format;</li>
+ * <li>{@code assets/modes/<Mode>-<n>.json}: the arena of each level of each mode, in the game's level
+ * format;</li>
  * <li>{@code core/src/generated/java/.../Modes/Generated/GeneratedEdition.java}: the product name and
  * the modes in menu order, read by the menus and the desktop launcher;</li>
  * <li>{@code android/res/values/edition.xml}: the product name for the Android launcher.</li>
@@ -46,7 +48,10 @@ public class RangoModeGenerator extends AbstractGenerator {
     for (final GameMode mode : _modes) {
       {
         fsa.generateFile(GeneratorNames.javaFile(GeneratorNames.className(mode)), this.modeClass.generate(mode, source));
-        fsa.generateFile(GeneratorNames.arenaFile(mode), this.arena.generate(mode));
+        EList<Level> _levels = mode.getLevels();
+        for (final Level level : _levels) {
+          fsa.generateFile(GeneratorNames.arenaFile(level), this.arena.generate(level));
+        }
       }
     }
     fsa.generateFile(GeneratorNames.javaFile("GeneratedEdition"), this.editionClass(edition, source));

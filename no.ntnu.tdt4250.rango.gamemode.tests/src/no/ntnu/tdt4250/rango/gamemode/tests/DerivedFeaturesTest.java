@@ -9,7 +9,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Split;
+import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 
 /** The derived features of the metamodel, on the fixture edition. */
@@ -81,6 +84,45 @@ public class DerivedFeaturesTest {
 		f.schedule.setLoop(true);
 		assertEquals(GamemodeDerivations.UNBOUNDED, f.waves.getPopsToClear());
 		assertEquals(GamemodeDerivations.UNBOUNDED, f.waves.getMaxScore());
+	}
+
+	@Test
+	public void modesAddUpTheirLevels() {
+		Level second = ModelFixture.level();
+		FixedLayout layout = ModelFixture.F.createFixedLayout();
+		layout.getSpawns().add(ModelFixture.spawn(f.bomb, 1, 2));
+		second.setSpawning(layout);
+		f.clear.getLevels().add(second);
+		assertEquals(1, ModelFixture.level(f.clear).getNumber());
+		assertEquals(2, second.getNumber());
+		assertEquals(2, second.getPopsToClear());
+		assertEquals(50, second.getMaxScore());
+		assertEquals(22, f.clear.getPopsToClear());
+		assertEquals(265, f.clear.getMaxScore());
+	}
+
+	@Test
+	public void aLoopingLevelMakesTheModeUnbounded() {
+		Level second = ModelFixture.level();
+		second.setSpawning(ModelFixture.copyOf(f.schedule));
+		((WaveSchedule) second.getSpawning()).setLoop(true);
+		f.waves.getLevels().add(second);
+		assertEquals(17, ModelFixture.level(f.waves).getPopsToClear());
+		assertEquals(GamemodeDerivations.UNBOUNDED, f.waves.getPopsToClear());
+		assertEquals(GamemodeDerivations.UNBOUNDED, f.waves.getMaxScore());
+	}
+
+	@Test
+	public void enemyTypesComeFromEveryLevel() {
+		// the first level only spawns a Tumbleweed, the second a Bomb
+		f.layout.getSpawns().remove(1);
+		assertEquals(List.of(f.tumbleweed), f.clear.getEnemyTypes());
+		Level second = ModelFixture.level();
+		FixedLayout layout = ModelFixture.F.createFixedLayout();
+		layout.getSpawns().add(ModelFixture.spawn(f.bomb, 1, 1));
+		second.setSpawning(layout);
+		f.clear.getLevels().add(second);
+		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getEnemyTypes());
 	}
 
 	@Test

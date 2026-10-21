@@ -1,0 +1,16 @@
+{
+  "metaData": {
+    "levelnr": -1,
+    "theme": "Desert"
+  },
+  "entitiesData": [
+    { "name": "Background", "dimension": {}, "typeInfo": { "type": "Background", "subType": "Desert" } },
+    { "name": "Player-Rango", "health": 5, "dimension": { "x": 35.0, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
+    { "name": "ObsticleLeft", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Left", "material": "Ice", "sprite": "Obstacles/Ice.png" } },
+    { "name": "ObsticleRight", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Right", "material": "Ice", "sprite": "Obstacles/Ice.png" } },
+    { "name": "ObsticleRoof", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Roof", "material": "Ice", "sprite": "Obstacles/Ice.png" } },
+    { "name": "ObsticleFloor", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Floor", "material": "Grass", "sprite": "Obstacles/Grass.png" } },
+    { "name": "Ledge", "dimension": { "x": 25.0, "y": 45.0, "width": 180, "height": 24, "relative": true }, "typeInfo": { "type": "Obsticle", "subType": "Block", "material": "Ice", "sprite": "Obstacles/Ice.png" } },
+    { "name": "Shelf", "dimension": { "x": 75.0, "y": 45.0, "width": 180, "height": 24, "relative": true }, "typeInfo": { "type": "Obsticle", "subType": "Block", "material": "Grass", "sprite": "Obstacles/Grass.png" } }
+  ]
+}

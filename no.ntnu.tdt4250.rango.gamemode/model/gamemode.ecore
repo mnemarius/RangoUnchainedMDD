@@ -408,7 +408,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GameMode" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A way to play the game: the rules of one round, from what spawns to when the round ends."/>
+      <details key="documentation" value="A way to play the game: the rules its rounds are played by, from what popping an enemy does to when a round ends, and the levels it is played in."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyEnemyDrops"/>
@@ -435,7 +435,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="enemyTypes" upperBound="-1"
         eType="#//EnemyType" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The enemy types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them."/>
+        <details key="documentation" value="The enemy types that can appear in this mode: those its levels spawn, and everything popping them can produce, in the order the edition declares them."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gravity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
@@ -450,16 +450,10 @@
         <details key="documentation" value="Makes early pops worth more. Without a speed bonus, each pop is worth the points of its enemy type."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arena" lowerBound="1" eType="#//Arena"
-        containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="levels" lowerBound="1"
+        upperBound="-1" eType="#//Level" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The playing field of the mode."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="spawning" lowerBound="1"
-        eType="#//SpawnStrategy" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Which enemies enter the arena, where and when."/>
+        <details key="documentation" value="The levels of the mode, in the order they are played. Each level is one round under the rules of the mode; winning it unlocks the next."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="drops" upperBound="-1"
@@ -489,19 +483,59 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="popsToClear" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The tongue hits needed to pop every enemy the mode spawns, counting all fragments. -1 if the waves loop, since the mode then never runs out of enemies."/>
+        <details key="documentation" value="The tongue hits needed to pop every enemy of every level, counting all fragments. -1 if the waves of a level loop, since that level then never runs out of enemies."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxScore" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The points earned by popping everything the mode spawns, before any speed bonus. -1 if the waves loop."/>
+        <details key="documentation" value="The points earned by popping everything in every level, before any speed bonus. -1 if the waves of a level loop."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="effectiveDrops" upperBound="-1"
         eType="#//DropTable" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The drop tables that apply in this mode: its own if it has any, otherwise those of the edition."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Level">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="One round of a mode: the arena it is played in and the enemies that enter it."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the level shown in the game's menu. Without one, the level is called by its number."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arena" lowerBound="1" eType="#//Arena"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The playing field of the level."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spawning" lowerBound="1"
+        eType="#//SpawnStrategy" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Which enemies enter the arena, where and when."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The position of the level in its mode, counting from 1."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="popsToClear" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The tongue hits needed to pop every enemy the level spawns, counting all fragments. -1 if the waves loop, since the level then never runs out of enemies."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxScore" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The points earned by popping everything the level spawns, before any speed bonus. -1 if the waves loop."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -531,7 +565,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Arena">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The walled playing field of a mode."/>
+      <details key="documentation" value="The walled playing field of a level."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="playerStartInside"/>

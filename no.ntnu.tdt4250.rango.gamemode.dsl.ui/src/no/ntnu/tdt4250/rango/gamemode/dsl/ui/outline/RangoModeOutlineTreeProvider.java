@@ -11,23 +11,26 @@ import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
 
 /**
- * The outline shows an edition as its building blocks and its modes. A mode lists its arena, its
- * spawning, its drop tables and then its end conditions, labelled "win when ..." and "lose when ...".
+ * The outline shows an edition as its building blocks and its modes. A mode lists its levels (or,
+ * if it has only one, that level's arena and spawning), its drop tables and then its end conditions,
+ * labelled "win when ..." and "lose when ...".
  * Elements without further structure are leaves.
  */
 public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	protected void _createChildren(IOutlineNode parent, GameMode mode) {
-		if (mode.getArena() != null) {
-			createNode(parent, mode.getArena());
-		}
-		if (mode.getSpawning() != null) {
-			createNode(parent, mode.getSpawning());
+		if (mode.getLevels().size() == 1) {
+			_createChildren(parent, mode.getLevels().get(0));
+		} else {
+			for (Level level : mode.getLevels()) {
+				createNode(parent, level);
+			}
 		}
 		for (DropTable table : mode.getDrops()) {
 			createNode(parent, table);
@@ -37,6 +40,15 @@ public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		}
 		for (EndCondition condition : mode.getLoseConditions()) {
 			createNode(parent, condition);
+		}
+	}
+
+	protected void _createChildren(IOutlineNode parent, Level level) {
+		if (level.getArena() != null) {
+			createNode(parent, level.getArena());
+		}
+		if (level.getSpawning() != null) {
+			createNode(parent, level.getSpawning());
 		}
 	}
 

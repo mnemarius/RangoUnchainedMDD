@@ -44,8 +44,28 @@ public final class WaveRushMode extends GameModeDefinition {
     }
 
     @Override
-    public String arenaFile() {
-        return "modes/WaveRush.json";
+    public int levelCount() {
+        return 1;
+    }
+
+    @Override
+    public String levelTitle(int level) {
+        switch (level) {
+            case 0:
+                return "Level 1";
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public String arenaFile(int level) {
+        switch (level) {
+            case 0:
+                return "modes/WaveRush-1.json";
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -102,39 +122,68 @@ public final class WaveRushMode extends GameModeDefinition {
     }
 
     @Override
-    public void buildArena(ArenaBuilder arena) {
+    public void buildArena(int level, ArenaBuilder arena) {
+        switch (level) {
+            default:
+                break; // only blocks, which the arena resource places
+        }
     }
 
     @Override
-    public int waveCount() {
-        return 5;
-    }
-
-    @Override
-    public boolean loopsWaves() {
-        return false;
-    }
-
-    @Override
-    public float waveDelay(int wave) {
-        switch (wave) {
+    public int waveCount(int level) {
+        switch (level) {
             case 0:
-                return 0.0f;
-            case 1:
-                return 1.0f;
-            case 2:
-                return 1.0f;
-            case 3:
-                return 1.0f;
-            case 4:
-                return 1.0f;
+                return 5;
+            default:
+                return 0;
+        }
+    }
+
+    @Override
+    public boolean loopsWaves(int level) {
+        switch (level) {
+            case 0:
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public float waveDelay(int level, int wave) {
+        switch (level) {
+            case 0:
+                switch (wave) {
+                    case 0:
+                        return 0.0f;
+                    case 1:
+                        return 1.0f;
+                    case 2:
+                        return 1.0f;
+                    case 3:
+                        return 1.0f;
+                    case 4:
+                        return 1.0f;
+                    default:
+                        return 0f;
+                }
             default:
                 return 0f;
         }
     }
 
     @Override
-    public void spawnWave(int wave, int cycle, Spawner spawner) {
+    public void spawnWave(int level, int wave, int cycle, Spawner spawner) {
+        switch (level) {
+            case 0:
+                spawnWaveOfLevel1(wave, cycle, spawner);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void spawnWaveOfLevel1(int wave, int cycle, Spawner spawner) {
         switch (wave) {
             case 0:
                 spawner.spawn("Tumbleweed", 3, 1, 50.0f, 70.0f, RIGHT);

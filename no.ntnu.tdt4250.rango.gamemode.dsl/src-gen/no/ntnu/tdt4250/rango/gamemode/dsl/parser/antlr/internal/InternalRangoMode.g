@@ -1802,48 +1802,51 @@ ruleGameMode returns [EObject current=null]
 		)
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getArenaArenaParserRuleCall_8_0());
-				}
-				lv_arena_12_0=ruleArena
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getGameModeRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getGameModeAccess().getLevelsSingleLevelParserRuleCall_8_0_0());
 					}
-					set(
-						$current,
-						"arena",
-						lv_arena_12_0,
-						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Arena");
-					afterParserOrEnumRuleCall();
-				}
+					lv_levels_12_0=ruleSingleLevel
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getGameModeRule());
+						}
+						add(
+							$current,
+							"levels",
+							lv_levels_12_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SingleLevel");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
-		)
-		(
+			    |
 			(
-				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getSpawningSpawnStrategyParserRuleCall_9_0());
-				}
-				lv_spawning_13_0=ruleSpawnStrategy
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getGameModeRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getGameModeAccess().getLevelsLevelParserRuleCall_8_1_0());
 					}
-					set(
-						$current,
-						"spawning",
-						lv_spawning_13_0,
-						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpawnStrategy");
-					afterParserOrEnumRuleCall();
-				}
-			)
+					lv_levels_13_0=ruleLevel
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getGameModeRule());
+						}
+						add(
+							$current,
+							"levels",
+							lv_levels_13_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Level");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)+
 		)
 		(
 			{
 				if ($current==null) {
 					$current = createModelElement(grammarAccess.getGameModeRule());
 				}
-				newCompositeNode(grammarAccess.getGameModeAccess().getDropsParserRuleCall_10());
+				newCompositeNode(grammarAccess.getGameModeAccess().getDropsParserRuleCall_9());
 			}
 			this_Drops_14=ruleDrops[$current]
 			{
@@ -1854,16 +1857,16 @@ ruleGameMode returns [EObject current=null]
 		(
 			otherlv_15='win'
 			{
-				newLeafNode(otherlv_15, grammarAccess.getGameModeAccess().getWinKeyword_11_0());
+				newLeafNode(otherlv_15, grammarAccess.getGameModeAccess().getWinKeyword_10_0());
 			}
 			otherlv_16='when'
 			{
-				newLeafNode(otherlv_16, grammarAccess.getGameModeAccess().getWhenKeyword_11_1());
+				newLeafNode(otherlv_16, grammarAccess.getGameModeAccess().getWhenKeyword_10_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_11_2_0());
+						newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_10_2_0());
 					}
 					lv_winConditions_17_0=ruleEndCondition
 					{
@@ -1882,12 +1885,12 @@ ruleGameMode returns [EObject current=null]
 			(
 				otherlv_18='or'
 				{
-					newLeafNode(otherlv_18, grammarAccess.getGameModeAccess().getOrKeyword_11_3_0());
+					newLeafNode(otherlv_18, grammarAccess.getGameModeAccess().getOrKeyword_10_3_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_11_3_1_0());
+							newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_10_3_1_0());
 						}
 						lv_winConditions_19_0=ruleEndCondition
 						{
@@ -1907,16 +1910,16 @@ ruleGameMode returns [EObject current=null]
 		)?
 		otherlv_20='lose'
 		{
-			newLeafNode(otherlv_20, grammarAccess.getGameModeAccess().getLoseKeyword_12());
+			newLeafNode(otherlv_20, grammarAccess.getGameModeAccess().getLoseKeyword_11());
 		}
 		otherlv_21='when'
 		{
-			newLeafNode(otherlv_21, grammarAccess.getGameModeAccess().getWhenKeyword_13());
+			newLeafNode(otherlv_21, grammarAccess.getGameModeAccess().getWhenKeyword_12());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_14_0());
+					newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_13_0());
 				}
 				lv_loseConditions_22_0=ruleEndCondition
 				{
@@ -1935,12 +1938,12 @@ ruleGameMode returns [EObject current=null]
 		(
 			otherlv_23='or'
 			{
-				newLeafNode(otherlv_23, grammarAccess.getGameModeAccess().getOrKeyword_15_0());
+				newLeafNode(otherlv_23, grammarAccess.getGameModeAccess().getOrKeyword_14_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_15_1_0());
+						newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_14_1_0());
 					}
 					lv_loseConditions_24_0=ruleEndCondition
 					{
@@ -1959,7 +1962,151 @@ ruleGameMode returns [EObject current=null]
 		)*
 		otherlv_25='}'
 		{
-			newLeafNode(otherlv_25, grammarAccess.getGameModeAccess().getRightCurlyBracketKeyword_16());
+			newLeafNode(otherlv_25, grammarAccess.getGameModeAccess().getRightCurlyBracketKeyword_15());
+		}
+	)
+;
+
+// Entry rule entryRuleSingleLevel
+entryRuleSingleLevel returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getSingleLevelRule()); }
+	iv_ruleSingleLevel=ruleSingleLevel
+	{ $current=$iv_ruleSingleLevel.current; }
+	EOF;
+
+// Rule SingleLevel
+ruleSingleLevel returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getSingleLevelAccess().getArenaArenaParserRuleCall_0_0());
+				}
+				lv_arena_0_0=ruleArena
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getSingleLevelRule());
+					}
+					set(
+						$current,
+						"arena",
+						lv_arena_0_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Arena");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getSingleLevelAccess().getSpawningSpawnStrategyParserRuleCall_1_0());
+				}
+				lv_spawning_1_0=ruleSpawnStrategy
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getSingleLevelRule());
+					}
+					set(
+						$current,
+						"spawning",
+						lv_spawning_1_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpawnStrategy");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleLevel
+entryRuleLevel returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getLevelRule()); }
+	iv_ruleLevel=ruleLevel
+	{ $current=$iv_ruleLevel.current; }
+	EOF;
+
+// Rule Level
+ruleLevel returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='level'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getLevelAccess().getLevelKeyword_0());
+		}
+		(
+			(
+				lv_title_1_0=RULE_STRING
+				{
+					newLeafNode(lv_title_1_0, grammarAccess.getLevelAccess().getTitleSTRINGTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getLevelRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"title",
+						lv_title_1_0,
+						"org.eclipse.xtext.common.Terminals.STRING");
+				}
+			)
+		)?
+		otherlv_2='{'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getLevelAccess().getLeftCurlyBracketKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getLevelAccess().getArenaArenaParserRuleCall_3_0());
+				}
+				lv_arena_3_0=ruleArena
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getLevelRule());
+					}
+					set(
+						$current,
+						"arena",
+						lv_arena_3_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Arena");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getLevelAccess().getSpawningSpawnStrategyParserRuleCall_4_0());
+				}
+				lv_spawning_4_0=ruleSpawnStrategy
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getLevelRule());
+					}
+					set(
+						$current,
+						"spawning",
+						lv_spawning_4_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpawnStrategy");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_5='}'
+		{
+			newLeafNode(otherlv_5, grammarAccess.getLevelAccess().getRightCurlyBracketKeyword_5());
 		}
 	)
 ;

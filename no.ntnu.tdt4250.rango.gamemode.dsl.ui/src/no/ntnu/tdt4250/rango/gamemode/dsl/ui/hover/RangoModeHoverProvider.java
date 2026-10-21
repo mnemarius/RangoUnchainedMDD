@@ -14,6 +14,7 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
@@ -48,6 +49,9 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 		List<String> facts = new ArrayList<>();
 		if (object instanceof GameMode mode) {
 			facts.add("Enemy types (spawned, or produced by popping): " + names(mode.getEnemyTypes()));
+			if (mode.getLevels().size() > 1) {
+				facts.add(mode.getLevels().size() + " levels, each a round of its own; winning one unlocks the next.");
+			}
 			if (mode.getPopsToClear() == GamemodeDerivations.UNBOUNDED) {
 				facts.add("The waves loop: the enemies never run out.");
 			} else {
@@ -70,6 +74,13 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			facts.add("Points for a large enemy and all it breaks into: " + GamemodeDerivations.pointsFor(type, 3));
 			if (!type.getProducedTypes().isEmpty()) {
 				facts.add("Breaks into: " + names(type.getProducedTypes()));
+			}
+		} else if (object instanceof Level level) {
+			if (level.getPopsToClear() == GamemodeDerivations.UNBOUNDED) {
+				facts.add("Level " + level.getNumber() + ": the waves loop, so the enemies never run out.");
+			} else {
+				facts.add("Level " + level.getNumber() + ", pops to clear: " + level.getPopsToClear()
+						+ ", points for clearing everything: " + level.getMaxScore());
 			}
 		} else if (object instanceof EnemySpawn spawn) {
 			facts.add("Pops to clear: " + spawn.getPopsToClear());

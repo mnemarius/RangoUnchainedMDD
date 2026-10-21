@@ -42,7 +42,8 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 				});
 		acceptor.accept(issue, "Make the waves loop", "Makes the mode endless: its waves start over once cleared.",
 				"waves.png", (EObject element, IModificationContext context) -> {
-					if (((GameMode) element).getSpawning() instanceof WaveSchedule schedule) {
+					GameMode mode = (GameMode) element;
+					if (mode.getLevels().size() == 1 && mode.getLevels().get(0).getSpawning() instanceof WaveSchedule schedule) {
 						schedule.setLoop(true);
 					}
 				});

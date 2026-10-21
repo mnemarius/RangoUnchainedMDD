@@ -19,6 +19,7 @@ import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
@@ -106,18 +107,42 @@ public class ModeClassTemplate {
     }
     _builder.newLineIfNotEmpty();
     {
-      int _popsToClear = mode.getPopsToClear();
-      boolean _greaterEqualsThan = (_popsToClear >= 0);
-      if (_greaterEqualsThan) {
+      final Function1<Level, Boolean> _function = (Level it) -> {
+        int _popsToClear = it.getPopsToClear();
+        return Boolean.valueOf((_popsToClear >= 0));
+      };
+      boolean _exists = IterableExtensions.<Level>exists(mode.getLevels(), _function);
+      if (_exists) {
         _builder.append(" ");
         _builder.append("* <p>");
         _builder.newLine();
+      }
+    }
+    {
+      final Function1<Level, Boolean> _function_1 = (Level it) -> {
+        int _popsToClear = it.getPopsToClear();
+        return Boolean.valueOf((_popsToClear >= 0));
+      };
+      Iterable<Level> _filter = IterableExtensions.<Level>filter(mode.getLevels(), _function_1);
+      for(final Level level : _filter) {
         _builder.append(" ");
-        _builder.append("* Clearing everything takes ");
-        int _popsToClear_1 = mode.getPopsToClear();
-        _builder.append(_popsToClear_1, " ");
+        _builder.append("* ");
+        {
+          int _size = mode.getLevels().size();
+          boolean _greaterThan = (_size > 1);
+          if (_greaterThan) {
+            String _comment_2 = GeneratorNames.comment(GeneratorNames.levelTitle(level));
+            _builder.append(_comment_2, " ");
+            _builder.append(": clearing");
+          } else {
+            _builder.append("Clearing");
+          }
+        }
+        _builder.append(" everything takes ");
+        int _popsToClear = level.getPopsToClear();
+        _builder.append(_popsToClear, " ");
         _builder.append(" pops and is worth ");
-        int _maxScore = mode.getMaxScore();
+        int _maxScore = level.getMaxScore();
         _builder.append(_maxScore, " ");
         _builder.append(" points before bonuses.");
         _builder.newLineIfNotEmpty();
@@ -241,14 +266,96 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public String arenaFile() {");
+    _builder.append("public int levelCount() {");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return ");
-    String _javaString_6 = GeneratorNames.javaString(GeneratorNames.arenaResource(mode));
-    _builder.append(_javaString_6, "        ");
+    int _size_1 = mode.getLevels().size();
+    _builder.append(_size_1, "        ");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public String levelTitle(int level) {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("switch (level) {");
+    _builder.newLine();
+    {
+      EList<Level> _levels = mode.getLevels();
+      for(final Level level_1 : _levels) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number = level_1.getNumber();
+        int _minus = (_number - 1);
+        _builder.append(_minus, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("return ");
+        String _javaString_6 = GeneratorNames.javaString(GeneratorNames.levelTitle(level_1));
+        _builder.append(_javaString_6, "                ");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("return null;");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public String arenaFile(int level) {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("switch (level) {");
+    _builder.newLine();
+    {
+      EList<Level> _levels_1 = mode.getLevels();
+      for(final Level level_2 : _levels_1) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number_1 = level_2.getNumber();
+        int _minus_1 = (_number_1 - 1);
+        _builder.append(_minus_1, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("return ");
+        String _javaString_7 = GeneratorNames.javaString(GeneratorNames.arenaResource(level_2));
+        _builder.append(_javaString_7, "                ");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("return null;");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
@@ -305,8 +412,8 @@ public class ModeClassTemplate {
       for(final EnemyType type_1 : _enemyTypes_1) {
         _builder.append("            ");
         _builder.append("case ");
-        String _javaString_7 = GeneratorNames.javaString(type_1.getName());
-        _builder.append(_javaString_7, "            ");
+        String _javaString_8 = GeneratorNames.javaString(type_1.getName());
+        _builder.append(_javaString_8, "            ");
         _builder.append(":");
         _builder.newLineIfNotEmpty();
         _builder.append("            ");
@@ -363,16 +470,16 @@ public class ModeClassTemplate {
             _builder.append("        ");
             _builder.append("    ");
             _builder.append("case ");
-            String _javaString_8 = GeneratorNames.javaString(powerUp.getName());
-            _builder.append(_javaString_8, "            ");
+            String _javaString_9 = GeneratorNames.javaString(powerUp.getName());
+            _builder.append(_javaString_9, "            ");
             _builder.append(":");
             _builder.newLineIfNotEmpty();
             _builder.append("        ");
             _builder.append("    ");
             _builder.append("    ");
             _builder.append("return ");
-            String _javaString_9 = GeneratorNames.javaString(powerUp.getSprite());
-            _builder.append(_javaString_9, "                ");
+            String _javaString_10 = GeneratorNames.javaString(powerUp.getSprite());
+            _builder.append(_javaString_10, "                ");
             _builder.append(";");
             _builder.newLineIfNotEmpty();
           }
@@ -426,8 +533,8 @@ public class ModeClassTemplate {
             _builder.append("        ");
             _builder.append("    ");
             _builder.append("case ");
-            String _javaString_10 = GeneratorNames.javaString(material.getName());
-            _builder.append(_javaString_10, "            ");
+            String _javaString_11 = GeneratorNames.javaString(material.getName());
+            _builder.append(_javaString_11, "            ");
             _builder.append(":");
             _builder.newLineIfNotEmpty();
             _builder.append("        ");
@@ -461,145 +568,249 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public void buildArena(ArenaBuilder arena) {");
-    _builder.newLine();
-    {
-      Iterable<JumpPad> _filter = Iterables.<JumpPad>filter(mode.getArena().getObstacles(), JumpPad.class);
-      for(final JumpPad pad : _filter) {
-        _builder.append("        ");
-        _builder.append("arena.jumpPad(");
-        String _javaString_11 = GeneratorNames.javaString(pad.getName());
-        _builder.append(_javaString_11, "        ");
-        _builder.append(", ");
-        String _javaFloat_9 = GeneratorNames.javaFloat(pad.getX());
-        _builder.append(_javaFloat_9, "        ");
-        _builder.append(", ");
-        String _javaFloat_10 = GeneratorNames.javaFloat(pad.getY());
-        _builder.append(_javaFloat_10, "        ");
-        _builder.append(", ");
-        String _javaFloat_11 = GeneratorNames.javaFloat(pad.getLaunch());
-        _builder.append(_javaFloat_11, "        ");
-        _builder.append(", ");
-        boolean _enemies = GeneratorNames.enemies(pad.getAffects());
-        _builder.append(_enemies, "        ");
-        _builder.append(", ");
-        boolean _player = GeneratorNames.player(pad.getAffects());
-        _builder.append(_player, "        ");
-        _builder.append(");");
-        _builder.newLineIfNotEmpty();
-      }
-    }
-    {
-      Iterable<Teleporter> _filter_1 = Iterables.<Teleporter>filter(mode.getArena().getObstacles(), Teleporter.class);
-      for(final Teleporter teleporter : _filter_1) {
-        _builder.append("        ");
-        _builder.append("arena.teleporter(");
-        String _javaString_12 = GeneratorNames.javaString(teleporter.getName());
-        _builder.append(_javaString_12, "        ");
-        _builder.append(", ");
-        String _javaFloat_12 = GeneratorNames.javaFloat(teleporter.getX());
-        _builder.append(_javaFloat_12, "        ");
-        _builder.append(", ");
-        String _javaFloat_13 = GeneratorNames.javaFloat(teleporter.getY());
-        _builder.append(_javaFloat_13, "        ");
-        _builder.append(", ");
-        String _javaString_13 = GeneratorNames.javaString(teleporter.getTarget().getName());
-        _builder.append(_javaString_13, "        ");
-        _builder.append(", ");
-        boolean _enemies_1 = GeneratorNames.enemies(teleporter.getAffects());
-        _builder.append(_enemies_1, "        ");
-        _builder.append(", ");
-        boolean _player_1 = GeneratorNames.player(teleporter.getAffects());
-        _builder.append(_player_1, "        ");
-        _builder.append(");");
-        _builder.newLineIfNotEmpty();
-      }
-    }
-    _builder.append("    ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("@Override");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("public int waveCount() {");
+    _builder.append("public void buildArena(int level, ArenaBuilder arena) {");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("return ");
-    int _size = GeneratorNames.waves(mode).size();
-    _builder.append(_size, "        ");
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("@Override");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("public boolean loopsWaves() {");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("return ");
-    _builder.append(((mode.getSpawning() instanceof WaveSchedule) && ((WaveSchedule) mode.getSpawning()).isLoop()), "        ");
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("@Override");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("public float waveDelay(int wave) {");
+    _builder.append("switch (level) {");
     _builder.newLine();
     {
-      boolean _isEmpty_2 = GeneratorNames.waves(mode).isEmpty();
-      if (_isEmpty_2) {
-        _builder.append("        ");
-        _builder.append("return 0f;");
+      final Function1<Level, Boolean> _function_2 = (Level it) -> {
+        return Boolean.valueOf(((!IterableExtensions.isEmpty(Iterables.<JumpPad>filter(it.getArena().getObstacles(), JumpPad.class))) || (!IterableExtensions.isEmpty(Iterables.<Teleporter>filter(it.getArena().getObstacles(), Teleporter.class)))));
+      };
+      Iterable<Level> _filter_1 = IterableExtensions.<Level>filter(mode.getLevels(), _function_2);
+      for(final Level level_3 : _filter_1) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number_2 = level_3.getNumber();
+        int _minus_2 = (_number_2 - 1);
+        _builder.append(_minus_2, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
+        {
+          Iterable<JumpPad> _filter_2 = Iterables.<JumpPad>filter(level_3.getArena().getObstacles(), JumpPad.class);
+          for(final JumpPad pad : _filter_2) {
+            _builder.append("            ");
+            _builder.append("    ");
+            _builder.append("arena.jumpPad(");
+            String _javaString_12 = GeneratorNames.javaString(pad.getName());
+            _builder.append(_javaString_12, "                ");
+            _builder.append(", ");
+            String _javaFloat_9 = GeneratorNames.javaFloat(pad.getX());
+            _builder.append(_javaFloat_9, "                ");
+            _builder.append(", ");
+            String _javaFloat_10 = GeneratorNames.javaFloat(pad.getY());
+            _builder.append(_javaFloat_10, "                ");
+            _builder.append(", ");
+            String _javaFloat_11 = GeneratorNames.javaFloat(pad.getLaunch());
+            _builder.append(_javaFloat_11, "                ");
+            _builder.append(", ");
+            boolean _enemies = GeneratorNames.enemies(pad.getAffects());
+            _builder.append(_enemies, "                ");
+            _builder.append(", ");
+            boolean _player = GeneratorNames.player(pad.getAffects());
+            _builder.append(_player, "                ");
+            _builder.append(");");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        {
+          Iterable<Teleporter> _filter_3 = Iterables.<Teleporter>filter(level_3.getArena().getObstacles(), Teleporter.class);
+          for(final Teleporter teleporter : _filter_3) {
+            _builder.append("            ");
+            _builder.append("    ");
+            _builder.append("arena.teleporter(");
+            String _javaString_13 = GeneratorNames.javaString(teleporter.getName());
+            _builder.append(_javaString_13, "                ");
+            _builder.append(", ");
+            String _javaFloat_12 = GeneratorNames.javaFloat(teleporter.getX());
+            _builder.append(_javaFloat_12, "                ");
+            _builder.append(", ");
+            String _javaFloat_13 = GeneratorNames.javaFloat(teleporter.getY());
+            _builder.append(_javaFloat_13, "                ");
+            _builder.append(", ");
+            String _javaString_14 = GeneratorNames.javaString(teleporter.getTarget().getName());
+            _builder.append(_javaString_14, "                ");
+            _builder.append(", ");
+            boolean _enemies_1 = GeneratorNames.enemies(teleporter.getAffects());
+            _builder.append(_enemies_1, "                ");
+            _builder.append(", ");
+            boolean _player_1 = GeneratorNames.player(teleporter.getAffects());
+            _builder.append(_player_1, "                ");
+            _builder.append(");");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("break;");
         _builder.newLine();
-      } else {
-        _builder.append("        ");
+      }
+    }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("break; // only blocks, which the arena resource places");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public int waveCount(int level) {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("switch (level) {");
+    _builder.newLine();
+    {
+      EList<Level> _levels_2 = mode.getLevels();
+      for(final Level level_4 : _levels_2) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number_3 = level_4.getNumber();
+        int _minus_3 = (_number_3 - 1);
+        _builder.append(_minus_3, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("return ");
+        int _size_2 = GeneratorNames.waves(level_4).size();
+        _builder.append(_size_2, "                ");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("return 0;");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public boolean loopsWaves(int level) {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("switch (level) {");
+    _builder.newLine();
+    {
+      EList<Level> _levels_3 = mode.getLevels();
+      for(final Level level_5 : _levels_3) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number_4 = level_5.getNumber();
+        int _minus_4 = (_number_4 - 1);
+        _builder.append(_minus_4, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("return ");
+        _builder.append(((level_5.getSpawning() instanceof WaveSchedule) && ((WaveSchedule) level_5.getSpawning()).isLoop()), "                ");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("return false;");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public float waveDelay(int level, int wave) {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("switch (level) {");
+    _builder.newLine();
+    {
+      final Function1<Level, Boolean> _function_3 = (Level it) -> {
+        boolean _isEmpty_2 = GeneratorNames.waves(it).isEmpty();
+        return Boolean.valueOf((!_isEmpty_2));
+      };
+      Iterable<Level> _filter_4 = IterableExtensions.<Level>filter(mode.getLevels(), _function_3);
+      for(final Level level_6 : _filter_4) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number_5 = level_6.getNumber();
+        int _minus_5 = (_number_5 - 1);
+        _builder.append(_minus_5, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
+        _builder.append("            ");
+        _builder.append("    ");
         _builder.append("switch (wave) {");
         _builder.newLine();
         {
-          List<Wave> _waves = GeneratorNames.waves(mode);
+          List<Wave> _waves = GeneratorNames.waves(level_6);
           for(final Wave wave : _waves) {
+            _builder.append("            ");
             _builder.append("        ");
-            _builder.append("    ");
             _builder.append("case ");
-            int _number = wave.getNumber();
-            int _minus = (_number - 1);
-            _builder.append(_minus, "            ");
+            int _number_6 = wave.getNumber();
+            int _minus_6 = (_number_6 - 1);
+            _builder.append(_minus_6, "                    ");
             _builder.append(":");
             _builder.newLineIfNotEmpty();
+            _builder.append("            ");
             _builder.append("        ");
-            _builder.append("    ");
             _builder.append("    ");
             _builder.append("return ");
             String _javaFloat_14 = GeneratorNames.javaFloat(wave.getDelay());
-            _builder.append(_javaFloat_14, "                ");
+            _builder.append(_javaFloat_14, "                        ");
             _builder.append(";");
             _builder.newLineIfNotEmpty();
           }
         }
+        _builder.append("            ");
         _builder.append("        ");
-        _builder.append("    ");
         _builder.append("default:");
         _builder.newLine();
-        _builder.append("        ");
-        _builder.append("        ");
+        _builder.append("            ");
+        _builder.append("            ");
         _builder.append("return 0f;");
         _builder.newLine();
-        _builder.append("        ");
+        _builder.append("            ");
+        _builder.append("    ");
         _builder.append("}");
         _builder.newLine();
       }
     }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("return 0f;");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
@@ -608,15 +819,66 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public void spawnWave(int wave, int cycle, Spawner spawner) {");
+    _builder.append("public void spawnWave(int level, int wave, int cycle, Spawner spawner) {");
     _builder.newLine();
     _builder.append("        ");
-    CharSequence _spawnWaves = this.spawnWaves(mode.getSpawning(), mode);
-    _builder.append(_spawnWaves, "        ");
-    _builder.newLineIfNotEmpty();
+    _builder.append("switch (level) {");
+    _builder.newLine();
+    {
+      EList<Level> _levels_4 = mode.getLevels();
+      for(final Level level_7 : _levels_4) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number_7 = level_7.getNumber();
+        int _minus_7 = (_number_7 - 1);
+        _builder.append(_minus_7, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("spawnWaveOfLevel");
+        int _number_8 = level_7.getNumber();
+        _builder.append(_number_8, "                ");
+        _builder.append("(wave, cycle, spawner);");
+        _builder.newLineIfNotEmpty();
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("break;");
+        _builder.newLine();
+      }
+    }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("break;");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    {
+      EList<Level> _levels_5 = mode.getLevels();
+      for(final Level level_8 : _levels_5) {
+        _builder.newLine();
+        _builder.append("    ");
+        _builder.append("private void spawnWaveOfLevel");
+        int _number_9 = level_8.getNumber();
+        _builder.append(_number_9, "    ");
+        _builder.append("(int wave, int cycle, Spawner spawner) {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("    ");
+        CharSequence _spawnWaves = this.spawnWaves(level_8.getSpawning(), level_8);
+        _builder.append(_spawnWaves, "        ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("}");
+        _builder.newLine();
+      }
+    }
     _builder.newLine();
     _builder.append("    ");
     _builder.append("@Override");
@@ -632,14 +894,14 @@ public class ModeClassTemplate {
       for(final EnemyType type_2 : _enemyTypes_2) {
         _builder.append("            ");
         _builder.append("case ");
-        String _javaString_14 = GeneratorNames.javaString(type_2.getName());
-        _builder.append(_javaString_14, "            ");
+        String _javaString_15 = GeneratorNames.javaString(type_2.getName());
+        _builder.append(_javaString_15, "            ");
         _builder.append(":");
         _builder.newLineIfNotEmpty();
         {
           int _points = type_2.getPoints();
-          boolean _greaterThan = (_points > 0);
-          if (_greaterThan) {
+          boolean _greaterThan_1 = (_points > 0);
+          if (_greaterThan_1) {
             _builder.append("            ");
             _builder.append("    ");
             _builder.append("context.addScore(");
@@ -657,12 +919,12 @@ public class ModeClassTemplate {
         _builder.append(_pop, "                ");
         _builder.newLineIfNotEmpty();
         {
-          final Function1<DropTable, Boolean> _function = (DropTable it) -> {
+          final Function1<DropTable, Boolean> _function_4 = (DropTable it) -> {
             EnemyType _enemyType = it.getEnemyType();
             return Boolean.valueOf(Objects.equals(_enemyType, type_2));
           };
-          Iterable<DropTable> _filter_2 = IterableExtensions.<DropTable>filter(mode.getEffectiveDrops(), _function);
-          for(final DropTable table : _filter_2) {
+          Iterable<DropTable> _filter_5 = IterableExtensions.<DropTable>filter(mode.getEffectiveDrops(), _function_4);
+          for(final DropTable table : _filter_5) {
             _builder.append("            ");
             _builder.append("    ");
             CharSequence _drop = this.drop(table);
@@ -703,8 +965,8 @@ public class ModeClassTemplate {
       for(final EnemyType type_3 : _enemyTypes_3) {
         _builder.append("            ");
         _builder.append("case ");
-        String _javaString_15 = GeneratorNames.javaString(type_3.getName());
-        _builder.append(_javaString_15, "            ");
+        String _javaString_16 = GeneratorNames.javaString(type_3.getName());
+        _builder.append(_javaString_16, "            ");
         _builder.append(":");
         _builder.newLineIfNotEmpty();
         {
@@ -743,8 +1005,8 @@ public class ModeClassTemplate {
     _builder.append("public void onPowerUpCaught(String powerUp, ModeContext context) {");
     _builder.newLine();
     {
-      boolean _isEmpty_3 = mode.getPowerUps().isEmpty();
-      if (_isEmpty_3) {
+      boolean _isEmpty_2 = mode.getPowerUps().isEmpty();
+      if (_isEmpty_2) {
         _builder.append("        ");
         _builder.append("// nothing drops in this mode");
         _builder.newLine();
@@ -758,8 +1020,8 @@ public class ModeClassTemplate {
             _builder.append("        ");
             _builder.append("    ");
             _builder.append("case ");
-            String _javaString_16 = GeneratorNames.javaString(powerUp_1.getName());
-            _builder.append(_javaString_16, "            ");
+            String _javaString_17 = GeneratorNames.javaString(powerUp_1.getName());
+            _builder.append(_javaString_17, "            ");
             _builder.append(":");
             _builder.newLineIfNotEmpty();
             {
@@ -804,8 +1066,8 @@ public class ModeClassTemplate {
     _builder.append("public boolean isWon(ModeStats stats) {");
     _builder.newLine();
     {
-      boolean _isEmpty_4 = mode.getWinConditions().isEmpty();
-      if (_isEmpty_4) {
+      boolean _isEmpty_3 = mode.getWinConditions().isEmpty();
+      if (_isEmpty_3) {
         _builder.append("        ");
         _builder.append("return false; // endless: a round only ends when it is lost");
         _builder.newLine();
@@ -864,16 +1126,16 @@ public class ModeClassTemplate {
     return _builder;
   }
 
-  protected CharSequence _spawnWaves(final FixedLayout layout, final GameMode mode) {
+  protected CharSequence _spawnWaves(final FixedLayout layout, final Level level) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// all enemies are placed at the start by the arena resource ");
-    String _arenaResource = GeneratorNames.arenaResource(mode);
+    String _arenaResource = GeneratorNames.arenaResource(level);
     _builder.append(_arenaResource);
     _builder.newLineIfNotEmpty();
     return _builder;
   }
 
-  protected CharSequence _spawnWaves(final WaveSchedule schedule, final GameMode mode) {
+  protected CharSequence _spawnWaves(final WaveSchedule schedule, final Level level) {
     StringConcatenation _builder = new StringConcatenation();
     {
       int _escalation = schedule.getEscalation();
@@ -1202,14 +1464,14 @@ public class ModeClassTemplate {
   }
 
   @XbaseGenerated
-  public CharSequence spawnWaves(final SpawnStrategy layout, final GameMode mode) {
+  public CharSequence spawnWaves(final SpawnStrategy layout, final Level level) {
     if (layout instanceof FixedLayout) {
-      return _spawnWaves((FixedLayout)layout, mode);
+      return _spawnWaves((FixedLayout)layout, level);
     } else if (layout instanceof WaveSchedule) {
-      return _spawnWaves((WaveSchedule)layout, mode);
+      return _spawnWaves((WaveSchedule)layout, level);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(layout, mode).toString());
+        Arrays.<Object>asList(layout, level).toString());
     }
   }
 

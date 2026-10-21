@@ -191,6 +191,12 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GamemodePackage.LEVEL: {
+				Level level = (Level)theEObject;
+				T result = caseLevel(level);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GamemodePackage.SPEED_BONUS: {
 				SpeedBonus speedBonus = (SpeedBonus)theEObject;
 				T result = caseSpeedBonus(speedBonus);
@@ -620,6 +626,21 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGameMode(GameMode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Level</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Level</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLevel(Level object) {
 		return null;
 	}
 

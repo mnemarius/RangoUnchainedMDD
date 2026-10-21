@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * The walled playing field of a mode.
+ * The walled playing field of a level.
  * <!-- end-model-doc -->
  *
  * <p>

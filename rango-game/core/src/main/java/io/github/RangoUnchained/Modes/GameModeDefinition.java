@@ -1,12 +1,16 @@
 package io.github.RangoUnchained.Modes;
 
 /**
- * A game mode of the edition: the rules of one round.
+ * A game mode of the edition: the rules its rounds are played by, and the levels it is played in.
+ * Each level is one round with its own arena and enemies; winning a level unlocks the next.
  * <p>
  * Concrete game modes are not written by hand. They are generated from game mode models (the
  * {@code .rango} files of the game mode DSL) into the package {@code Modes.Generated}, together
  * with the arena resources they load from {@code assets/modes}. This class is the contract between
- * the generated code and the hand-written runtime ({@link ModeSession}).
+ * the generated code and the hand-written runtime ({@link ModeSession}). The tutorial is the one way
+ * of playing that is not a game mode: it stays hand-written.
+ * <p>
+ * Levels are numbered from 0 in the methods below.
  */
 public abstract class GameModeDefinition {
 
@@ -23,8 +27,17 @@ public abstract class GameModeDefinition {
     /** A one-line explanation shown in the menu. */
     public abstract String description();
 
-    /** The arena resource: background, walls, blocks, the player and the enemies placed at the start. */
-    public abstract String arenaFile();
+    /** The number of levels of the mode; at least 1. */
+    public abstract int levelCount();
+
+    /** The name of the given level shown in the menu. */
+    public abstract String levelTitle(int level);
+
+    /**
+     * The arena resource of the given level: background, walls, blocks, the player and the enemies
+     * placed at the start.
+     */
+    public abstract String arenaFile(int level);
 
     public abstract PlayerSpec player();
 
@@ -40,19 +53,19 @@ public abstract class GameModeDefinition {
     /** What enemies rebounding from the given material are sped up by; 1 for unknown materials. */
     public abstract float materialBounce(String material);
 
-    /** Adds the obstacles that are not plain blocks (jump pads, teleporters) to the arena. */
-    public abstract void buildArena(ArenaBuilder arena);
+    /** Adds the obstacles that are not plain blocks (jump pads, teleporters) to the arena of the given level. */
+    public abstract void buildArena(int level, ArenaBuilder arena);
 
-    /** The number of waves; 0 if all enemies are placed at the start. */
-    public abstract int waveCount();
+    /** The number of waves of the given level; 0 if all its enemies are placed at the start. */
+    public abstract int waveCount(int level);
 
-    public abstract boolean loopsWaves();
+    public abstract boolean loopsWaves(int level);
 
-    /** Seconds of calm before the given wave (0-based) starts. */
-    public abstract float waveDelay(int wave);
+    /** Seconds of calm before the given wave (0-based) of the given level starts. */
+    public abstract float waveDelay(int level, int wave);
 
-    /** Spawns the given wave (0-based) in the given round of the waves (0 the first time). */
-    public abstract void spawnWave(int wave, int cycle, Spawner spawner);
+    /** Spawns the given wave (0-based) of the given level in the given round of the waves (0 the first time). */
+    public abstract void spawnWave(int level, int wave, int cycle, Spawner spawner);
 
     /** Applies what happens when the tongue pops a enemy: score, fragments and drops. */
     public abstract void onEnemyPopped(EnemyState enemy, ModeContext context);
