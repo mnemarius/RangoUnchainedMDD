@@ -3,6 +3,8 @@
  */
 package no.ntnu.tdt4250.rango.gamemode.dsl.ui.quickfix;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
@@ -13,6 +15,9 @@ import org.eclipse.xtext.validation.Issue;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.Drop;
+import no.ntnu.tdt4250.rango.gamemode.DropTable;
+import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
@@ -21,6 +26,7 @@ import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
 import no.ntnu.tdt4250.rango.gamemode.dsl.validation.RangoModeValidator;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
+import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 
 /**
  * Quick fixes for the problems the metamodel constraints and the DSL checks report. They work on the
@@ -48,6 +54,41 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 				(EObject element, IModificationContext context) -> {
 					((GameMode) element).getLoseConditions().add(0, GamemodeFactory.eINSTANCE.createHealthDepleted());
 				});
+	}
+
+	/**
+	 * Gives every ball type of the mode that lacks one a drop table: 10 % of the first power-up of the
+	 * edition. The tables go where the mode's drops come from: the mode's own tables if it has any,
+	 * otherwise the edition's.
+	 */
+	@Fix(GamemodeConstraints.ISSUE_NO_DROP_TABLE)
+	public void addDropTables(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Add drop tables for the balls without one",
+				"Adds a 10% drop table for each ball type of the mode that has none, dropping the edition's first power-up.",
+				"drops.png", (EObject element, IModificationContext context) -> {
+					GameMode mode = (GameMode) element;
+					if (!(mode.eContainer() instanceof Edition edition) || edition.getPowerUps().isEmpty()) {
+						return;
+					}
+					List<DropTable> tables = mode.getDrops().isEmpty() ? edition.getDrops() : mode.getDrops();
+					for (BallType type : mode.getBallTypes()) {
+						if (GamemodeDerivations.dropTableFor(mode, type) == null) {
+							DropTable table = GamemodeFactory.eINSTANCE.createDropTable();
+							table.setBallType(type);
+							table.setChance(10);
+							Drop drop = GamemodeFactory.eINSTANCE.createDrop();
+							drop.setPowerUp(edition.getPowerUps().get(0));
+							table.getEntries().add(drop);
+							tables.add(table);
+						}
+					}
+				});
+	}
+
+	@Fix(RangoModeValidator.USELESS_DROP_TABLE)
+	public void removeDropTable(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove the drop table", "Removes the drop table, which has no effect.", "drops.png",
+				(EObject element, IModificationContext context) -> EcoreUtil.remove(element));
 	}
 
 	@Fix(GamemodeConstraints.ISSUE_WRONG_ROLE)

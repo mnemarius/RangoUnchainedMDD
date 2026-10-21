@@ -5,6 +5,7 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 import java.util.Collection;
 
+import no.ntnu.tdt4250.rango.gamemode.BallType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl#getChance <em>Chance</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl#getEntries <em>Entries</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl#getTotalWeight <em>Total Weight</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl#getBallType <em>Ball Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -78,6 +80,16 @@ public class DropTableImpl extends EObjectImpl implements DropTable {
 	 * @ordered
 	 */
 	protected static final int TOTAL_WEIGHT_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getBallType() <em>Ball Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBallType()
+	 * @generated
+	 * @ordered
+	 */
+	protected BallType ballType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -149,6 +161,46 @@ public class DropTableImpl extends EObjectImpl implements DropTable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public BallType getBallType() {
+		if (ballType != null && ballType.eIsProxy()) {
+			InternalEObject oldBallType = (InternalEObject)ballType;
+			ballType = (BallType)eResolveProxy(oldBallType);
+			if (ballType != oldBallType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GamemodePackage.DROP_TABLE__BALL_TYPE, oldBallType, ballType));
+			}
+		}
+		return ballType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BallType basicGetBallType() {
+		return ballType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBallType(BallType newBallType) {
+		BallType oldBallType = ballType;
+		ballType = newBallType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.DROP_TABLE__BALL_TYPE, oldBallType, ballType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -187,6 +239,9 @@ public class DropTableImpl extends EObjectImpl implements DropTable {
 				return getEntries();
 			case GamemodePackage.DROP_TABLE__TOTAL_WEIGHT:
 				return getTotalWeight();
+			case GamemodePackage.DROP_TABLE__BALL_TYPE:
+				if (resolve) return getBallType();
+				return basicGetBallType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -207,6 +262,9 @@ public class DropTableImpl extends EObjectImpl implements DropTable {
 				getEntries().clear();
 				getEntries().addAll((Collection<? extends Drop>)newValue);
 				return;
+			case GamemodePackage.DROP_TABLE__BALL_TYPE:
+				setBallType((BallType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -224,6 +282,9 @@ public class DropTableImpl extends EObjectImpl implements DropTable {
 				return;
 			case GamemodePackage.DROP_TABLE__ENTRIES:
 				getEntries().clear();
+				return;
+			case GamemodePackage.DROP_TABLE__BALL_TYPE:
+				setBallType((BallType)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -243,6 +304,8 @@ public class DropTableImpl extends EObjectImpl implements DropTable {
 				return entries != null && !entries.isEmpty();
 			case GamemodePackage.DROP_TABLE__TOTAL_WEIGHT:
 				return getTotalWeight() != TOTAL_WEIGHT_EDEFAULT;
+			case GamemodePackage.DROP_TABLE__BALL_TYPE:
+				return ballType != null;
 		}
 		return super.eIsSet(featureID);
 	}

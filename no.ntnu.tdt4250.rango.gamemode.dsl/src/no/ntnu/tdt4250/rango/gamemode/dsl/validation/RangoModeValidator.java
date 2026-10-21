@@ -18,6 +18,7 @@ import org.eclipse.xtext.validation.Check;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
 import no.ntnu.tdt4250.rango.gamemode.Block;
+import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -39,6 +40,7 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	public static final String NOT_AN_IMAGE = PREFIX + "notAnImage";
 	public static final String BACKGROUND_PATH = PREFIX + "backgroundPath";
 	public static final String DUPLICATE_TITLE = PREFIX + "duplicateTitle";
+	public static final String USELESS_DROP_TABLE = PREFIX + "uselessDropTable";
 
 	/** Building blocks of an edition that no game mode uses only make the product harder to read. */
 	@Check
@@ -114,6 +116,31 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 			if (mode.getTitle() != null && titles.putIfAbsent(mode.getTitle(), mode) != null) {
 				warning("Another mode already has the title \"" + mode.getTitle() + "\"", mode,
 						GamemodePackage.Literals.GAME_MODE__TITLE, DUPLICATE_TITLE);
+			}
+		}
+	}
+
+	/**
+	 * A drop table for a ball type that never appears where the table applies has no effect: in a mode,
+	 * the ball type is not one of the mode's; in the edition, no mode that uses the edition's tables has it.
+	 */
+	@Check
+	public void checkUselessDropTable(DropTable table) {
+		BallType type = table.getBallType();
+		if (type == null || type.eIsProxy()) {
+			return;
+		}
+		if (table.eContainer() instanceof GameMode mode) {
+			if (!mode.getBallTypes().contains(type)) {
+				warning(type.getName() + " never appears in mode " + mode.getName() + ", so this drop table has no effect",
+						table, GamemodePackage.Literals.DROP_TABLE__BALL_TYPE, USELESS_DROP_TABLE);
+			}
+		} else if (table.eContainer() instanceof Edition edition) {
+			boolean applies = edition.getModes().stream()
+					.anyMatch(mode -> mode.getDrops().isEmpty() && mode.getBallTypes().contains(type));
+			if (!applies) {
+				warning(type.getName() + " never appears in a mode that uses the edition's drop tables, so this drop table has no effect",
+						table, GamemodePackage.Literals.DROP_TABLE__BALL_TYPE, USELESS_DROP_TABLE);
 			}
 		}
 	}

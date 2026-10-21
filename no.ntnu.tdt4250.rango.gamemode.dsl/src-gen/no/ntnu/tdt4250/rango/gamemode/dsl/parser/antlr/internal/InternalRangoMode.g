@@ -198,12 +198,24 @@ ruleEdition returns [EObject current=null]
 				)
 			)
 			    |
+			{
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getEditionRule());
+				}
+				newCompositeNode(grammarAccess.getEditionAccess().getDropsParserRuleCall_3_4());
+			}
+			this_Drops_7=ruleDrops[$current]
+			{
+				$current = $this_Drops_7.current;
+				afterParserOrEnumRuleCall();
+			}
+			    |
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_4_0());
+						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_5_0());
 					}
-					lv_modes_7_0=ruleGameMode
+					lv_modes_8_0=ruleGameMode
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEditionRule());
@@ -211,7 +223,7 @@ ruleEdition returns [EObject current=null]
 						add(
 							$current,
 							"modes",
-							lv_modes_7_0,
+							lv_modes_8_0,
 							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode");
 						afterParserOrEnumRuleCall();
 					}
@@ -1923,23 +1935,17 @@ ruleGameMode returns [EObject current=null]
 			)
 		)
 		(
-			(
-				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getDropsDropTableParserRuleCall_10_0());
+			{
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getGameModeRule());
 				}
-				lv_drops_14_0=ruleDropTable
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getGameModeRule());
-					}
-					set(
-						$current,
-						"drops",
-						lv_drops_14_0,
-						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable");
-					afterParserOrEnumRuleCall();
-				}
-			)
+				newCompositeNode(grammarAccess.getGameModeAccess().getDropsParserRuleCall_10());
+			}
+			this_Drops_14=ruleDrops[$current]
+			{
+				$current = $this_Drops_14.current;
+				afterParserOrEnumRuleCall();
+			}
 		)?
 		(
 			otherlv_15='win'
@@ -3140,6 +3146,50 @@ ruleBallSpawn returns [EObject current=null]
 	)
 ;
 
+
+// Rule Drops
+ruleDrops[EObject in_current]  returns [EObject current=in_current]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='drops'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getDropsAccess().getDropsKeyword_0());
+		}
+		otherlv_1='{'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getDropsAccess().getLeftCurlyBracketKeyword_1());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getDropsAccess().getDropsDropTableParserRuleCall_2_0());
+				}
+				lv_drops_2_0=ruleDropTable
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getDropsRule());
+					}
+					add(
+						$current,
+						"drops",
+						lv_drops_2_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)+
+		otherlv_3='}'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getDropsAccess().getRightCurlyBracketKeyword_3());
+		}
+	)
+;
+
 // Entry rule entryRuleDropTable
 entryRuleDropTable returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getDropTableRule()); }
@@ -3156,10 +3206,19 @@ ruleDropTable returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='drops'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getDropTableAccess().getDropsKeyword_0());
-		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getDropTableRule());
+					}
+				}
+				otherlv_0=RULE_ID
+				{
+					newLeafNode(otherlv_0, grammarAccess.getDropTableAccess().getBallTypeBallTypeCrossReference_0_0());
+				}
+			)
+		)
 		(
 			(
 				{

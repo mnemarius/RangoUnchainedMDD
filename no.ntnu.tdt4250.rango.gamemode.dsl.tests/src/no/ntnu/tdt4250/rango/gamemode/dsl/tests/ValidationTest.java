@@ -50,6 +50,14 @@ public class ValidationTest {
 					on pop: burst into 4 Tumbleweed
 					on contact: damage 2
 				}
+				powerup Health {
+					sprite "Powerup/Health.png"
+					gives: heal 1
+				}
+				drops {
+					Tumbleweed 5%% { Health }
+					Bomb 20%% { Health }
+				}
 				player Rango {
 					health 3
 				}
@@ -123,6 +131,39 @@ public class ValidationTest {
 	public void conditionsHaveRoles() throws Exception {
 		Edition edition = edition("", VALID_BODY.replace("win when all balls cleared", "win when health depleted"));
 		validation.assertError(edition, GamemodePackage.Literals.HEALTH_DEPLETED, GamemodeConstraints.ISSUE_WRONG_ROLE);
+	}
+
+	@Test
+	public void everyBallOfAModeNeedsADropTable() throws Exception {
+		// the mode's own drop tables replace the edition's, and forget the Tumbleweeds the Bomb bursts into
+		Edition edition = edition("", VALID_BODY.replace("win when", "drops { Bomb 30% { Health } } win when"));
+		validation.assertError(edition, GamemodePackage.Literals.GAME_MODE, GamemodeConstraints.ISSUE_NO_DROP_TABLE,
+				"Tumbleweed");
+	}
+
+	@Test
+	public void dropTablesOfAModeReplaceThoseOfTheEdition() throws Exception {
+		Edition edition = edition("", VALID_BODY.replace("win when",
+				"drops { Bomb 30% { Health } Tumbleweed 1% { Health } } win when"));
+		validation.assertNoErrors(edition);
+		assertEquals(30f, edition.getModes().get(0).getEffectiveDrops().get(0).getChance());
+		// the only mode has tables of its own, so the edition's apply nowhere
+		validation.assertWarning(edition, GamemodePackage.Literals.DROP_TABLE, RangoModeValidator.USELESS_DROP_TABLE,
+				"never appears in a mode that uses the edition's drop tables");
+	}
+
+	@Test
+	public void dropTablesForBallsOutsideTheModeHaveNoEffect() throws Exception {
+		Edition edition = edition("""
+				ball Cactus {
+					sprite "Ball/Cactus.png"
+					on pop: vanish
+					on contact: damage 1
+				}
+				""", VALID_BODY.replace("win when",
+				"drops { Bomb 30% { Health } Tumbleweed 1% { Health } Cactus 50% { Health } } win when"));
+		validation.assertWarning(edition, GamemodePackage.Literals.DROP_TABLE, RangoModeValidator.USELESS_DROP_TABLE,
+				"Cactus never appears in mode Test");
 	}
 
 	@Test

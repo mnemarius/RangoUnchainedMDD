@@ -1164,6 +1164,7 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateGameMode_winnable(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_endsSomehow(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_healthDepletedWhenHarmful(gameMode, diagnostics, context);
+		if (result || diagnostics != null) result &= validateGameMode_everyBallDrops(gameMode, diagnostics, context);
 		return result;
 	}
 
@@ -1234,6 +1235,16 @@ public class GamemodeValidator extends EObjectValidator {
 	 */
 	public boolean validateGameMode_healthDepletedWhenHarmful(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return report(GamemodeConstraints.healthDepletedWhenHarmful(gameMode), diagnostics);
+	}
+
+	/**
+	 * Validates the everyBallDrops constraint of '<em>Game Mode</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateGameMode_everyBallDrops(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.everyBallDrops(gameMode), diagnostics);
 	}
 
 	/**
@@ -1803,6 +1814,7 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(dropTable, diagnostics, context);
 		if (result || diagnostics != null) result &= validateDropTable_chanceIsPercentage(dropTable, diagnostics, context);
 		if (result || diagnostics != null) result &= validateDropTable_distinctPowerUps(dropTable, diagnostics, context);
+		if (result || diagnostics != null) result &= validateDropTable_oneTablePerBall(dropTable, diagnostics, context);
 		return result;
 	}
 
@@ -1862,6 +1874,16 @@ public class GamemodeValidator extends EObjectValidator {
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
+	}
+
+	/**
+	 * Validates the oneTablePerBall constraint of '<em>Drop Table</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateDropTable_oneTablePerBall(DropTable dropTable, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.oneTablePerBall(dropTable), diagnostics);
 	}
 
 	/**

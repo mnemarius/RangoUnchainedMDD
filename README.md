@@ -28,7 +28,11 @@ mode TimeAttack "Time Attack" {
 	waves looping escalate by 1 {
 		wave { 2 * Tumbleweed size 3 at (50%, 80%) }
 	}
-	drops 20% { Rush weight 3, Heart }
+	drops {
+		Tumbleweed 10% { Heart }
+		Weed 15% { Heart weight 2, Thorns }
+		Mine 50% { Rush weight 3, Heart }
+	}
 	win when score reaches 1500
 	lose when time reaches 90 s or health depleted
 }
@@ -125,8 +129,9 @@ them:
   **TimedEffect** (duration), which is **Shield**, **SpeedChange** or **Poison** (damage over time).
 - **PowerUp**: sprite and the effects it gives. **Material**: bounce factor and texture. **PlayerProfile**:
   health, max health, speed, tongue time, shot cooldown and grace time.
+- **Edition** also *contains* the default **DropTable**s of its modes.
 - **GameMode** *references* a player profile, and *contains* an **Arena**, a **SpawnStrategy**, an
-  optional **SpeedBonus**, an optional **DropTable**, and its win and lose conditions. Its ball types
+  optional **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its ball types
   are not written down: they are derived from what it spawns.
   - Each pop is worth the points of its ball type. A **SpeedBonus** makes early pops worth up to
     `maxFactor` times as much, falling to plain points over `duration` seconds.
@@ -136,7 +141,12 @@ them:
     arena).
   - The **SpawnStrategy** is either a **FixedLayout** of **BallSpawn**s, or a **WaveSchedule** of
     **Wave**s (delay, spawns), which can loop and grow by `escalation` balls per round.
-  - The **DropTable** has a chance and contains weighted **Drop**s, each of which references a power-up.
+  - A **DropTable** belongs to one ball type, which it *references*. It has a chance (the share of
+    that ball's pops that drop a power-up) and contains weighted **Drop**s, each of which
+    references a power-up. If a mode has drop tables, they replace the edition's for that mode.
+    Every ball type that can appear in a mode, fragment types included, must have a drop table
+    there (`everyBallDrops`). A Bomb that bursts into Tumbleweeds rolls on the Bomb's table, and
+    each Tumbleweed rolls on its own table when it is popped.
   - **EndCondition** is one of **Cleared**, **TimeReached**, **ScoreReached**, **BallsPopped**,
     **WavesSurvived**, **HealthDepleted** or **BallsAlive**. The same class can be a win or a lose
     condition. For example, TimeReached is "survive 60 s" as a win and a time limit as a loss. The
@@ -150,8 +160,9 @@ them:
 | `GameMode.ballTypes` | The ball types of a mode: those it spawns, and everything popping them can produce (recursively). |
 | `BallSpawn/Wave/SpawnStrategy/GameMode.popsToClear` | Tongue hits needed to clear everything. Recursive over split rules and fragment types; -1 for looping waves. |
 | `GameMode.maxScore` | Points for clearing everything. |
-| `GameMode.powerUps` | The power-ups of the mode's drop table. |
-| `DropTable.totalWeight`, `Drop.probability` | The chance that a single pop drops a given power-up. |
+| `GameMode.effectiveDrops` | The drop tables that apply in a mode: its own if it has any, otherwise the edition's. |
+| `GameMode.powerUps` | The power-ups of the mode's effective drop tables. |
+| `DropTable.totalWeight`, `Drop.share`, `Drop.probability` | How likely a power-up is when a pop drops something (`share`), and the chance that a single pop of the table's ball type drops it (`probability`). |
 | `Wave.number`, `EndCondition.win` | Position of a wave; the role of a condition. |
 
 The generator, the hovers and the constraints all use these features.
@@ -162,7 +173,8 @@ Simple invariants are written in **OCL**, in the Ecore model, and evaluated by E
 delegates. Standalone code registers the delegates through `GamemodeOCL.initialize()`. Examples:
 `positiveScale`, `enoughFragmentsToBurst` (a burst has at least 3 fragments), `intervalWithinDuration`
 (poison ticks within its duration), `insideArena`, `healthWithinMaximum`, `escalationNeedsLoop`,
-`distinctPowerUps` (`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bounceInRange`, `bonusAboveOne` (a speed bonus is worth more than plain points).
+`chanceIsPercentage` (a drop chance is above 0 and at most 100), `distinctPowerUps`
+(`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bounceInRange`, `bonusAboveOne` (a speed bonus is worth more than plain points).
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes, which the quick fixes use:
@@ -175,6 +187,8 @@ codes, which the quick fixes use:
 | `winnable` | Every win condition can be met: no "all balls cleared" with looping waves, no "8 waves survived" with 5 non-looping waves, no more pops or points than the mode can give. |
 | `endsSomehow` | A mode without win conditions must loop its waves. |
 | `healthDepletedWhenHarmful` | If anything can hurt the player, the mode is lost when health runs out. |
+| `everyBallDrops` | Every ball type that can appear in a mode has a drop table there (the mode's own, or the edition's), so popping any ball has a chance to drop a power-up. |
+| `oneTablePerBall` | A list of drop tables (of a mode or of the edition) has at most one table per ball type. |
 | `fitsRole` | Health depleted and balls alive can only lose a round; the other conditions can only win it. |
 | `targetInSameArena` | A teleporter leads to a teleporter of the same arena. |
 
@@ -189,10 +203,12 @@ conditions (`win when 20 balls popped or all balls cleared`).
 The editor adds:
 
 - **Validation**: the OCL and Java constraints of the metamodel, plus warnings for unused building
-  blocks, sprite paths that are not images, and duplicate titles, and a note on endless modes.
+  blocks, sprite paths that are not images, duplicate titles, and drop tables for balls that never
+  appear where the table applies, and a note on endless modes.
 - **Scoping**: a teleporter can only target another teleporter of its own arena.
 - **Quick fixes**: make a mode end (win when cleared, or loop the waves), add "lose when health depleted", move a condition to the other
-  list, remove an unused element, fix sprite and background paths.
+  list, add drop tables for the balls without one, remove an unused element or a drop table without
+  effect, fix sprite and background paths.
 - **Hovers** that show the derived facts: the ball types of a mode, pops to clear, maximum score, drop
   probabilities, what a ball breaks into, and shots per second.
 - **Outline** with icons and summaries ("Mine: bursts into 4 Weed", "win when score reaches 1500").
@@ -206,7 +222,7 @@ The editor adds:
 
 | Generated file | Content |
 | --- | --- |
-| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split`/`burst` calls, effects become calls on the player, drop tables become weighted rolls (commented with the derived probabilities), waves become spawn schedules with escalation, materials become bounce factors, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
+| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split`/`burst` calls, effects become calls on the player, each ball type's drop table becomes a chance roll and a weighted pick inside that ball's case of `onBallPopped` (commented with the derived shares and probabilities), waves become spawn schedules with escalation, materials become bounce factors, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
 | `assets/modes/<Mode>.json` | The arena in the game's existing level format: background, player (with the profile's health), walls, floor and roof with their materials and textures, blocks, and the balls of a fixed layout. Positions are relative to the arena. |
 | `core/src/generated/java/.../Modes/Generated/GeneratedEdition.java` | The product name and the modes in menu order, read by the main menu, the mode menu and the desktop launcher's window title. |
 | `android/res/values/edition.xml` | The product name for the Android launcher label. |
@@ -235,9 +251,9 @@ Campaign levels, the tutorial and multiplayer are unchanged.
 
 | Edition | Product | What it shows |
 | --- | --- | --- |
-| `classic.rango` | *Rango Unchained*, one mode | The minimal valid configuration (the draft's baseline): one ball type that splits in two, a fixed layout, won when cleared, lost on health. Only mandatory features. |
-| `survival.rango` | *Rango Unchained: Survival*, two modes | **Endless Survival**: four ball types (a Bomb that *bursts into Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, ice and grass materials, a jump pad, teleporters for balls, three power-ups, and lost when overrun by 25 balls. **Wave Rush**: five waves to survive, higher gravity. |
-| `arcade.rango` | *Rango Unchained: Arcade*, three modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. |
+| `classic.rango` | *Rango Unchained*, one mode | The minimal valid configuration (the draft's baseline): one ball type that splits in two, a fixed layout, won when cleared, lost on health, and a single edition-level drop table (the one power-up every ball must be able to drop). Only mandatory features. |
+| `survival.rango` | *Rango Unchained: Survival*, two modes | **Endless Survival**: four ball types (a Bomb that *bursts into Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, ice and grass materials, a jump pad, teleporters for balls, three power-ups, and lost when overrun by 25 balls. The *edition's drop tables* apply: the tougher the ball, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. |
+| `arcade.rango` | *Rango Unchained: Arcade*, three modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. Every mode has *its own drop tables* (no edition defaults), and the Mine drops the best power-up. |
 
 The tests check that all three are valid and that together they use every concrete class, every
 feature and every enumeration literal of the metamodel.

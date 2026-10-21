@@ -31,10 +31,11 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPowerUps <em>Power Ups</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPopsToClear <em>Pops To Clear</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getMaxScore <em>Max Score</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getEffectiveDrops <em>Effective Drops</em>}</li>
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyBallDrops'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG positiveGravity='gravity &gt; 0'"
  * @generated
  */
@@ -231,29 +232,19 @@ public interface GameMode extends NamedElement {
 	void setSpawning(SpawnStrategy value);
 
 	/**
-	 * Returns the value of the '<em><b>Drops</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Drops</b></em>' containment reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.DropTable}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What popped balls can drop. Without a drop table, nothing drops.
+	 * What popping each ball type of this mode can drop, one table per ball type. If the mode has drop tables, they replace those of the edition.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Drops</em>' containment reference.
-	 * @see #setDrops(DropTable)
+	 * @return the value of the '<em>Drops</em>' containment reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Drops()
 	 * @model containment="true"
 	 * @generated
 	 */
-	DropTable getDrops();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops <em>Drops</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Drops</em>' containment reference.
-	 * @see #getDrops()
-	 * @generated
-	 */
-	void setDrops(DropTable value);
+	EList<DropTable> getDrops();
 
 	/**
 	 * Returns the value of the '<em><b>Win Conditions</b></em>' containment reference list.
@@ -327,5 +318,20 @@ public interface GameMode extends NamedElement {
 	 * @generated
 	 */
 	int getMaxScore();
+
+	/**
+	 * Returns the value of the '<em><b>Effective Drops</b></em>' reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.DropTable}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The drop tables that apply in this mode: its own if it has any, otherwise those of the edition.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Effective Drops</em>' reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_EffectiveDrops()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<DropTable> getEffectiveDrops();
 
 } // GameMode

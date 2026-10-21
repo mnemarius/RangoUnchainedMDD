@@ -5,6 +5,7 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 import java.util.Collection;
 
 import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getMaterials <em>Materials</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getPlayers <em>Players</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getModes <em>Modes</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getDrops <em>Drops</em>}</li>
  * </ul>
  *
  * @generated
@@ -113,6 +115,16 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 	 * @ordered
 	 */
 	protected EList<GameMode> modes;
+
+	/**
+	 * The cached value of the '{@link #getDrops() <em>Drops</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDrops()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DropTable> drops;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -227,6 +239,19 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 	 * @generated
 	 */
 	@Override
+	public EList<DropTable> getDrops() {
+		if (drops == null) {
+			drops = new EObjectContainmentEList<DropTable>(DropTable.class, this, GamemodePackage.EDITION__DROPS);
+		}
+		return drops;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GamemodePackage.EDITION__BALL_TYPES:
@@ -239,6 +264,8 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 				return ((InternalEList<?>)getPlayers()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.EDITION__MODES:
 				return ((InternalEList<?>)getModes()).basicRemove(otherEnd, msgs);
+			case GamemodePackage.EDITION__DROPS:
+				return ((InternalEList<?>)getDrops()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -263,6 +290,8 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 				return getPlayers();
 			case GamemodePackage.EDITION__MODES:
 				return getModes();
+			case GamemodePackage.EDITION__DROPS:
+				return getDrops();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -299,6 +328,10 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 				getModes().clear();
 				getModes().addAll((Collection<? extends GameMode>)newValue);
 				return;
+			case GamemodePackage.EDITION__DROPS:
+				getDrops().clear();
+				getDrops().addAll((Collection<? extends DropTable>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -329,6 +362,9 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 			case GamemodePackage.EDITION__MODES:
 				getModes().clear();
 				return;
+			case GamemodePackage.EDITION__DROPS:
+				getDrops().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -353,6 +389,8 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 				return players != null && !players.isEmpty();
 			case GamemodePackage.EDITION__MODES:
 				return modes != null && !modes.isEmpty();
+			case GamemodePackage.EDITION__DROPS:
+				return drops != null && !drops.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

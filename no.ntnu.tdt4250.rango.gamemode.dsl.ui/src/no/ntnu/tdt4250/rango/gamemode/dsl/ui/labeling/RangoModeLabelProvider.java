@@ -188,7 +188,7 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(DropTable table) {
-		return "drops " + number(table.getChance()) + "%";
+		return (table.getBallType() == null ? "?" : table.getBallType().getName()) + ": drops " + number(table.getChance()) + "%";
 	}
 
 	String image(DropTable table) {
@@ -196,7 +196,8 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(Drop drop) {
-		return (drop.getPowerUp() == null ? "?" : drop.getPowerUp().getName()) + " (" + number(drop.getProbability()) + "% of pops)";
+		return (drop.getPowerUp() == null ? "?" : drop.getPowerUp().getName()) + " (" + number(drop.getShare()) + "% of drops, "
+				+ number(drop.getProbability()) + "% of pops)";
 	}
 
 	String image(Drop drop) {

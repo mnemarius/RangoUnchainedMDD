@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
 import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
 import no.ntnu.tdt4250.rango.gamemode.Burst;
+import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
@@ -72,6 +73,12 @@ public class ConstraintsTest {
 	public void oclDropTableListsEachPowerUpOnce() {
 		f.drops.getEntries().add(ModelFixture.drop(f.shield, 1));
 		assertViolated("distinctPowerUps");
+	}
+
+	@Test
+	public void oclDropChanceIsAPositivePercentage() {
+		f.drops.setChance(0);
+		assertViolated("chanceIsPercentage");
 	}
 
 	@Test
@@ -188,6 +195,34 @@ public class ConstraintsTest {
 	public void healthCanOnlyLose() {
 		f.clear.getWinConditions().add(ModelFixture.F.createHealthDepleted());
 		assertCode(GamemodeConstraints.WRONG_ROLE);
+	}
+
+	@Test
+	public void everyBallOfAModeHasADropTable() {
+		f.waves.getDrops().remove(f.tumbleweedDrops);
+		assertCode(GamemodeConstraints.NO_DROP_TABLE);
+	}
+
+	@Test
+	public void ballsThatOnlyAppearAsFragmentsNeedADropTableToo() {
+		// Clear then only spawns a Bomb, but the Bomb bursts into Tumbleweeds
+		f.layout.getSpawns().remove(0);
+		f.edition.getDrops().remove(f.tumbleweedDefault);
+		assertCode(GamemodeConstraints.NO_DROP_TABLE);
+	}
+
+	@Test
+	public void aModeWithoutAnyDropTableIsInvalid() {
+		f.edition.getDrops().clear();
+		assertCode(GamemodeConstraints.NO_DROP_TABLE);
+	}
+
+	@Test
+	public void aBallHasOneDropTablePerList() {
+		DropTable second = ModelFixture.dropTable(f.bomb, 5);
+		second.getEntries().add(ModelFixture.drop(f.heart, 1));
+		f.waves.getDrops().add(second);
+		assertCode(GamemodeConstraints.DUPLICATE_DROP_TABLE);
 	}
 
 	@Test

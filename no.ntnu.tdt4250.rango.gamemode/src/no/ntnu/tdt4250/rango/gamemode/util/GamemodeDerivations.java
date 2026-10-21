@@ -178,6 +178,33 @@ public final class GamemodeDerivations {
 		return table.getChance() * drop.getWeight() / table.getTotalWeight();
 	}
 
+	public static float share(Drop drop) {
+		DropTable table = drop.getTable();
+		if (table == null || table.getTotalWeight() <= 0) {
+			return 0;
+		}
+		return 100f * drop.getWeight() / table.getTotalWeight();
+	}
+
+	/** The drop tables of the mode if it has any, otherwise those of its edition. */
+	public static EList<DropTable> effectiveDrops(GameMode mode) {
+		List<DropTable> tables = new ArrayList<>(mode.getDrops());
+		if (tables.isEmpty() && mode.eContainer() instanceof Edition edition) {
+			tables.addAll(edition.getDrops());
+		}
+		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__EFFECTIVE_DROPS, tables);
+	}
+
+	/** The drop table that applies to pops of the given ball type in the mode, or null if there is none. */
+	public static DropTable dropTableFor(GameMode mode, BallType type) {
+		for (DropTable table : mode.getEffectiveDrops()) {
+			if (table.getBallType() == type) {
+				return table;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * The ball types that can appear in a mode: those it spawns, and everything popping them can
 	 * produce, in the order the edition declares them.
@@ -212,8 +239,8 @@ public final class GamemodeDerivations {
 
 	public static EList<PowerUp> powerUps(GameMode mode) {
 		Set<PowerUp> powerUps = new LinkedHashSet<>();
-		if (mode.getDrops() != null) {
-			for (Drop drop : mode.getDrops().getEntries()) {
+		for (DropTable table : mode.getEffectiveDrops()) {
+			for (Drop drop : table.getEntries()) {
 				if (drop.getPowerUp() != null) {
 					powerUps.add(drop.getPowerUp());
 				}

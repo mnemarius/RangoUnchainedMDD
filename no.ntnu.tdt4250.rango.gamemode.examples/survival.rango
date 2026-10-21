@@ -1,7 +1,8 @@
 // A survival edition: waves instead of fixed levels, four ball types with their own behaviour
 // (a bomb bursts into tumbleweeds, a cactus poisons), surfaces of different materials, a jump pad,
-// a pair of teleporters, and power-ups dropped at random. Endless Survival never ends until it is
-// lost; Wave Rush is won by getting through five waves.
+// a pair of teleporters, and power-ups dropped at random: the tougher the ball, the likelier and the
+// better its drop. The edition's drop tables apply to Endless Survival; Wave Rush has its own, stingier
+// ones. Endless Survival never ends until it is lost; Wave Rush is won by getting through five waves.
 
 edition Survival "Rango Unchained: Survival"
 
@@ -53,6 +54,13 @@ powerup Health {
 	gives: heal 2
 }
 
+drops {
+	Tumbleweed 10% { Health }
+	Cactus 15% { Health weight 2, Speed }
+	Armadillo 25% { Speed weight 2, Shield }
+	Bomb 40% { Shield weight 2, Speed, Health }
+}
+
 material Ice {
 	bounce 0.7
 	sprite "Obstacles/Ice.png"
@@ -99,7 +107,6 @@ mode Endless "Endless Survival" {
 			Bomb size 3 at (50%, 85%)
 		}
 	}
-	drops 25% { Shield weight 2, Speed, Health }
 	lose when health depleted or 25 balls alive
 }
 
@@ -130,7 +137,10 @@ mode WaveRush "Wave Rush" {
 			Tumbleweed size 3 at (70%, 70%) moving left
 		}
 	}
-	drops 10% { Health }
+	drops {
+		Tumbleweed 5% { Health }
+		Armadillo 20% { Health weight 3, Shield }
+	}
 	win when 5 waves survived
 	lose when health depleted
 }

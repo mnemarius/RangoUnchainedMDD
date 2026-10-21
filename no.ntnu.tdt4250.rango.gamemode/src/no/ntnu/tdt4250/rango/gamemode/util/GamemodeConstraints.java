@@ -14,6 +14,7 @@ import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
 import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
+import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -48,11 +49,14 @@ public final class GamemodeConstraints {
 	public static final int WRONG_ROLE = 109;
 	public static final int TELEPORTER_ELSEWHERE = 110;
 	public static final int HEALTH_NOT_DECISIVE = 111;
+	public static final int NO_DROP_TABLE = 112;
+	public static final int DUPLICATE_DROP_TABLE = 113;
 
 	/** Issue codes as seen by Xtext, which joins the source and the code of an EMF diagnostic. */
 	public static final String ISSUE_NEVER_ENDS = SOURCE + "." + NEVER_ENDS;
 	public static final String ISSUE_WRONG_ROLE = SOURCE + "." + WRONG_ROLE;
 	public static final String ISSUE_HEALTH_NOT_DECISIVE = SOURCE + "." + HEALTH_NOT_DECISIVE;
+	public static final String ISSUE_NO_DROP_TABLE = SOURCE + "." + NO_DROP_TABLE;
 
 	/**
 	 * A broken constraint: what is wrong, on which object and, if it can be pinned down, on which
@@ -232,6 +236,45 @@ public final class GamemodeConstraints {
 			violations.add(new Violation(TELEPORTER_ELSEWHERE,
 					"Teleporter " + target.getName() + " is in another arena",
 					teleporter, GamemodePackage.Literals.TELEPORTER__TARGET));
+		}
+		return violations;
+	}
+
+	/**
+	 * Every ball type that can appear in a mode has a drop table there, so that popping any ball has a
+	 * chance to drop a power-up. The table is the mode's own or, if the mode has none, the edition's.
+	 */
+	public static List<Violation> everyBallDrops(GameMode mode) {
+		List<Violation> violations = new ArrayList<>();
+		for (BallType type : mode.getBallTypes()) {
+			if (GamemodeDerivations.dropTableFor(mode, type) == null) {
+				violations.add(new Violation(NO_DROP_TABLE,
+						type.getName() + " can appear in mode " + mode.getName() + " but has no drop table ("
+								+ (mode.getDrops().isEmpty() ? "the edition's" : "the mode's") + " drops list none for it)",
+						mode, GamemodePackage.Literals.NAMED_ELEMENT__NAME));
+			}
+		}
+		return violations;
+	}
+
+	/** A list of drop tables, of a mode or of the edition, has at most one table per ball type. */
+	public static List<Violation> oneTablePerBall(DropTable table) {
+		List<Violation> violations = new ArrayList<>();
+		EObject container = table.eContainer();
+		EStructuralFeature feature = table.eContainingFeature();
+		if (container == null || table.getBallType() == null || !feature.isMany()) {
+			return violations;
+		}
+		for (Object sibling : (List<?>) container.eGet(feature)) {
+			if (sibling == table) {
+				break;
+			}
+			if (sibling instanceof DropTable other && other.getBallType() == table.getBallType()) {
+				violations.add(new Violation(DUPLICATE_DROP_TABLE,
+						"There is already a drop table for " + table.getBallType().getName(),
+						table, GamemodePackage.Literals.DROP_TABLE__BALL_TYPE));
+				break;
+			}
 		}
 		return violations;
 	}

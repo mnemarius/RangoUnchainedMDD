@@ -107,8 +107,31 @@ public class GeneratorTest {
 		assertTrue(endless.contains("int extra = cycle * 1;"));
 		assertTrue(endless.contains("spawner.spawn(\"Tumbleweed\", 3, 2 + extra, 30.0f, 75.0f, RIGHT);"));
 		assertTrue(endless.contains("public boolean loopsWaves() {\n        return true;"));
-		assertTrue(endless.contains("context.dropPowerUp(\"Shield\", ball); // 12.5 % of pops"));
 		assertTrue(endless.contains("arena.teleporter(\"West\", 6.0f, 20.0f, \"East\", true, false);"));
+	}
+
+	@Test
+	public void eachBallRollsOnItsOwnDropTable() {
+		InMemoryFileSystemAccess files = generate("survival");
+		String endless = file(files, JAVA + "EndlessMode.java");
+		// Endless Survival uses the edition's drop tables: a Bomb drops something at 40 %, a Shield half of the time
+		String bomb = between(endless, "case \"Bomb\":", "break;");
+		assertTrue(bomb.contains("if (context.random() * 100f < 40.0f) { // 40 % of Bomb pops drop something"), bomb);
+		assertTrue(bomb.contains("context.dropPowerUp(\"Shield\", ball); // 50 % of drops, 20 % of pops"), bomb);
+		String tumbleweed = between(endless, "case \"Tumbleweed\":", "break;");
+		assertTrue(tumbleweed.contains("if (context.random() * 100f < 10.0f) {"), tumbleweed);
+		assertTrue(tumbleweed.contains("context.dropPowerUp(\"Health\", ball);"), tumbleweed);
+		// Wave Rush has drop tables of its own, which replace the edition's
+		String armadillo = between(file(files, JAVA + "WaveRushMode.java"), "case \"Armadillo\":", "break;");
+		assertTrue(armadillo.contains("if (context.random() * 100f < 20.0f) {"), armadillo);
+		assertTrue(armadillo.contains("context.dropPowerUp(\"Health\", ball); // 75 % of drops, 15 % of pops"), armadillo);
+	}
+
+	/** The part of onBallPopped from the first occurrence of start to the next occurrence of end. */
+	private static String between(String text, String start, String end) {
+		int from = text.indexOf(start, text.indexOf("onBallPopped"));
+		assertTrue(from >= 0, "no " + start);
+		return text.substring(from, text.indexOf(end, from));
 	}
 
 	@Test

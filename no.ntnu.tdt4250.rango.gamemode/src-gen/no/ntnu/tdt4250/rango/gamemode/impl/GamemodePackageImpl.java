@@ -571,6 +571,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
+	public EReference getEdition_Drops() {
+		return (EReference)editionEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getBallType() {
 		return ballTypeEClass;
 	}
@@ -1171,6 +1181,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
+	public EReference getGameMode_EffectiveDrops() {
+		return (EReference)gameModeEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getSpeedBonus() {
 		return speedBonusEClass;
 	}
@@ -1601,6 +1621,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
+	public EReference getDropTable_BallType() {
+		return (EReference)dropTableEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getDrop() {
 		return dropEClass;
 	}
@@ -1643,6 +1673,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	@Override
 	public EAttribute getDrop_Probability() {
 		return (EAttribute)dropEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDrop_Share() {
+		return (EAttribute)dropEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1848,6 +1888,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEReference(editionEClass, EDITION__MATERIALS);
 		createEReference(editionEClass, EDITION__PLAYERS);
 		createEReference(editionEClass, EDITION__MODES);
+		createEReference(editionEClass, EDITION__DROPS);
 
 		ballTypeEClass = createEClass(BALL_TYPE);
 		createEAttribute(ballTypeEClass, BALL_TYPE__SPRITE);
@@ -1925,6 +1966,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEReference(gameModeEClass, GAME_MODE__POWER_UPS);
 		createEAttribute(gameModeEClass, GAME_MODE__POPS_TO_CLEAR);
 		createEAttribute(gameModeEClass, GAME_MODE__MAX_SCORE);
+		createEReference(gameModeEClass, GAME_MODE__EFFECTIVE_DROPS);
 
 		speedBonusEClass = createEClass(SPEED_BONUS);
 		createEAttribute(speedBonusEClass, SPEED_BONUS__MAX_FACTOR);
@@ -1981,12 +2023,14 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(dropTableEClass, DROP_TABLE__CHANCE);
 		createEReference(dropTableEClass, DROP_TABLE__ENTRIES);
 		createEAttribute(dropTableEClass, DROP_TABLE__TOTAL_WEIGHT);
+		createEReference(dropTableEClass, DROP_TABLE__BALL_TYPE);
 
 		dropEClass = createEClass(DROP);
 		createEReference(dropEClass, DROP__TABLE);
 		createEReference(dropEClass, DROP__POWER_UP);
 		createEAttribute(dropEClass, DROP__WEIGHT);
 		createEAttribute(dropEClass, DROP__PROBABILITY);
+		createEAttribute(dropEClass, DROP__SHARE);
 
 		endConditionEClass = createEClass(END_CONDITION);
 		createEAttribute(endConditionEClass, END_CONDITION__WIN);
@@ -2091,6 +2135,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEReference(getEdition_Materials(), this.getMaterial(), null, "materials", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Players(), this.getPlayerProfile(), null, "players", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Modes(), this.getGameMode(), null, "modes", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEdition_Drops(), this.getDropTable(), null, "drops", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ballTypeEClass, BallType.class, "BallType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBallType_Sprite(), ecorePackage.getEString(), "sprite", null, 1, 1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2162,12 +2207,13 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEReference(getGameMode_SpeedBonus(), this.getSpeedBonus(), null, "speedBonus", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Arena(), this.getArena(), null, "arena", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Spawning(), this.getSpawnStrategy(), null, "spawning", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGameMode_Drops(), this.getDropTable(), null, "drops", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_Drops(), this.getDropTable(), null, "drops", null, 0, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_WinConditions(), this.getEndCondition(), null, "winConditions", null, 0, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_LoseConditions(), this.getEndCondition(), null, "loseConditions", null, 1, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_PowerUps(), this.getPowerUp(), null, "powerUps", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_MaxScore(), ecorePackage.getEInt(), "maxScore", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_EffectiveDrops(), this.getDropTable(), null, "effectiveDrops", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(speedBonusEClass, SpeedBonus.class, "SpeedBonus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSpeedBonus_MaxFactor(), ecorePackage.getEFloat(), "maxFactor", "2.0", 0, 1, SpeedBonus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2224,12 +2270,14 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getDropTable_Chance(), ecorePackage.getEFloat(), "chance", null, 1, 1, DropTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDropTable_Entries(), this.getDrop(), this.getDrop_Table(), "entries", null, 1, -1, DropTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDropTable_TotalWeight(), ecorePackage.getEInt(), "totalWeight", null, 0, 1, DropTable.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getDropTable_BallType(), this.getBallType(), null, "ballType", null, 1, 1, DropTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dropEClass, Drop.class, "Drop", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDrop_Table(), this.getDropTable(), this.getDropTable_Entries(), "table", null, 1, 1, Drop.class, IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDrop_PowerUp(), this.getPowerUp(), null, "powerUp", null, 1, 1, Drop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDrop_Weight(), ecorePackage.getEInt(), "weight", "1", 0, 1, Drop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDrop_Probability(), ecorePackage.getEFloat(), "probability", null, 0, 1, Drop.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDrop_Share(), ecorePackage.getEFloat(), "share", null, 0, 1, Drop.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(endConditionEClass, EndCondition.class, "EndCondition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEndCondition_Win(), ecorePackage.getEBoolean(), "win", null, 0, 1, EndCondition.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -2371,7 +2419,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (gameModeEClass,
 		   source,
 		   new String[] {
-			   "constraints", "positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful"
+			   "constraints", "positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyBallDrops"
 		   });
 		addAnnotation
 		  (speedBonusEClass,
@@ -2425,7 +2473,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (dropTableEClass,
 		   source,
 		   new String[] {
-			   "constraints", "chanceIsPercentage distinctPowerUps"
+			   "constraints", "chanceIsPercentage distinctPowerUps oneTablePerBall"
 		   });
 		addAnnotation
 		  (dropEClass,

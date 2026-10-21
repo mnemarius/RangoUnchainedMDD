@@ -18,6 +18,7 @@ import no.ntnu.tdt4250.rango.gamemode.WaveSchedule
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
 
 /**
  * Formats game mode models (Format in the editor): a blank line between the elements of an edition,
@@ -28,10 +29,12 @@ class RangoModeFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(Edition edition, extension IFormattableDocument document) {
 		edition.regionFor.keyword('edition').append[oneSpace]
-		for (element : edition.eContents) {
+		for (element : edition.eContents.filter[!(it instanceof DropTable)]) {
 			element.prepend[newLines = 2]
 			element.format
 		}
+		edition.regionFor.keyword('drops').prepend[newLines = 2]
+		edition.drops(document)
 	}
 
 	def dispatch void format(BallType type, extension IFormattableDocument document) {
@@ -61,10 +64,12 @@ class RangoModeFormatter extends AbstractFormatter2 {
 		mode.lines(document, 'description', 'player', 'gravity', 'win', 'lose')
 		mode.lists(document)
 		mode.regionFor.keywords('or').forEach[surround[oneSpace]]
-		for (part : #[mode.speedBonus, mode.arena, mode.spawning, mode.drops].filterNull) {
+		for (part : #[mode.speedBonus, mode.arena, mode.spawning].filterNull) {
 			part.prepend[newLine]
 			part.format
 		}
+		mode.regionFor.keyword('drops').prepend[newLine]
+		mode.drops(document)
 	}
 
 	def dispatch void format(Arena arena, extension IFormattableDocument document) {
@@ -115,10 +120,30 @@ class RangoModeFormatter extends AbstractFormatter2 {
 		table.lists(document)
 	}
 
-	/** An indented block: the opening brace ends its line, the closing brace gets a line of its own. */
+	/** The "drops { ... }" block of an edition or a mode: one drop table per line. */
+	def private void drops(EObject owner, extension IFormattableDocument document) {
+		val keyword = owner.regionFor.keyword('drops')
+		if (keyword === null) {
+			return
+		}
+		val open = owner.regionFor.keywords('{').findFirst[offset > keyword.offset]
+		val close = owner.regionFor.keywords('}').findFirst[open !== null && offset > open.offset]
+		owner.block(open, close, document)
+		for (table : owner.eContents.filter(DropTable)) {
+			table.prepend[newLine]
+			table.format
+		}
+	}
+
+	/**
+	 * An indented block: the opening brace ends its line, the closing brace gets a line of its own.
+	 * The braces of an element are its outermost ones, since a mode also owns those of its drops.
+	 */
 	def private void block(EObject element, extension IFormattableDocument document) {
-		val open = element.regionFor.keyword('{')
-		val close = element.regionFor.keyword('}')
+		element.block(element.regionFor.keywords('{').head, element.regionFor.keywords('}').last, document)
+	}
+
+	def private void block(EObject element, ISemanticRegion open, ISemanticRegion close, extension IFormattableDocument document) {
 		if (open !== null && close !== null) {
 			open.prepend[oneSpace].append[newLine]
 			close.prepend[newLine]

@@ -1,6 +1,7 @@
 // An arcade edition: three short modes with different goals (a score to reach under a time limit,
 // a number of pops, a time to survive), two player profiles to choose between per mode, harmless
-// bubbles that vanish when popped but slow the player down, and a trap among the power-ups.
+// bubbles that vanish when popped but slow the player down, and a trap among the power-ups. Each mode
+// has its own drop tables, and the mine, the most dangerous ball, drops the best power-up.
 
 edition Arcade "Rango Unchained: Arcade"
 
@@ -90,7 +91,11 @@ mode TimeAttack "Time Attack" {
 			Weed size 2 at (20%, 70%) moving right
 		}
 	}
-	drops 20% { Rush weight 3, Heart }
+	drops {
+		Tumbleweed 10% { Heart }
+		Weed 15% { Heart weight 2, Thorns }
+		Mine 50% { Rush weight 3, Heart }
+	}
 	win when score reaches 1500
 	lose when time reaches 90 s or health depleted
 }
@@ -109,7 +114,10 @@ mode PopFrenzy "Pop Frenzy" {
 		Tumbleweed size 3 at (15%, 60%) moving right
 		Tumbleweed size 3 at (85%, 60%) moving left
 	}
-	drops 15% { Thorns }
+	drops {
+		Bubble 10% { Thorns }
+		Tumbleweed 20% { Heart, Thorns }
+	}
 	win when 20 balls popped or all balls cleared
 	lose when health depleted or time reaches 120 s
 }
@@ -131,7 +139,10 @@ mode Survivor "Survivor" {
 			2 * Weed size 3 at (50%, 75%) moving left
 		}
 	}
-	drops 30% { Heart weight 2, Thorns }
+	drops {
+		Weed 20% { Heart weight 2, Thorns }
+		Mine 40% { Heart weight 2, Rush }
+	}
 	win when time reaches 60 s
 	lose when health depleted
 }

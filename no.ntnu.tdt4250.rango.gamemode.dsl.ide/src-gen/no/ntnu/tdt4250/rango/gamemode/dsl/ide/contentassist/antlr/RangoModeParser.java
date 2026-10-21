@@ -99,6 +99,7 @@ public class RangoModeParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getBallSpawnAccess().getGroup(), "rule__BallSpawn__Group__0");
 			builder.put(grammarAccess.getBallSpawnAccess().getGroup_0(), "rule__BallSpawn__Group_0__0");
 			builder.put(grammarAccess.getBallSpawnAccess().getGroup_5(), "rule__BallSpawn__Group_5__0");
+			builder.put(grammarAccess.getDropsAccess().getGroup(), "rule__Drops__Group__0");
 			builder.put(grammarAccess.getDropTableAccess().getGroup(), "rule__DropTable__Group__0");
 			builder.put(grammarAccess.getDropTableAccess().getGroup_5(), "rule__DropTable__Group_5__0");
 			builder.put(grammarAccess.getDropAccess().getGroup(), "rule__Drop__Group__0");
@@ -118,7 +119,7 @@ public class RangoModeParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getEditionAccess().getPowerUpsAssignment_3_1(), "rule__Edition__PowerUpsAssignment_3_1");
 			builder.put(grammarAccess.getEditionAccess().getMaterialsAssignment_3_2(), "rule__Edition__MaterialsAssignment_3_2");
 			builder.put(grammarAccess.getEditionAccess().getPlayersAssignment_3_3(), "rule__Edition__PlayersAssignment_3_3");
-			builder.put(grammarAccess.getEditionAccess().getModesAssignment_3_4(), "rule__Edition__ModesAssignment_3_4");
+			builder.put(grammarAccess.getEditionAccess().getModesAssignment_3_5(), "rule__Edition__ModesAssignment_3_5");
 			builder.put(grammarAccess.getBallTypeAccess().getNameAssignment_1(), "rule__BallType__NameAssignment_1");
 			builder.put(grammarAccess.getBallTypeAccess().getSpriteAssignment_3_0_1(), "rule__BallType__SpriteAssignment_3_0_1");
 			builder.put(grammarAccess.getBallTypeAccess().getScaleAssignment_3_1_1(), "rule__BallType__ScaleAssignment_3_1_1");
@@ -165,7 +166,6 @@ public class RangoModeParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getGameModeAccess().getSpeedBonusAssignment_7_1(), "rule__GameMode__SpeedBonusAssignment_7_1");
 			builder.put(grammarAccess.getGameModeAccess().getArenaAssignment_8(), "rule__GameMode__ArenaAssignment_8");
 			builder.put(grammarAccess.getGameModeAccess().getSpawningAssignment_9(), "rule__GameMode__SpawningAssignment_9");
-			builder.put(grammarAccess.getGameModeAccess().getDropsAssignment_10(), "rule__GameMode__DropsAssignment_10");
 			builder.put(grammarAccess.getGameModeAccess().getWinConditionsAssignment_11_2(), "rule__GameMode__WinConditionsAssignment_11_2");
 			builder.put(grammarAccess.getGameModeAccess().getWinConditionsAssignment_11_3_1(), "rule__GameMode__WinConditionsAssignment_11_3_1");
 			builder.put(grammarAccess.getGameModeAccess().getLoseConditionsAssignment_14(), "rule__GameMode__LoseConditionsAssignment_14");
@@ -199,6 +199,8 @@ public class RangoModeParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getBallSpawnAccess().getTypeAssignment_1(), "rule__BallSpawn__TypeAssignment_1");
 			builder.put(grammarAccess.getBallSpawnAccess().getSizeAssignment_3(), "rule__BallSpawn__SizeAssignment_3");
 			builder.put(grammarAccess.getBallSpawnAccess().getDirectionAssignment_5_1(), "rule__BallSpawn__DirectionAssignment_5_1");
+			builder.put(grammarAccess.getDropsAccess().getDropsAssignment_2(), "rule__Drops__DropsAssignment_2");
+			builder.put(grammarAccess.getDropTableAccess().getBallTypeAssignment_0(), "rule__DropTable__BallTypeAssignment_0");
 			builder.put(grammarAccess.getDropTableAccess().getChanceAssignment_1(), "rule__DropTable__ChanceAssignment_1");
 			builder.put(grammarAccess.getDropTableAccess().getEntriesAssignment_4(), "rule__DropTable__EntriesAssignment_4");
 			builder.put(grammarAccess.getDropTableAccess().getEntriesAssignment_5_1(), "rule__DropTable__EntriesAssignment_5_1");

@@ -200,14 +200,14 @@ class ModeClassTemplate {
 		                context.addScore(«type.points»«mode.speedBonus.factor»);
 		                «ENDIF»
 		                «pop(type.splitRule)»
+		                «FOR table : mode.effectiveDrops.filter[ballType == type]»
+		                «drop(table)»
+		                «ENDFOR»
 		                break;
 		            «ENDFOR»
 		            default:
 		                break;
 		        }
-		        «IF mode.drops !== null»
-		        «drop(mode.drops)»
-		        «ENDIF»
 		    }
 
 		    @Override
@@ -298,15 +298,16 @@ class ModeClassTemplate {
 		if (bonus === null) '' else ''' * context.speedBonus(«bonus.maxFactor.javaFloat», «bonus.duration.javaFloat»)'''
 	}
 
+	/** The roll of a ball type's drop table: whether the pop drops anything, then which power-up. */
 	def drop(DropTable table) '''
-		if (context.random() * 100f < «table.chance.javaFloat») {
+		if (context.random() * 100f < «table.chance.javaFloat») { // «table.chance.percent» % of «table.ballType.name» pops drop something
 		    «IF table.entries.size == 1»
-		    context.dropPowerUp(«table.entries.head.powerUp.name.javaString», ball); // «table.entries.head.probability» % of pops
+		    context.dropPowerUp(«table.entries.head.powerUp.name.javaString», ball);
 		    «ELSE»
 		    float roll = context.random() * «table.totalWeight»;
 		    «FOR i : 0 ..< table.entries.size»
 		    «IF i == 0»if (roll < «table.threshold(i)») {«ELSEIF i < table.entries.size - 1»} else if (roll < «table.threshold(i)») {«ELSE»} else {«ENDIF»
-		        context.dropPowerUp(«table.entries.get(i).powerUp.name.javaString», ball); // «table.entries.get(i).probability» % of pops
+		        context.dropPowerUp(«table.entries.get(i).powerUp.name.javaString», ball); // «table.entries.get(i).share.percent» % of drops, «table.entries.get(i).probability.percent» % of pops
 		    «ENDFOR»
 		    }
 		    «ENDIF»

@@ -3,6 +3,7 @@ package no.ntnu.tdt4250.rango.gamemode.dsl.generator;
 import com.google.common.collect.Iterables;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
@@ -39,6 +40,7 @@ import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.XbaseGenerated;
 
@@ -655,6 +657,20 @@ public class ModeClassTemplate {
         CharSequence _pop = this.pop(type_2.getSplitRule());
         _builder.append(_pop, "                ");
         _builder.newLineIfNotEmpty();
+        {
+          final Function1<DropTable, Boolean> _function = (DropTable it) -> {
+            BallType _ballType = it.getBallType();
+            return Boolean.valueOf(Objects.equals(_ballType, type_2));
+          };
+          Iterable<DropTable> _filter_2 = IterableExtensions.<DropTable>filter(mode.getEffectiveDrops(), _function);
+          for(final DropTable table : _filter_2) {
+            _builder.append("            ");
+            _builder.append("    ");
+            CharSequence _drop = this.drop(table);
+            _builder.append(_drop, "                ");
+            _builder.newLineIfNotEmpty();
+          }
+        }
         _builder.append("            ");
         _builder.append("    ");
         _builder.append("break;");
@@ -670,16 +686,6 @@ public class ModeClassTemplate {
     _builder.append("        ");
     _builder.append("}");
     _builder.newLine();
-    {
-      DropTable _drops = mode.getDrops();
-      boolean _tripleNotEquals_1 = (_drops != null);
-      if (_tripleNotEquals_1) {
-        _builder.append("        ");
-        CharSequence _drop = this.drop(mode.getDrops());
-        _builder.append(_drop, "        ");
-        _builder.newLineIfNotEmpty();
-      }
-    }
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
@@ -1005,12 +1011,21 @@ public class ModeClassTemplate {
     return _xifexpression;
   }
 
+  /**
+   * The roll of a ball type's drop table: whether the pop drops anything, then which power-up.
+   */
   public CharSequence drop(final DropTable table) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("if (context.random() * 100f < ");
     String _javaFloat = GeneratorNames.javaFloat(table.getChance());
     _builder.append(_javaFloat);
-    _builder.append(") {");
+    _builder.append(") { // ");
+    String _percent = GeneratorNames.percent(table.getChance());
+    _builder.append(_percent);
+    _builder.append(" % of ");
+    String _name = table.getBallType().getName();
+    _builder.append(_name);
+    _builder.append(" pops drop something");
     _builder.newLineIfNotEmpty();
     {
       int _size = table.getEntries().size();
@@ -1020,10 +1035,7 @@ public class ModeClassTemplate {
         _builder.append("context.dropPowerUp(");
         String _javaString = GeneratorNames.javaString(IterableExtensions.<Drop>head(table.getEntries()).getPowerUp().getName());
         _builder.append(_javaString, "    ");
-        _builder.append(", ball); // ");
-        float _probability = IterableExtensions.<Drop>head(table.getEntries()).getProbability();
-        _builder.append(_probability, "    ");
-        _builder.append(" % of pops");
+        _builder.append(", ball);");
         _builder.newLineIfNotEmpty();
       } else {
         _builder.append("    ");
@@ -1064,8 +1076,11 @@ public class ModeClassTemplate {
             String _javaString_1 = GeneratorNames.javaString(table.getEntries().get((i).intValue()).getPowerUp().getName());
             _builder.append(_javaString_1, "        ");
             _builder.append(", ball); // ");
-            float _probability_1 = table.getEntries().get((i).intValue()).getProbability();
-            _builder.append(_probability_1, "        ");
+            String _percent_1 = GeneratorNames.percent(table.getEntries().get((i).intValue()).getShare());
+            _builder.append(_percent_1, "        ");
+            _builder.append(" % of drops, ");
+            String _percent_2 = GeneratorNames.percent(table.getEntries().get((i).intValue()).getProbability());
+            _builder.append(_percent_2, "        ");
             _builder.append(" % of pops");
             _builder.newLineIfNotEmpty();
           }

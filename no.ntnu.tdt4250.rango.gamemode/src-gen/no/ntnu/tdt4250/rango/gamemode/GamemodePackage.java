@@ -218,13 +218,22 @@ public interface GamemodePackage extends EPackage {
 	int EDITION__MODES = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Drops</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDITION__DROPS = NAMED_ELEMENT_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Edition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EDITION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int EDITION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Edition</em>' class.
@@ -1225,13 +1234,22 @@ public interface GamemodePackage extends EPackage {
 	int GAME_MODE__MAX_SCORE = NAMED_ELEMENT_FEATURE_COUNT + 13;
 
 	/**
+	 * The feature id for the '<em><b>Effective Drops</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GAME_MODE__EFFECTIVE_DROPS = NAMED_ELEMENT_FEATURE_COUNT + 14;
+
+	/**
 	 * The number of structural features of the '<em>Game Mode</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 14;
+	int GAME_MODE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 15;
 
 	/**
 	 * The number of operations of the '<em>Game Mode</em>' class.
@@ -2138,13 +2156,22 @@ public interface GamemodePackage extends EPackage {
 	int DROP_TABLE__TOTAL_WEIGHT = 2;
 
 	/**
+	 * The feature id for the '<em><b>Ball Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DROP_TABLE__BALL_TYPE = 3;
+
+	/**
 	 * The number of structural features of the '<em>Drop Table</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DROP_TABLE_FEATURE_COUNT = 3;
+	int DROP_TABLE_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Drop Table</em>' class.
@@ -2192,13 +2219,22 @@ public interface GamemodePackage extends EPackage {
 	int DROP__PROBABILITY = 3;
 
 	/**
+	 * The feature id for the '<em><b>Share</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DROP__SHARE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Drop</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DROP_FEATURE_COUNT = 4;
+	int DROP_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Drop</em>' class.
@@ -2619,6 +2655,17 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEdition_Modes();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Edition#getDrops <em>Drops</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Drops</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Edition#getDrops()
+	 * @see #getEdition()
+	 * @generated
+	 */
+	EReference getEdition_Drops();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.BallType <em>Ball Type</em>}'.
@@ -3264,6 +3311,17 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getGameMode_MaxScore();
 
 	/**
+	 * Returns the meta object for the reference list '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getEffectiveDrops <em>Effective Drops</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Effective Drops</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getEffectiveDrops()
+	 * @see #getGameMode()
+	 * @generated
+	 */
+	EReference getGameMode_EffectiveDrops();
+
+	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.SpeedBonus <em>Speed Bonus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3724,6 +3782,17 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getDropTable_TotalWeight();
 
 	/**
+	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getBallType <em>Ball Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Ball Type</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.DropTable#getBallType()
+	 * @see #getDropTable()
+	 * @generated
+	 */
+	EReference getDropTable_BallType();
+
+	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Drop <em>Drop</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3776,6 +3845,17 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDrop_Probability();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Drop#getShare <em>Share</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Share</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Drop#getShare()
+	 * @see #getDrop()
+	 * @generated
+	 */
+	EAttribute getDrop_Share();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.EndCondition <em>End Condition</em>}'.
@@ -4067,6 +4147,14 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EDITION__MODES = eINSTANCE.getEdition_Modes();
+
+		/**
+		 * The meta object literal for the '<em><b>Drops</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDITION__DROPS = eINSTANCE.getEdition_Drops();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl <em>Ball Type</em>}' class.
@@ -4583,6 +4671,14 @@ public interface GamemodePackage extends EPackage {
 		EAttribute GAME_MODE__MAX_SCORE = eINSTANCE.getGameMode_MaxScore();
 
 		/**
+		 * The meta object literal for the '<em><b>Effective Drops</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GAME_MODE__EFFECTIVE_DROPS = eINSTANCE.getGameMode_EffectiveDrops();
+
+		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpeedBonusImpl <em>Speed Bonus</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4953,6 +5049,14 @@ public interface GamemodePackage extends EPackage {
 		EAttribute DROP_TABLE__TOTAL_WEIGHT = eINSTANCE.getDropTable_TotalWeight();
 
 		/**
+		 * The meta object literal for the '<em><b>Ball Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DROP_TABLE__BALL_TYPE = eINSTANCE.getDropTable_BallType();
+
+		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl <em>Drop</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4993,6 +5097,14 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DROP__PROBABILITY = eINSTANCE.getDrop_Probability();
+
+		/**
+		 * The meta object literal for the '<em><b>Share</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DROP__SHARE = eINSTANCE.getDrop_Share();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl <em>End Condition</em>}' class.

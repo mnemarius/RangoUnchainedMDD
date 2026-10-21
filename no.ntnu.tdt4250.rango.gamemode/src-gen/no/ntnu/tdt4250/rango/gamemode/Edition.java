@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getMaterials <em>Materials</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPlayers <em>Players</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getModes <em>Modes</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getDrops <em>Drops</em>}</li>
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition()
@@ -129,5 +130,20 @@ public interface Edition extends NamedElement {
 	 * @generated
 	 */
 	EList<GameMode> getModes();
+
+	/**
+	 * Returns the value of the '<em><b>Drops</b></em>' containment reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.DropTable}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * What popping each ball type can drop, one table per ball type, in every mode that has no drop tables of its own.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Drops</em>' containment reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition_Drops()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<DropTable> getDrops();
 
 } // Edition

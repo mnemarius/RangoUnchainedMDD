@@ -1987,10 +1987,10 @@ public class InternalRangoModeLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalRangoMode.g:3782:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalRangoMode.g:3782:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalRangoMode.g:3841:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalRangoMode.g:3841:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalRangoMode.g:3782:11: ( '^' )?
+            // InternalRangoMode.g:3841:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1999,7 +1999,7 @@ public class InternalRangoModeLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalRangoMode.g:3782:11: '^'
+                    // InternalRangoMode.g:3841:11: '^'
                     {
                     match('^'); 
 
@@ -2017,7 +2017,7 @@ public class InternalRangoModeLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalRangoMode.g:3782:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalRangoMode.g:3841:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -2066,10 +2066,10 @@ public class InternalRangoModeLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalRangoMode.g:3784:10: ( ( '0' .. '9' )+ )
-            // InternalRangoMode.g:3784:12: ( '0' .. '9' )+
+            // InternalRangoMode.g:3843:10: ( ( '0' .. '9' )+ )
+            // InternalRangoMode.g:3843:12: ( '0' .. '9' )+
             {
-            // InternalRangoMode.g:3784:12: ( '0' .. '9' )+
+            // InternalRangoMode.g:3843:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -2083,7 +2083,7 @@ public class InternalRangoModeLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalRangoMode.g:3784:13: '0' .. '9'
+            	    // InternalRangoMode.g:3843:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -2115,10 +2115,10 @@ public class InternalRangoModeLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalRangoMode.g:3786:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalRangoMode.g:3786:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalRangoMode.g:3845:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalRangoMode.g:3845:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalRangoMode.g:3786:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalRangoMode.g:3845:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -2136,10 +2136,10 @@ public class InternalRangoModeLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalRangoMode.g:3786:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalRangoMode.g:3845:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalRangoMode.g:3786:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalRangoMode.g:3845:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -2155,7 +2155,7 @@ public class InternalRangoModeLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // InternalRangoMode.g:3786:21: '\\\\' .
+                    	    // InternalRangoMode.g:3845:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2163,7 +2163,7 @@ public class InternalRangoModeLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalRangoMode.g:3786:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalRangoMode.g:3845:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2188,10 +2188,10 @@ public class InternalRangoModeLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:3786:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalRangoMode.g:3845:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalRangoMode.g:3786:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalRangoMode.g:3845:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -2207,7 +2207,7 @@ public class InternalRangoModeLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // InternalRangoMode.g:3786:54: '\\\\' .
+                    	    // InternalRangoMode.g:3845:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2215,7 +2215,7 @@ public class InternalRangoModeLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalRangoMode.g:3786:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalRangoMode.g:3845:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2258,12 +2258,12 @@ public class InternalRangoModeLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalRangoMode.g:3788:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalRangoMode.g:3788:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalRangoMode.g:3847:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalRangoMode.g:3847:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalRangoMode.g:3788:24: ( options {greedy=false; } : . )*
+            // InternalRangoMode.g:3847:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -2288,7 +2288,7 @@ public class InternalRangoModeLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalRangoMode.g:3788:52: .
+            	    // InternalRangoMode.g:3847:52: .
             	    {
             	    matchAny(); 
 
@@ -2318,12 +2318,12 @@ public class InternalRangoModeLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalRangoMode.g:3790:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalRangoMode.g:3790:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalRangoMode.g:3849:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalRangoMode.g:3849:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalRangoMode.g:3790:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalRangoMode.g:3849:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -2336,7 +2336,7 @@ public class InternalRangoModeLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalRangoMode.g:3790:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalRangoMode.g:3849:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2356,7 +2356,7 @@ public class InternalRangoModeLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalRangoMode.g:3790:40: ( ( '\\r' )? '\\n' )?
+            // InternalRangoMode.g:3849:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -2365,9 +2365,9 @@ public class InternalRangoModeLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalRangoMode.g:3790:41: ( '\\r' )? '\\n'
+                    // InternalRangoMode.g:3849:41: ( '\\r' )? '\\n'
                     {
-                    // InternalRangoMode.g:3790:41: ( '\\r' )?
+                    // InternalRangoMode.g:3849:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -2376,7 +2376,7 @@ public class InternalRangoModeLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // InternalRangoMode.g:3790:41: '\\r'
+                            // InternalRangoMode.g:3849:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2408,10 +2408,10 @@ public class InternalRangoModeLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalRangoMode.g:3792:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalRangoMode.g:3792:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalRangoMode.g:3851:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalRangoMode.g:3851:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalRangoMode.g:3792:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalRangoMode.g:3851:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -2465,8 +2465,8 @@ public class InternalRangoModeLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalRangoMode.g:3794:16: ( . )
-            // InternalRangoMode.g:3794:18: .
+            // InternalRangoMode.g:3853:16: ( . )
+            // InternalRangoMode.g:3853:18: .
             {
             matchAny(); 
 

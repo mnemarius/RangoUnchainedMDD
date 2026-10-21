@@ -211,6 +211,27 @@ public class GeneratorNames {
   }
 
   /**
+   * A percentage for a comment, with at most one decimal: 12.5, 20, 6.7.
+   */
+  public static String percent(final float value) {
+    String _xblockexpression = null;
+    {
+      int _round = Math.round((value * 10));
+      final double rounded = (_round / 10.0);
+      String _xifexpression = null;
+      double _rint = Math.rint(rounded);
+      boolean _equals = (rounded == _rint);
+      if (_equals) {
+        _xifexpression = String.valueOf(((int) rounded));
+      } else {
+        _xifexpression = String.valueOf(rounded);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+
+  /**
    * The upper end of the roll that drops the entry at the given index of a drop table.
    */
   public static int threshold(final DropTable table, final int index) {

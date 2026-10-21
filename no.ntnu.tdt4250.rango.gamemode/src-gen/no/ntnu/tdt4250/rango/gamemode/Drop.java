@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Drop#getPowerUp <em>Power Up</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Drop#getWeight <em>Weight</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Drop#getProbability <em>Probability</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Drop#getShare <em>Share</em>}</li>
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getDrop()
@@ -95,7 +96,7 @@ public interface Drop extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The chance, in percent, that a single pop drops this power-up.
+	 * The chance, in percent, that a single pop of the table's ball type drops this power-up.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Probability</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getDrop_Probability()
@@ -103,5 +104,19 @@ public interface Drop extends EObject {
 	 * @generated
 	 */
 	float getProbability();
+
+	/**
+	 * Returns the value of the '<em><b>Share</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The chance, in percent, that a pop which drops something drops this power-up.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Share</em>' attribute.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getDrop_Share()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	float getShare();
 
 } // Drop

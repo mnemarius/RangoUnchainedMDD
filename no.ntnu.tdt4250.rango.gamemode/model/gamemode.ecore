@@ -83,6 +83,12 @@
         <details key="documentation" value="The game modes of the edition, in menu order."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="drops" upperBound="-1"
+        eType="#//DropTable" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="What popping each ball type can drop, one table per ball type, in every mode that has no drop tables of its own."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BallType" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -413,7 +419,7 @@
       <details key="documentation" value="A way to play the game: the rules of one round, from what spawns to when the round ends."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful"/>
+      <details key="constraints" value="positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyBallDrops"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="positiveGravity" value="gravity > 0"/>
@@ -464,10 +470,10 @@
         <details key="documentation" value="Which balls enter the arena, where and when."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="drops" eType="#//DropTable"
-        containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="drops" upperBound="-1"
+        eType="#//DropTable" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What popped balls can drop. Without a drop table, nothing drops."/>
+        <details key="documentation" value="What popping each ball type of this mode can drop, one table per ball type. If the mode has drop tables, they replace those of the edition."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="winConditions" upperBound="-1"
@@ -498,6 +504,12 @@
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The points earned by popping everything the mode spawns, before any speed bonus. -1 if the waves loop."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="effectiveDrops" upperBound="-1"
+        eType="#//DropTable" changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The drop tables that apply in this mode: its own if it has any, otherwise those of the edition."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -765,10 +777,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DropTable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="What popped balls can drop. Each pop drops at most one power-up: with the table's chance, one of its entries, picked by weight."/>
+      <details key="documentation" value="What popping one ball type can drop. Each pop drops at most one power-up: with the table's chance, one of its entries, picked by weight."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="chanceIsPercentage distinctPowerUps"/>
+      <details key="constraints" value="chanceIsPercentage distinctPowerUps oneTablePerBall"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="chanceIsPercentage" value="chance > 0 and chance &lt;= 100"/>
@@ -786,6 +798,12 @@
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The sum of the weights of the entries."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ballType" lowerBound="1"
+        eType="#//BallType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The ball type whose pops roll on this table."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -812,7 +830,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="probability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The chance, in percent, that a single pop drops this power-up."/>
+        <details key="documentation" value="The chance, in percent, that a single pop of the table's ball type drops this power-up."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="share" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The chance, in percent, that a pop which drops something drops this power-up."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

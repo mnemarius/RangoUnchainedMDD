@@ -52,6 +52,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getPowerUps <em>Power Ups</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getPopsToClear <em>Pops To Clear</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getMaxScore <em>Max Score</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getEffectiveDrops <em>Effective Drops</em>}</li>
  * </ul>
  *
  * @generated
@@ -158,14 +159,14 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	protected SpawnStrategy spawning;
 
 	/**
-	 * The cached value of the '{@link #getDrops() <em>Drops</em>}' containment reference.
+	 * The cached value of the '{@link #getDrops() <em>Drops</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDrops()
 	 * @generated
 	 * @ordered
 	 */
-	protected DropTable drops;
+	protected EList<DropTable> drops;
 
 	/**
 	 * The cached value of the '{@link #getWinConditions() <em>Win Conditions</em>}' containment reference list.
@@ -486,43 +487,11 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	 * @generated
 	 */
 	@Override
-	public DropTable getDrops() {
+	public EList<DropTable> getDrops() {
+		if (drops == null) {
+			drops = new EObjectContainmentEList<DropTable>(DropTable.class, this, GamemodePackage.GAME_MODE__DROPS);
+		}
 		return drops;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDrops(DropTable newDrops, NotificationChain msgs) {
-		DropTable oldDrops = drops;
-		drops = newDrops;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__DROPS, oldDrops, newDrops);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setDrops(DropTable newDrops) {
-		if (newDrops != drops) {
-			NotificationChain msgs = null;
-			if (drops != null)
-				msgs = ((InternalEObject)drops).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__DROPS, null, msgs);
-			if (newDrops != null)
-				msgs = ((InternalEObject)newDrops).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__DROPS, null, msgs);
-			msgs = basicSetDrops(newDrops, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__DROPS, newDrops, newDrops));
 	}
 
 	/**
@@ -584,6 +553,16 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public EList<DropTable> getEffectiveDrops() {
+		return GamemodeDerivations.effectiveDrops(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -596,7 +575,7 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__SPAWNING:
 				return basicSetSpawning(null, msgs);
 			case GamemodePackage.GAME_MODE__DROPS:
-				return basicSetDrops(null, msgs);
+				return ((InternalEList<?>)getDrops()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.GAME_MODE__WIN_CONDITIONS:
 				return ((InternalEList<?>)getWinConditions()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.GAME_MODE__LOSE_CONDITIONS:
@@ -642,6 +621,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return getPopsToClear();
 			case GamemodePackage.GAME_MODE__MAX_SCORE:
 				return getMaxScore();
+			case GamemodePackage.GAME_MODE__EFFECTIVE_DROPS:
+				return getEffectiveDrops();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -677,7 +658,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				setSpawning((SpawnStrategy)newValue);
 				return;
 			case GamemodePackage.GAME_MODE__DROPS:
-				setDrops((DropTable)newValue);
+				getDrops().clear();
+				getDrops().addAll((Collection<? extends DropTable>)newValue);
 				return;
 			case GamemodePackage.GAME_MODE__WIN_CONDITIONS:
 				getWinConditions().clear();
@@ -721,7 +703,7 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				setSpawning((SpawnStrategy)null);
 				return;
 			case GamemodePackage.GAME_MODE__DROPS:
-				setDrops((DropTable)null);
+				getDrops().clear();
 				return;
 			case GamemodePackage.GAME_MODE__WIN_CONDITIONS:
 				getWinConditions().clear();
@@ -758,7 +740,7 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__SPAWNING:
 				return spawning != null;
 			case GamemodePackage.GAME_MODE__DROPS:
-				return drops != null;
+				return drops != null && !drops.isEmpty();
 			case GamemodePackage.GAME_MODE__WIN_CONDITIONS:
 				return winConditions != null && !winConditions.isEmpty();
 			case GamemodePackage.GAME_MODE__LOSE_CONDITIONS:
@@ -769,6 +751,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return getPopsToClear() != POPS_TO_CLEAR_EDEFAULT;
 			case GamemodePackage.GAME_MODE__MAX_SCORE:
 				return getMaxScore() != MAX_SCORE_EDEFAULT;
+			case GamemodePackage.GAME_MODE__EFFECTIVE_DROPS:
+				return !getEffectiveDrops().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

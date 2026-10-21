@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl#getPowerUp <em>Power Up</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl#getProbability <em>Probability</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl#getShare <em>Share</em>}</li>
  * </ul>
  *
  * @generated
@@ -73,6 +74,16 @@ public class DropImpl extends EObjectImpl implements Drop {
 	 * @ordered
 	 */
 	protected static final float PROBABILITY_EDEFAULT = 0.0F;
+
+	/**
+	 * The default value of the '{@link #getShare() <em>Share</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShare()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final float SHARE_EDEFAULT = 0.0F;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -180,6 +191,16 @@ public class DropImpl extends EObjectImpl implements Drop {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public float getShare() {
+		return GamemodeDerivations.share(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -238,6 +259,8 @@ public class DropImpl extends EObjectImpl implements Drop {
 				return getWeight();
 			case GamemodePackage.DROP__PROBABILITY:
 				return getProbability();
+			case GamemodePackage.DROP__SHARE:
+				return getShare();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -294,6 +317,8 @@ public class DropImpl extends EObjectImpl implements Drop {
 				return weight != WEIGHT_EDEFAULT;
 			case GamemodePackage.DROP__PROBABILITY:
 				return getProbability() != PROBABILITY_EDEFAULT;
+			case GamemodePackage.DROP__SHARE:
+				return getShare() != SHARE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

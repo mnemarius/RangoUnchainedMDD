@@ -97,13 +97,13 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 				sequence_DropTable(context, (DropTable) semanticObject); 
 				return; 
 			case GamemodePackage.EDITION:
-				sequence_Edition(context, (Edition) semanticObject); 
+				sequence_Drops_Edition(context, (Edition) semanticObject); 
 				return; 
 			case GamemodePackage.FIXED_LAYOUT:
 				sequence_FixedLayout(context, (FixedLayout) semanticObject); 
 				return; 
 			case GamemodePackage.GAME_MODE:
-				sequence_GameMode(context, (GameMode) semanticObject); 
+				sequence_Drops_GameMode(context, (GameMode) semanticObject); 
 				return; 
 			case GamemodePackage.HEAL:
 				sequence_Heal(context, (Heal) semanticObject); 
@@ -370,7 +370,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     DropTable returns DropTable
 	 *
 	 * Constraint:
-	 *     (chance=Decimal entries+=Drop entries+=Drop*)
+	 *     (ballType=[BallType|ID] chance=Decimal entries+=Drop entries+=Drop*)
 	 * </pre>
 	 */
 	protected void sequence_DropTable(ISerializationContext context, DropTable semanticObject) {
@@ -398,25 +398,21 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Edition returns Edition
 	 *
 	 * Constraint:
-	 *     (name=ID title=STRING? (ballTypes+=BallType | powerUps+=PowerUp | materials+=Material | players+=PlayerProfile | modes+=GameMode)*)
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         (
+	 *             ballTypes+=BallType | 
+	 *             powerUps+=PowerUp | 
+	 *             materials+=Material | 
+	 *             players+=PlayerProfile | 
+	 *             modes+=GameMode | 
+	 *             drops+=DropTable
+	 *         )*
+	 *     )
 	 * </pre>
 	 */
-	protected void sequence_Edition(ISerializationContext context, Edition semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     SpawnStrategy returns FixedLayout
-	 *     FixedLayout returns FixedLayout
-	 *
-	 * Constraint:
-	 *     spawns+=BallSpawn+
-	 * </pre>
-	 */
-	protected void sequence_FixedLayout(ISerializationContext context, FixedLayout semanticObject) {
+	protected void sequence_Drops_Edition(ISerializationContext context, Edition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -435,14 +431,29 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *         (gravity=Decimal | speedBonus=SpeedBonus)* 
 	 *         arena=Arena 
 	 *         spawning=SpawnStrategy 
-	 *         drops=DropTable? 
+	 *         drops+=DropTable* 
 	 *         (winConditions+=EndCondition winConditions+=EndCondition*)? 
 	 *         loseConditions+=EndCondition 
 	 *         loseConditions+=EndCondition*
 	 *     )
 	 * </pre>
 	 */
-	protected void sequence_GameMode(ISerializationContext context, GameMode semanticObject) {
+	protected void sequence_Drops_GameMode(ISerializationContext context, GameMode semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     SpawnStrategy returns FixedLayout
+	 *     FixedLayout returns FixedLayout
+	 *
+	 * Constraint:
+	 *     spawns+=BallSpawn+
+	 * </pre>
+	 */
+	protected void sequence_FixedLayout(ISerializationContext context, FixedLayout semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

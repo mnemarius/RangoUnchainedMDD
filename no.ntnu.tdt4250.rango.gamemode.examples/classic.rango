@@ -1,6 +1,7 @@
 // The smallest valid product: the round the original game plays. One ball type that splits in two,
-// a player with three hearts, a neutral arena, no power-ups. Won by popping everything, lost when
-// the hearts run out. Only the mandatory parts of the metamodel are configured.
+// a player with three hearts, a neutral arena, and the one power-up every ball must be able to drop.
+// Won by popping everything, lost when the hearts run out. Only the mandatory parts of the metamodel
+// are configured.
 
 edition Classic "Rango Unchained"
 
@@ -8,6 +9,15 @@ ball Tumbleweed {
 	sprite "Ball/Tumbleweed.png"
 	on pop: split into 2
 	on contact: damage 1
+}
+
+powerup Health {
+	sprite "Powerup/Health.png"
+	gives: heal 1
+}
+
+drops {
+	Tumbleweed 5% { Health }
 }
 
 player Rango {

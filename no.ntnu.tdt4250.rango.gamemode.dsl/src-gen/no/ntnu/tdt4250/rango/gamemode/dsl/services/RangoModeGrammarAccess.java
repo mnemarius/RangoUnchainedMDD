@@ -44,17 +44,20 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cMaterialsMaterialParserRuleCall_3_2_0 = (RuleCall)cMaterialsAssignment_3_2.eContents().get(0);
 		private final Assignment cPlayersAssignment_3_3 = (Assignment)cAlternatives_3.eContents().get(3);
 		private final RuleCall cPlayersPlayerProfileParserRuleCall_3_3_0 = (RuleCall)cPlayersAssignment_3_3.eContents().get(0);
-		private final Assignment cModesAssignment_3_4 = (Assignment)cAlternatives_3.eContents().get(4);
-		private final RuleCall cModesGameModeParserRuleCall_3_4_0 = (RuleCall)cModesAssignment_3_4.eContents().get(0);
+		private final RuleCall cDropsParserRuleCall_3_4 = (RuleCall)cAlternatives_3.eContents().get(4);
+		private final Assignment cModesAssignment_3_5 = (Assignment)cAlternatives_3.eContents().get(5);
+		private final RuleCall cModesGameModeParserRuleCall_3_5_0 = (RuleCall)cModesAssignment_3_5.eContents().get(0);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// The edition: the building blocks of the product, then its game modes, in any order.
+		//// The edition: the building blocks of the product, its default drop tables, and its game modes, in
+		//// any order.
 		//Edition returns Edition:
 		//    'edition' name=ID (title=STRING)?
 		//    (    ballTypes+=BallType
 		//    |    powerUps+=PowerUp
 		//    |    materials+=Material
 		//    |    players+=PlayerProfile
+		//    |    Drops
 		//    |    modes+=GameMode
 		//    )*;
 		@Override public ParserRule getRule() { return rule; }
@@ -64,6 +67,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//|    powerUps+=PowerUp
 		//|    materials+=Material
 		//|    players+=PlayerProfile
+		//|    Drops
 		//|    modes+=GameMode
 		//)*
 		public Group getGroup() { return cGroup; }
@@ -87,6 +91,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//|    powerUps+=PowerUp
 		//|    materials+=Material
 		//|    players+=PlayerProfile
+		//|    Drops
 		//|    modes+=GameMode
 		//)*
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
@@ -115,11 +120,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//PlayerProfile
 		public RuleCall getPlayersPlayerProfileParserRuleCall_3_3_0() { return cPlayersPlayerProfileParserRuleCall_3_3_0; }
 		
+		//Drops
+		public RuleCall getDropsParserRuleCall_3_4() { return cDropsParserRuleCall_3_4; }
+		
 		//modes+=GameMode
-		public Assignment getModesAssignment_3_4() { return cModesAssignment_3_4; }
+		public Assignment getModesAssignment_3_5() { return cModesAssignment_3_5; }
 		
 		//GameMode
-		public RuleCall getModesGameModeParserRuleCall_3_4_0() { return cModesGameModeParserRuleCall_3_4_0; }
+		public RuleCall getModesGameModeParserRuleCall_3_5_0() { return cModesGameModeParserRuleCall_3_5_0; }
 	}
 	public class BallTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallType");
@@ -1060,8 +1068,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cArenaArenaParserRuleCall_8_0 = (RuleCall)cArenaAssignment_8.eContents().get(0);
 		private final Assignment cSpawningAssignment_9 = (Assignment)cGroup.eContents().get(9);
 		private final RuleCall cSpawningSpawnStrategyParserRuleCall_9_0 = (RuleCall)cSpawningAssignment_9.eContents().get(0);
-		private final Assignment cDropsAssignment_10 = (Assignment)cGroup.eContents().get(10);
-		private final RuleCall cDropsDropTableParserRuleCall_10_0 = (RuleCall)cDropsAssignment_10.eContents().get(0);
+		private final RuleCall cDropsParserRuleCall_10 = (RuleCall)cGroup.eContents().get(10);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
 		private final Keyword cWinKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
 		private final Keyword cWhenKeyword_11_1 = (Keyword)cGroup_11.eContents().get(1);
@@ -1092,7 +1099,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//    )
 		//    arena=Arena
 		//    spawning=SpawnStrategy
-		//    (drops=DropTable)?
+		//    Drops?
 		//    ('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 		//    'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
 		//    '}';
@@ -1106,7 +1113,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//)
 		//arena=Arena
 		//spawning=SpawnStrategy
-		//(drops=DropTable)?
+		//Drops?
 		//('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 		//'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
 		//'}'
@@ -1189,11 +1196,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//SpawnStrategy
 		public RuleCall getSpawningSpawnStrategyParserRuleCall_9_0() { return cSpawningSpawnStrategyParserRuleCall_9_0; }
 		
-		//(drops=DropTable)?
-		public Assignment getDropsAssignment_10() { return cDropsAssignment_10; }
-		
-		//DropTable
-		public RuleCall getDropsDropTableParserRuleCall_10_0() { return cDropsDropTableParserRuleCall_10_0; }
+		//Drops?
+		public RuleCall getDropsParserRuleCall_10() { return cDropsParserRuleCall_10; }
 		
 		//('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 		public Group getGroup_11() { return cGroup_11; }
@@ -1953,10 +1957,51 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//Direction
 		public RuleCall getDirectionDirectionEnumRuleCall_5_1_0() { return cDirectionDirectionEnumRuleCall_5_1_0; }
 	}
+	public class DropsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Drops");
+		private final Group cGroup = (Group)rule.eContents().get(0);
+		private final Keyword cDropsKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cDropsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDropsDropTableParserRuleCall_2_0 = (RuleCall)cDropsAssignment_2.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//// ---------------------------------------------------------------------------------------------
+		//// Drops and end conditions. Each ball type has its own drop table: the chance that popping it drops
+		//// a power-up, and which power-up, by weight. The tables of a mode replace those of the edition.
+		////
+		////   drops {
+		////       Bomb       40% { Shield weight 2, Health }
+		////       Tumbleweed  5% { Health }
+		////   }
+		//fragment Drops*:
+		//    'drops' '{' drops+=DropTable+ '}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'drops' '{' drops+=DropTable+ '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'drops'
+		public Keyword getDropsKeyword_0() { return cDropsKeyword_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
+		
+		//drops+=DropTable+
+		public Assignment getDropsAssignment_2() { return cDropsAssignment_2; }
+		
+		//DropTable
+		public RuleCall getDropsDropTableParserRuleCall_2_0() { return cDropsDropTableParserRuleCall_2_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+	}
 	public class DropTableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cDropsKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cBallTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cBallTypeBallTypeCrossReference_0_0 = (CrossReference)cBallTypeAssignment_0.eContents().get(0);
+		private final RuleCall cBallTypeBallTypeIDTerminalRuleCall_0_0_1 = (RuleCall)cBallTypeBallTypeCrossReference_0_0.eContents().get(1);
 		private final Assignment cChanceAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cChanceDecimalParserRuleCall_1_0 = (RuleCall)cChanceAssignment_1.eContents().get(0);
 		private final Keyword cPercentSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
@@ -1969,17 +2014,21 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cEntriesDropParserRuleCall_5_1_0 = (RuleCall)cEntriesAssignment_5_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//// ---------------------------------------------------------------------------------------------
-		//// Drops and end conditions.
 		//DropTable returns DropTable:
-		//    'drops' chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
+		//    ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'drops' chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}'
+		//ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}'
 		public Group getGroup() { return cGroup; }
 		
-		//'drops'
-		public Keyword getDropsKeyword_0() { return cDropsKeyword_0; }
+		//ballType=[BallType]
+		public Assignment getBallTypeAssignment_0() { return cBallTypeAssignment_0; }
+		
+		//[BallType]
+		public CrossReference getBallTypeBallTypeCrossReference_0_0() { return cBallTypeBallTypeCrossReference_0_0; }
+		
+		//ID
+		public RuleCall getBallTypeBallTypeIDTerminalRuleCall_0_0_1() { return cBallTypeBallTypeIDTerminalRuleCall_0_0_1; }
 		
 		//chance=Decimal
 		public Assignment getChanceAssignment_1() { return cChanceAssignment_1; }
@@ -2403,6 +2452,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	private final WaveElements pWave;
 	private final BallSpawnElements pBallSpawn;
 	private final DirectionElements eDirection;
+	private final DropsElements pDrops;
 	private final DropTableElements pDropTable;
 	private final DropElements pDrop;
 	private final EndConditionElements pEndCondition;
@@ -2454,6 +2504,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.pWave = new WaveElements();
 		this.pBallSpawn = new BallSpawnElements();
 		this.eDirection = new DirectionElements();
+		this.pDrops = new DropsElements();
 		this.pDropTable = new DropTableElements();
 		this.pDrop = new DropElements();
 		this.pEndCondition = new EndConditionElements();
@@ -2495,13 +2546,15 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// The edition: the building blocks of the product, then its game modes, in any order.
+	//// The edition: the building blocks of the product, its default drop tables, and its game modes, in
+	//// any order.
 	//Edition returns Edition:
 	//    'edition' name=ID (title=STRING)?
 	//    (    ballTypes+=BallType
 	//    |    powerUps+=PowerUp
 	//    |    materials+=Material
 	//    |    players+=PlayerProfile
+	//    |    Drops
 	//    |    modes+=GameMode
 	//    )*;
 	public EditionElements getEditionAccess() {
@@ -2699,7 +2752,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    )
 	//    arena=Arena
 	//    spawning=SpawnStrategy
-	//    (drops=DropTable)?
+	//    Drops?
 	//    ('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 	//    'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
 	//    '}';
@@ -2870,9 +2923,25 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// Drops and end conditions.
+	//// Drops and end conditions. Each ball type has its own drop table: the chance that popping it drops
+	//// a power-up, and which power-up, by weight. The tables of a mode replace those of the edition.
+	////
+	////   drops {
+	////       Bomb       40% { Shield weight 2, Health }
+	////       Tumbleweed  5% { Health }
+	////   }
+	//fragment Drops*:
+	//    'drops' '{' drops+=DropTable+ '}';
+	public DropsElements getDropsAccess() {
+		return pDrops;
+	}
+	
+	public ParserRule getDropsRule() {
+		return getDropsAccess().getRule();
+	}
+	
 	//DropTable returns DropTable:
-	//    'drops' chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
+	//    ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
 	public DropTableElements getDropTableAccess() {
 		return pDropTable;
 	}

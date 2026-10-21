@@ -7,7 +7,8 @@ import "http://www.ntnu.no/tdt4250/rango/gamemode/1.0"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 // ---------------------------------------------------------------------------------------------
-// The edition: the building blocks of the product, then its game modes, in any order.
+// The edition: the building blocks of the product, its default drop tables, and its game modes, in
+// any order.
 
 Edition returns Edition:
 	'edition' name=ID (title=STRING)?
@@ -15,6 +16,7 @@ Edition returns Edition:
 	|	powerUps+=PowerUp
 	|	materials+=Material
 	|	players+=PlayerProfile
+	|	Drops
 	|	modes+=GameMode
 	)*;
 
@@ -111,7 +113,7 @@ GameMode returns GameMode:
 	)
 	arena=Arena
 	spawning=SpawnStrategy
-	(drops=DropTable)?
+	Drops?
 	('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
 	'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
 	'}';
@@ -180,10 +182,19 @@ enum Direction returns Direction:
 	LEFT='left' | RIGHT='right';
 
 // ---------------------------------------------------------------------------------------------
-// Drops and end conditions.
+// Drops and end conditions. Each ball type has its own drop table: the chance that popping it drops
+// a power-up, and which power-up, by weight. The tables of a mode replace those of the edition.
+//
+//   drops {
+//       Bomb       40% { Shield weight 2, Health }
+//       Tumbleweed  5% { Health }
+//   }
+
+fragment Drops*:
+	'drops' '{' drops+=DropTable+ '}';
 
 DropTable returns DropTable:
-	'drops' chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
+	ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
 
 Drop returns Drop:
 	powerUp=[PowerUp] ('weight' weight=INT)?;

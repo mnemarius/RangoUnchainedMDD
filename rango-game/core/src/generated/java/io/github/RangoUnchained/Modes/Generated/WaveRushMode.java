@@ -81,6 +81,8 @@ public final class WaveRushMode extends GameModeDefinition {
         switch (name) {
             case "Health":
                 return "Powerup/Health.png";
+            case "Shield":
+                return "Powerup/Shield.png";
             default:
                 return null;
         }
@@ -161,16 +163,24 @@ public final class WaveRushMode extends GameModeDefinition {
             case "Tumbleweed":
                 context.addScore(10);
                 context.split(ball, "Tumbleweed", 2, 5.0f);
+                if (context.random() * 100f < 5.0f) { // 5 % of Tumbleweed pops drop something
+                    context.dropPowerUp("Health", ball);
+                }
                 break;
             case "Armadillo":
                 context.addScore(20);
                 context.split(ball, "Armadillo", 3, 6.0f);
+                if (context.random() * 100f < 20.0f) { // 20 % of Armadillo pops drop something
+                    float roll = context.random() * 4;
+                    if (roll < 3) {
+                        context.dropPowerUp("Health", ball); // 75 % of drops, 15 % of pops
+                    } else {
+                        context.dropPowerUp("Shield", ball); // 25 % of drops, 5 % of pops
+                    }
+                }
                 break;
             default:
                 break;
-        }
-        if (context.random() * 100f < 10.0f) {
-            context.dropPowerUp("Health", ball); // 10.0 % of pops
         }
     }
 
@@ -193,6 +203,9 @@ public final class WaveRushMode extends GameModeDefinition {
         switch (powerUp) {
             case "Health":
                 context.heal(2);
+                break;
+            case "Shield":
+                context.shield(8.0f, "Powerup/Shield.png");
                 break;
             default:
                 break;

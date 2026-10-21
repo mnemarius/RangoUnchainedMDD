@@ -3,6 +3,7 @@
  */
 package no.ntnu.tdt4250.rango.gamemode.dsl.formatting2;
 
+import com.google.common.collect.Iterables;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.XbaseGenerated;
@@ -48,16 +50,24 @@ public class RangoModeFormatter extends AbstractFormatter2 {
       it.oneSpace();
     };
     document.append(this.textRegionExtensions.regionFor(edition).keyword("edition"), _function);
-    EList<EObject> _eContents = edition.eContents();
-    for (final EObject element : _eContents) {
+    final Function1<EObject, Boolean> _function_1 = (EObject it) -> {
+      return Boolean.valueOf((!(it instanceof DropTable)));
+    };
+    Iterable<EObject> _filter = IterableExtensions.<EObject>filter(edition.eContents(), _function_1);
+    for (final EObject element : _filter) {
       {
-        final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+        final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
           it.setNewLines(2);
         };
-        document.<EObject>prepend(element, _function_1);
+        document.<EObject>prepend(element, _function_2);
         document.<EObject>format(element);
       }
     }
+    final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
+      it.setNewLines(2);
+    };
+    document.prepend(this.textRegionExtensions.regionFor(edition).keyword("drops"), _function_2);
+    this.drops(edition, document);
   }
 
   protected void _format(final BallType type, @Extension final IFormattableDocument document) {
@@ -96,8 +106,7 @@ public class RangoModeFormatter extends AbstractFormatter2 {
     SpeedBonus _speedBonus = mode.getSpeedBonus();
     Arena _arena = mode.getArena();
     SpawnStrategy _spawning = mode.getSpawning();
-    DropTable _drops = mode.getDrops();
-    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_speedBonus, _arena, _spawning, _drops)));
+    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_speedBonus, _arena, _spawning)));
     for (final EObject part : _filterNull) {
       {
         final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
@@ -107,6 +116,11 @@ public class RangoModeFormatter extends AbstractFormatter2 {
         document.<EObject>format(part);
       }
     }
+    final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+      it.newLine();
+    };
+    document.prepend(this.textRegionExtensions.regionFor(mode).keyword("drops"), _function_1);
+    this.drops(mode, document);
   }
 
   protected void _format(final Arena arena, @Extension final IFormattableDocument document) {
@@ -209,11 +223,45 @@ public class RangoModeFormatter extends AbstractFormatter2 {
   }
 
   /**
+   * The "drops { ... }" block of an edition or a mode: one drop table per line.
+   */
+  private void drops(final EObject owner, @Extension final IFormattableDocument document) {
+    final ISemanticRegion keyword = this.textRegionExtensions.regionFor(owner).keyword("drops");
+    if ((keyword == null)) {
+      return;
+    }
+    final Function1<ISemanticRegion, Boolean> _function = (ISemanticRegion it) -> {
+      int _offset = it.getOffset();
+      int _offset_1 = keyword.getOffset();
+      return Boolean.valueOf((_offset > _offset_1));
+    };
+    final ISemanticRegion open = IterableExtensions.<ISemanticRegion>findFirst(this.textRegionExtensions.regionFor(owner).keywords("{"), _function);
+    final Function1<ISemanticRegion, Boolean> _function_1 = (ISemanticRegion it) -> {
+      return Boolean.valueOf(((open != null) && (it.getOffset() > open.getOffset())));
+    };
+    final ISemanticRegion close = IterableExtensions.<ISemanticRegion>findFirst(this.textRegionExtensions.regionFor(owner).keywords("}"), _function_1);
+    this.block(owner, open, close, document);
+    Iterable<DropTable> _filter = Iterables.<DropTable>filter(owner.eContents(), DropTable.class);
+    for (final DropTable table : _filter) {
+      {
+        final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
+          it.newLine();
+        };
+        document.<DropTable>prepend(table, _function_2);
+        document.<DropTable>format(table);
+      }
+    }
+  }
+
+  /**
    * An indented block: the opening brace ends its line, the closing brace gets a line of its own.
+   * The braces of an element are its outermost ones, since a mode also owns those of its drops.
    */
   private void block(final EObject element, @Extension final IFormattableDocument document) {
-    final ISemanticRegion open = this.textRegionExtensions.regionFor(element).keyword("{");
-    final ISemanticRegion close = this.textRegionExtensions.regionFor(element).keyword("}");
+    this.block(element, IterableExtensions.<ISemanticRegion>head(this.textRegionExtensions.regionFor(element).keywords("{")), this.textRegionExtensions.regionFor(element).keywords("}").getLast(), document);
+  }
+
+  private void block(final EObject element, final ISemanticRegion open, final ISemanticRegion close, @Extension final IFormattableDocument document) {
     if (((open != null) && (close != null))) {
       final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
         it.oneSpace();

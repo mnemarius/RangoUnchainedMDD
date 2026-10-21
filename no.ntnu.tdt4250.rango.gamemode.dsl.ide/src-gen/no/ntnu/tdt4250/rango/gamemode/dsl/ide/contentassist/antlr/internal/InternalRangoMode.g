@@ -741,6 +741,23 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+
+// Rule Drops
+ruleDrops 
+	@init {
+		int stackSize = keepStackSize();
+	}
+	:
+	(
+		{ before(grammarAccess.getDropsAccess().getGroup()); }
+		(rule__Drops__Group__0)
+		{ after(grammarAccess.getDropsAccess().getGroup()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 // Entry rule entryRuleDropTable
 entryRuleDropTable
 :
@@ -1078,9 +1095,15 @@ rule__Edition__Alternatives_3
 	)
 	|
 	(
-		{ before(grammarAccess.getEditionAccess().getModesAssignment_3_4()); }
-		(rule__Edition__ModesAssignment_3_4)
-		{ after(grammarAccess.getEditionAccess().getModesAssignment_3_4()); }
+		{ before(grammarAccess.getEditionAccess().getDropsParserRuleCall_3_4()); }
+		ruleDrops
+		{ after(grammarAccess.getEditionAccess().getDropsParserRuleCall_3_4()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getEditionAccess().getModesAssignment_3_5()); }
+		(rule__Edition__ModesAssignment_3_5)
+		{ after(grammarAccess.getEditionAccess().getModesAssignment_3_5()); }
 	)
 ;
 finally {
@@ -4666,9 +4689,9 @@ rule__GameMode__Group__10__Impl
 	}
 :
 (
-	{ before(grammarAccess.getGameModeAccess().getDropsAssignment_10()); }
-	(rule__GameMode__DropsAssignment_10)?
-	{ after(grammarAccess.getGameModeAccess().getDropsAssignment_10()); }
+	{ before(grammarAccess.getGameModeAccess().getDropsParserRuleCall_10()); }
+	(ruleDrops)?
+	{ after(grammarAccess.getGameModeAccess().getDropsParserRuleCall_10()); }
 )
 ;
 finally {
@@ -7720,6 +7743,121 @@ finally {
 }
 
 
+rule__Drops__Group__0
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__Drops__Group__0__Impl
+	rule__Drops__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__Group__0__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getDropsAccess().getDropsKeyword_0()); }
+	'drops'
+	{ after(grammarAccess.getDropsAccess().getDropsKeyword_0()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__Group__1
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__Drops__Group__1__Impl
+	rule__Drops__Group__2
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__Group__1__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getDropsAccess().getLeftCurlyBracketKeyword_1()); }
+	'{'
+	{ after(grammarAccess.getDropsAccess().getLeftCurlyBracketKeyword_1()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__Group__2
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__Drops__Group__2__Impl
+	rule__Drops__Group__3
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__Group__2__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	(
+		{ before(grammarAccess.getDropsAccess().getDropsAssignment_2()); }
+		(rule__Drops__DropsAssignment_2)
+		{ after(grammarAccess.getDropsAccess().getDropsAssignment_2()); }
+	)
+	(
+		{ before(grammarAccess.getDropsAccess().getDropsAssignment_2()); }
+		(rule__Drops__DropsAssignment_2)*
+		{ after(grammarAccess.getDropsAccess().getDropsAssignment_2()); }
+	)
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__Group__3
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__Drops__Group__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__Group__3__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getDropsAccess().getRightCurlyBracketKeyword_3()); }
+	'}'
+	{ after(grammarAccess.getDropsAccess().getRightCurlyBracketKeyword_3()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 rule__DropTable__Group__0
 	@init {
 		int stackSize = keepStackSize();
@@ -7738,9 +7876,9 @@ rule__DropTable__Group__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getDropTableAccess().getDropsKeyword_0()); }
-	'drops'
-	{ after(grammarAccess.getDropTableAccess().getDropsKeyword_0()); }
+	{ before(grammarAccess.getDropTableAccess().getBallTypeAssignment_0()); }
+	(rule__DropTable__BallTypeAssignment_0)
+	{ after(grammarAccess.getDropTableAccess().getBallTypeAssignment_0()); }
 )
 ;
 finally {
@@ -9521,15 +9659,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Edition__ModesAssignment_3_4
+rule__Edition__ModesAssignment_3_5
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_4_0()); }
+		{ before(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_5_0()); }
 		ruleGameMode
-		{ after(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_4_0()); }
+		{ after(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_5_0()); }
 	)
 ;
 finally {
@@ -10238,21 +10376,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__GameMode__DropsAssignment_10
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	(
-		{ before(grammarAccess.getGameModeAccess().getDropsDropTableParserRuleCall_10_0()); }
-		ruleDropTable
-		{ after(grammarAccess.getGameModeAccess().getDropsDropTableParserRuleCall_10_0()); }
-	)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 rule__GameMode__WinConditionsAssignment_11_2
 	@init {
 		int stackSize = keepStackSize();
@@ -10766,6 +10889,40 @@ rule__BallSpawn__DirectionAssignment_5_1
 		{ before(grammarAccess.getBallSpawnAccess().getDirectionDirectionEnumRuleCall_5_1_0()); }
 		ruleDirection
 		{ after(grammarAccess.getBallSpawnAccess().getDirectionDirectionEnumRuleCall_5_1_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Drops__DropsAssignment_2
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getDropsAccess().getDropsDropTableParserRuleCall_2_0()); }
+		ruleDropTable
+		{ after(grammarAccess.getDropsAccess().getDropsDropTableParserRuleCall_2_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DropTable__BallTypeAssignment_0
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getDropTableAccess().getBallTypeBallTypeCrossReference_0_0()); }
+		(
+			{ before(grammarAccess.getDropTableAccess().getBallTypeBallTypeIDTerminalRuleCall_0_0_1()); }
+			RULE_ID
+			{ after(grammarAccess.getDropTableAccess().getBallTypeBallTypeIDTerminalRuleCall_0_0_1()); }
+		)
+		{ after(grammarAccess.getDropTableAccess().getBallTypeBallTypeCrossReference_0_0()); }
 	)
 ;
 finally {

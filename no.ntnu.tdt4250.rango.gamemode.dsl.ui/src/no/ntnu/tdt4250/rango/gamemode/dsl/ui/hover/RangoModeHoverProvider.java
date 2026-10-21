@@ -11,6 +11,7 @@ import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
+import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -57,6 +58,9 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 								: ""));
 			}
 			facts.add("Power-ups that can drop: " + (mode.getPowerUps().isEmpty() ? "none" : names(mode.getPowerUps())));
+			if (!mode.getDrops().isEmpty() && mode.eContainer() instanceof Edition edition && !edition.getDrops().isEmpty()) {
+				facts.add("Its drop tables replace those of the edition.");
+			}
 			if (mode.getWinConditions().isEmpty()) {
 				facts.add("Endless: a round only ends when it is lost.");
 			}
@@ -74,9 +78,17 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 		} else if (object instanceof SpawnStrategy spawning && spawning.getPopsToClear() != GamemodeDerivations.UNBOUNDED) {
 			facts.add("Pops to clear: " + spawning.getPopsToClear());
 		} else if (object instanceof DropTable table) {
-			facts.add("Total weight: " + table.getTotalWeight());
+			String ball = table.getBallType() == null ? "this ball" : table.getBallType().getName();
+			facts.add(factor(table.getChance()) + "% of " + ball + " pops drop a power-up");
+			for (Drop drop : table.getEntries()) {
+				if (drop.getPowerUp() != null) {
+					facts.add(drop.getPowerUp().getName() + ": " + percent(drop.getShare()) + "% of drops, "
+							+ percent(drop.getProbability()) + "% of pops");
+				}
+			}
 		} else if (object instanceof Drop drop) {
-			facts.add("Dropped by " + drop.getProbability() + "% of all pops");
+			facts.add(percent(drop.getShare()) + "% of the drops of this table, " + percent(drop.getProbability())
+					+ "% of all pops of its ball type");
 		} else if (object instanceof EndCondition condition) {
 			facts.add(condition.isWin() ? "Wins the round." : "Loses the round.");
 		} else if (object instanceof Teleporter teleporter && teleporter.getTarget() != null) {
@@ -85,6 +97,11 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			facts.add("At most " + Math.round(10 / player.getCooldown()) / 10.0 + " shots per second");
 		}
 		return facts;
+	}
+
+	/** A percentage with at most one decimal. */
+	private static String percent(float value) {
+		return factor(Math.round(value * 10) / 10f);
 	}
 
 	private static String factor(float factor) {

@@ -109,6 +109,12 @@ class GeneratorNames {
 		(0 ..< Math.max(spawn.count, 0)).map[i|Math.max(3f, Math.min(97f, spawn.x + (i - (spawn.count - 1) / 2f) * 8f))].toList
 	}
 
+	/** A percentage for a comment, with at most one decimal: 12.5, 20, 6.7. */
+	def static String percent(float value) {
+		val rounded = Math.round(value * 10) / 10.0
+		if (rounded == Math.rint(rounded)) String.valueOf(rounded as int) else String.valueOf(rounded)
+	}
+
 	/** The upper end of the roll that drops the entry at the given index of a drop table. */
 	def static int threshold(DropTable table, int index) {
 		table.entries.take(index + 1).fold(0)[sum, entry|sum + entry.weight]

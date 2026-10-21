@@ -79,8 +79,21 @@ public class DerivedFeaturesTest {
 		assertEquals(4, f.drops.getTotalWeight());
 		assertEquals(15f, f.drops.getEntries().get(0).getProbability(), 1e-4);
 		assertEquals(5f, f.drops.getEntries().get(1).getProbability(), 1e-4);
+		assertEquals(75f, f.drops.getEntries().get(0).getShare(), 1e-4);
+		assertEquals(25f, f.drops.getEntries().get(1).getShare(), 1e-4);
 		assertEquals(List.of(f.shield, f.heart), f.waves.getPowerUps());
-		assertTrue(f.clear.getPowerUps().isEmpty());
+		assertEquals(List.of(f.heart), f.clear.getPowerUps());
+	}
+
+	@Test
+	public void theDropTablesOfAModeReplaceThoseOfTheEdition() {
+		assertEquals(List.of(f.drops, f.tumbleweedDrops), f.waves.getEffectiveDrops());
+		assertEquals(List.of(f.tumbleweedDefault, f.bombDefault), f.clear.getEffectiveDrops());
+		assertSame(f.bombDefault, GamemodeDerivations.dropTableFor(f.clear, f.bomb));
+		assertSame(f.drops, GamemodeDerivations.dropTableFor(f.waves, f.bomb));
+		// without tables of its own, a mode falls back to the edition's
+		f.waves.getDrops().clear();
+		assertEquals(List.of(f.tumbleweedDefault, f.bombDefault), f.waves.getEffectiveDrops());
 	}
 
 	@Test

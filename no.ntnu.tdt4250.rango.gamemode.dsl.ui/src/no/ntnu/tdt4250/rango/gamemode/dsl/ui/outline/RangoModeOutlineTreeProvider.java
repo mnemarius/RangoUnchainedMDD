@@ -8,6 +8,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 
 import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
+import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
@@ -16,7 +17,7 @@ import no.ntnu.tdt4250.rango.gamemode.SplitRule;
 
 /**
  * The outline shows an edition as its building blocks and its modes. A mode lists its arena, its
- * spawning, its drops and then its end conditions, labelled "win when ..." and "lose when ...".
+ * spawning, its drop tables and then its end conditions, labelled "win when ..." and "lose when ...".
  * Elements without further structure are leaves.
  */
 public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
@@ -28,8 +29,8 @@ public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		if (mode.getSpawning() != null) {
 			createNode(parent, mode.getSpawning());
 		}
-		if (mode.getDrops() != null) {
-			createNode(parent, mode.getDrops());
+		for (DropTable table : mode.getDrops()) {
+			createNode(parent, table);
 		}
 		for (EndCondition condition : mode.getWinConditions()) {
 			createNode(parent, condition);

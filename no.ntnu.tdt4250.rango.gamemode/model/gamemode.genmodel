@@ -29,6 +29,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/materials"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/players"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/modes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/drops"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//BallType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallType/sprite"/>
@@ -100,6 +101,7 @@
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/powerUps"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/popsToClear"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/maxScore"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/effectiveDrops"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//SpeedBonus">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//SpeedBonus/maxFactor"/>
@@ -155,12 +157,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//DropTable/chance"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//DropTable/entries"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//DropTable/totalWeight"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//DropTable/ballType"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//Drop">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//Drop/table"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//Drop/powerUp"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Drop/weight"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Drop/probability"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Drop/share"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gamemode.ecore#//EndCondition">
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EndCondition/win"/>

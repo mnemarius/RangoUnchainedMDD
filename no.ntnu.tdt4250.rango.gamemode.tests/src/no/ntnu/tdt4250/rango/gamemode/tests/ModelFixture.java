@@ -28,9 +28,12 @@ import no.ntnu.tdt4250.rango.gamemode.util.GamemodeOCL;
  * A small valid edition, built in code. Every test starts from it and changes one thing.
  * <ul>
  * <li>Tumbleweed splits into 2 (10 points); Bomb bursts into 4 Tumbleweed (25 points).</li>
- * <li>Mode Clear: a fixed layout of one large Tumbleweed and one large Bomb, won when cleared.</li>
- * <li>Mode Waves: two waves (one large Tumbleweed, then two medium Bombs) with a drop table of
- * Shield (weight 3) and Heart (weight 1) at 20 %, won after two waves.</li>
+ * <li>The edition's drop tables: Tumbleweed drops Heart at 5 %, Bomb drops Heart at 10 %.</li>
+ * <li>Mode Clear: a fixed layout of one large Tumbleweed and one large Bomb, won when cleared. It
+ * uses the edition's drop tables.</li>
+ * <li>Mode Waves: two waves (one large Tumbleweed, then two medium Bombs), won after two waves. Its
+ * own drop tables replace the edition's: Bomb drops Shield (weight 3) or Heart (weight 1) at 20 %,
+ * Tumbleweed drops Heart at 10 %.</li>
  * </ul>
  */
 public class ModelFixture {
@@ -47,7 +50,10 @@ public class ModelFixture {
 	final GameMode waves = F.createGameMode();
 	final FixedLayout layout = F.createFixedLayout();
 	final WaveSchedule schedule = F.createWaveSchedule();
-	final DropTable drops = F.createDropTable();
+	final DropTable tumbleweedDefault = dropTable(tumbleweed, 5);
+	final DropTable bombDefault = dropTable(bomb, 10);
+	final DropTable drops = dropTable(bomb, 20);
+	final DropTable tumbleweedDrops = dropTable(tumbleweed, 10);
 
 	public ModelFixture() {
 		GamemodeOCL.initialize();
@@ -75,6 +81,10 @@ public class ModelFixture {
 		heart.getEffects().add(heal);
 		edition.getPowerUps().add(shield);
 		edition.getPowerUps().add(heart);
+		tumbleweedDefault.getEntries().add(drop(heart, 1));
+		bombDefault.getEntries().add(drop(heart, 1));
+		edition.getDrops().add(tumbleweedDefault);
+		edition.getDrops().add(bombDefault);
 
 		rango.setName("Rango");
 		rango.setHealth(3);
@@ -95,10 +105,11 @@ public class ModelFixture {
 		schedule.getWaves().add(first);
 		schedule.getWaves().add(second);
 		waves.setSpawning(schedule);
-		drops.setChance(20);
 		drops.getEntries().add(drop(shield, 3));
 		drops.getEntries().add(drop(heart, 1));
-		waves.setDrops(drops);
+		tumbleweedDrops.getEntries().add(drop(heart, 1));
+		waves.getDrops().add(drops);
+		waves.getDrops().add(tumbleweedDrops);
 		var survived = F.createWavesSurvived();
 		survived.setCount(2);
 		waves.getWinConditions().add(survived);
@@ -134,6 +145,13 @@ public class ModelFixture {
 		spawn.setX(50);
 		spawn.setY(70);
 		return spawn;
+	}
+
+	static DropTable dropTable(BallType type, float chance) {
+		DropTable table = F.createDropTable();
+		table.setBallType(type);
+		table.setChance(chance);
+		return table;
 	}
 
 	static Drop drop(PowerUp powerUp, int weight) {

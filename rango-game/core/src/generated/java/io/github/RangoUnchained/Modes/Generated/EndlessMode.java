@@ -85,12 +85,12 @@ public final class EndlessMode extends GameModeDefinition {
             return null;
         }
         switch (name) {
-            case "Shield":
-                return "Powerup/Shield.png";
-            case "Speed":
-                return "Powerup/Speed.png";
             case "Health":
                 return "Powerup/Health.png";
+            case "Speed":
+                return "Powerup/Speed.png";
+            case "Shield":
+                return "Powerup/Shield.png";
             default:
                 return null;
         }
@@ -167,31 +167,50 @@ public final class EndlessMode extends GameModeDefinition {
             case "Tumbleweed":
                 context.addScore(10);
                 context.split(ball, "Tumbleweed", 2, 5.0f);
+                if (context.random() * 100f < 10.0f) { // 10 % of Tumbleweed pops drop something
+                    context.dropPowerUp("Health", ball);
+                }
                 break;
             case "Armadillo":
                 context.addScore(20);
                 context.split(ball, "Armadillo", 3, 6.0f);
+                if (context.random() * 100f < 25.0f) { // 25 % of Armadillo pops drop something
+                    float roll = context.random() * 3;
+                    if (roll < 2) {
+                        context.dropPowerUp("Speed", ball); // 66.7 % of drops, 16.7 % of pops
+                    } else {
+                        context.dropPowerUp("Shield", ball); // 33.3 % of drops, 8.3 % of pops
+                    }
+                }
                 break;
             case "Cactus":
                 context.addScore(15);
                 context.split(ball, "Cactus", 1, 5.0f);
+                if (context.random() * 100f < 15.0f) { // 15 % of Cactus pops drop something
+                    float roll = context.random() * 3;
+                    if (roll < 2) {
+                        context.dropPowerUp("Health", ball); // 66.7 % of drops, 10 % of pops
+                    } else {
+                        context.dropPowerUp("Speed", ball); // 33.3 % of drops, 5 % of pops
+                    }
+                }
                 break;
             case "Bomb":
                 context.addScore(25);
                 context.burst(ball, "Tumbleweed", 6, 6.0f);
+                if (context.random() * 100f < 40.0f) { // 40 % of Bomb pops drop something
+                    float roll = context.random() * 4;
+                    if (roll < 2) {
+                        context.dropPowerUp("Shield", ball); // 50 % of drops, 20 % of pops
+                    } else if (roll < 3) {
+                        context.dropPowerUp("Speed", ball); // 25 % of drops, 10 % of pops
+                    } else {
+                        context.dropPowerUp("Health", ball); // 25 % of drops, 10 % of pops
+                    }
+                }
                 break;
             default:
                 break;
-        }
-        if (context.random() * 100f < 25.0f) {
-            float roll = context.random() * 4;
-            if (roll < 2) {
-                context.dropPowerUp("Shield", ball); // 12.5 % of pops
-            } else if (roll < 3) {
-                context.dropPowerUp("Speed", ball); // 6.25 % of pops
-            } else {
-                context.dropPowerUp("Health", ball); // 6.25 % of pops
-            }
         }
     }
 
@@ -219,14 +238,14 @@ public final class EndlessMode extends GameModeDefinition {
     @Override
     public void onPowerUpCaught(String powerUp, ModeContext context) {
         switch (powerUp) {
-            case "Shield":
-                context.shield(8.0f, "Powerup/Shield.png");
+            case "Health":
+                context.heal(2);
                 break;
             case "Speed":
                 context.changeSpeed(1.8f, 8.0f, "Powerup/Speed.png");
                 break;
-            case "Health":
-                context.heal(2);
+            case "Shield":
+                context.shield(8.0f, "Powerup/Shield.png");
                 break;
             default:
                 break;
