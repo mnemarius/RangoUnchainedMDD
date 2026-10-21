@@ -252,6 +252,11 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     }
 
     @Override
+    public boolean chance(float percent) {
+        return random() * 100f < percent;
+    }
+
+    @Override
     public void split(EnemyState enemy, String kind, int fragments, float spacing, float launchSpeed) {
         if (enemy.size <= 1 || fragments <= 0) {
             return;

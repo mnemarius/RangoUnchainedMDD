@@ -227,13 +227,22 @@ public interface GamemodePackage extends EPackage {
 	int EDITION__DROPS = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Difficulties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDITION__DIFFICULTIES = NAMED_ELEMENT_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Edition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EDITION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
+	int EDITION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of operations of the '<em>Edition</em>' class.
@@ -2461,6 +2470,98 @@ public interface GamemodePackage extends EPackage {
 	int ENEMIES_ALIVE_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DifficultyImpl <em>Difficulty</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DifficultyImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDifficulty()
+	 * @generated
+	 */
+	int DIFFICULTY = 41;
+
+	/**
+	 * The feature id for the '<em><b>Tier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIFFICULTY__TIER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Modifiers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIFFICULTY__MODIFIERS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Difficulty</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIFFICULTY_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Difficulty</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIFFICULTY_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ModifierImpl <em>Modifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ModifierImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getModifier()
+	 * @generated
+	 */
+	int MODIFIER = 42;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODIFIER__TARGET = 0;
+
+	/**
+	 * The feature id for the '<em><b>Factor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODIFIER__FACTOR = 1;
+
+	/**
+	 * The number of structural features of the '<em>Modifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODIFIER_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Modifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODIFIER_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2468,7 +2569,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTarget()
 	 * @generated
 	 */
-	int TARGET = 41;
+	int TARGET = 43;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Direction <em>Direction</em>}' enum.
@@ -2478,7 +2579,28 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 42;
+	int DIRECTION = 44;
+
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.DifficultyTier <em>Difficulty Tier</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.DifficultyTier
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDifficultyTier()
+	 * @generated
+	 */
+	int DIFFICULTY_TIER = 45;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.ModifierTarget <em>Modifier Target</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.ModifierTarget
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getModifierTarget()
+	 * @generated
+	 */
+	int MODIFIER_TARGET = 46;
 
 
 	/**
@@ -2620,6 +2742,17 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEdition_Drops();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Edition#getDifficulties <em>Difficulties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Difficulties</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Edition#getDifficulties()
+	 * @see #getEdition()
+	 * @generated
+	 */
+	EReference getEdition_Difficulties();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType <em>Enemy Type</em>}'.
@@ -4014,6 +4147,70 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getEnemiesAlive_Count();
 
 	/**
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Difficulty <em>Difficulty</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Difficulty</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Difficulty
+	 * @generated
+	 */
+	EClass getDifficulty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Difficulty#getTier <em>Tier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tier</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Difficulty#getTier()
+	 * @see #getDifficulty()
+	 * @generated
+	 */
+	EAttribute getDifficulty_Tier();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Difficulty#getModifiers <em>Modifiers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Modifiers</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Difficulty#getModifiers()
+	 * @see #getDifficulty()
+	 * @generated
+	 */
+	EReference getDifficulty_Modifiers();
+
+	/**
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Modifier <em>Modifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Modifier</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Modifier
+	 * @generated
+	 */
+	EClass getModifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Modifier#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Target</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Modifier#getTarget()
+	 * @see #getModifier()
+	 * @generated
+	 */
+	EAttribute getModifier_Target();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Modifier#getFactor <em>Factor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Factor</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Modifier#getFactor()
+	 * @see #getModifier()
+	 * @generated
+	 */
+	EAttribute getModifier_Factor();
+
+	/**
 	 * Returns the meta object for enum '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4032,6 +4229,26 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getDirection();
+
+	/**
+	 * Returns the meta object for enum '{@link no.ntnu.tdt4250.rango.gamemode.DifficultyTier <em>Difficulty Tier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Difficulty Tier</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.DifficultyTier
+	 * @generated
+	 */
+	EEnum getDifficultyTier();
+
+	/**
+	 * Returns the meta object for enum '{@link no.ntnu.tdt4250.rango.gamemode.ModifierTarget <em>Modifier Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Modifier Target</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.ModifierTarget
+	 * @generated
+	 */
+	EEnum getModifierTarget();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -4165,6 +4382,14 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EDITION__DROPS = eINSTANCE.getEdition_Drops();
+
+		/**
+		 * The meta object literal for the '<em><b>Difficulties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDITION__DIFFICULTIES = eINSTANCE.getEdition_Difficulties();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl <em>Enemy Type</em>}' class.
@@ -5283,6 +5508,58 @@ public interface GamemodePackage extends EPackage {
 		EAttribute ENEMIES_ALIVE__COUNT = eINSTANCE.getEnemiesAlive_Count();
 
 		/**
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DifficultyImpl <em>Difficulty</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.DifficultyImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDifficulty()
+		 * @generated
+		 */
+		EClass DIFFICULTY = eINSTANCE.getDifficulty();
+
+		/**
+		 * The meta object literal for the '<em><b>Tier</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DIFFICULTY__TIER = eINSTANCE.getDifficulty_Tier();
+
+		/**
+		 * The meta object literal for the '<em><b>Modifiers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DIFFICULTY__MODIFIERS = eINSTANCE.getDifficulty_Modifiers();
+
+		/**
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ModifierImpl <em>Modifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.ModifierImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getModifier()
+		 * @generated
+		 */
+		EClass MODIFIER = eINSTANCE.getModifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODIFIER__TARGET = eINSTANCE.getModifier_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Factor</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODIFIER__FACTOR = eINSTANCE.getModifier_Factor();
+
+		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5301,6 +5578,26 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum DIRECTION = eINSTANCE.getDirection();
+
+		/**
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.DifficultyTier <em>Difficulty Tier</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.DifficultyTier
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDifficultyTier()
+		 * @generated
+		 */
+		EEnum DIFFICULTY_TIER = eINSTANCE.getDifficultyTier();
+
+		/**
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.ModifierTarget <em>Modifier Target</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.ModifierTarget
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getModifierTarget()
+		 * @generated
+		 */
+		EEnum MODIFIER_TARGET = eINSTANCE.getModifierTarget();
 
 	}
 

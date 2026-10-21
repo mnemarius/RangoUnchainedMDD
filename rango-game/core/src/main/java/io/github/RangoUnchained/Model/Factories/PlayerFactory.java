@@ -86,6 +86,11 @@ public class PlayerFactory {
     }
 
     private static Component createHealthComponent(EntityData entityData){
+        // in a game mode, the player profile decides, so that a difficulty can change it
+        ModeSession session = ModeSession.active();
+        if (session != null) {
+            return new HealthComponent(session.getMode().player().health);
+        }
         HealthComponent health = entityData.health <= 0 ? new HealthComponent(8) : new HealthComponent(entityData.health);
         return health;
     }

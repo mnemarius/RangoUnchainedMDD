@@ -1264,10 +1264,10 @@ public class ModeClassTemplate {
    */
   public CharSequence drop(final DropTable table) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("if (context.random() * 100f < ");
+    _builder.append("if (context.chance(");
     String _javaFloat = GeneratorNames.javaFloat(table.getChance());
     _builder.append(_javaFloat);
-    _builder.append(") { // ");
+    _builder.append(")) { // ");
     String _percent = GeneratorNames.percent(table.getChance());
     _builder.append(_percent);
     _builder.append(" % of ");

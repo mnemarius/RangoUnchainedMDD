@@ -310,6 +310,24 @@ public interface GamemodeFactory extends EFactory {
 	EnemiesAlive createEnemiesAlive();
 
 	/**
+	 * Returns a new object of class '<em>Difficulty</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Difficulty</em>'.
+	 * @generated
+	 */
+	Difficulty createDifficulty();
+
+	/**
+	 * Returns a new object of class '<em>Modifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Modifier</em>'.
+	 * @generated
+	 */
+	Modifier createModifier();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

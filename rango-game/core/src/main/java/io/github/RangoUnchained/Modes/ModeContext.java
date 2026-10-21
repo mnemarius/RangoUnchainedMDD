@@ -16,6 +16,9 @@ public interface ModeContext {
     /** A random number in [0, 1). */
     float random();
 
+    /** True with the given chance, in percent; used for the drop roll of a pop. */
+    boolean chance(float percent);
+
     /**
      * Breaks a popped enemy into fragments one size smaller, launched at launchSpeed in directions
      * spacing degrees apart and centred on straight up. A single fragment leans the way the enemy was

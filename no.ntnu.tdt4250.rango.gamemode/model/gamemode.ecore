@@ -89,6 +89,12 @@
         <details key="documentation" value="What popping each enemy type can drop, one table per enemy type, in every mode that has no drop tables of its own."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="difficulties" upperBound="-1"
+        eType="#//Difficulty" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The difficulties players can choose between, at most one per tier. They apply to every game mode of the edition. Without any, the modes are played exactly as modelled."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EnemyType" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -951,5 +957,68 @@
       <details key="positiveCount" value="count > 0"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Difficulty">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="What one difficulty tier changes in every game mode of the edition: it multiplies some of the modelled values by a factor. A value without a modifier stays as modelled."/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="distinctTargets onePerTier"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
+      <details key="distinctTargets" value="modifiers->isUnique(target)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tier" lowerBound="1" eType="#//DifficultyTier">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The tier this difficulty defines."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modifiers" upperBound="-1"
+        eType="#//Modifier" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The values the level changes, at most one modifier per value."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DifficultyTier">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The difficulty tiers players can choose between, from the easiest to the hardest."/>
+    </eAnnotations>
+    <eLiterals name="EASY" literal="easy"/>
+    <eLiterals name="MEDIUM" value="1" literal="medium"/>
+    <eLiterals name="HARD" value="2" literal="hard"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Modifier">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Multiplies one kind of modelled value by a factor, such as the speed of every enemy."/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="positiveFactor"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
+      <details key="positiveFactor" value="factor > 0"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" lowerBound="1" eType="#//ModifierTarget">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The kind of value that is changed."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="factor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="What the value is multiplied by: below 1 makes it smaller, above 1 larger."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ModifierTarget">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The kinds of modelled values a difficulty can change: the speed and points of every enemy type, the health and speed of the player, the drop chance of every drop table (at most 100%), and the delay before every wave."/>
+    </eAnnotations>
+    <eLiterals name="ENEMY_SPEED" literal="enemy.speed"/>
+    <eLiterals name="ENEMY_POINTS" value="1" literal="enemy.points"/>
+    <eLiterals name="PLAYER_HEALTH" value="2" literal="player.health"/>
+    <eLiterals name="PLAYER_SPEED" value="3" literal="player.speed"/>
+    <eLiterals name="DROP_CHANCE" value="4" literal="drop.chance"/>
+    <eLiterals name="WAVE_DELAY" value="5" literal="wave.delay"/>
   </eClassifiers>
 </ecore:EPackage>

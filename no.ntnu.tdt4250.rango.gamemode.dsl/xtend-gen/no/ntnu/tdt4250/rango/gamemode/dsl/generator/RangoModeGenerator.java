@@ -5,16 +5,23 @@ package no.ntnu.tdt4250.rango.gamemode.dsl.generator;
 
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import java.util.List;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
+import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
  * Generates the game modes of an edition into the Rango Unchained game. File names are relative to
@@ -83,6 +90,8 @@ public class RangoModeGenerator extends AbstractGenerator {
     _builder.append("import java.util.List;");
     _builder.newLine();
     _builder.newLine();
+    _builder.append("import io.github.RangoUnchained.Modes.Difficulty;");
+    _builder.newLine();
     _builder.append("import io.github.RangoUnchained.Modes.GameModeDefinition;");
     _builder.newLine();
     _builder.newLine();
@@ -92,7 +101,7 @@ public class RangoModeGenerator extends AbstractGenerator {
     _builder.append("* The edition ");
     String _name = edition.getName();
     _builder.append(_name, " ");
-    _builder.append(": its product name and its game modes, in menu order.");
+    _builder.append(": its product name, its game modes, in menu order, and its difficulties.");
     _builder.newLineIfNotEmpty();
     _builder.append(" ");
     _builder.append("*/");
@@ -117,6 +126,16 @@ public class RangoModeGenerator extends AbstractGenerator {
     _builder.append("public static final String SOURCE = ");
     String _javaString_1 = GeneratorNames.javaString(source);
     _builder.append(_javaString_1, "    ");
+    _builder.append(";");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("/** The position in {@link #difficulties()} of the tier the menu starts at: medium, if there is one. */");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public static final int DEFAULT_DIFFICULTY = ");
+    int _defaultDifficulty = this.defaultDifficulty(edition);
+    _builder.append(_defaultDifficulty, "    ");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -156,9 +175,76 @@ public class RangoModeGenerator extends AbstractGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("/** The difficulties, from the easiest tier to the hardest; empty if the modes are played as modelled. */");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public static List<Difficulty> difficulties() {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("return Arrays.<Difficulty>asList(");
+    _builder.newLine();
+    {
+      List<Difficulty> _sortedDifficulties = this.sortedDifficulties(edition);
+      boolean _hasElements_1 = false;
+      for(final Difficulty difficulty : _sortedDifficulties) {
+        if (!_hasElements_1) {
+          _hasElements_1 = true;
+        } else {
+          _builder.appendImmediate(",", "            ");
+        }
+        _builder.append("            ");
+        _builder.append("new Difficulty(");
+        String _javaString_2 = GeneratorNames.javaString(difficulty.getTier().getLiteral());
+        _builder.append(_javaString_2, "            ");
+        _builder.append(", ");
+        String _javaString_3 = GeneratorNames.javaString(StringExtensions.toFirstUpper(difficulty.getTier().getLiteral()));
+        _builder.append(_javaString_3, "            ");
+        _builder.append(")");
+        {
+          EList<Modifier> _modifiers = difficulty.getModifiers();
+          for(final Modifier modifier : _modifiers) {
+            _builder.newLineIfNotEmpty();
+            _builder.append("            ");
+            _builder.append(".with(Difficulty.");
+            String _name_1 = modifier.getTarget().getName();
+            _builder.append(_name_1, "            ");
+            _builder.append(", ");
+            String _javaFloat = GeneratorNames.javaFloat(modifier.getFactor());
+            _builder.append(_javaFloat, "            ");
+            _builder.append(")");
+          }
+        }
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("        ");
+    _builder.append(");");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
+  }
+
+  /**
+   * The difficulties of an edition, from the easiest tier to the hardest.
+   */
+  public List<Difficulty> sortedDifficulties(final Edition edition) {
+    final Function1<Difficulty, DifficultyTier> _function = (Difficulty it) -> {
+      return it.getTier();
+    };
+    return IterableExtensions.<Difficulty, DifficultyTier>sortBy(edition.getDifficulties(), _function);
+  }
+
+  public int defaultDifficulty(final Edition edition) {
+    final Function1<Difficulty, DifficultyTier> _function = (Difficulty it) -> {
+      return it.getTier();
+    };
+    return Math.max(0, ListExtensions.<Difficulty, DifficultyTier>map(this.sortedDifficulties(edition), _function).indexOf(DifficultyTier.MEDIUM));
   }
 
   public CharSequence androidValues(final Edition edition, final String source) {

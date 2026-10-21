@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'edition'", "'enemy'", "'{'", "'sprite'", "'scale'", "'bounce'", "'speed'", "'points'", "'on'", "'pop'", "':'", "'contact'", "','", "'}'", "'vanish'", "'split'", "'into'", "'launched'", "'at'", "'damage'", "'heal'", "'shield'", "'for'", "'s'", "'*'", "'poison'", "'every'", "'powerup'", "'gives'", "'material'", "'player'", "'character'", "'health'", "'max'", "'tongue'", "'cooldown'", "'grace'", "'mode'", "'description'", "'gravity'", "'win'", "'when'", "'or'", "'lose'", "'level'", "'bonus'", "'up'", "'to'", "'times'", "'over'", "'arena'", "'background'", "'floor'", "'walls'", "'starts'", "'%'", "'('", "')'", "'block'", "'size'", "'by'", "'of'", "'jumppad'", "'launch'", "'affects'", "'teleporter'", "'layout'", "'waves'", "'looping'", "'escalate'", "'wave'", "'after'", "'moving'", "'drops'", "'weight'", "'all'", "'enemies'", "'cleared'", "'time'", "'reaches'", "'score'", "'popped'", "'survived'", "'depleted'", "'alive'", "'.'", "'everything'", "'left'", "'right'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'edition'", "'difficulty'", "'{'", "'}'", "'*'", "'enemy'", "'sprite'", "'scale'", "'bounce'", "'speed'", "'points'", "'on'", "'pop'", "':'", "'contact'", "','", "'vanish'", "'split'", "'into'", "'launched'", "'at'", "'damage'", "'heal'", "'shield'", "'for'", "'s'", "'poison'", "'every'", "'powerup'", "'gives'", "'material'", "'player'", "'character'", "'health'", "'max'", "'tongue'", "'cooldown'", "'grace'", "'mode'", "'description'", "'gravity'", "'win'", "'when'", "'or'", "'lose'", "'level'", "'bonus'", "'up'", "'to'", "'times'", "'over'", "'arena'", "'background'", "'floor'", "'walls'", "'starts'", "'%'", "'('", "')'", "'block'", "'size'", "'by'", "'of'", "'jumppad'", "'launch'", "'affects'", "'teleporter'", "'layout'", "'waves'", "'looping'", "'escalate'", "'wave'", "'after'", "'moving'", "'drops'", "'weight'", "'all'", "'enemies'", "'cleared'", "'time'", "'reaches'", "'score'", "'popped'", "'survived'", "'depleted'", "'alive'", "'.'", "'easy'", "'medium'", "'hard'", "'enemy.speed'", "'enemy.points'", "'player.health'", "'player.speed'", "'drop.chance'", "'wave.delay'", "'everything'", "'left'", "'right'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -68,9 +68,12 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     public static final int T__42=42;
     public static final int T__43=43;
     public static final int T__91=91;
+    public static final int T__100=100;
     public static final int T__92=92;
     public static final int T__93=93;
+    public static final int T__102=102;
     public static final int T__94=94;
+    public static final int T__101=101;
     public static final int T__90=90;
     public static final int T__19=19;
     public static final int T__15=15;
@@ -116,11 +119,18 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
     public static final int T__88=88;
+    public static final int T__108=108;
     public static final int T__89=89;
+    public static final int T__107=107;
+    public static final int T__109=109;
     public static final int T__84=84;
+    public static final int T__104=104;
     public static final int T__85=85;
+    public static final int T__103=103;
     public static final int T__86=86;
+    public static final int T__106=106;
     public static final int T__87=87;
+    public static final int T__105=105;
 
     // delegates
     // delegators
@@ -198,7 +208,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEdition"
-    // InternalRangoMode.g:72:1: ruleEdition returns [EObject current=null] : (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_modes_8_0= ruleGameMode ) ) )* ) ;
+    // InternalRangoMode.g:72:1: ruleEdition returns [EObject current=null] : (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_difficulties_8_0= ruleDifficulty ) ) | ( (lv_modes_9_0= ruleGameMode ) ) )* ) ;
     public final EObject ruleEdition() throws RecognitionException {
         EObject current = null;
 
@@ -215,18 +225,20 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
         EObject this_Drops_7 = null;
 
-        EObject lv_modes_8_0 = null;
+        EObject lv_difficulties_8_0 = null;
+
+        EObject lv_modes_9_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalRangoMode.g:78:2: ( (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_modes_8_0= ruleGameMode ) ) )* ) )
-            // InternalRangoMode.g:79:2: (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_modes_8_0= ruleGameMode ) ) )* )
+            // InternalRangoMode.g:78:2: ( (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_difficulties_8_0= ruleDifficulty ) ) | ( (lv_modes_9_0= ruleGameMode ) ) )* ) )
+            // InternalRangoMode.g:79:2: (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_difficulties_8_0= ruleDifficulty ) ) | ( (lv_modes_9_0= ruleGameMode ) ) )* )
             {
-            // InternalRangoMode.g:79:2: (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_modes_8_0= ruleGameMode ) ) )* )
-            // InternalRangoMode.g:80:3: otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_modes_8_0= ruleGameMode ) ) )*
+            // InternalRangoMode.g:79:2: (otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_difficulties_8_0= ruleDifficulty ) ) | ( (lv_modes_9_0= ruleGameMode ) ) )* )
+            // InternalRangoMode.g:80:3: otherlv_0= 'edition' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) )? ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_difficulties_8_0= ruleDifficulty ) ) | ( (lv_modes_9_0= ruleGameMode ) ) )*
             {
             otherlv_0=(Token)match(input,11,FOLLOW_3); 
 
@@ -295,39 +307,44 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:120:3: ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_modes_8_0= ruleGameMode ) ) )*
+            // InternalRangoMode.g:120:3: ( ( (lv_enemyTypes_3_0= ruleEnemyType ) ) | ( (lv_powerUps_4_0= rulePowerUp ) ) | ( (lv_materials_5_0= ruleMaterial ) ) | ( (lv_players_6_0= rulePlayerProfile ) ) | this_Drops_7= ruleDrops[$current] | ( (lv_difficulties_8_0= ruleDifficulty ) ) | ( (lv_modes_9_0= ruleGameMode ) ) )*
             loop2:
             do {
-                int alt2=7;
+                int alt2=8;
                 switch ( input.LA(1) ) {
-                case 12:
+                case 16:
                     {
                     alt2=1;
                     }
                     break;
-                case 38:
+                case 39:
                     {
                     alt2=2;
                     }
                     break;
-                case 40:
+                case 41:
                     {
                     alt2=3;
                     }
                     break;
-                case 41:
+                case 42:
                     {
                     alt2=4;
                     }
                     break;
-                case 84:
+                case 85:
                     {
                     alt2=5;
                     }
                     break;
-                case 48:
+                case 12:
                     {
                     alt2=6;
+                    }
+                    break;
+                case 49:
+                    {
+                    alt2=7;
                     }
                     break;
 
@@ -504,19 +521,56 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 6 :
-            	    // InternalRangoMode.g:213:4: ( (lv_modes_8_0= ruleGameMode ) )
+            	    // InternalRangoMode.g:213:4: ( (lv_difficulties_8_0= ruleDifficulty ) )
             	    {
-            	    // InternalRangoMode.g:213:4: ( (lv_modes_8_0= ruleGameMode ) )
-            	    // InternalRangoMode.g:214:5: (lv_modes_8_0= ruleGameMode )
+            	    // InternalRangoMode.g:213:4: ( (lv_difficulties_8_0= ruleDifficulty ) )
+            	    // InternalRangoMode.g:214:5: (lv_difficulties_8_0= ruleDifficulty )
             	    {
-            	    // InternalRangoMode.g:214:5: (lv_modes_8_0= ruleGameMode )
-            	    // InternalRangoMode.g:215:6: lv_modes_8_0= ruleGameMode
+            	    // InternalRangoMode.g:214:5: (lv_difficulties_8_0= ruleDifficulty )
+            	    // InternalRangoMode.g:215:6: lv_difficulties_8_0= ruleDifficulty
             	    {
 
-            	    						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_5_0());
+            	    						newCompositeNode(grammarAccess.getEditionAccess().getDifficultiesDifficultyParserRuleCall_3_5_0());
             	    					
             	    pushFollow(FOLLOW_5);
-            	    lv_modes_8_0=ruleGameMode();
+            	    lv_difficulties_8_0=ruleDifficulty();
+
+            	    state._fsp--;
+
+
+            	    						if (current==null) {
+            	    							current = createModelElementForParent(grammarAccess.getEditionRule());
+            	    						}
+            	    						add(
+            	    							current,
+            	    							"difficulties",
+            	    							lv_difficulties_8_0,
+            	    							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Difficulty");
+            	    						afterParserOrEnumRuleCall();
+            	    					
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+            	case 7 :
+            	    // InternalRangoMode.g:233:4: ( (lv_modes_9_0= ruleGameMode ) )
+            	    {
+            	    // InternalRangoMode.g:233:4: ( (lv_modes_9_0= ruleGameMode ) )
+            	    // InternalRangoMode.g:234:5: (lv_modes_9_0= ruleGameMode )
+            	    {
+            	    // InternalRangoMode.g:234:5: (lv_modes_9_0= ruleGameMode )
+            	    // InternalRangoMode.g:235:6: lv_modes_9_0= ruleGameMode
+            	    {
+
+            	    						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_6_0());
+            	    					
+            	    pushFollow(FOLLOW_5);
+            	    lv_modes_9_0=ruleGameMode();
 
             	    state._fsp--;
 
@@ -527,7 +581,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    						add(
             	    							current,
             	    							"modes",
-            	    							lv_modes_8_0,
+            	    							lv_modes_9_0,
             	    							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode");
             	    						afterParserOrEnumRuleCall();
             	    					
@@ -568,8 +622,326 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleEdition"
 
 
+    // $ANTLR start "entryRuleDifficulty"
+    // InternalRangoMode.g:257:1: entryRuleDifficulty returns [EObject current=null] : iv_ruleDifficulty= ruleDifficulty EOF ;
+    public final EObject entryRuleDifficulty() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleDifficulty = null;
+
+
+        try {
+            // InternalRangoMode.g:257:51: (iv_ruleDifficulty= ruleDifficulty EOF )
+            // InternalRangoMode.g:258:2: iv_ruleDifficulty= ruleDifficulty EOF
+            {
+             newCompositeNode(grammarAccess.getDifficultyRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleDifficulty=ruleDifficulty();
+
+            state._fsp--;
+
+             current =iv_ruleDifficulty; 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleDifficulty"
+
+
+    // $ANTLR start "ruleDifficulty"
+    // InternalRangoMode.g:264:1: ruleDifficulty returns [EObject current=null] : (otherlv_0= 'difficulty' ( (lv_tier_1_0= ruleDifficultyTier ) ) otherlv_2= '{' ( (lv_modifiers_3_0= ruleModifier ) )* otherlv_4= '}' ) ;
+    public final EObject ruleDifficulty() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Enumerator lv_tier_1_0 = null;
+
+        EObject lv_modifiers_3_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalRangoMode.g:270:2: ( (otherlv_0= 'difficulty' ( (lv_tier_1_0= ruleDifficultyTier ) ) otherlv_2= '{' ( (lv_modifiers_3_0= ruleModifier ) )* otherlv_4= '}' ) )
+            // InternalRangoMode.g:271:2: (otherlv_0= 'difficulty' ( (lv_tier_1_0= ruleDifficultyTier ) ) otherlv_2= '{' ( (lv_modifiers_3_0= ruleModifier ) )* otherlv_4= '}' )
+            {
+            // InternalRangoMode.g:271:2: (otherlv_0= 'difficulty' ( (lv_tier_1_0= ruleDifficultyTier ) ) otherlv_2= '{' ( (lv_modifiers_3_0= ruleModifier ) )* otherlv_4= '}' )
+            // InternalRangoMode.g:272:3: otherlv_0= 'difficulty' ( (lv_tier_1_0= ruleDifficultyTier ) ) otherlv_2= '{' ( (lv_modifiers_3_0= ruleModifier ) )* otherlv_4= '}'
+            {
+            otherlv_0=(Token)match(input,12,FOLLOW_6); 
+
+            			newLeafNode(otherlv_0, grammarAccess.getDifficultyAccess().getDifficultyKeyword_0());
+            		
+            // InternalRangoMode.g:276:3: ( (lv_tier_1_0= ruleDifficultyTier ) )
+            // InternalRangoMode.g:277:4: (lv_tier_1_0= ruleDifficultyTier )
+            {
+            // InternalRangoMode.g:277:4: (lv_tier_1_0= ruleDifficultyTier )
+            // InternalRangoMode.g:278:5: lv_tier_1_0= ruleDifficultyTier
+            {
+
+            					newCompositeNode(grammarAccess.getDifficultyAccess().getTierDifficultyTierEnumRuleCall_1_0());
+            				
+            pushFollow(FOLLOW_7);
+            lv_tier_1_0=ruleDifficultyTier();
+
+            state._fsp--;
+
+
+            					if (current==null) {
+            						current = createModelElementForParent(grammarAccess.getDifficultyRule());
+            					}
+            					set(
+            						current,
+            						"tier",
+            						lv_tier_1_0,
+            						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DifficultyTier");
+            					afterParserOrEnumRuleCall();
+            				
+
+            }
+
+
+            }
+
+            otherlv_2=(Token)match(input,13,FOLLOW_8); 
+
+            			newLeafNode(otherlv_2, grammarAccess.getDifficultyAccess().getLeftCurlyBracketKeyword_2());
+            		
+            // InternalRangoMode.g:299:3: ( (lv_modifiers_3_0= ruleModifier ) )*
+            loop3:
+            do {
+                int alt3=2;
+                int LA3_0 = input.LA(1);
+
+                if ( ((LA3_0>=101 && LA3_0<=106)) ) {
+                    alt3=1;
+                }
+
+
+                switch (alt3) {
+            	case 1 :
+            	    // InternalRangoMode.g:300:4: (lv_modifiers_3_0= ruleModifier )
+            	    {
+            	    // InternalRangoMode.g:300:4: (lv_modifiers_3_0= ruleModifier )
+            	    // InternalRangoMode.g:301:5: lv_modifiers_3_0= ruleModifier
+            	    {
+
+            	    					newCompositeNode(grammarAccess.getDifficultyAccess().getModifiersModifierParserRuleCall_3_0());
+            	    				
+            	    pushFollow(FOLLOW_8);
+            	    lv_modifiers_3_0=ruleModifier();
+
+            	    state._fsp--;
+
+
+            	    					if (current==null) {
+            	    						current = createModelElementForParent(grammarAccess.getDifficultyRule());
+            	    					}
+            	    					add(
+            	    						current,
+            	    						"modifiers",
+            	    						lv_modifiers_3_0,
+            	    						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Modifier");
+            	    					afterParserOrEnumRuleCall();
+            	    				
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop3;
+                }
+            } while (true);
+
+            otherlv_4=(Token)match(input,14,FOLLOW_2); 
+
+            			newLeafNode(otherlv_4, grammarAccess.getDifficultyAccess().getRightCurlyBracketKeyword_4());
+            		
+
+            }
+
+
+            }
+
+
+            	leaveRule();
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleDifficulty"
+
+
+    // $ANTLR start "entryRuleModifier"
+    // InternalRangoMode.g:326:1: entryRuleModifier returns [EObject current=null] : iv_ruleModifier= ruleModifier EOF ;
+    public final EObject entryRuleModifier() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleModifier = null;
+
+
+        try {
+            // InternalRangoMode.g:326:49: (iv_ruleModifier= ruleModifier EOF )
+            // InternalRangoMode.g:327:2: iv_ruleModifier= ruleModifier EOF
+            {
+             newCompositeNode(grammarAccess.getModifierRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleModifier=ruleModifier();
+
+            state._fsp--;
+
+             current =iv_ruleModifier; 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleModifier"
+
+
+    // $ANTLR start "ruleModifier"
+    // InternalRangoMode.g:333:1: ruleModifier returns [EObject current=null] : ( ( (lv_target_0_0= ruleModifierTarget ) ) otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) ) ;
+    public final EObject ruleModifier() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Enumerator lv_target_0_0 = null;
+
+        AntlrDatatypeRuleToken lv_factor_2_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalRangoMode.g:339:2: ( ( ( (lv_target_0_0= ruleModifierTarget ) ) otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) ) )
+            // InternalRangoMode.g:340:2: ( ( (lv_target_0_0= ruleModifierTarget ) ) otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) )
+            {
+            // InternalRangoMode.g:340:2: ( ( (lv_target_0_0= ruleModifierTarget ) ) otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) )
+            // InternalRangoMode.g:341:3: ( (lv_target_0_0= ruleModifierTarget ) ) otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) )
+            {
+            // InternalRangoMode.g:341:3: ( (lv_target_0_0= ruleModifierTarget ) )
+            // InternalRangoMode.g:342:4: (lv_target_0_0= ruleModifierTarget )
+            {
+            // InternalRangoMode.g:342:4: (lv_target_0_0= ruleModifierTarget )
+            // InternalRangoMode.g:343:5: lv_target_0_0= ruleModifierTarget
+            {
+
+            					newCompositeNode(grammarAccess.getModifierAccess().getTargetModifierTargetEnumRuleCall_0_0());
+            				
+            pushFollow(FOLLOW_9);
+            lv_target_0_0=ruleModifierTarget();
+
+            state._fsp--;
+
+
+            					if (current==null) {
+            						current = createModelElementForParent(grammarAccess.getModifierRule());
+            					}
+            					set(
+            						current,
+            						"target",
+            						lv_target_0_0,
+            						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.ModifierTarget");
+            					afterParserOrEnumRuleCall();
+            				
+
+            }
+
+
+            }
+
+            otherlv_1=(Token)match(input,15,FOLLOW_10); 
+
+            			newLeafNode(otherlv_1, grammarAccess.getModifierAccess().getAsteriskKeyword_1());
+            		
+            // InternalRangoMode.g:364:3: ( (lv_factor_2_0= ruleDecimal ) )
+            // InternalRangoMode.g:365:4: (lv_factor_2_0= ruleDecimal )
+            {
+            // InternalRangoMode.g:365:4: (lv_factor_2_0= ruleDecimal )
+            // InternalRangoMode.g:366:5: lv_factor_2_0= ruleDecimal
+            {
+
+            					newCompositeNode(grammarAccess.getModifierAccess().getFactorDecimalParserRuleCall_2_0());
+            				
+            pushFollow(FOLLOW_2);
+            lv_factor_2_0=ruleDecimal();
+
+            state._fsp--;
+
+
+            					if (current==null) {
+            						current = createModelElementForParent(grammarAccess.getModifierRule());
+            					}
+            					set(
+            						current,
+            						"factor",
+            						lv_factor_2_0,
+            						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
+            					afterParserOrEnumRuleCall();
+            				
+
+            }
+
+
+            }
+
+
+            }
+
+
+            }
+
+
+            	leaveRule();
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleModifier"
+
+
     // $ANTLR start "entryRuleEnemyType"
-    // InternalRangoMode.g:237:1: entryRuleEnemyType returns [EObject current=null] : iv_ruleEnemyType= ruleEnemyType EOF ;
+    // InternalRangoMode.g:387:1: entryRuleEnemyType returns [EObject current=null] : iv_ruleEnemyType= ruleEnemyType EOF ;
     public final EObject entryRuleEnemyType() throws RecognitionException {
         EObject current = null;
 
@@ -577,8 +949,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:237:50: (iv_ruleEnemyType= ruleEnemyType EOF )
-            // InternalRangoMode.g:238:2: iv_ruleEnemyType= ruleEnemyType EOF
+            // InternalRangoMode.g:387:50: (iv_ruleEnemyType= ruleEnemyType EOF )
+            // InternalRangoMode.g:388:2: iv_ruleEnemyType= ruleEnemyType EOF
             {
              newCompositeNode(grammarAccess.getEnemyTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -605,7 +977,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnemyType"
-    // InternalRangoMode.g:244:1: ruleEnemyType returns [EObject current=null] : (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' ) ;
+    // InternalRangoMode.g:394:1: ruleEnemyType returns [EObject current=null] : (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' ) ;
     public final EObject ruleEnemyType() throws RecognitionException {
         EObject current = null;
 
@@ -644,23 +1016,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:250:2: ( (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' ) )
-            // InternalRangoMode.g:251:2: (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' )
+            // InternalRangoMode.g:400:2: ( (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' ) )
+            // InternalRangoMode.g:401:2: (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' )
             {
-            // InternalRangoMode.g:251:2: (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' )
-            // InternalRangoMode.g:252:3: otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}'
+            // InternalRangoMode.g:401:2: (otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}' )
+            // InternalRangoMode.g:402:3: otherlv_0= 'enemy' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) ) otherlv_14= 'on' otherlv_15= 'pop' otherlv_16= ':' ( (lv_splitRule_17_0= ruleSplitRule ) ) otherlv_18= 'on' otherlv_19= 'contact' otherlv_20= ':' ( (lv_contactEffects_21_0= rulePlayerEffect ) ) (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )* otherlv_24= '}'
             {
-            otherlv_0=(Token)match(input,12,FOLLOW_3); 
+            otherlv_0=(Token)match(input,16,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getEnemyTypeAccess().getEnemyKeyword_0());
             		
-            // InternalRangoMode.g:256:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:257:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:406:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:407:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:257:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:258:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:407:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:408:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_6); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_7); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getEnemyTypeAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -680,82 +1052,82 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_7); 
+            otherlv_2=(Token)match(input,13,FOLLOW_11); 
 
             			newLeafNode(otherlv_2, grammarAccess.getEnemyTypeAccess().getLeftCurlyBracketKeyword_2());
             		
-            // InternalRangoMode.g:278:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) )
-            // InternalRangoMode.g:279:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) )
+            // InternalRangoMode.g:428:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) ) )
+            // InternalRangoMode.g:429:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) )
             {
-            // InternalRangoMode.g:279:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) )
-            // InternalRangoMode.g:280:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?)
+            // InternalRangoMode.g:429:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?) )
+            // InternalRangoMode.g:430:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?)
             {
              
             				  getUnorderedGroupHelper().enter(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
             				
-            // InternalRangoMode.g:283:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?)
-            // InternalRangoMode.g:284:6: ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?
+            // InternalRangoMode.g:433:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?)
+            // InternalRangoMode.g:434:6: ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+ {...}?
             {
-            // InternalRangoMode.g:284:6: ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+
-            int cnt3=0;
-            loop3:
+            // InternalRangoMode.g:434:6: ( ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) ) )+
+            int cnt4=0;
+            loop4:
             do {
-                int alt3=6;
-                int LA3_0 = input.LA(1);
+                int alt4=6;
+                int LA4_0 = input.LA(1);
 
-                if ( LA3_0 == 14 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 0) ) {
-                    alt3=1;
+                if ( LA4_0 == 17 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 0) ) {
+                    alt4=1;
                 }
-                else if ( LA3_0 == 15 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 1) ) {
-                    alt3=2;
+                else if ( LA4_0 == 18 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 1) ) {
+                    alt4=2;
                 }
-                else if ( LA3_0 == 16 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 2) ) {
-                    alt3=3;
+                else if ( LA4_0 == 19 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 2) ) {
+                    alt4=3;
                 }
-                else if ( LA3_0 == 17 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 3) ) {
-                    alt3=4;
+                else if ( LA4_0 == 20 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 3) ) {
+                    alt4=4;
                 }
-                else if ( LA3_0 == 18 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 4) ) {
-                    alt3=5;
+                else if ( LA4_0 == 21 && getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 4) ) {
+                    alt4=5;
                 }
 
 
-                switch (alt3) {
+                switch (alt4) {
             	case 1 :
-            	    // InternalRangoMode.g:285:4: ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) )
+            	    // InternalRangoMode.g:435:4: ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:285:4: ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) )
-            	    // InternalRangoMode.g:286:5: {...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) )
+            	    // InternalRangoMode.g:435:4: ({...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) ) )
+            	    // InternalRangoMode.g:436:5: {...}? => ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 0) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 0)");
             	    }
-            	    // InternalRangoMode.g:286:106: ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) )
-            	    // InternalRangoMode.g:287:6: ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) )
+            	    // InternalRangoMode.g:436:106: ( ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) ) )
+            	    // InternalRangoMode.g:437:6: ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 0);
             	    					
-            	    // InternalRangoMode.g:290:9: ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) )
-            	    // InternalRangoMode.g:290:10: {...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) )
+            	    // InternalRangoMode.g:440:9: ({...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) ) )
+            	    // InternalRangoMode.g:440:10: {...}? => (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "true");
             	    }
-            	    // InternalRangoMode.g:290:19: (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) )
-            	    // InternalRangoMode.g:290:20: otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) )
+            	    // InternalRangoMode.g:440:19: (otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) ) )
+            	    // InternalRangoMode.g:440:20: otherlv_4= 'sprite' ( (lv_sprite_5_0= RULE_STRING ) )
             	    {
-            	    otherlv_4=(Token)match(input,14,FOLLOW_8); 
+            	    otherlv_4=(Token)match(input,17,FOLLOW_12); 
 
             	    									newLeafNode(otherlv_4, grammarAccess.getEnemyTypeAccess().getSpriteKeyword_3_0_0());
             	    								
-            	    // InternalRangoMode.g:294:9: ( (lv_sprite_5_0= RULE_STRING ) )
-            	    // InternalRangoMode.g:295:10: (lv_sprite_5_0= RULE_STRING )
+            	    // InternalRangoMode.g:444:9: ( (lv_sprite_5_0= RULE_STRING ) )
+            	    // InternalRangoMode.g:445:10: (lv_sprite_5_0= RULE_STRING )
             	    {
-            	    // InternalRangoMode.g:295:10: (lv_sprite_5_0= RULE_STRING )
-            	    // InternalRangoMode.g:296:11: lv_sprite_5_0= RULE_STRING
+            	    // InternalRangoMode.g:445:10: (lv_sprite_5_0= RULE_STRING )
+            	    // InternalRangoMode.g:446:11: lv_sprite_5_0= RULE_STRING
             	    {
-            	    lv_sprite_5_0=(Token)match(input,RULE_STRING,FOLLOW_9); 
+            	    lv_sprite_5_0=(Token)match(input,RULE_STRING,FOLLOW_13); 
 
             	    											newLeafNode(lv_sprite_5_0, grammarAccess.getEnemyTypeAccess().getSpriteSTRINGTerminalRuleCall_3_0_1_0());
             	    										
@@ -794,43 +1166,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // InternalRangoMode.g:318:4: ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:468:4: ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:318:4: ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) )
-            	    // InternalRangoMode.g:319:5: {...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:468:4: ({...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:469:5: {...}? => ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 1) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 1)");
             	    }
-            	    // InternalRangoMode.g:319:106: ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) )
-            	    // InternalRangoMode.g:320:6: ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:469:106: ( ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:470:6: ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 1);
             	    					
-            	    // InternalRangoMode.g:323:9: ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) )
-            	    // InternalRangoMode.g:323:10: {...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:473:9: ({...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:473:10: {...}? => (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "true");
             	    }
-            	    // InternalRangoMode.g:323:19: (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) )
-            	    // InternalRangoMode.g:323:20: otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:473:19: (otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:473:20: otherlv_6= 'scale' ( (lv_scale_7_0= ruleDecimal ) )
             	    {
-            	    otherlv_6=(Token)match(input,15,FOLLOW_10); 
+            	    otherlv_6=(Token)match(input,18,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_6, grammarAccess.getEnemyTypeAccess().getScaleKeyword_3_1_0());
             	    								
-            	    // InternalRangoMode.g:327:9: ( (lv_scale_7_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:328:10: (lv_scale_7_0= ruleDecimal )
+            	    // InternalRangoMode.g:477:9: ( (lv_scale_7_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:478:10: (lv_scale_7_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:328:10: (lv_scale_7_0= ruleDecimal )
-            	    // InternalRangoMode.g:329:11: lv_scale_7_0= ruleDecimal
+            	    // InternalRangoMode.g:478:10: (lv_scale_7_0= ruleDecimal )
+            	    // InternalRangoMode.g:479:11: lv_scale_7_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getEnemyTypeAccess().getScaleDecimalParserRuleCall_3_1_1_0());
             	    										
-            	    pushFollow(FOLLOW_9);
+            	    pushFollow(FOLLOW_13);
             	    lv_scale_7_0=ruleDecimal();
 
             	    state._fsp--;
@@ -871,43 +1243,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 3 :
-            	    // InternalRangoMode.g:352:4: ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:502:4: ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:352:4: ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) )
-            	    // InternalRangoMode.g:353:5: {...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:502:4: ({...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:503:5: {...}? => ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 2) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 2)");
             	    }
-            	    // InternalRangoMode.g:353:106: ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) )
-            	    // InternalRangoMode.g:354:6: ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:503:106: ( ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:504:6: ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 2);
             	    					
-            	    // InternalRangoMode.g:357:9: ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) )
-            	    // InternalRangoMode.g:357:10: {...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:507:9: ({...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:507:10: {...}? => (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "true");
             	    }
-            	    // InternalRangoMode.g:357:19: (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) )
-            	    // InternalRangoMode.g:357:20: otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:507:19: (otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:507:20: otherlv_8= 'bounce' ( (lv_bounce_9_0= ruleDecimal ) )
             	    {
-            	    otherlv_8=(Token)match(input,16,FOLLOW_10); 
+            	    otherlv_8=(Token)match(input,19,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_8, grammarAccess.getEnemyTypeAccess().getBounceKeyword_3_2_0());
             	    								
-            	    // InternalRangoMode.g:361:9: ( (lv_bounce_9_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:362:10: (lv_bounce_9_0= ruleDecimal )
+            	    // InternalRangoMode.g:511:9: ( (lv_bounce_9_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:512:10: (lv_bounce_9_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:362:10: (lv_bounce_9_0= ruleDecimal )
-            	    // InternalRangoMode.g:363:11: lv_bounce_9_0= ruleDecimal
+            	    // InternalRangoMode.g:512:10: (lv_bounce_9_0= ruleDecimal )
+            	    // InternalRangoMode.g:513:11: lv_bounce_9_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getEnemyTypeAccess().getBounceDecimalParserRuleCall_3_2_1_0());
             	    										
-            	    pushFollow(FOLLOW_9);
+            	    pushFollow(FOLLOW_13);
             	    lv_bounce_9_0=ruleDecimal();
 
             	    state._fsp--;
@@ -948,43 +1320,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 4 :
-            	    // InternalRangoMode.g:386:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:536:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:386:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
-            	    // InternalRangoMode.g:387:5: {...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:536:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:537:5: {...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 3) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 3)");
             	    }
-            	    // InternalRangoMode.g:387:106: ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
-            	    // InternalRangoMode.g:388:6: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:537:106: ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:538:6: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 3);
             	    					
-            	    // InternalRangoMode.g:391:9: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
-            	    // InternalRangoMode.g:391:10: {...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:541:9: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:541:10: {...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "true");
             	    }
-            	    // InternalRangoMode.g:391:19: (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
-            	    // InternalRangoMode.g:391:20: otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:541:19: (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:541:20: otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) )
             	    {
-            	    otherlv_10=(Token)match(input,17,FOLLOW_10); 
+            	    otherlv_10=(Token)match(input,20,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_10, grammarAccess.getEnemyTypeAccess().getSpeedKeyword_3_3_0());
             	    								
-            	    // InternalRangoMode.g:395:9: ( (lv_speed_11_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:396:10: (lv_speed_11_0= ruleDecimal )
+            	    // InternalRangoMode.g:545:9: ( (lv_speed_11_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:546:10: (lv_speed_11_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:396:10: (lv_speed_11_0= ruleDecimal )
-            	    // InternalRangoMode.g:397:11: lv_speed_11_0= ruleDecimal
+            	    // InternalRangoMode.g:546:10: (lv_speed_11_0= ruleDecimal )
+            	    // InternalRangoMode.g:547:11: lv_speed_11_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getEnemyTypeAccess().getSpeedDecimalParserRuleCall_3_3_1_0());
             	    										
-            	    pushFollow(FOLLOW_9);
+            	    pushFollow(FOLLOW_13);
             	    lv_speed_11_0=ruleDecimal();
 
             	    state._fsp--;
@@ -1025,40 +1397,40 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 5 :
-            	    // InternalRangoMode.g:420:4: ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) )
+            	    // InternalRangoMode.g:570:4: ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:420:4: ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) )
-            	    // InternalRangoMode.g:421:5: {...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) )
+            	    // InternalRangoMode.g:570:4: ({...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) ) )
+            	    // InternalRangoMode.g:571:5: {...}? => ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 4) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 4)");
             	    }
-            	    // InternalRangoMode.g:421:106: ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) )
-            	    // InternalRangoMode.g:422:6: ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) )
+            	    // InternalRangoMode.g:571:106: ( ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) ) )
+            	    // InternalRangoMode.g:572:6: ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 4);
             	    					
-            	    // InternalRangoMode.g:425:9: ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) )
-            	    // InternalRangoMode.g:425:10: {...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) )
+            	    // InternalRangoMode.g:575:9: ({...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) ) )
+            	    // InternalRangoMode.g:575:10: {...}? => (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleEnemyType", "true");
             	    }
-            	    // InternalRangoMode.g:425:19: (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) )
-            	    // InternalRangoMode.g:425:20: otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) )
+            	    // InternalRangoMode.g:575:19: (otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) ) )
+            	    // InternalRangoMode.g:575:20: otherlv_12= 'points' ( (lv_points_13_0= RULE_INT ) )
             	    {
-            	    otherlv_12=(Token)match(input,18,FOLLOW_10); 
+            	    otherlv_12=(Token)match(input,21,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_12, grammarAccess.getEnemyTypeAccess().getPointsKeyword_3_4_0());
             	    								
-            	    // InternalRangoMode.g:429:9: ( (lv_points_13_0= RULE_INT ) )
-            	    // InternalRangoMode.g:430:10: (lv_points_13_0= RULE_INT )
+            	    // InternalRangoMode.g:579:9: ( (lv_points_13_0= RULE_INT ) )
+            	    // InternalRangoMode.g:580:10: (lv_points_13_0= RULE_INT )
             	    {
-            	    // InternalRangoMode.g:430:10: (lv_points_13_0= RULE_INT )
-            	    // InternalRangoMode.g:431:11: lv_points_13_0= RULE_INT
+            	    // InternalRangoMode.g:580:10: (lv_points_13_0= RULE_INT )
+            	    // InternalRangoMode.g:581:11: lv_points_13_0= RULE_INT
             	    {
-            	    lv_points_13_0=(Token)match(input,RULE_INT,FOLLOW_9); 
+            	    lv_points_13_0=(Token)match(input,RULE_INT,FOLLOW_13); 
 
             	    											newLeafNode(lv_points_13_0, grammarAccess.getEnemyTypeAccess().getPointsINTTerminalRuleCall_3_4_1_0());
             	    										
@@ -1098,12 +1470,12 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt3 >= 1 ) break loop3;
+            	    if ( cnt4 >= 1 ) break loop4;
                         EarlyExitException eee =
-                            new EarlyExitException(3, input);
+                            new EarlyExitException(4, input);
                         throw eee;
                 }
-                cnt3++;
+                cnt4++;
             } while (true);
 
             if ( ! getUnorderedGroupHelper().canLeave(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3()) ) {
@@ -1121,28 +1493,28 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_14=(Token)match(input,19,FOLLOW_11); 
+            otherlv_14=(Token)match(input,22,FOLLOW_14); 
 
             			newLeafNode(otherlv_14, grammarAccess.getEnemyTypeAccess().getOnKeyword_4());
             		
-            otherlv_15=(Token)match(input,20,FOLLOW_12); 
+            otherlv_15=(Token)match(input,23,FOLLOW_15); 
 
             			newLeafNode(otherlv_15, grammarAccess.getEnemyTypeAccess().getPopKeyword_5());
             		
-            otherlv_16=(Token)match(input,21,FOLLOW_13); 
+            otherlv_16=(Token)match(input,24,FOLLOW_16); 
 
             			newLeafNode(otherlv_16, grammarAccess.getEnemyTypeAccess().getColonKeyword_6());
             		
-            // InternalRangoMode.g:473:3: ( (lv_splitRule_17_0= ruleSplitRule ) )
-            // InternalRangoMode.g:474:4: (lv_splitRule_17_0= ruleSplitRule )
+            // InternalRangoMode.g:623:3: ( (lv_splitRule_17_0= ruleSplitRule ) )
+            // InternalRangoMode.g:624:4: (lv_splitRule_17_0= ruleSplitRule )
             {
-            // InternalRangoMode.g:474:4: (lv_splitRule_17_0= ruleSplitRule )
-            // InternalRangoMode.g:475:5: lv_splitRule_17_0= ruleSplitRule
+            // InternalRangoMode.g:624:4: (lv_splitRule_17_0= ruleSplitRule )
+            // InternalRangoMode.g:625:5: lv_splitRule_17_0= ruleSplitRule
             {
 
             					newCompositeNode(grammarAccess.getEnemyTypeAccess().getSplitRuleSplitRuleParserRuleCall_7_0());
             				
-            pushFollow(FOLLOW_14);
+            pushFollow(FOLLOW_17);
             lv_splitRule_17_0=ruleSplitRule();
 
             state._fsp--;
@@ -1164,28 +1536,28 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_18=(Token)match(input,19,FOLLOW_15); 
+            otherlv_18=(Token)match(input,22,FOLLOW_18); 
 
             			newLeafNode(otherlv_18, grammarAccess.getEnemyTypeAccess().getOnKeyword_8());
             		
-            otherlv_19=(Token)match(input,22,FOLLOW_12); 
+            otherlv_19=(Token)match(input,25,FOLLOW_15); 
 
             			newLeafNode(otherlv_19, grammarAccess.getEnemyTypeAccess().getContactKeyword_9());
             		
-            otherlv_20=(Token)match(input,21,FOLLOW_16); 
+            otherlv_20=(Token)match(input,24,FOLLOW_19); 
 
             			newLeafNode(otherlv_20, grammarAccess.getEnemyTypeAccess().getColonKeyword_10());
             		
-            // InternalRangoMode.g:504:3: ( (lv_contactEffects_21_0= rulePlayerEffect ) )
-            // InternalRangoMode.g:505:4: (lv_contactEffects_21_0= rulePlayerEffect )
+            // InternalRangoMode.g:654:3: ( (lv_contactEffects_21_0= rulePlayerEffect ) )
+            // InternalRangoMode.g:655:4: (lv_contactEffects_21_0= rulePlayerEffect )
             {
-            // InternalRangoMode.g:505:4: (lv_contactEffects_21_0= rulePlayerEffect )
-            // InternalRangoMode.g:506:5: lv_contactEffects_21_0= rulePlayerEffect
+            // InternalRangoMode.g:655:4: (lv_contactEffects_21_0= rulePlayerEffect )
+            // InternalRangoMode.g:656:5: lv_contactEffects_21_0= rulePlayerEffect
             {
 
             					newCompositeNode(grammarAccess.getEnemyTypeAccess().getContactEffectsPlayerEffectParserRuleCall_11_0());
             				
-            pushFollow(FOLLOW_17);
+            pushFollow(FOLLOW_20);
             lv_contactEffects_21_0=rulePlayerEffect();
 
             state._fsp--;
@@ -1207,35 +1579,35 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:523:3: (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )*
-            loop4:
+            // InternalRangoMode.g:673:3: (otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) ) )*
+            loop5:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt5=2;
+                int LA5_0 = input.LA(1);
 
-                if ( (LA4_0==23) ) {
-                    alt4=1;
+                if ( (LA5_0==26) ) {
+                    alt5=1;
                 }
 
 
-                switch (alt4) {
+                switch (alt5) {
             	case 1 :
-            	    // InternalRangoMode.g:524:4: otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) )
+            	    // InternalRangoMode.g:674:4: otherlv_22= ',' ( (lv_contactEffects_23_0= rulePlayerEffect ) )
             	    {
-            	    otherlv_22=(Token)match(input,23,FOLLOW_16); 
+            	    otherlv_22=(Token)match(input,26,FOLLOW_19); 
 
             	    				newLeafNode(otherlv_22, grammarAccess.getEnemyTypeAccess().getCommaKeyword_12_0());
             	    			
-            	    // InternalRangoMode.g:528:4: ( (lv_contactEffects_23_0= rulePlayerEffect ) )
-            	    // InternalRangoMode.g:529:5: (lv_contactEffects_23_0= rulePlayerEffect )
+            	    // InternalRangoMode.g:678:4: ( (lv_contactEffects_23_0= rulePlayerEffect ) )
+            	    // InternalRangoMode.g:679:5: (lv_contactEffects_23_0= rulePlayerEffect )
             	    {
-            	    // InternalRangoMode.g:529:5: (lv_contactEffects_23_0= rulePlayerEffect )
-            	    // InternalRangoMode.g:530:6: lv_contactEffects_23_0= rulePlayerEffect
+            	    // InternalRangoMode.g:679:5: (lv_contactEffects_23_0= rulePlayerEffect )
+            	    // InternalRangoMode.g:680:6: lv_contactEffects_23_0= rulePlayerEffect
             	    {
 
             	    						newCompositeNode(grammarAccess.getEnemyTypeAccess().getContactEffectsPlayerEffectParserRuleCall_12_1_0());
             	    					
-            	    pushFollow(FOLLOW_17);
+            	    pushFollow(FOLLOW_20);
             	    lv_contactEffects_23_0=rulePlayerEffect();
 
             	    state._fsp--;
@@ -1262,11 +1634,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop4;
+            	    break loop5;
                 }
             } while (true);
 
-            otherlv_24=(Token)match(input,24,FOLLOW_2); 
+            otherlv_24=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_24, grammarAccess.getEnemyTypeAccess().getRightCurlyBracketKeyword_13());
             		
@@ -1293,7 +1665,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSplitRule"
-    // InternalRangoMode.g:556:1: entryRuleSplitRule returns [EObject current=null] : iv_ruleSplitRule= ruleSplitRule EOF ;
+    // InternalRangoMode.g:706:1: entryRuleSplitRule returns [EObject current=null] : iv_ruleSplitRule= ruleSplitRule EOF ;
     public final EObject entryRuleSplitRule() throws RecognitionException {
         EObject current = null;
 
@@ -1301,8 +1673,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:556:50: (iv_ruleSplitRule= ruleSplitRule EOF )
-            // InternalRangoMode.g:557:2: iv_ruleSplitRule= ruleSplitRule EOF
+            // InternalRangoMode.g:706:50: (iv_ruleSplitRule= ruleSplitRule EOF )
+            // InternalRangoMode.g:707:2: iv_ruleSplitRule= ruleSplitRule EOF
             {
              newCompositeNode(grammarAccess.getSplitRuleRule()); 
             pushFollow(FOLLOW_1);
@@ -1329,7 +1701,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSplitRule"
-    // InternalRangoMode.g:563:1: ruleSplitRule returns [EObject current=null] : (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit ) ;
+    // InternalRangoMode.g:713:1: ruleSplitRule returns [EObject current=null] : (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit ) ;
     public final EObject ruleSplitRule() throws RecognitionException {
         EObject current = null;
 
@@ -1342,28 +1714,28 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:569:2: ( (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit ) )
-            // InternalRangoMode.g:570:2: (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit )
+            // InternalRangoMode.g:719:2: ( (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit ) )
+            // InternalRangoMode.g:720:2: (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit )
             {
-            // InternalRangoMode.g:570:2: (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit )
-            int alt5=2;
-            int LA5_0 = input.LA(1);
+            // InternalRangoMode.g:720:2: (this_Vanish_0= ruleVanish | this_Split_1= ruleSplit )
+            int alt6=2;
+            int LA6_0 = input.LA(1);
 
-            if ( (LA5_0==25) ) {
-                alt5=1;
+            if ( (LA6_0==27) ) {
+                alt6=1;
             }
-            else if ( (LA5_0==26) ) {
-                alt5=2;
+            else if ( (LA6_0==28) ) {
+                alt6=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 5, 0, input);
+                    new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
             }
-            switch (alt5) {
+            switch (alt6) {
                 case 1 :
-                    // InternalRangoMode.g:571:3: this_Vanish_0= ruleVanish
+                    // InternalRangoMode.g:721:3: this_Vanish_0= ruleVanish
                     {
 
                     			newCompositeNode(grammarAccess.getSplitRuleAccess().getVanishParserRuleCall_0());
@@ -1381,7 +1753,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:580:3: this_Split_1= ruleSplit
+                    // InternalRangoMode.g:730:3: this_Split_1= ruleSplit
                     {
 
                     			newCompositeNode(grammarAccess.getSplitRuleAccess().getSplitParserRuleCall_1());
@@ -1421,7 +1793,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVanish"
-    // InternalRangoMode.g:592:1: entryRuleVanish returns [EObject current=null] : iv_ruleVanish= ruleVanish EOF ;
+    // InternalRangoMode.g:742:1: entryRuleVanish returns [EObject current=null] : iv_ruleVanish= ruleVanish EOF ;
     public final EObject entryRuleVanish() throws RecognitionException {
         EObject current = null;
 
@@ -1429,8 +1801,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:592:47: (iv_ruleVanish= ruleVanish EOF )
-            // InternalRangoMode.g:593:2: iv_ruleVanish= ruleVanish EOF
+            // InternalRangoMode.g:742:47: (iv_ruleVanish= ruleVanish EOF )
+            // InternalRangoMode.g:743:2: iv_ruleVanish= ruleVanish EOF
             {
              newCompositeNode(grammarAccess.getVanishRule()); 
             pushFollow(FOLLOW_1);
@@ -1457,7 +1829,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVanish"
-    // InternalRangoMode.g:599:1: ruleVanish returns [EObject current=null] : ( () otherlv_1= 'vanish' ) ;
+    // InternalRangoMode.g:749:1: ruleVanish returns [EObject current=null] : ( () otherlv_1= 'vanish' ) ;
     public final EObject ruleVanish() throws RecognitionException {
         EObject current = null;
 
@@ -1467,14 +1839,14 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:605:2: ( ( () otherlv_1= 'vanish' ) )
-            // InternalRangoMode.g:606:2: ( () otherlv_1= 'vanish' )
+            // InternalRangoMode.g:755:2: ( ( () otherlv_1= 'vanish' ) )
+            // InternalRangoMode.g:756:2: ( () otherlv_1= 'vanish' )
             {
-            // InternalRangoMode.g:606:2: ( () otherlv_1= 'vanish' )
-            // InternalRangoMode.g:607:3: () otherlv_1= 'vanish'
+            // InternalRangoMode.g:756:2: ( () otherlv_1= 'vanish' )
+            // InternalRangoMode.g:757:3: () otherlv_1= 'vanish'
             {
-            // InternalRangoMode.g:607:3: ()
-            // InternalRangoMode.g:608:4: 
+            // InternalRangoMode.g:757:3: ()
+            // InternalRangoMode.g:758:4: 
             {
 
             				current = forceCreateModelElement(
@@ -1484,7 +1856,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,25,FOLLOW_2); 
+            otherlv_1=(Token)match(input,27,FOLLOW_2); 
 
             			newLeafNode(otherlv_1, grammarAccess.getVanishAccess().getVanishKeyword_1());
             		
@@ -1511,7 +1883,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSplit"
-    // InternalRangoMode.g:622:1: entryRuleSplit returns [EObject current=null] : iv_ruleSplit= ruleSplit EOF ;
+    // InternalRangoMode.g:772:1: entryRuleSplit returns [EObject current=null] : iv_ruleSplit= ruleSplit EOF ;
     public final EObject entryRuleSplit() throws RecognitionException {
         EObject current = null;
 
@@ -1519,8 +1891,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:622:46: (iv_ruleSplit= ruleSplit EOF )
-            // InternalRangoMode.g:623:2: iv_ruleSplit= ruleSplit EOF
+            // InternalRangoMode.g:772:46: (iv_ruleSplit= ruleSplit EOF )
+            // InternalRangoMode.g:773:2: iv_ruleSplit= ruleSplit EOF
             {
              newCompositeNode(grammarAccess.getSplitRule()); 
             pushFollow(FOLLOW_1);
@@ -1547,7 +1919,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSplit"
-    // InternalRangoMode.g:629:1: ruleSplit returns [EObject current=null] : (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? ) ;
+    // InternalRangoMode.g:779:1: ruleSplit returns [EObject current=null] : (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? ) ;
     public final EObject ruleSplit() throws RecognitionException {
         EObject current = null;
 
@@ -1564,27 +1936,27 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:635:2: ( (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? ) )
-            // InternalRangoMode.g:636:2: (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? )
+            // InternalRangoMode.g:785:2: ( (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? ) )
+            // InternalRangoMode.g:786:2: (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? )
             {
-            // InternalRangoMode.g:636:2: (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? )
-            // InternalRangoMode.g:637:3: otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )?
+            // InternalRangoMode.g:786:2: (otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )? )
+            // InternalRangoMode.g:787:3: otherlv_0= 'split' otherlv_1= 'into' ( (lv_fragments_2_0= RULE_INT ) ) ( (otherlv_3= RULE_ID ) )? (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )?
             {
-            otherlv_0=(Token)match(input,26,FOLLOW_18); 
+            otherlv_0=(Token)match(input,28,FOLLOW_21); 
 
             			newLeafNode(otherlv_0, grammarAccess.getSplitAccess().getSplitKeyword_0());
             		
-            otherlv_1=(Token)match(input,27,FOLLOW_10); 
+            otherlv_1=(Token)match(input,29,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getSplitAccess().getIntoKeyword_1());
             		
-            // InternalRangoMode.g:645:3: ( (lv_fragments_2_0= RULE_INT ) )
-            // InternalRangoMode.g:646:4: (lv_fragments_2_0= RULE_INT )
+            // InternalRangoMode.g:795:3: ( (lv_fragments_2_0= RULE_INT ) )
+            // InternalRangoMode.g:796:4: (lv_fragments_2_0= RULE_INT )
             {
-            // InternalRangoMode.g:646:4: (lv_fragments_2_0= RULE_INT )
-            // InternalRangoMode.g:647:5: lv_fragments_2_0= RULE_INT
+            // InternalRangoMode.g:796:4: (lv_fragments_2_0= RULE_INT )
+            // InternalRangoMode.g:797:5: lv_fragments_2_0= RULE_INT
             {
-            lv_fragments_2_0=(Token)match(input,RULE_INT,FOLLOW_19); 
+            lv_fragments_2_0=(Token)match(input,RULE_INT,FOLLOW_22); 
 
             					newLeafNode(lv_fragments_2_0, grammarAccess.getSplitAccess().getFragmentsINTTerminalRuleCall_2_0());
             				
@@ -1604,26 +1976,26 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:663:3: ( (otherlv_3= RULE_ID ) )?
-            int alt6=2;
-            int LA6_0 = input.LA(1);
+            // InternalRangoMode.g:813:3: ( (otherlv_3= RULE_ID ) )?
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA6_0==RULE_ID) ) {
-                alt6=1;
+            if ( (LA7_0==RULE_ID) ) {
+                alt7=1;
             }
-            switch (alt6) {
+            switch (alt7) {
                 case 1 :
-                    // InternalRangoMode.g:664:4: (otherlv_3= RULE_ID )
+                    // InternalRangoMode.g:814:4: (otherlv_3= RULE_ID )
                     {
-                    // InternalRangoMode.g:664:4: (otherlv_3= RULE_ID )
-                    // InternalRangoMode.g:665:5: otherlv_3= RULE_ID
+                    // InternalRangoMode.g:814:4: (otherlv_3= RULE_ID )
+                    // InternalRangoMode.g:815:5: otherlv_3= RULE_ID
                     {
 
                     					if (current==null) {
                     						current = createModelElement(grammarAccess.getSplitRule());
                     					}
                     				
-                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_20); 
+                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_23); 
 
                     					newLeafNode(otherlv_3, grammarAccess.getSplitAccess().getFragmentTypeEnemyTypeCrossReference_3_0());
                     				
@@ -1636,30 +2008,30 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:676:3: (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )?
-            int alt7=2;
-            int LA7_0 = input.LA(1);
+            // InternalRangoMode.g:826:3: (otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) ) )?
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
-            if ( (LA7_0==28) ) {
-                alt7=1;
+            if ( (LA8_0==30) ) {
+                alt8=1;
             }
-            switch (alt7) {
+            switch (alt8) {
                 case 1 :
-                    // InternalRangoMode.g:677:4: otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) )
+                    // InternalRangoMode.g:827:4: otherlv_4= 'launched' otherlv_5= 'at' ( (lv_launchSpeed_6_0= ruleDecimal ) )
                     {
-                    otherlv_4=(Token)match(input,28,FOLLOW_21); 
+                    otherlv_4=(Token)match(input,30,FOLLOW_24); 
 
                     				newLeafNode(otherlv_4, grammarAccess.getSplitAccess().getLaunchedKeyword_4_0());
                     			
-                    otherlv_5=(Token)match(input,29,FOLLOW_10); 
+                    otherlv_5=(Token)match(input,31,FOLLOW_10); 
 
                     				newLeafNode(otherlv_5, grammarAccess.getSplitAccess().getAtKeyword_4_1());
                     			
-                    // InternalRangoMode.g:685:4: ( (lv_launchSpeed_6_0= ruleDecimal ) )
-                    // InternalRangoMode.g:686:5: (lv_launchSpeed_6_0= ruleDecimal )
+                    // InternalRangoMode.g:835:4: ( (lv_launchSpeed_6_0= ruleDecimal ) )
+                    // InternalRangoMode.g:836:5: (lv_launchSpeed_6_0= ruleDecimal )
                     {
-                    // InternalRangoMode.g:686:5: (lv_launchSpeed_6_0= ruleDecimal )
-                    // InternalRangoMode.g:687:6: lv_launchSpeed_6_0= ruleDecimal
+                    // InternalRangoMode.g:836:5: (lv_launchSpeed_6_0= ruleDecimal )
+                    // InternalRangoMode.g:837:6: lv_launchSpeed_6_0= ruleDecimal
                     {
 
                     						newCompositeNode(grammarAccess.getSplitAccess().getLaunchSpeedDecimalParserRuleCall_4_2_0());
@@ -1715,7 +2087,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePlayerEffect"
-    // InternalRangoMode.g:709:1: entryRulePlayerEffect returns [EObject current=null] : iv_rulePlayerEffect= rulePlayerEffect EOF ;
+    // InternalRangoMode.g:859:1: entryRulePlayerEffect returns [EObject current=null] : iv_rulePlayerEffect= rulePlayerEffect EOF ;
     public final EObject entryRulePlayerEffect() throws RecognitionException {
         EObject current = null;
 
@@ -1723,8 +2095,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:709:53: (iv_rulePlayerEffect= rulePlayerEffect EOF )
-            // InternalRangoMode.g:710:2: iv_rulePlayerEffect= rulePlayerEffect EOF
+            // InternalRangoMode.g:859:53: (iv_rulePlayerEffect= rulePlayerEffect EOF )
+            // InternalRangoMode.g:860:2: iv_rulePlayerEffect= rulePlayerEffect EOF
             {
              newCompositeNode(grammarAccess.getPlayerEffectRule()); 
             pushFollow(FOLLOW_1);
@@ -1751,7 +2123,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePlayerEffect"
-    // InternalRangoMode.g:716:1: rulePlayerEffect returns [EObject current=null] : (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison ) ;
+    // InternalRangoMode.g:866:1: rulePlayerEffect returns [EObject current=null] : (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison ) ;
     public final EObject rulePlayerEffect() throws RecognitionException {
         EObject current = null;
 
@@ -1770,47 +2142,47 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:722:2: ( (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison ) )
-            // InternalRangoMode.g:723:2: (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison )
+            // InternalRangoMode.g:872:2: ( (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison ) )
+            // InternalRangoMode.g:873:2: (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison )
             {
-            // InternalRangoMode.g:723:2: (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison )
-            int alt8=5;
+            // InternalRangoMode.g:873:2: (this_Damage_0= ruleDamage | this_Heal_1= ruleHeal | this_Shield_2= ruleShield | this_SpeedChange_3= ruleSpeedChange | this_Poison_4= rulePoison )
+            int alt9=5;
             switch ( input.LA(1) ) {
-            case 30:
-                {
-                alt8=1;
-                }
-                break;
-            case 31:
-                {
-                alt8=2;
-                }
-                break;
             case 32:
                 {
-                alt8=3;
+                alt9=1;
                 }
                 break;
-            case 17:
+            case 33:
                 {
-                alt8=4;
+                alt9=2;
                 }
                 break;
-            case 36:
+            case 34:
                 {
-                alt8=5;
+                alt9=3;
+                }
+                break;
+            case 20:
+                {
+                alt9=4;
+                }
+                break;
+            case 37:
+                {
+                alt9=5;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
+                    new NoViableAltException("", 9, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt8) {
+            switch (alt9) {
                 case 1 :
-                    // InternalRangoMode.g:724:3: this_Damage_0= ruleDamage
+                    // InternalRangoMode.g:874:3: this_Damage_0= ruleDamage
                     {
 
                     			newCompositeNode(grammarAccess.getPlayerEffectAccess().getDamageParserRuleCall_0());
@@ -1828,7 +2200,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:733:3: this_Heal_1= ruleHeal
+                    // InternalRangoMode.g:883:3: this_Heal_1= ruleHeal
                     {
 
                     			newCompositeNode(grammarAccess.getPlayerEffectAccess().getHealParserRuleCall_1());
@@ -1846,7 +2218,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalRangoMode.g:742:3: this_Shield_2= ruleShield
+                    // InternalRangoMode.g:892:3: this_Shield_2= ruleShield
                     {
 
                     			newCompositeNode(grammarAccess.getPlayerEffectAccess().getShieldParserRuleCall_2());
@@ -1864,7 +2236,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalRangoMode.g:751:3: this_SpeedChange_3= ruleSpeedChange
+                    // InternalRangoMode.g:901:3: this_SpeedChange_3= ruleSpeedChange
                     {
 
                     			newCompositeNode(grammarAccess.getPlayerEffectAccess().getSpeedChangeParserRuleCall_3());
@@ -1882,7 +2254,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalRangoMode.g:760:3: this_Poison_4= rulePoison
+                    // InternalRangoMode.g:910:3: this_Poison_4= rulePoison
                     {
 
                     			newCompositeNode(grammarAccess.getPlayerEffectAccess().getPoisonParserRuleCall_4());
@@ -1922,7 +2294,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDamage"
-    // InternalRangoMode.g:772:1: entryRuleDamage returns [EObject current=null] : iv_ruleDamage= ruleDamage EOF ;
+    // InternalRangoMode.g:922:1: entryRuleDamage returns [EObject current=null] : iv_ruleDamage= ruleDamage EOF ;
     public final EObject entryRuleDamage() throws RecognitionException {
         EObject current = null;
 
@@ -1930,8 +2302,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:772:47: (iv_ruleDamage= ruleDamage EOF )
-            // InternalRangoMode.g:773:2: iv_ruleDamage= ruleDamage EOF
+            // InternalRangoMode.g:922:47: (iv_ruleDamage= ruleDamage EOF )
+            // InternalRangoMode.g:923:2: iv_ruleDamage= ruleDamage EOF
             {
              newCompositeNode(grammarAccess.getDamageRule()); 
             pushFollow(FOLLOW_1);
@@ -1958,7 +2330,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDamage"
-    // InternalRangoMode.g:779:1: ruleDamage returns [EObject current=null] : (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) ) ;
+    // InternalRangoMode.g:929:1: ruleDamage returns [EObject current=null] : (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) ) ;
     public final EObject ruleDamage() throws RecognitionException {
         EObject current = null;
 
@@ -1969,21 +2341,21 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:785:2: ( (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) ) )
-            // InternalRangoMode.g:786:2: (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) )
+            // InternalRangoMode.g:935:2: ( (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) ) )
+            // InternalRangoMode.g:936:2: (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) )
             {
-            // InternalRangoMode.g:786:2: (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) )
-            // InternalRangoMode.g:787:3: otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) )
+            // InternalRangoMode.g:936:2: (otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) ) )
+            // InternalRangoMode.g:937:3: otherlv_0= 'damage' ( (lv_amount_1_0= RULE_INT ) )
             {
-            otherlv_0=(Token)match(input,30,FOLLOW_10); 
+            otherlv_0=(Token)match(input,32,FOLLOW_10); 
 
             			newLeafNode(otherlv_0, grammarAccess.getDamageAccess().getDamageKeyword_0());
             		
-            // InternalRangoMode.g:791:3: ( (lv_amount_1_0= RULE_INT ) )
-            // InternalRangoMode.g:792:4: (lv_amount_1_0= RULE_INT )
+            // InternalRangoMode.g:941:3: ( (lv_amount_1_0= RULE_INT ) )
+            // InternalRangoMode.g:942:4: (lv_amount_1_0= RULE_INT )
             {
-            // InternalRangoMode.g:792:4: (lv_amount_1_0= RULE_INT )
-            // InternalRangoMode.g:793:5: lv_amount_1_0= RULE_INT
+            // InternalRangoMode.g:942:4: (lv_amount_1_0= RULE_INT )
+            // InternalRangoMode.g:943:5: lv_amount_1_0= RULE_INT
             {
             lv_amount_1_0=(Token)match(input,RULE_INT,FOLLOW_2); 
 
@@ -2028,7 +2400,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleHeal"
-    // InternalRangoMode.g:813:1: entryRuleHeal returns [EObject current=null] : iv_ruleHeal= ruleHeal EOF ;
+    // InternalRangoMode.g:963:1: entryRuleHeal returns [EObject current=null] : iv_ruleHeal= ruleHeal EOF ;
     public final EObject entryRuleHeal() throws RecognitionException {
         EObject current = null;
 
@@ -2036,8 +2408,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:813:45: (iv_ruleHeal= ruleHeal EOF )
-            // InternalRangoMode.g:814:2: iv_ruleHeal= ruleHeal EOF
+            // InternalRangoMode.g:963:45: (iv_ruleHeal= ruleHeal EOF )
+            // InternalRangoMode.g:964:2: iv_ruleHeal= ruleHeal EOF
             {
              newCompositeNode(grammarAccess.getHealRule()); 
             pushFollow(FOLLOW_1);
@@ -2064,7 +2436,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleHeal"
-    // InternalRangoMode.g:820:1: ruleHeal returns [EObject current=null] : (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) ) ;
+    // InternalRangoMode.g:970:1: ruleHeal returns [EObject current=null] : (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) ) ;
     public final EObject ruleHeal() throws RecognitionException {
         EObject current = null;
 
@@ -2075,21 +2447,21 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:826:2: ( (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) ) )
-            // InternalRangoMode.g:827:2: (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) )
+            // InternalRangoMode.g:976:2: ( (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) ) )
+            // InternalRangoMode.g:977:2: (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) )
             {
-            // InternalRangoMode.g:827:2: (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) )
-            // InternalRangoMode.g:828:3: otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) )
+            // InternalRangoMode.g:977:2: (otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) ) )
+            // InternalRangoMode.g:978:3: otherlv_0= 'heal' ( (lv_amount_1_0= RULE_INT ) )
             {
-            otherlv_0=(Token)match(input,31,FOLLOW_10); 
+            otherlv_0=(Token)match(input,33,FOLLOW_10); 
 
             			newLeafNode(otherlv_0, grammarAccess.getHealAccess().getHealKeyword_0());
             		
-            // InternalRangoMode.g:832:3: ( (lv_amount_1_0= RULE_INT ) )
-            // InternalRangoMode.g:833:4: (lv_amount_1_0= RULE_INT )
+            // InternalRangoMode.g:982:3: ( (lv_amount_1_0= RULE_INT ) )
+            // InternalRangoMode.g:983:4: (lv_amount_1_0= RULE_INT )
             {
-            // InternalRangoMode.g:833:4: (lv_amount_1_0= RULE_INT )
-            // InternalRangoMode.g:834:5: lv_amount_1_0= RULE_INT
+            // InternalRangoMode.g:983:4: (lv_amount_1_0= RULE_INT )
+            // InternalRangoMode.g:984:5: lv_amount_1_0= RULE_INT
             {
             lv_amount_1_0=(Token)match(input,RULE_INT,FOLLOW_2); 
 
@@ -2134,7 +2506,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleShield"
-    // InternalRangoMode.g:854:1: entryRuleShield returns [EObject current=null] : iv_ruleShield= ruleShield EOF ;
+    // InternalRangoMode.g:1004:1: entryRuleShield returns [EObject current=null] : iv_ruleShield= ruleShield EOF ;
     public final EObject entryRuleShield() throws RecognitionException {
         EObject current = null;
 
@@ -2142,8 +2514,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:854:47: (iv_ruleShield= ruleShield EOF )
-            // InternalRangoMode.g:855:2: iv_ruleShield= ruleShield EOF
+            // InternalRangoMode.g:1004:47: (iv_ruleShield= ruleShield EOF )
+            // InternalRangoMode.g:1005:2: iv_ruleShield= ruleShield EOF
             {
              newCompositeNode(grammarAccess.getShieldRule()); 
             pushFollow(FOLLOW_1);
@@ -2170,7 +2542,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleShield"
-    // InternalRangoMode.g:861:1: ruleShield returns [EObject current=null] : (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' ) ;
+    // InternalRangoMode.g:1011:1: ruleShield returns [EObject current=null] : (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' ) ;
     public final EObject ruleShield() throws RecognitionException {
         EObject current = null;
 
@@ -2184,30 +2556,30 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:867:2: ( (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' ) )
-            // InternalRangoMode.g:868:2: (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' )
+            // InternalRangoMode.g:1017:2: ( (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' ) )
+            // InternalRangoMode.g:1018:2: (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' )
             {
-            // InternalRangoMode.g:868:2: (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' )
-            // InternalRangoMode.g:869:3: otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's'
+            // InternalRangoMode.g:1018:2: (otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's' )
+            // InternalRangoMode.g:1019:3: otherlv_0= 'shield' otherlv_1= 'for' ( (lv_duration_2_0= ruleDecimal ) ) otherlv_3= 's'
             {
-            otherlv_0=(Token)match(input,32,FOLLOW_22); 
+            otherlv_0=(Token)match(input,34,FOLLOW_25); 
 
             			newLeafNode(otherlv_0, grammarAccess.getShieldAccess().getShieldKeyword_0());
             		
-            otherlv_1=(Token)match(input,33,FOLLOW_10); 
+            otherlv_1=(Token)match(input,35,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getShieldAccess().getForKeyword_1());
             		
-            // InternalRangoMode.g:877:3: ( (lv_duration_2_0= ruleDecimal ) )
-            // InternalRangoMode.g:878:4: (lv_duration_2_0= ruleDecimal )
+            // InternalRangoMode.g:1027:3: ( (lv_duration_2_0= ruleDecimal ) )
+            // InternalRangoMode.g:1028:4: (lv_duration_2_0= ruleDecimal )
             {
-            // InternalRangoMode.g:878:4: (lv_duration_2_0= ruleDecimal )
-            // InternalRangoMode.g:879:5: lv_duration_2_0= ruleDecimal
+            // InternalRangoMode.g:1028:4: (lv_duration_2_0= ruleDecimal )
+            // InternalRangoMode.g:1029:5: lv_duration_2_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getShieldAccess().getDurationDecimalParserRuleCall_2_0());
             				
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_26);
             lv_duration_2_0=ruleDecimal();
 
             state._fsp--;
@@ -2229,7 +2601,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,34,FOLLOW_2); 
+            otherlv_3=(Token)match(input,36,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getShieldAccess().getSKeyword_3());
             		
@@ -2256,7 +2628,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSpeedChange"
-    // InternalRangoMode.g:904:1: entryRuleSpeedChange returns [EObject current=null] : iv_ruleSpeedChange= ruleSpeedChange EOF ;
+    // InternalRangoMode.g:1054:1: entryRuleSpeedChange returns [EObject current=null] : iv_ruleSpeedChange= ruleSpeedChange EOF ;
     public final EObject entryRuleSpeedChange() throws RecognitionException {
         EObject current = null;
 
@@ -2264,8 +2636,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:904:52: (iv_ruleSpeedChange= ruleSpeedChange EOF )
-            // InternalRangoMode.g:905:2: iv_ruleSpeedChange= ruleSpeedChange EOF
+            // InternalRangoMode.g:1054:52: (iv_ruleSpeedChange= ruleSpeedChange EOF )
+            // InternalRangoMode.g:1055:2: iv_ruleSpeedChange= ruleSpeedChange EOF
             {
              newCompositeNode(grammarAccess.getSpeedChangeRule()); 
             pushFollow(FOLLOW_1);
@@ -2292,7 +2664,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSpeedChange"
-    // InternalRangoMode.g:911:1: ruleSpeedChange returns [EObject current=null] : (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' ) ;
+    // InternalRangoMode.g:1061:1: ruleSpeedChange returns [EObject current=null] : (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' ) ;
     public final EObject ruleSpeedChange() throws RecognitionException {
         EObject current = null;
 
@@ -2309,30 +2681,30 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:917:2: ( (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' ) )
-            // InternalRangoMode.g:918:2: (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' )
+            // InternalRangoMode.g:1067:2: ( (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' ) )
+            // InternalRangoMode.g:1068:2: (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' )
             {
-            // InternalRangoMode.g:918:2: (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' )
-            // InternalRangoMode.g:919:3: otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's'
+            // InternalRangoMode.g:1068:2: (otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's' )
+            // InternalRangoMode.g:1069:3: otherlv_0= 'speed' otherlv_1= '*' ( (lv_factor_2_0= ruleDecimal ) ) otherlv_3= 'for' ( (lv_duration_4_0= ruleDecimal ) ) otherlv_5= 's'
             {
-            otherlv_0=(Token)match(input,17,FOLLOW_24); 
+            otherlv_0=(Token)match(input,20,FOLLOW_9); 
 
             			newLeafNode(otherlv_0, grammarAccess.getSpeedChangeAccess().getSpeedKeyword_0());
             		
-            otherlv_1=(Token)match(input,35,FOLLOW_10); 
+            otherlv_1=(Token)match(input,15,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getSpeedChangeAccess().getAsteriskKeyword_1());
             		
-            // InternalRangoMode.g:927:3: ( (lv_factor_2_0= ruleDecimal ) )
-            // InternalRangoMode.g:928:4: (lv_factor_2_0= ruleDecimal )
+            // InternalRangoMode.g:1077:3: ( (lv_factor_2_0= ruleDecimal ) )
+            // InternalRangoMode.g:1078:4: (lv_factor_2_0= ruleDecimal )
             {
-            // InternalRangoMode.g:928:4: (lv_factor_2_0= ruleDecimal )
-            // InternalRangoMode.g:929:5: lv_factor_2_0= ruleDecimal
+            // InternalRangoMode.g:1078:4: (lv_factor_2_0= ruleDecimal )
+            // InternalRangoMode.g:1079:5: lv_factor_2_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getSpeedChangeAccess().getFactorDecimalParserRuleCall_2_0());
             				
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_25);
             lv_factor_2_0=ruleDecimal();
 
             state._fsp--;
@@ -2354,20 +2726,20 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,33,FOLLOW_10); 
+            otherlv_3=(Token)match(input,35,FOLLOW_10); 
 
             			newLeafNode(otherlv_3, grammarAccess.getSpeedChangeAccess().getForKeyword_3());
             		
-            // InternalRangoMode.g:950:3: ( (lv_duration_4_0= ruleDecimal ) )
-            // InternalRangoMode.g:951:4: (lv_duration_4_0= ruleDecimal )
+            // InternalRangoMode.g:1100:3: ( (lv_duration_4_0= ruleDecimal ) )
+            // InternalRangoMode.g:1101:4: (lv_duration_4_0= ruleDecimal )
             {
-            // InternalRangoMode.g:951:4: (lv_duration_4_0= ruleDecimal )
-            // InternalRangoMode.g:952:5: lv_duration_4_0= ruleDecimal
+            // InternalRangoMode.g:1101:4: (lv_duration_4_0= ruleDecimal )
+            // InternalRangoMode.g:1102:5: lv_duration_4_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getSpeedChangeAccess().getDurationDecimalParserRuleCall_4_0());
             				
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_26);
             lv_duration_4_0=ruleDecimal();
 
             state._fsp--;
@@ -2389,7 +2761,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,34,FOLLOW_2); 
+            otherlv_5=(Token)match(input,36,FOLLOW_2); 
 
             			newLeafNode(otherlv_5, grammarAccess.getSpeedChangeAccess().getSKeyword_5());
             		
@@ -2416,7 +2788,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePoison"
-    // InternalRangoMode.g:977:1: entryRulePoison returns [EObject current=null] : iv_rulePoison= rulePoison EOF ;
+    // InternalRangoMode.g:1127:1: entryRulePoison returns [EObject current=null] : iv_rulePoison= rulePoison EOF ;
     public final EObject entryRulePoison() throws RecognitionException {
         EObject current = null;
 
@@ -2424,8 +2796,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:977:47: (iv_rulePoison= rulePoison EOF )
-            // InternalRangoMode.g:978:2: iv_rulePoison= rulePoison EOF
+            // InternalRangoMode.g:1127:47: (iv_rulePoison= rulePoison EOF )
+            // InternalRangoMode.g:1128:2: iv_rulePoison= rulePoison EOF
             {
              newCompositeNode(grammarAccess.getPoisonRule()); 
             pushFollow(FOLLOW_1);
@@ -2452,7 +2824,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePoison"
-    // InternalRangoMode.g:984:1: rulePoison returns [EObject current=null] : (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' ) ;
+    // InternalRangoMode.g:1134:1: rulePoison returns [EObject current=null] : (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' ) ;
     public final EObject rulePoison() throws RecognitionException {
         EObject current = null;
 
@@ -2471,23 +2843,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:990:2: ( (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' ) )
-            // InternalRangoMode.g:991:2: (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' )
+            // InternalRangoMode.g:1140:2: ( (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' ) )
+            // InternalRangoMode.g:1141:2: (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' )
             {
-            // InternalRangoMode.g:991:2: (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' )
-            // InternalRangoMode.g:992:3: otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's'
+            // InternalRangoMode.g:1141:2: (otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's' )
+            // InternalRangoMode.g:1142:3: otherlv_0= 'poison' ( (lv_amount_1_0= RULE_INT ) ) otherlv_2= 'every' ( (lv_interval_3_0= ruleDecimal ) ) otherlv_4= 's' otherlv_5= 'for' ( (lv_duration_6_0= ruleDecimal ) ) otherlv_7= 's'
             {
-            otherlv_0=(Token)match(input,36,FOLLOW_10); 
+            otherlv_0=(Token)match(input,37,FOLLOW_10); 
 
             			newLeafNode(otherlv_0, grammarAccess.getPoisonAccess().getPoisonKeyword_0());
             		
-            // InternalRangoMode.g:996:3: ( (lv_amount_1_0= RULE_INT ) )
-            // InternalRangoMode.g:997:4: (lv_amount_1_0= RULE_INT )
+            // InternalRangoMode.g:1146:3: ( (lv_amount_1_0= RULE_INT ) )
+            // InternalRangoMode.g:1147:4: (lv_amount_1_0= RULE_INT )
             {
-            // InternalRangoMode.g:997:4: (lv_amount_1_0= RULE_INT )
-            // InternalRangoMode.g:998:5: lv_amount_1_0= RULE_INT
+            // InternalRangoMode.g:1147:4: (lv_amount_1_0= RULE_INT )
+            // InternalRangoMode.g:1148:5: lv_amount_1_0= RULE_INT
             {
-            lv_amount_1_0=(Token)match(input,RULE_INT,FOLLOW_25); 
+            lv_amount_1_0=(Token)match(input,RULE_INT,FOLLOW_27); 
 
             					newLeafNode(lv_amount_1_0, grammarAccess.getPoisonAccess().getAmountINTTerminalRuleCall_1_0());
             				
@@ -2507,20 +2879,20 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,37,FOLLOW_10); 
+            otherlv_2=(Token)match(input,38,FOLLOW_10); 
 
             			newLeafNode(otherlv_2, grammarAccess.getPoisonAccess().getEveryKeyword_2());
             		
-            // InternalRangoMode.g:1018:3: ( (lv_interval_3_0= ruleDecimal ) )
-            // InternalRangoMode.g:1019:4: (lv_interval_3_0= ruleDecimal )
+            // InternalRangoMode.g:1168:3: ( (lv_interval_3_0= ruleDecimal ) )
+            // InternalRangoMode.g:1169:4: (lv_interval_3_0= ruleDecimal )
             {
-            // InternalRangoMode.g:1019:4: (lv_interval_3_0= ruleDecimal )
-            // InternalRangoMode.g:1020:5: lv_interval_3_0= ruleDecimal
+            // InternalRangoMode.g:1169:4: (lv_interval_3_0= ruleDecimal )
+            // InternalRangoMode.g:1170:5: lv_interval_3_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getPoisonAccess().getIntervalDecimalParserRuleCall_3_0());
             				
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_26);
             lv_interval_3_0=ruleDecimal();
 
             state._fsp--;
@@ -2542,24 +2914,24 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,34,FOLLOW_22); 
+            otherlv_4=(Token)match(input,36,FOLLOW_25); 
 
             			newLeafNode(otherlv_4, grammarAccess.getPoisonAccess().getSKeyword_4());
             		
-            otherlv_5=(Token)match(input,33,FOLLOW_10); 
+            otherlv_5=(Token)match(input,35,FOLLOW_10); 
 
             			newLeafNode(otherlv_5, grammarAccess.getPoisonAccess().getForKeyword_5());
             		
-            // InternalRangoMode.g:1045:3: ( (lv_duration_6_0= ruleDecimal ) )
-            // InternalRangoMode.g:1046:4: (lv_duration_6_0= ruleDecimal )
+            // InternalRangoMode.g:1195:3: ( (lv_duration_6_0= ruleDecimal ) )
+            // InternalRangoMode.g:1196:4: (lv_duration_6_0= ruleDecimal )
             {
-            // InternalRangoMode.g:1046:4: (lv_duration_6_0= ruleDecimal )
-            // InternalRangoMode.g:1047:5: lv_duration_6_0= ruleDecimal
+            // InternalRangoMode.g:1196:4: (lv_duration_6_0= ruleDecimal )
+            // InternalRangoMode.g:1197:5: lv_duration_6_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getPoisonAccess().getDurationDecimalParserRuleCall_6_0());
             				
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_26);
             lv_duration_6_0=ruleDecimal();
 
             state._fsp--;
@@ -2581,7 +2953,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,34,FOLLOW_2); 
+            otherlv_7=(Token)match(input,36,FOLLOW_2); 
 
             			newLeafNode(otherlv_7, grammarAccess.getPoisonAccess().getSKeyword_7());
             		
@@ -2608,7 +2980,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePowerUp"
-    // InternalRangoMode.g:1072:1: entryRulePowerUp returns [EObject current=null] : iv_rulePowerUp= rulePowerUp EOF ;
+    // InternalRangoMode.g:1222:1: entryRulePowerUp returns [EObject current=null] : iv_rulePowerUp= rulePowerUp EOF ;
     public final EObject entryRulePowerUp() throws RecognitionException {
         EObject current = null;
 
@@ -2616,8 +2988,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:1072:48: (iv_rulePowerUp= rulePowerUp EOF )
-            // InternalRangoMode.g:1073:2: iv_rulePowerUp= rulePowerUp EOF
+            // InternalRangoMode.g:1222:48: (iv_rulePowerUp= rulePowerUp EOF )
+            // InternalRangoMode.g:1223:2: iv_rulePowerUp= rulePowerUp EOF
             {
              newCompositeNode(grammarAccess.getPowerUpRule()); 
             pushFollow(FOLLOW_1);
@@ -2644,7 +3016,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePowerUp"
-    // InternalRangoMode.g:1079:1: rulePowerUp returns [EObject current=null] : (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' ) ;
+    // InternalRangoMode.g:1229:1: rulePowerUp returns [EObject current=null] : (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' ) ;
     public final EObject rulePowerUp() throws RecognitionException {
         EObject current = null;
 
@@ -2666,23 +3038,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:1085:2: ( (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' ) )
-            // InternalRangoMode.g:1086:2: (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' )
+            // InternalRangoMode.g:1235:2: ( (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' ) )
+            // InternalRangoMode.g:1236:2: (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' )
             {
-            // InternalRangoMode.g:1086:2: (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' )
-            // InternalRangoMode.g:1087:3: otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}'
+            // InternalRangoMode.g:1236:2: (otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}' )
+            // InternalRangoMode.g:1237:3: otherlv_0= 'powerup' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' otherlv_3= 'sprite' ( (lv_sprite_4_0= RULE_STRING ) ) otherlv_5= 'gives' otherlv_6= ':' ( (lv_effects_7_0= rulePlayerEffect ) ) (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )* otherlv_10= '}'
             {
-            otherlv_0=(Token)match(input,38,FOLLOW_3); 
+            otherlv_0=(Token)match(input,39,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getPowerUpAccess().getPowerupKeyword_0());
             		
-            // InternalRangoMode.g:1091:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:1092:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1241:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:1242:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:1092:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:1093:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:1242:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1243:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_6); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_7); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getPowerUpAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -2702,21 +3074,21 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_26); 
+            otherlv_2=(Token)match(input,13,FOLLOW_28); 
 
             			newLeafNode(otherlv_2, grammarAccess.getPowerUpAccess().getLeftCurlyBracketKeyword_2());
             		
-            otherlv_3=(Token)match(input,14,FOLLOW_8); 
+            otherlv_3=(Token)match(input,17,FOLLOW_12); 
 
             			newLeafNode(otherlv_3, grammarAccess.getPowerUpAccess().getSpriteKeyword_3());
             		
-            // InternalRangoMode.g:1117:3: ( (lv_sprite_4_0= RULE_STRING ) )
-            // InternalRangoMode.g:1118:4: (lv_sprite_4_0= RULE_STRING )
+            // InternalRangoMode.g:1267:3: ( (lv_sprite_4_0= RULE_STRING ) )
+            // InternalRangoMode.g:1268:4: (lv_sprite_4_0= RULE_STRING )
             {
-            // InternalRangoMode.g:1118:4: (lv_sprite_4_0= RULE_STRING )
-            // InternalRangoMode.g:1119:5: lv_sprite_4_0= RULE_STRING
+            // InternalRangoMode.g:1268:4: (lv_sprite_4_0= RULE_STRING )
+            // InternalRangoMode.g:1269:5: lv_sprite_4_0= RULE_STRING
             {
-            lv_sprite_4_0=(Token)match(input,RULE_STRING,FOLLOW_27); 
+            lv_sprite_4_0=(Token)match(input,RULE_STRING,FOLLOW_29); 
 
             					newLeafNode(lv_sprite_4_0, grammarAccess.getPowerUpAccess().getSpriteSTRINGTerminalRuleCall_4_0());
             				
@@ -2736,24 +3108,24 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,39,FOLLOW_12); 
+            otherlv_5=(Token)match(input,40,FOLLOW_15); 
 
             			newLeafNode(otherlv_5, grammarAccess.getPowerUpAccess().getGivesKeyword_5());
             		
-            otherlv_6=(Token)match(input,21,FOLLOW_16); 
+            otherlv_6=(Token)match(input,24,FOLLOW_19); 
 
             			newLeafNode(otherlv_6, grammarAccess.getPowerUpAccess().getColonKeyword_6());
             		
-            // InternalRangoMode.g:1143:3: ( (lv_effects_7_0= rulePlayerEffect ) )
-            // InternalRangoMode.g:1144:4: (lv_effects_7_0= rulePlayerEffect )
+            // InternalRangoMode.g:1293:3: ( (lv_effects_7_0= rulePlayerEffect ) )
+            // InternalRangoMode.g:1294:4: (lv_effects_7_0= rulePlayerEffect )
             {
-            // InternalRangoMode.g:1144:4: (lv_effects_7_0= rulePlayerEffect )
-            // InternalRangoMode.g:1145:5: lv_effects_7_0= rulePlayerEffect
+            // InternalRangoMode.g:1294:4: (lv_effects_7_0= rulePlayerEffect )
+            // InternalRangoMode.g:1295:5: lv_effects_7_0= rulePlayerEffect
             {
 
             					newCompositeNode(grammarAccess.getPowerUpAccess().getEffectsPlayerEffectParserRuleCall_7_0());
             				
-            pushFollow(FOLLOW_17);
+            pushFollow(FOLLOW_20);
             lv_effects_7_0=rulePlayerEffect();
 
             state._fsp--;
@@ -2775,35 +3147,35 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:1162:3: (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )*
-            loop9:
+            // InternalRangoMode.g:1312:3: (otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) ) )*
+            loop10:
             do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
+                int alt10=2;
+                int LA10_0 = input.LA(1);
 
-                if ( (LA9_0==23) ) {
-                    alt9=1;
+                if ( (LA10_0==26) ) {
+                    alt10=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt10) {
             	case 1 :
-            	    // InternalRangoMode.g:1163:4: otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) )
+            	    // InternalRangoMode.g:1313:4: otherlv_8= ',' ( (lv_effects_9_0= rulePlayerEffect ) )
             	    {
-            	    otherlv_8=(Token)match(input,23,FOLLOW_16); 
+            	    otherlv_8=(Token)match(input,26,FOLLOW_19); 
 
             	    				newLeafNode(otherlv_8, grammarAccess.getPowerUpAccess().getCommaKeyword_8_0());
             	    			
-            	    // InternalRangoMode.g:1167:4: ( (lv_effects_9_0= rulePlayerEffect ) )
-            	    // InternalRangoMode.g:1168:5: (lv_effects_9_0= rulePlayerEffect )
+            	    // InternalRangoMode.g:1317:4: ( (lv_effects_9_0= rulePlayerEffect ) )
+            	    // InternalRangoMode.g:1318:5: (lv_effects_9_0= rulePlayerEffect )
             	    {
-            	    // InternalRangoMode.g:1168:5: (lv_effects_9_0= rulePlayerEffect )
-            	    // InternalRangoMode.g:1169:6: lv_effects_9_0= rulePlayerEffect
+            	    // InternalRangoMode.g:1318:5: (lv_effects_9_0= rulePlayerEffect )
+            	    // InternalRangoMode.g:1319:6: lv_effects_9_0= rulePlayerEffect
             	    {
 
             	    						newCompositeNode(grammarAccess.getPowerUpAccess().getEffectsPlayerEffectParserRuleCall_8_1_0());
             	    					
-            	    pushFollow(FOLLOW_17);
+            	    pushFollow(FOLLOW_20);
             	    lv_effects_9_0=rulePlayerEffect();
 
             	    state._fsp--;
@@ -2830,11 +3202,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop10;
                 }
             } while (true);
 
-            otherlv_10=(Token)match(input,24,FOLLOW_2); 
+            otherlv_10=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_10, grammarAccess.getPowerUpAccess().getRightCurlyBracketKeyword_9());
             		
@@ -2861,7 +3233,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleMaterial"
-    // InternalRangoMode.g:1195:1: entryRuleMaterial returns [EObject current=null] : iv_ruleMaterial= ruleMaterial EOF ;
+    // InternalRangoMode.g:1345:1: entryRuleMaterial returns [EObject current=null] : iv_ruleMaterial= ruleMaterial EOF ;
     public final EObject entryRuleMaterial() throws RecognitionException {
         EObject current = null;
 
@@ -2869,8 +3241,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:1195:49: (iv_ruleMaterial= ruleMaterial EOF )
-            // InternalRangoMode.g:1196:2: iv_ruleMaterial= ruleMaterial EOF
+            // InternalRangoMode.g:1345:49: (iv_ruleMaterial= ruleMaterial EOF )
+            // InternalRangoMode.g:1346:2: iv_ruleMaterial= ruleMaterial EOF
             {
              newCompositeNode(grammarAccess.getMaterialRule()); 
             pushFollow(FOLLOW_1);
@@ -2897,7 +3269,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleMaterial"
-    // InternalRangoMode.g:1202:1: ruleMaterial returns [EObject current=null] : (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' ) ;
+    // InternalRangoMode.g:1352:1: ruleMaterial returns [EObject current=null] : (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' ) ;
     public final EObject ruleMaterial() throws RecognitionException {
         EObject current = null;
 
@@ -2915,23 +3287,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:1208:2: ( (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' ) )
-            // InternalRangoMode.g:1209:2: (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' )
+            // InternalRangoMode.g:1358:2: ( (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' ) )
+            // InternalRangoMode.g:1359:2: (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' )
             {
-            // InternalRangoMode.g:1209:2: (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' )
-            // InternalRangoMode.g:1210:3: otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}'
+            // InternalRangoMode.g:1359:2: (otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}' )
+            // InternalRangoMode.g:1360:3: otherlv_0= 'material' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) otherlv_8= '}'
             {
-            otherlv_0=(Token)match(input,40,FOLLOW_3); 
+            otherlv_0=(Token)match(input,41,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getMaterialAccess().getMaterialKeyword_0());
             		
-            // InternalRangoMode.g:1214:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:1215:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1364:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:1365:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:1215:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:1216:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:1365:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1366:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_6); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_7); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getMaterialAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -2951,75 +3323,75 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_28); 
+            otherlv_2=(Token)match(input,13,FOLLOW_30); 
 
             			newLeafNode(otherlv_2, grammarAccess.getMaterialAccess().getLeftCurlyBracketKeyword_2());
             		
-            // InternalRangoMode.g:1236:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) )
-            // InternalRangoMode.g:1237:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) )
+            // InternalRangoMode.g:1386:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) ) )
+            // InternalRangoMode.g:1387:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) )
             {
-            // InternalRangoMode.g:1237:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) )
-            // InternalRangoMode.g:1238:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* )
+            // InternalRangoMode.g:1387:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* ) )
+            // InternalRangoMode.g:1388:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* )
             {
              
             				  getUnorderedGroupHelper().enter(grammarAccess.getMaterialAccess().getUnorderedGroup_3());
             				
-            // InternalRangoMode.g:1241:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* )
-            // InternalRangoMode.g:1242:6: ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )*
+            // InternalRangoMode.g:1391:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )* )
+            // InternalRangoMode.g:1392:6: ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )*
             {
-            // InternalRangoMode.g:1242:6: ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )*
-            loop10:
+            // InternalRangoMode.g:1392:6: ( ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) ) )*
+            loop11:
             do {
-                int alt10=3;
-                int LA10_0 = input.LA(1);
+                int alt11=3;
+                int LA11_0 = input.LA(1);
 
-                if ( LA10_0 == 16 && getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 0) ) {
-                    alt10=1;
+                if ( LA11_0 == 19 && getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 0) ) {
+                    alt11=1;
                 }
-                else if ( LA10_0 == 14 && getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 1) ) {
-                    alt10=2;
+                else if ( LA11_0 == 17 && getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 1) ) {
+                    alt11=2;
                 }
 
 
-                switch (alt10) {
+                switch (alt11) {
             	case 1 :
-            	    // InternalRangoMode.g:1243:4: ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:1393:4: ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1243:4: ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) )
-            	    // InternalRangoMode.g:1244:5: {...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:1393:4: ({...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:1394:5: {...}? => ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 0) ) {
             	        throw new FailedPredicateException(input, "ruleMaterial", "getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 0)");
             	    }
-            	    // InternalRangoMode.g:1244:105: ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) )
-            	    // InternalRangoMode.g:1245:6: ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:1394:105: ( ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:1395:6: ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 0);
             	    					
-            	    // InternalRangoMode.g:1248:9: ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) )
-            	    // InternalRangoMode.g:1248:10: {...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:1398:9: ({...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:1398:10: {...}? => (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleMaterial", "true");
             	    }
-            	    // InternalRangoMode.g:1248:19: (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) )
-            	    // InternalRangoMode.g:1248:20: otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1398:19: (otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:1398:20: otherlv_4= 'bounce' ( (lv_bounce_5_0= ruleDecimal ) )
             	    {
-            	    otherlv_4=(Token)match(input,16,FOLLOW_10); 
+            	    otherlv_4=(Token)match(input,19,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_4, grammarAccess.getMaterialAccess().getBounceKeyword_3_0_0());
             	    								
-            	    // InternalRangoMode.g:1252:9: ( (lv_bounce_5_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:1253:10: (lv_bounce_5_0= ruleDecimal )
+            	    // InternalRangoMode.g:1402:9: ( (lv_bounce_5_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1403:10: (lv_bounce_5_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:1253:10: (lv_bounce_5_0= ruleDecimal )
-            	    // InternalRangoMode.g:1254:11: lv_bounce_5_0= ruleDecimal
+            	    // InternalRangoMode.g:1403:10: (lv_bounce_5_0= ruleDecimal )
+            	    // InternalRangoMode.g:1404:11: lv_bounce_5_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getMaterialAccess().getBounceDecimalParserRuleCall_3_0_1_0());
             	    										
-            	    pushFollow(FOLLOW_28);
+            	    pushFollow(FOLLOW_30);
             	    lv_bounce_5_0=ruleDecimal();
 
             	    state._fsp--;
@@ -3060,40 +3432,40 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // InternalRangoMode.g:1277:4: ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) )
+            	    // InternalRangoMode.g:1427:4: ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1277:4: ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) )
-            	    // InternalRangoMode.g:1278:5: {...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) )
+            	    // InternalRangoMode.g:1427:4: ({...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) ) )
+            	    // InternalRangoMode.g:1428:5: {...}? => ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 1) ) {
             	        throw new FailedPredicateException(input, "ruleMaterial", "getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 1)");
             	    }
-            	    // InternalRangoMode.g:1278:105: ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) )
-            	    // InternalRangoMode.g:1279:6: ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) )
+            	    // InternalRangoMode.g:1428:105: ( ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) ) )
+            	    // InternalRangoMode.g:1429:6: ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 1);
             	    					
-            	    // InternalRangoMode.g:1282:9: ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) )
-            	    // InternalRangoMode.g:1282:10: {...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) )
+            	    // InternalRangoMode.g:1432:9: ({...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) ) )
+            	    // InternalRangoMode.g:1432:10: {...}? => (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleMaterial", "true");
             	    }
-            	    // InternalRangoMode.g:1282:19: (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) )
-            	    // InternalRangoMode.g:1282:20: otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) )
+            	    // InternalRangoMode.g:1432:19: (otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) ) )
+            	    // InternalRangoMode.g:1432:20: otherlv_6= 'sprite' ( (lv_sprite_7_0= RULE_STRING ) )
             	    {
-            	    otherlv_6=(Token)match(input,14,FOLLOW_8); 
+            	    otherlv_6=(Token)match(input,17,FOLLOW_12); 
 
             	    									newLeafNode(otherlv_6, grammarAccess.getMaterialAccess().getSpriteKeyword_3_1_0());
             	    								
-            	    // InternalRangoMode.g:1286:9: ( (lv_sprite_7_0= RULE_STRING ) )
-            	    // InternalRangoMode.g:1287:10: (lv_sprite_7_0= RULE_STRING )
+            	    // InternalRangoMode.g:1436:9: ( (lv_sprite_7_0= RULE_STRING ) )
+            	    // InternalRangoMode.g:1437:10: (lv_sprite_7_0= RULE_STRING )
             	    {
-            	    // InternalRangoMode.g:1287:10: (lv_sprite_7_0= RULE_STRING )
-            	    // InternalRangoMode.g:1288:11: lv_sprite_7_0= RULE_STRING
+            	    // InternalRangoMode.g:1437:10: (lv_sprite_7_0= RULE_STRING )
+            	    // InternalRangoMode.g:1438:11: lv_sprite_7_0= RULE_STRING
             	    {
-            	    lv_sprite_7_0=(Token)match(input,RULE_STRING,FOLLOW_28); 
+            	    lv_sprite_7_0=(Token)match(input,RULE_STRING,FOLLOW_30); 
 
             	    											newLeafNode(lv_sprite_7_0, grammarAccess.getMaterialAccess().getSpriteSTRINGTerminalRuleCall_3_1_1_0());
             	    										
@@ -3133,7 +3505,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop10;
+            	    break loop11;
                 }
             } while (true);
 
@@ -3149,7 +3521,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_8=(Token)match(input,24,FOLLOW_2); 
+            otherlv_8=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_8, grammarAccess.getMaterialAccess().getRightCurlyBracketKeyword_4());
             		
@@ -3176,7 +3548,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePlayerProfile"
-    // InternalRangoMode.g:1325:1: entryRulePlayerProfile returns [EObject current=null] : iv_rulePlayerProfile= rulePlayerProfile EOF ;
+    // InternalRangoMode.g:1475:1: entryRulePlayerProfile returns [EObject current=null] : iv_rulePlayerProfile= rulePlayerProfile EOF ;
     public final EObject entryRulePlayerProfile() throws RecognitionException {
         EObject current = null;
 
@@ -3184,8 +3556,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:1325:54: (iv_rulePlayerProfile= rulePlayerProfile EOF )
-            // InternalRangoMode.g:1326:2: iv_rulePlayerProfile= rulePlayerProfile EOF
+            // InternalRangoMode.g:1475:54: (iv_rulePlayerProfile= rulePlayerProfile EOF )
+            // InternalRangoMode.g:1476:2: iv_rulePlayerProfile= rulePlayerProfile EOF
             {
              newCompositeNode(grammarAccess.getPlayerProfileRule()); 
             pushFollow(FOLLOW_1);
@@ -3212,7 +3584,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePlayerProfile"
-    // InternalRangoMode.g:1332:1: rulePlayerProfile returns [EObject current=null] : (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' ) ;
+    // InternalRangoMode.g:1482:1: rulePlayerProfile returns [EObject current=null] : (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' ) ;
     public final EObject rulePlayerProfile() throws RecognitionException {
         EObject current = null;
 
@@ -3246,23 +3618,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:1338:2: ( (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' ) )
-            // InternalRangoMode.g:1339:2: (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' )
+            // InternalRangoMode.g:1488:2: ( (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' ) )
+            // InternalRangoMode.g:1489:2: (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' )
             {
-            // InternalRangoMode.g:1339:2: (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' )
-            // InternalRangoMode.g:1340:3: otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}'
+            // InternalRangoMode.g:1489:2: (otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}' )
+            // InternalRangoMode.g:1490:3: otherlv_0= 'player' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) ) otherlv_21= '}'
             {
-            otherlv_0=(Token)match(input,41,FOLLOW_3); 
+            otherlv_0=(Token)match(input,42,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getPlayerProfileAccess().getPlayerKeyword_0());
             		
-            // InternalRangoMode.g:1344:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:1345:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1494:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:1495:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:1345:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:1346:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:1495:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1496:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_6); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_7); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getPlayerProfileAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -3282,85 +3654,85 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_29); 
+            otherlv_2=(Token)match(input,13,FOLLOW_31); 
 
             			newLeafNode(otherlv_2, grammarAccess.getPlayerProfileAccess().getLeftCurlyBracketKeyword_2());
             		
-            // InternalRangoMode.g:1366:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) )
-            // InternalRangoMode.g:1367:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) )
+            // InternalRangoMode.g:1516:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) ) )
+            // InternalRangoMode.g:1517:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) )
             {
-            // InternalRangoMode.g:1367:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) )
-            // InternalRangoMode.g:1368:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?)
+            // InternalRangoMode.g:1517:4: ( ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?) )
+            // InternalRangoMode.g:1518:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?)
             {
              
             				  getUnorderedGroupHelper().enter(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3());
             				
-            // InternalRangoMode.g:1371:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?)
-            // InternalRangoMode.g:1372:6: ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?
+            // InternalRangoMode.g:1521:5: ( ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?)
+            // InternalRangoMode.g:1522:6: ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+ {...}?
             {
-            // InternalRangoMode.g:1372:6: ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+
-            int cnt12=0;
-            loop12:
+            // InternalRangoMode.g:1522:6: ( ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) ) | ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) ) )+
+            int cnt13=0;
+            loop13:
             do {
-                int alt12=7;
-                int LA12_0 = input.LA(1);
+                int alt13=7;
+                int LA13_0 = input.LA(1);
 
-                if ( LA12_0 == 42 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 0) ) {
-                    alt12=1;
+                if ( LA13_0 == 43 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 0) ) {
+                    alt13=1;
                 }
-                else if ( LA12_0 == 43 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 1) ) {
-                    alt12=2;
+                else if ( LA13_0 == 44 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 1) ) {
+                    alt13=2;
                 }
-                else if ( LA12_0 == 17 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 2) ) {
-                    alt12=3;
+                else if ( LA13_0 == 20 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 2) ) {
+                    alt13=3;
                 }
-                else if ( LA12_0 == 45 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 3) ) {
-                    alt12=4;
+                else if ( LA13_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 3) ) {
+                    alt13=4;
                 }
-                else if ( LA12_0 == 46 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 4) ) {
-                    alt12=5;
+                else if ( LA13_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 4) ) {
+                    alt13=5;
                 }
-                else if ( LA12_0 == 47 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 5) ) {
-                    alt12=6;
+                else if ( LA13_0 == 48 && getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 5) ) {
+                    alt13=6;
                 }
 
 
-                switch (alt12) {
+                switch (alt13) {
             	case 1 :
-            	    // InternalRangoMode.g:1373:4: ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) )
+            	    // InternalRangoMode.g:1523:4: ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1373:4: ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) )
-            	    // InternalRangoMode.g:1374:5: {...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) )
+            	    // InternalRangoMode.g:1523:4: ({...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) ) )
+            	    // InternalRangoMode.g:1524:5: {...}? => ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 0) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 0)");
             	    }
-            	    // InternalRangoMode.g:1374:110: ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) )
-            	    // InternalRangoMode.g:1375:6: ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) )
+            	    // InternalRangoMode.g:1524:110: ( ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) ) )
+            	    // InternalRangoMode.g:1525:6: ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 0);
             	    					
-            	    // InternalRangoMode.g:1378:9: ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) )
-            	    // InternalRangoMode.g:1378:10: {...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) )
+            	    // InternalRangoMode.g:1528:9: ({...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) ) )
+            	    // InternalRangoMode.g:1528:10: {...}? => (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "true");
             	    }
-            	    // InternalRangoMode.g:1378:19: (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) )
-            	    // InternalRangoMode.g:1378:20: otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) )
+            	    // InternalRangoMode.g:1528:19: (otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) ) )
+            	    // InternalRangoMode.g:1528:20: otherlv_4= 'character' ( (lv_character_5_0= RULE_STRING ) )
             	    {
-            	    otherlv_4=(Token)match(input,42,FOLLOW_8); 
+            	    otherlv_4=(Token)match(input,43,FOLLOW_12); 
 
             	    									newLeafNode(otherlv_4, grammarAccess.getPlayerProfileAccess().getCharacterKeyword_3_0_0());
             	    								
-            	    // InternalRangoMode.g:1382:9: ( (lv_character_5_0= RULE_STRING ) )
-            	    // InternalRangoMode.g:1383:10: (lv_character_5_0= RULE_STRING )
+            	    // InternalRangoMode.g:1532:9: ( (lv_character_5_0= RULE_STRING ) )
+            	    // InternalRangoMode.g:1533:10: (lv_character_5_0= RULE_STRING )
             	    {
-            	    // InternalRangoMode.g:1383:10: (lv_character_5_0= RULE_STRING )
-            	    // InternalRangoMode.g:1384:11: lv_character_5_0= RULE_STRING
+            	    // InternalRangoMode.g:1533:10: (lv_character_5_0= RULE_STRING )
+            	    // InternalRangoMode.g:1534:11: lv_character_5_0= RULE_STRING
             	    {
-            	    lv_character_5_0=(Token)match(input,RULE_STRING,FOLLOW_30); 
+            	    lv_character_5_0=(Token)match(input,RULE_STRING,FOLLOW_32); 
 
             	    											newLeafNode(lv_character_5_0, grammarAccess.getPlayerProfileAccess().getCharacterSTRINGTerminalRuleCall_3_0_1_0());
             	    										
@@ -3399,40 +3771,40 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // InternalRangoMode.g:1406:4: ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) )
+            	    // InternalRangoMode.g:1556:4: ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1406:4: ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) )
-            	    // InternalRangoMode.g:1407:5: {...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) )
+            	    // InternalRangoMode.g:1556:4: ({...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) ) )
+            	    // InternalRangoMode.g:1557:5: {...}? => ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 1) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 1)");
             	    }
-            	    // InternalRangoMode.g:1407:110: ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) )
-            	    // InternalRangoMode.g:1408:6: ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) )
+            	    // InternalRangoMode.g:1557:110: ( ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) ) )
+            	    // InternalRangoMode.g:1558:6: ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 1);
             	    					
-            	    // InternalRangoMode.g:1411:9: ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) )
-            	    // InternalRangoMode.g:1411:10: {...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? )
+            	    // InternalRangoMode.g:1561:9: ({...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? ) )
+            	    // InternalRangoMode.g:1561:10: {...}? => (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "true");
             	    }
-            	    // InternalRangoMode.g:1411:19: (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? )
-            	    // InternalRangoMode.g:1411:20: otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )?
+            	    // InternalRangoMode.g:1561:19: (otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )? )
+            	    // InternalRangoMode.g:1561:20: otherlv_6= 'health' ( (lv_health_7_0= RULE_INT ) ) (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )?
             	    {
-            	    otherlv_6=(Token)match(input,43,FOLLOW_10); 
+            	    otherlv_6=(Token)match(input,44,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_6, grammarAccess.getPlayerProfileAccess().getHealthKeyword_3_1_0());
             	    								
-            	    // InternalRangoMode.g:1415:9: ( (lv_health_7_0= RULE_INT ) )
-            	    // InternalRangoMode.g:1416:10: (lv_health_7_0= RULE_INT )
+            	    // InternalRangoMode.g:1565:9: ( (lv_health_7_0= RULE_INT ) )
+            	    // InternalRangoMode.g:1566:10: (lv_health_7_0= RULE_INT )
             	    {
-            	    // InternalRangoMode.g:1416:10: (lv_health_7_0= RULE_INT )
-            	    // InternalRangoMode.g:1417:11: lv_health_7_0= RULE_INT
+            	    // InternalRangoMode.g:1566:10: (lv_health_7_0= RULE_INT )
+            	    // InternalRangoMode.g:1567:11: lv_health_7_0= RULE_INT
             	    {
-            	    lv_health_7_0=(Token)match(input,RULE_INT,FOLLOW_31); 
+            	    lv_health_7_0=(Token)match(input,RULE_INT,FOLLOW_33); 
 
             	    											newLeafNode(lv_health_7_0, grammarAccess.getPlayerProfileAccess().getHealthINTTerminalRuleCall_3_1_1_0());
             	    										
@@ -3452,28 +3824,28 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalRangoMode.g:1433:9: (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )?
-            	    int alt11=2;
-            	    int LA11_0 = input.LA(1);
+            	    // InternalRangoMode.g:1583:9: (otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) ) )?
+            	    int alt12=2;
+            	    int LA12_0 = input.LA(1);
 
-            	    if ( (LA11_0==44) ) {
-            	        alt11=1;
+            	    if ( (LA12_0==45) ) {
+            	        alt12=1;
             	    }
-            	    switch (alt11) {
+            	    switch (alt12) {
             	        case 1 :
-            	            // InternalRangoMode.g:1434:10: otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) )
+            	            // InternalRangoMode.g:1584:10: otherlv_8= 'max' ( (lv_maxHealth_9_0= RULE_INT ) )
             	            {
-            	            otherlv_8=(Token)match(input,44,FOLLOW_10); 
+            	            otherlv_8=(Token)match(input,45,FOLLOW_10); 
 
             	            										newLeafNode(otherlv_8, grammarAccess.getPlayerProfileAccess().getMaxKeyword_3_1_2_0());
             	            									
-            	            // InternalRangoMode.g:1438:10: ( (lv_maxHealth_9_0= RULE_INT ) )
-            	            // InternalRangoMode.g:1439:11: (lv_maxHealth_9_0= RULE_INT )
+            	            // InternalRangoMode.g:1588:10: ( (lv_maxHealth_9_0= RULE_INT ) )
+            	            // InternalRangoMode.g:1589:11: (lv_maxHealth_9_0= RULE_INT )
             	            {
-            	            // InternalRangoMode.g:1439:11: (lv_maxHealth_9_0= RULE_INT )
-            	            // InternalRangoMode.g:1440:12: lv_maxHealth_9_0= RULE_INT
+            	            // InternalRangoMode.g:1589:11: (lv_maxHealth_9_0= RULE_INT )
+            	            // InternalRangoMode.g:1590:12: lv_maxHealth_9_0= RULE_INT
             	            {
-            	            lv_maxHealth_9_0=(Token)match(input,RULE_INT,FOLLOW_30); 
+            	            lv_maxHealth_9_0=(Token)match(input,RULE_INT,FOLLOW_32); 
 
             	            												newLeafNode(lv_maxHealth_9_0, grammarAccess.getPlayerProfileAccess().getMaxHealthINTTerminalRuleCall_3_1_2_1_0());
             	            											
@@ -3518,43 +3890,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 3 :
-            	    // InternalRangoMode.g:1463:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:1613:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1463:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
-            	    // InternalRangoMode.g:1464:5: {...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:1613:4: ({...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:1614:5: {...}? => ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 2) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 2)");
             	    }
-            	    // InternalRangoMode.g:1464:110: ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
-            	    // InternalRangoMode.g:1465:6: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:1614:110: ( ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:1615:6: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 2);
             	    					
-            	    // InternalRangoMode.g:1468:9: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
-            	    // InternalRangoMode.g:1468:10: {...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:1618:9: ({...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:1618:10: {...}? => (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "true");
             	    }
-            	    // InternalRangoMode.g:1468:19: (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
-            	    // InternalRangoMode.g:1468:20: otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1618:19: (otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:1618:20: otherlv_10= 'speed' ( (lv_speed_11_0= ruleDecimal ) )
             	    {
-            	    otherlv_10=(Token)match(input,17,FOLLOW_10); 
+            	    otherlv_10=(Token)match(input,20,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_10, grammarAccess.getPlayerProfileAccess().getSpeedKeyword_3_2_0());
             	    								
-            	    // InternalRangoMode.g:1472:9: ( (lv_speed_11_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:1473:10: (lv_speed_11_0= ruleDecimal )
+            	    // InternalRangoMode.g:1622:9: ( (lv_speed_11_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1623:10: (lv_speed_11_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:1473:10: (lv_speed_11_0= ruleDecimal )
-            	    // InternalRangoMode.g:1474:11: lv_speed_11_0= ruleDecimal
+            	    // InternalRangoMode.g:1623:10: (lv_speed_11_0= ruleDecimal )
+            	    // InternalRangoMode.g:1624:11: lv_speed_11_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getPlayerProfileAccess().getSpeedDecimalParserRuleCall_3_2_1_0());
             	    										
-            	    pushFollow(FOLLOW_30);
+            	    pushFollow(FOLLOW_32);
             	    lv_speed_11_0=ruleDecimal();
 
             	    state._fsp--;
@@ -3595,43 +3967,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 4 :
-            	    // InternalRangoMode.g:1497:4: ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) )
+            	    // InternalRangoMode.g:1647:4: ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1497:4: ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) )
-            	    // InternalRangoMode.g:1498:5: {...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) )
+            	    // InternalRangoMode.g:1647:4: ({...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) ) )
+            	    // InternalRangoMode.g:1648:5: {...}? => ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 3) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 3)");
             	    }
-            	    // InternalRangoMode.g:1498:110: ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) )
-            	    // InternalRangoMode.g:1499:6: ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) )
+            	    // InternalRangoMode.g:1648:110: ( ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) ) )
+            	    // InternalRangoMode.g:1649:6: ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 3);
             	    					
-            	    // InternalRangoMode.g:1502:9: ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) )
-            	    // InternalRangoMode.g:1502:10: {...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' )
+            	    // InternalRangoMode.g:1652:9: ({...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' ) )
+            	    // InternalRangoMode.g:1652:10: {...}? => (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "true");
             	    }
-            	    // InternalRangoMode.g:1502:19: (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' )
-            	    // InternalRangoMode.g:1502:20: otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's'
+            	    // InternalRangoMode.g:1652:19: (otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's' )
+            	    // InternalRangoMode.g:1652:20: otherlv_12= 'tongue' ( (lv_tongueTime_13_0= ruleDecimal ) ) otherlv_14= 's'
             	    {
-            	    otherlv_12=(Token)match(input,45,FOLLOW_10); 
+            	    otherlv_12=(Token)match(input,46,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_12, grammarAccess.getPlayerProfileAccess().getTongueKeyword_3_3_0());
             	    								
-            	    // InternalRangoMode.g:1506:9: ( (lv_tongueTime_13_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:1507:10: (lv_tongueTime_13_0= ruleDecimal )
+            	    // InternalRangoMode.g:1656:9: ( (lv_tongueTime_13_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1657:10: (lv_tongueTime_13_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:1507:10: (lv_tongueTime_13_0= ruleDecimal )
-            	    // InternalRangoMode.g:1508:11: lv_tongueTime_13_0= ruleDecimal
+            	    // InternalRangoMode.g:1657:10: (lv_tongueTime_13_0= ruleDecimal )
+            	    // InternalRangoMode.g:1658:11: lv_tongueTime_13_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getPlayerProfileAccess().getTongueTimeDecimalParserRuleCall_3_3_1_0());
             	    										
-            	    pushFollow(FOLLOW_23);
+            	    pushFollow(FOLLOW_26);
             	    lv_tongueTime_13_0=ruleDecimal();
 
             	    state._fsp--;
@@ -3653,7 +4025,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_14=(Token)match(input,34,FOLLOW_30); 
+            	    otherlv_14=(Token)match(input,36,FOLLOW_32); 
 
             	    									newLeafNode(otherlv_14, grammarAccess.getPlayerProfileAccess().getSKeyword_3_3_2());
             	    								
@@ -3676,43 +4048,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 5 :
-            	    // InternalRangoMode.g:1535:4: ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) )
+            	    // InternalRangoMode.g:1685:4: ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1535:4: ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) )
-            	    // InternalRangoMode.g:1536:5: {...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) )
+            	    // InternalRangoMode.g:1685:4: ({...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) ) )
+            	    // InternalRangoMode.g:1686:5: {...}? => ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 4) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 4)");
             	    }
-            	    // InternalRangoMode.g:1536:110: ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) )
-            	    // InternalRangoMode.g:1537:6: ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) )
+            	    // InternalRangoMode.g:1686:110: ( ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) ) )
+            	    // InternalRangoMode.g:1687:6: ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 4);
             	    					
-            	    // InternalRangoMode.g:1540:9: ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) )
-            	    // InternalRangoMode.g:1540:10: {...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' )
+            	    // InternalRangoMode.g:1690:9: ({...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' ) )
+            	    // InternalRangoMode.g:1690:10: {...}? => (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "true");
             	    }
-            	    // InternalRangoMode.g:1540:19: (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' )
-            	    // InternalRangoMode.g:1540:20: otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's'
+            	    // InternalRangoMode.g:1690:19: (otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's' )
+            	    // InternalRangoMode.g:1690:20: otherlv_15= 'cooldown' ( (lv_cooldown_16_0= ruleDecimal ) ) otherlv_17= 's'
             	    {
-            	    otherlv_15=(Token)match(input,46,FOLLOW_10); 
+            	    otherlv_15=(Token)match(input,47,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_15, grammarAccess.getPlayerProfileAccess().getCooldownKeyword_3_4_0());
             	    								
-            	    // InternalRangoMode.g:1544:9: ( (lv_cooldown_16_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:1545:10: (lv_cooldown_16_0= ruleDecimal )
+            	    // InternalRangoMode.g:1694:9: ( (lv_cooldown_16_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1695:10: (lv_cooldown_16_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:1545:10: (lv_cooldown_16_0= ruleDecimal )
-            	    // InternalRangoMode.g:1546:11: lv_cooldown_16_0= ruleDecimal
+            	    // InternalRangoMode.g:1695:10: (lv_cooldown_16_0= ruleDecimal )
+            	    // InternalRangoMode.g:1696:11: lv_cooldown_16_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getPlayerProfileAccess().getCooldownDecimalParserRuleCall_3_4_1_0());
             	    										
-            	    pushFollow(FOLLOW_23);
+            	    pushFollow(FOLLOW_26);
             	    lv_cooldown_16_0=ruleDecimal();
 
             	    state._fsp--;
@@ -3734,7 +4106,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_17=(Token)match(input,34,FOLLOW_30); 
+            	    otherlv_17=(Token)match(input,36,FOLLOW_32); 
 
             	    									newLeafNode(otherlv_17, grammarAccess.getPlayerProfileAccess().getSKeyword_3_4_2());
             	    								
@@ -3757,43 +4129,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 6 :
-            	    // InternalRangoMode.g:1573:4: ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) )
+            	    // InternalRangoMode.g:1723:4: ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1573:4: ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) )
-            	    // InternalRangoMode.g:1574:5: {...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) )
+            	    // InternalRangoMode.g:1723:4: ({...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) ) )
+            	    // InternalRangoMode.g:1724:5: {...}? => ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 5) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "getUnorderedGroupHelper().canSelect(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 5)");
             	    }
-            	    // InternalRangoMode.g:1574:110: ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) )
-            	    // InternalRangoMode.g:1575:6: ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) )
+            	    // InternalRangoMode.g:1724:110: ( ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) ) )
+            	    // InternalRangoMode.g:1725:6: ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3(), 5);
             	    					
-            	    // InternalRangoMode.g:1578:9: ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) )
-            	    // InternalRangoMode.g:1578:10: {...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' )
+            	    // InternalRangoMode.g:1728:9: ({...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' ) )
+            	    // InternalRangoMode.g:1728:10: {...}? => (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "rulePlayerProfile", "true");
             	    }
-            	    // InternalRangoMode.g:1578:19: (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' )
-            	    // InternalRangoMode.g:1578:20: otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's'
+            	    // InternalRangoMode.g:1728:19: (otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's' )
+            	    // InternalRangoMode.g:1728:20: otherlv_18= 'grace' ( (lv_graceTime_19_0= ruleDecimal ) ) otherlv_20= 's'
             	    {
-            	    otherlv_18=(Token)match(input,47,FOLLOW_10); 
+            	    otherlv_18=(Token)match(input,48,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_18, grammarAccess.getPlayerProfileAccess().getGraceKeyword_3_5_0());
             	    								
-            	    // InternalRangoMode.g:1582:9: ( (lv_graceTime_19_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:1583:10: (lv_graceTime_19_0= ruleDecimal )
+            	    // InternalRangoMode.g:1732:9: ( (lv_graceTime_19_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1733:10: (lv_graceTime_19_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:1583:10: (lv_graceTime_19_0= ruleDecimal )
-            	    // InternalRangoMode.g:1584:11: lv_graceTime_19_0= ruleDecimal
+            	    // InternalRangoMode.g:1733:10: (lv_graceTime_19_0= ruleDecimal )
+            	    // InternalRangoMode.g:1734:11: lv_graceTime_19_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getPlayerProfileAccess().getGraceTimeDecimalParserRuleCall_3_5_1_0());
             	    										
-            	    pushFollow(FOLLOW_23);
+            	    pushFollow(FOLLOW_26);
             	    lv_graceTime_19_0=ruleDecimal();
 
             	    state._fsp--;
@@ -3815,7 +4187,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_20=(Token)match(input,34,FOLLOW_30); 
+            	    otherlv_20=(Token)match(input,36,FOLLOW_32); 
 
             	    									newLeafNode(otherlv_20, grammarAccess.getPlayerProfileAccess().getSKeyword_3_5_2());
             	    								
@@ -3839,12 +4211,12 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt12 >= 1 ) break loop12;
+            	    if ( cnt13 >= 1 ) break loop13;
                         EarlyExitException eee =
-                            new EarlyExitException(12, input);
+                            new EarlyExitException(13, input);
                         throw eee;
                 }
-                cnt12++;
+                cnt13++;
             } while (true);
 
             if ( ! getUnorderedGroupHelper().canLeave(grammarAccess.getPlayerProfileAccess().getUnorderedGroup_3()) ) {
@@ -3862,7 +4234,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_21=(Token)match(input,24,FOLLOW_2); 
+            otherlv_21=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_21, grammarAccess.getPlayerProfileAccess().getRightCurlyBracketKeyword_4());
             		
@@ -3889,7 +4261,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleGameMode"
-    // InternalRangoMode.g:1627:1: entryRuleGameMode returns [EObject current=null] : iv_ruleGameMode= ruleGameMode EOF ;
+    // InternalRangoMode.g:1777:1: entryRuleGameMode returns [EObject current=null] : iv_ruleGameMode= ruleGameMode EOF ;
     public final EObject entryRuleGameMode() throws RecognitionException {
         EObject current = null;
 
@@ -3897,8 +4269,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:1627:49: (iv_ruleGameMode= ruleGameMode EOF )
-            // InternalRangoMode.g:1628:2: iv_ruleGameMode= ruleGameMode EOF
+            // InternalRangoMode.g:1777:49: (iv_ruleGameMode= ruleGameMode EOF )
+            // InternalRangoMode.g:1778:2: iv_ruleGameMode= ruleGameMode EOF
             {
              newCompositeNode(grammarAccess.getGameModeRule()); 
             pushFollow(FOLLOW_1);
@@ -3925,7 +4297,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleGameMode"
-    // InternalRangoMode.g:1634:1: ruleGameMode returns [EObject current=null] : (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' ) ;
+    // InternalRangoMode.g:1784:1: ruleGameMode returns [EObject current=null] : (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' ) ;
     public final EObject ruleGameMode() throws RecognitionException {
         EObject current = null;
 
@@ -3968,23 +4340,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:1640:2: ( (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' ) )
-            // InternalRangoMode.g:1641:2: (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' )
+            // InternalRangoMode.g:1790:2: ( (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' ) )
+            // InternalRangoMode.g:1791:2: (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' )
             {
-            // InternalRangoMode.g:1641:2: (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' )
-            // InternalRangoMode.g:1642:3: otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}'
+            // InternalRangoMode.g:1791:2: (otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}' )
+            // InternalRangoMode.g:1792:3: otherlv_0= 'mode' ( (lv_name_1_0= RULE_ID ) ) ( (lv_title_2_0= RULE_STRING ) ) otherlv_3= '{' (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )? otherlv_6= 'player' ( (otherlv_7= RULE_ID ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) ) ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ ) (this_Drops_14= ruleDrops[$current] )? (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )? otherlv_20= 'lose' otherlv_21= 'when' ( (lv_loseConditions_22_0= ruleEndCondition ) ) (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )* otherlv_25= '}'
             {
-            otherlv_0=(Token)match(input,48,FOLLOW_3); 
+            otherlv_0=(Token)match(input,49,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getGameModeAccess().getModeKeyword_0());
             		
-            // InternalRangoMode.g:1646:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:1647:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1796:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:1797:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:1647:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:1648:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:1797:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:1798:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_8); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_12); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getGameModeAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -4004,13 +4376,13 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:1664:3: ( (lv_title_2_0= RULE_STRING ) )
-            // InternalRangoMode.g:1665:4: (lv_title_2_0= RULE_STRING )
+            // InternalRangoMode.g:1814:3: ( (lv_title_2_0= RULE_STRING ) )
+            // InternalRangoMode.g:1815:4: (lv_title_2_0= RULE_STRING )
             {
-            // InternalRangoMode.g:1665:4: (lv_title_2_0= RULE_STRING )
-            // InternalRangoMode.g:1666:5: lv_title_2_0= RULE_STRING
+            // InternalRangoMode.g:1815:4: (lv_title_2_0= RULE_STRING )
+            // InternalRangoMode.g:1816:5: lv_title_2_0= RULE_STRING
             {
-            lv_title_2_0=(Token)match(input,RULE_STRING,FOLLOW_6); 
+            lv_title_2_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
             					newLeafNode(lv_title_2_0, grammarAccess.getGameModeAccess().getTitleSTRINGTerminalRuleCall_2_0());
             				
@@ -4030,32 +4402,32 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,13,FOLLOW_32); 
+            otherlv_3=(Token)match(input,13,FOLLOW_34); 
 
             			newLeafNode(otherlv_3, grammarAccess.getGameModeAccess().getLeftCurlyBracketKeyword_3());
             		
-            // InternalRangoMode.g:1686:3: (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )?
-            int alt13=2;
-            int LA13_0 = input.LA(1);
+            // InternalRangoMode.g:1836:3: (otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) ) )?
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA13_0==49) ) {
-                alt13=1;
+            if ( (LA14_0==50) ) {
+                alt14=1;
             }
-            switch (alt13) {
+            switch (alt14) {
                 case 1 :
-                    // InternalRangoMode.g:1687:4: otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) )
+                    // InternalRangoMode.g:1837:4: otherlv_4= 'description' ( (lv_description_5_0= RULE_STRING ) )
                     {
-                    otherlv_4=(Token)match(input,49,FOLLOW_8); 
+                    otherlv_4=(Token)match(input,50,FOLLOW_12); 
 
                     				newLeafNode(otherlv_4, grammarAccess.getGameModeAccess().getDescriptionKeyword_4_0());
                     			
-                    // InternalRangoMode.g:1691:4: ( (lv_description_5_0= RULE_STRING ) )
-                    // InternalRangoMode.g:1692:5: (lv_description_5_0= RULE_STRING )
+                    // InternalRangoMode.g:1841:4: ( (lv_description_5_0= RULE_STRING ) )
+                    // InternalRangoMode.g:1842:5: (lv_description_5_0= RULE_STRING )
                     {
-                    // InternalRangoMode.g:1692:5: (lv_description_5_0= RULE_STRING )
-                    // InternalRangoMode.g:1693:6: lv_description_5_0= RULE_STRING
+                    // InternalRangoMode.g:1842:5: (lv_description_5_0= RULE_STRING )
+                    // InternalRangoMode.g:1843:6: lv_description_5_0= RULE_STRING
                     {
-                    lv_description_5_0=(Token)match(input,RULE_STRING,FOLLOW_33); 
+                    lv_description_5_0=(Token)match(input,RULE_STRING,FOLLOW_35); 
 
                     						newLeafNode(lv_description_5_0, grammarAccess.getGameModeAccess().getDescriptionSTRINGTerminalRuleCall_4_1_0());
                     					
@@ -4081,22 +4453,22 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,41,FOLLOW_3); 
+            otherlv_6=(Token)match(input,42,FOLLOW_3); 
 
             			newLeafNode(otherlv_6, grammarAccess.getGameModeAccess().getPlayerKeyword_5());
             		
-            // InternalRangoMode.g:1714:3: ( (otherlv_7= RULE_ID ) )
-            // InternalRangoMode.g:1715:4: (otherlv_7= RULE_ID )
+            // InternalRangoMode.g:1864:3: ( (otherlv_7= RULE_ID ) )
+            // InternalRangoMode.g:1865:4: (otherlv_7= RULE_ID )
             {
-            // InternalRangoMode.g:1715:4: (otherlv_7= RULE_ID )
-            // InternalRangoMode.g:1716:5: otherlv_7= RULE_ID
+            // InternalRangoMode.g:1865:4: (otherlv_7= RULE_ID )
+            // InternalRangoMode.g:1866:5: otherlv_7= RULE_ID
             {
 
             					if (current==null) {
             						current = createModelElement(grammarAccess.getGameModeRule());
             					}
             				
-            otherlv_7=(Token)match(input,RULE_ID,FOLLOW_34); 
+            otherlv_7=(Token)match(input,RULE_ID,FOLLOW_36); 
 
             					newLeafNode(otherlv_7, grammarAccess.getGameModeAccess().getPlayerPlayerProfileCrossReference_6_0());
             				
@@ -4106,71 +4478,71 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:1727:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) )
-            // InternalRangoMode.g:1728:4: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) )
+            // InternalRangoMode.g:1877:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) ) )
+            // InternalRangoMode.g:1878:4: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) )
             {
-            // InternalRangoMode.g:1728:4: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) )
-            // InternalRangoMode.g:1729:5: ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* )
+            // InternalRangoMode.g:1878:4: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* ) )
+            // InternalRangoMode.g:1879:5: ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* )
             {
              
             				  getUnorderedGroupHelper().enter(grammarAccess.getGameModeAccess().getUnorderedGroup_7());
             				
-            // InternalRangoMode.g:1732:5: ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* )
-            // InternalRangoMode.g:1733:6: ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )*
+            // InternalRangoMode.g:1882:5: ( ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )* )
+            // InternalRangoMode.g:1883:6: ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )*
             {
-            // InternalRangoMode.g:1733:6: ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )*
-            loop14:
+            // InternalRangoMode.g:1883:6: ( ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) ) )*
+            loop15:
             do {
-                int alt14=3;
-                int LA14_0 = input.LA(1);
+                int alt15=3;
+                int LA15_0 = input.LA(1);
 
-                if ( LA14_0 == 50 && getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 0) ) {
-                    alt14=1;
+                if ( LA15_0 == 51 && getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 0) ) {
+                    alt15=1;
                 }
-                else if ( LA14_0 == 17 && getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 1) ) {
-                    alt14=2;
+                else if ( LA15_0 == 20 && getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 1) ) {
+                    alt15=2;
                 }
 
 
-                switch (alt14) {
+                switch (alt15) {
             	case 1 :
-            	    // InternalRangoMode.g:1734:4: ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:1884:4: ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1734:4: ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) )
-            	    // InternalRangoMode.g:1735:5: {...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:1884:4: ({...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) ) )
+            	    // InternalRangoMode.g:1885:5: {...}? => ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 0) ) {
             	        throw new FailedPredicateException(input, "ruleGameMode", "getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 0)");
             	    }
-            	    // InternalRangoMode.g:1735:105: ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) )
-            	    // InternalRangoMode.g:1736:6: ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:1885:105: ( ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) ) )
+            	    // InternalRangoMode.g:1886:6: ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 0);
             	    					
-            	    // InternalRangoMode.g:1739:9: ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) )
-            	    // InternalRangoMode.g:1739:10: {...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:1889:9: ({...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) ) )
+            	    // InternalRangoMode.g:1889:10: {...}? => (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleGameMode", "true");
             	    }
-            	    // InternalRangoMode.g:1739:19: (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) )
-            	    // InternalRangoMode.g:1739:20: otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1889:19: (otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) ) )
+            	    // InternalRangoMode.g:1889:20: otherlv_9= 'gravity' ( (lv_gravity_10_0= ruleDecimal ) )
             	    {
-            	    otherlv_9=(Token)match(input,50,FOLLOW_10); 
+            	    otherlv_9=(Token)match(input,51,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_9, grammarAccess.getGameModeAccess().getGravityKeyword_7_0_0());
             	    								
-            	    // InternalRangoMode.g:1743:9: ( (lv_gravity_10_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:1744:10: (lv_gravity_10_0= ruleDecimal )
+            	    // InternalRangoMode.g:1893:9: ( (lv_gravity_10_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:1894:10: (lv_gravity_10_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:1744:10: (lv_gravity_10_0= ruleDecimal )
-            	    // InternalRangoMode.g:1745:11: lv_gravity_10_0= ruleDecimal
+            	    // InternalRangoMode.g:1894:10: (lv_gravity_10_0= ruleDecimal )
+            	    // InternalRangoMode.g:1895:11: lv_gravity_10_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getGameModeAccess().getGravityDecimalParserRuleCall_7_0_1_0());
             	    										
-            	    pushFollow(FOLLOW_34);
+            	    pushFollow(FOLLOW_36);
             	    lv_gravity_10_0=ruleDecimal();
 
             	    state._fsp--;
@@ -4211,36 +4583,36 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // InternalRangoMode.g:1768:4: ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) )
+            	    // InternalRangoMode.g:1918:4: ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:1768:4: ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) )
-            	    // InternalRangoMode.g:1769:5: {...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) )
+            	    // InternalRangoMode.g:1918:4: ({...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) ) )
+            	    // InternalRangoMode.g:1919:5: {...}? => ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 1) ) {
             	        throw new FailedPredicateException(input, "ruleGameMode", "getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 1)");
             	    }
-            	    // InternalRangoMode.g:1769:105: ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) )
-            	    // InternalRangoMode.g:1770:6: ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) )
+            	    // InternalRangoMode.g:1919:105: ( ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) ) )
+            	    // InternalRangoMode.g:1920:6: ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 1);
             	    					
-            	    // InternalRangoMode.g:1773:9: ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) )
-            	    // InternalRangoMode.g:1773:10: {...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) )
+            	    // InternalRangoMode.g:1923:9: ({...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) ) )
+            	    // InternalRangoMode.g:1923:10: {...}? => ( (lv_speedBonus_11_0= ruleSpeedBonus ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleGameMode", "true");
             	    }
-            	    // InternalRangoMode.g:1773:19: ( (lv_speedBonus_11_0= ruleSpeedBonus ) )
-            	    // InternalRangoMode.g:1773:20: (lv_speedBonus_11_0= ruleSpeedBonus )
+            	    // InternalRangoMode.g:1923:19: ( (lv_speedBonus_11_0= ruleSpeedBonus ) )
+            	    // InternalRangoMode.g:1923:20: (lv_speedBonus_11_0= ruleSpeedBonus )
             	    {
-            	    // InternalRangoMode.g:1773:20: (lv_speedBonus_11_0= ruleSpeedBonus )
-            	    // InternalRangoMode.g:1774:10: lv_speedBonus_11_0= ruleSpeedBonus
+            	    // InternalRangoMode.g:1923:20: (lv_speedBonus_11_0= ruleSpeedBonus )
+            	    // InternalRangoMode.g:1924:10: lv_speedBonus_11_0= ruleSpeedBonus
             	    {
 
             	    										newCompositeNode(grammarAccess.getGameModeAccess().getSpeedBonusSpeedBonusParserRuleCall_7_1_0());
             	    									
-            	    pushFollow(FOLLOW_34);
+            	    pushFollow(FOLLOW_36);
             	    lv_speedBonus_11_0=ruleSpeedBonus();
 
             	    state._fsp--;
@@ -4279,7 +4651,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop14;
+            	    break loop15;
                 }
             } while (true);
 
@@ -4295,36 +4667,36 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:1803:3: ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ )
-            int alt16=2;
-            int LA16_0 = input.LA(1);
+            // InternalRangoMode.g:1953:3: ( ( (lv_levels_12_0= ruleSingleLevel ) ) | ( (lv_levels_13_0= ruleLevel ) )+ )
+            int alt17=2;
+            int LA17_0 = input.LA(1);
 
-            if ( (LA16_0==61) ) {
-                alt16=1;
+            if ( (LA17_0==62) ) {
+                alt17=1;
             }
-            else if ( (LA16_0==55) ) {
-                alt16=2;
+            else if ( (LA17_0==56) ) {
+                alt17=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 16, 0, input);
+                    new NoViableAltException("", 17, 0, input);
 
                 throw nvae;
             }
-            switch (alt16) {
+            switch (alt17) {
                 case 1 :
-                    // InternalRangoMode.g:1804:4: ( (lv_levels_12_0= ruleSingleLevel ) )
+                    // InternalRangoMode.g:1954:4: ( (lv_levels_12_0= ruleSingleLevel ) )
                     {
-                    // InternalRangoMode.g:1804:4: ( (lv_levels_12_0= ruleSingleLevel ) )
-                    // InternalRangoMode.g:1805:5: (lv_levels_12_0= ruleSingleLevel )
+                    // InternalRangoMode.g:1954:4: ( (lv_levels_12_0= ruleSingleLevel ) )
+                    // InternalRangoMode.g:1955:5: (lv_levels_12_0= ruleSingleLevel )
                     {
-                    // InternalRangoMode.g:1805:5: (lv_levels_12_0= ruleSingleLevel )
-                    // InternalRangoMode.g:1806:6: lv_levels_12_0= ruleSingleLevel
+                    // InternalRangoMode.g:1955:5: (lv_levels_12_0= ruleSingleLevel )
+                    // InternalRangoMode.g:1956:6: lv_levels_12_0= ruleSingleLevel
                     {
 
                     						newCompositeNode(grammarAccess.getGameModeAccess().getLevelsSingleLevelParserRuleCall_8_0_0());
                     					
-                    pushFollow(FOLLOW_35);
+                    pushFollow(FOLLOW_37);
                     lv_levels_12_0=ruleSingleLevel();
 
                     state._fsp--;
@@ -4350,31 +4722,31 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:1824:4: ( (lv_levels_13_0= ruleLevel ) )+
+                    // InternalRangoMode.g:1974:4: ( (lv_levels_13_0= ruleLevel ) )+
                     {
-                    // InternalRangoMode.g:1824:4: ( (lv_levels_13_0= ruleLevel ) )+
-                    int cnt15=0;
-                    loop15:
+                    // InternalRangoMode.g:1974:4: ( (lv_levels_13_0= ruleLevel ) )+
+                    int cnt16=0;
+                    loop16:
                     do {
-                        int alt15=2;
-                        int LA15_0 = input.LA(1);
+                        int alt16=2;
+                        int LA16_0 = input.LA(1);
 
-                        if ( (LA15_0==55) ) {
-                            alt15=1;
+                        if ( (LA16_0==56) ) {
+                            alt16=1;
                         }
 
 
-                        switch (alt15) {
+                        switch (alt16) {
                     	case 1 :
-                    	    // InternalRangoMode.g:1825:5: (lv_levels_13_0= ruleLevel )
+                    	    // InternalRangoMode.g:1975:5: (lv_levels_13_0= ruleLevel )
                     	    {
-                    	    // InternalRangoMode.g:1825:5: (lv_levels_13_0= ruleLevel )
-                    	    // InternalRangoMode.g:1826:6: lv_levels_13_0= ruleLevel
+                    	    // InternalRangoMode.g:1975:5: (lv_levels_13_0= ruleLevel )
+                    	    // InternalRangoMode.g:1976:6: lv_levels_13_0= ruleLevel
                     	    {
 
                     	    						newCompositeNode(grammarAccess.getGameModeAccess().getLevelsLevelParserRuleCall_8_1_0());
                     	    					
-                    	    pushFollow(FOLLOW_36);
+                    	    pushFollow(FOLLOW_38);
                     	    lv_levels_13_0=ruleLevel();
 
                     	    state._fsp--;
@@ -4398,12 +4770,12 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt15 >= 1 ) break loop15;
+                    	    if ( cnt16 >= 1 ) break loop16;
                                 EarlyExitException eee =
-                                    new EarlyExitException(15, input);
+                                    new EarlyExitException(16, input);
                                 throw eee;
                         }
-                        cnt15++;
+                        cnt16++;
                     } while (true);
 
 
@@ -4412,16 +4784,16 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:1844:3: (this_Drops_14= ruleDrops[$current] )?
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            // InternalRangoMode.g:1994:3: (this_Drops_14= ruleDrops[$current] )?
+            int alt18=2;
+            int LA18_0 = input.LA(1);
 
-            if ( (LA17_0==84) ) {
-                alt17=1;
+            if ( (LA18_0==85) ) {
+                alt18=1;
             }
-            switch (alt17) {
+            switch (alt18) {
                 case 1 :
-                    // InternalRangoMode.g:1845:4: this_Drops_14= ruleDrops[$current]
+                    // InternalRangoMode.g:1995:4: this_Drops_14= ruleDrops[$current]
                     {
 
                     				if (current==null) {
@@ -4429,7 +4801,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     				}
                     				newCompositeNode(grammarAccess.getGameModeAccess().getDropsParserRuleCall_9());
                     			
-                    pushFollow(FOLLOW_37);
+                    pushFollow(FOLLOW_39);
                     this_Drops_14=ruleDrops(current);
 
                     state._fsp--;
@@ -4444,35 +4816,35 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:1857:3: (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // InternalRangoMode.g:2007:3: (otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )* )?
+            int alt20=2;
+            int LA20_0 = input.LA(1);
 
-            if ( (LA19_0==51) ) {
-                alt19=1;
+            if ( (LA20_0==52) ) {
+                alt20=1;
             }
-            switch (alt19) {
+            switch (alt20) {
                 case 1 :
-                    // InternalRangoMode.g:1858:4: otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )*
+                    // InternalRangoMode.g:2008:4: otherlv_15= 'win' otherlv_16= 'when' ( (lv_winConditions_17_0= ruleEndCondition ) ) (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )*
                     {
-                    otherlv_15=(Token)match(input,51,FOLLOW_38); 
+                    otherlv_15=(Token)match(input,52,FOLLOW_40); 
 
                     				newLeafNode(otherlv_15, grammarAccess.getGameModeAccess().getWinKeyword_10_0());
                     			
-                    otherlv_16=(Token)match(input,52,FOLLOW_39); 
+                    otherlv_16=(Token)match(input,53,FOLLOW_41); 
 
                     				newLeafNode(otherlv_16, grammarAccess.getGameModeAccess().getWhenKeyword_10_1());
                     			
-                    // InternalRangoMode.g:1866:4: ( (lv_winConditions_17_0= ruleEndCondition ) )
-                    // InternalRangoMode.g:1867:5: (lv_winConditions_17_0= ruleEndCondition )
+                    // InternalRangoMode.g:2016:4: ( (lv_winConditions_17_0= ruleEndCondition ) )
+                    // InternalRangoMode.g:2017:5: (lv_winConditions_17_0= ruleEndCondition )
                     {
-                    // InternalRangoMode.g:1867:5: (lv_winConditions_17_0= ruleEndCondition )
-                    // InternalRangoMode.g:1868:6: lv_winConditions_17_0= ruleEndCondition
+                    // InternalRangoMode.g:2017:5: (lv_winConditions_17_0= ruleEndCondition )
+                    // InternalRangoMode.g:2018:6: lv_winConditions_17_0= ruleEndCondition
                     {
 
                     						newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_10_2_0());
                     					
-                    pushFollow(FOLLOW_40);
+                    pushFollow(FOLLOW_42);
                     lv_winConditions_17_0=ruleEndCondition();
 
                     state._fsp--;
@@ -4494,35 +4866,35 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalRangoMode.g:1885:4: (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )*
-                    loop18:
+                    // InternalRangoMode.g:2035:4: (otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) ) )*
+                    loop19:
                     do {
-                        int alt18=2;
-                        int LA18_0 = input.LA(1);
+                        int alt19=2;
+                        int LA19_0 = input.LA(1);
 
-                        if ( (LA18_0==53) ) {
-                            alt18=1;
+                        if ( (LA19_0==54) ) {
+                            alt19=1;
                         }
 
 
-                        switch (alt18) {
+                        switch (alt19) {
                     	case 1 :
-                    	    // InternalRangoMode.g:1886:5: otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) )
+                    	    // InternalRangoMode.g:2036:5: otherlv_18= 'or' ( (lv_winConditions_19_0= ruleEndCondition ) )
                     	    {
-                    	    otherlv_18=(Token)match(input,53,FOLLOW_39); 
+                    	    otherlv_18=(Token)match(input,54,FOLLOW_41); 
 
                     	    					newLeafNode(otherlv_18, grammarAccess.getGameModeAccess().getOrKeyword_10_3_0());
                     	    				
-                    	    // InternalRangoMode.g:1890:5: ( (lv_winConditions_19_0= ruleEndCondition ) )
-                    	    // InternalRangoMode.g:1891:6: (lv_winConditions_19_0= ruleEndCondition )
+                    	    // InternalRangoMode.g:2040:5: ( (lv_winConditions_19_0= ruleEndCondition ) )
+                    	    // InternalRangoMode.g:2041:6: (lv_winConditions_19_0= ruleEndCondition )
                     	    {
-                    	    // InternalRangoMode.g:1891:6: (lv_winConditions_19_0= ruleEndCondition )
-                    	    // InternalRangoMode.g:1892:7: lv_winConditions_19_0= ruleEndCondition
+                    	    // InternalRangoMode.g:2041:6: (lv_winConditions_19_0= ruleEndCondition )
+                    	    // InternalRangoMode.g:2042:7: lv_winConditions_19_0= ruleEndCondition
                     	    {
 
                     	    							newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_10_3_1_0());
                     	    						
-                    	    pushFollow(FOLLOW_40);
+                    	    pushFollow(FOLLOW_42);
                     	    lv_winConditions_19_0=ruleEndCondition();
 
                     	    state._fsp--;
@@ -4549,7 +4921,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop18;
+                    	    break loop19;
                         }
                     } while (true);
 
@@ -4559,24 +4931,24 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_20=(Token)match(input,54,FOLLOW_38); 
+            otherlv_20=(Token)match(input,55,FOLLOW_40); 
 
             			newLeafNode(otherlv_20, grammarAccess.getGameModeAccess().getLoseKeyword_11());
             		
-            otherlv_21=(Token)match(input,52,FOLLOW_39); 
+            otherlv_21=(Token)match(input,53,FOLLOW_41); 
 
             			newLeafNode(otherlv_21, grammarAccess.getGameModeAccess().getWhenKeyword_12());
             		
-            // InternalRangoMode.g:1919:3: ( (lv_loseConditions_22_0= ruleEndCondition ) )
-            // InternalRangoMode.g:1920:4: (lv_loseConditions_22_0= ruleEndCondition )
+            // InternalRangoMode.g:2069:3: ( (lv_loseConditions_22_0= ruleEndCondition ) )
+            // InternalRangoMode.g:2070:4: (lv_loseConditions_22_0= ruleEndCondition )
             {
-            // InternalRangoMode.g:1920:4: (lv_loseConditions_22_0= ruleEndCondition )
-            // InternalRangoMode.g:1921:5: lv_loseConditions_22_0= ruleEndCondition
+            // InternalRangoMode.g:2070:4: (lv_loseConditions_22_0= ruleEndCondition )
+            // InternalRangoMode.g:2071:5: lv_loseConditions_22_0= ruleEndCondition
             {
 
             					newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_13_0());
             				
-            pushFollow(FOLLOW_41);
+            pushFollow(FOLLOW_43);
             lv_loseConditions_22_0=ruleEndCondition();
 
             state._fsp--;
@@ -4598,35 +4970,35 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:1938:3: (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )*
-            loop20:
+            // InternalRangoMode.g:2088:3: (otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) ) )*
+            loop21:
             do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
+                int alt21=2;
+                int LA21_0 = input.LA(1);
 
-                if ( (LA20_0==53) ) {
-                    alt20=1;
+                if ( (LA21_0==54) ) {
+                    alt21=1;
                 }
 
 
-                switch (alt20) {
+                switch (alt21) {
             	case 1 :
-            	    // InternalRangoMode.g:1939:4: otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) )
+            	    // InternalRangoMode.g:2089:4: otherlv_23= 'or' ( (lv_loseConditions_24_0= ruleEndCondition ) )
             	    {
-            	    otherlv_23=(Token)match(input,53,FOLLOW_39); 
+            	    otherlv_23=(Token)match(input,54,FOLLOW_41); 
 
             	    				newLeafNode(otherlv_23, grammarAccess.getGameModeAccess().getOrKeyword_14_0());
             	    			
-            	    // InternalRangoMode.g:1943:4: ( (lv_loseConditions_24_0= ruleEndCondition ) )
-            	    // InternalRangoMode.g:1944:5: (lv_loseConditions_24_0= ruleEndCondition )
+            	    // InternalRangoMode.g:2093:4: ( (lv_loseConditions_24_0= ruleEndCondition ) )
+            	    // InternalRangoMode.g:2094:5: (lv_loseConditions_24_0= ruleEndCondition )
             	    {
-            	    // InternalRangoMode.g:1944:5: (lv_loseConditions_24_0= ruleEndCondition )
-            	    // InternalRangoMode.g:1945:6: lv_loseConditions_24_0= ruleEndCondition
+            	    // InternalRangoMode.g:2094:5: (lv_loseConditions_24_0= ruleEndCondition )
+            	    // InternalRangoMode.g:2095:6: lv_loseConditions_24_0= ruleEndCondition
             	    {
 
             	    						newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_14_1_0());
             	    					
-            	    pushFollow(FOLLOW_41);
+            	    pushFollow(FOLLOW_43);
             	    lv_loseConditions_24_0=ruleEndCondition();
 
             	    state._fsp--;
@@ -4653,11 +5025,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop20;
+            	    break loop21;
                 }
             } while (true);
 
-            otherlv_25=(Token)match(input,24,FOLLOW_2); 
+            otherlv_25=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_25, grammarAccess.getGameModeAccess().getRightCurlyBracketKeyword_15());
             		
@@ -4684,7 +5056,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSingleLevel"
-    // InternalRangoMode.g:1971:1: entryRuleSingleLevel returns [EObject current=null] : iv_ruleSingleLevel= ruleSingleLevel EOF ;
+    // InternalRangoMode.g:2121:1: entryRuleSingleLevel returns [EObject current=null] : iv_ruleSingleLevel= ruleSingleLevel EOF ;
     public final EObject entryRuleSingleLevel() throws RecognitionException {
         EObject current = null;
 
@@ -4692,8 +5064,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:1971:52: (iv_ruleSingleLevel= ruleSingleLevel EOF )
-            // InternalRangoMode.g:1972:2: iv_ruleSingleLevel= ruleSingleLevel EOF
+            // InternalRangoMode.g:2121:52: (iv_ruleSingleLevel= ruleSingleLevel EOF )
+            // InternalRangoMode.g:2122:2: iv_ruleSingleLevel= ruleSingleLevel EOF
             {
              newCompositeNode(grammarAccess.getSingleLevelRule()); 
             pushFollow(FOLLOW_1);
@@ -4720,7 +5092,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSingleLevel"
-    // InternalRangoMode.g:1978:1: ruleSingleLevel returns [EObject current=null] : ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) ) ;
+    // InternalRangoMode.g:2128:1: ruleSingleLevel returns [EObject current=null] : ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) ) ;
     public final EObject ruleSingleLevel() throws RecognitionException {
         EObject current = null;
 
@@ -4733,22 +5105,22 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:1984:2: ( ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) ) )
-            // InternalRangoMode.g:1985:2: ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) )
+            // InternalRangoMode.g:2134:2: ( ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) ) )
+            // InternalRangoMode.g:2135:2: ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) )
             {
-            // InternalRangoMode.g:1985:2: ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) )
-            // InternalRangoMode.g:1986:3: ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) )
+            // InternalRangoMode.g:2135:2: ( ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) ) )
+            // InternalRangoMode.g:2136:3: ( (lv_arena_0_0= ruleArena ) ) ( (lv_spawning_1_0= ruleSpawnStrategy ) )
             {
-            // InternalRangoMode.g:1986:3: ( (lv_arena_0_0= ruleArena ) )
-            // InternalRangoMode.g:1987:4: (lv_arena_0_0= ruleArena )
+            // InternalRangoMode.g:2136:3: ( (lv_arena_0_0= ruleArena ) )
+            // InternalRangoMode.g:2137:4: (lv_arena_0_0= ruleArena )
             {
-            // InternalRangoMode.g:1987:4: (lv_arena_0_0= ruleArena )
-            // InternalRangoMode.g:1988:5: lv_arena_0_0= ruleArena
+            // InternalRangoMode.g:2137:4: (lv_arena_0_0= ruleArena )
+            // InternalRangoMode.g:2138:5: lv_arena_0_0= ruleArena
             {
 
             					newCompositeNode(grammarAccess.getSingleLevelAccess().getArenaArenaParserRuleCall_0_0());
             				
-            pushFollow(FOLLOW_42);
+            pushFollow(FOLLOW_44);
             lv_arena_0_0=ruleArena();
 
             state._fsp--;
@@ -4770,11 +5142,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2005:3: ( (lv_spawning_1_0= ruleSpawnStrategy ) )
-            // InternalRangoMode.g:2006:4: (lv_spawning_1_0= ruleSpawnStrategy )
+            // InternalRangoMode.g:2155:3: ( (lv_spawning_1_0= ruleSpawnStrategy ) )
+            // InternalRangoMode.g:2156:4: (lv_spawning_1_0= ruleSpawnStrategy )
             {
-            // InternalRangoMode.g:2006:4: (lv_spawning_1_0= ruleSpawnStrategy )
-            // InternalRangoMode.g:2007:5: lv_spawning_1_0= ruleSpawnStrategy
+            // InternalRangoMode.g:2156:4: (lv_spawning_1_0= ruleSpawnStrategy )
+            // InternalRangoMode.g:2157:5: lv_spawning_1_0= ruleSpawnStrategy
             {
 
             					newCompositeNode(grammarAccess.getSingleLevelAccess().getSpawningSpawnStrategyParserRuleCall_1_0());
@@ -4824,7 +5196,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLevel"
-    // InternalRangoMode.g:2028:1: entryRuleLevel returns [EObject current=null] : iv_ruleLevel= ruleLevel EOF ;
+    // InternalRangoMode.g:2178:1: entryRuleLevel returns [EObject current=null] : iv_ruleLevel= ruleLevel EOF ;
     public final EObject entryRuleLevel() throws RecognitionException {
         EObject current = null;
 
@@ -4832,8 +5204,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2028:46: (iv_ruleLevel= ruleLevel EOF )
-            // InternalRangoMode.g:2029:2: iv_ruleLevel= ruleLevel EOF
+            // InternalRangoMode.g:2178:46: (iv_ruleLevel= ruleLevel EOF )
+            // InternalRangoMode.g:2179:2: iv_ruleLevel= ruleLevel EOF
             {
              newCompositeNode(grammarAccess.getLevelRule()); 
             pushFollow(FOLLOW_1);
@@ -4860,7 +5232,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLevel"
-    // InternalRangoMode.g:2035:1: ruleLevel returns [EObject current=null] : (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' ) ;
+    // InternalRangoMode.g:2185:1: ruleLevel returns [EObject current=null] : (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' ) ;
     public final EObject ruleLevel() throws RecognitionException {
         EObject current = null;
 
@@ -4877,31 +5249,31 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2041:2: ( (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' ) )
-            // InternalRangoMode.g:2042:2: (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' )
+            // InternalRangoMode.g:2191:2: ( (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' ) )
+            // InternalRangoMode.g:2192:2: (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' )
             {
-            // InternalRangoMode.g:2042:2: (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' )
-            // InternalRangoMode.g:2043:3: otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}'
+            // InternalRangoMode.g:2192:2: (otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}' )
+            // InternalRangoMode.g:2193:3: otherlv_0= 'level' ( (lv_title_1_0= RULE_STRING ) )? otherlv_2= '{' ( (lv_arena_3_0= ruleArena ) ) ( (lv_spawning_4_0= ruleSpawnStrategy ) ) otherlv_5= '}'
             {
-            otherlv_0=(Token)match(input,55,FOLLOW_43); 
+            otherlv_0=(Token)match(input,56,FOLLOW_45); 
 
             			newLeafNode(otherlv_0, grammarAccess.getLevelAccess().getLevelKeyword_0());
             		
-            // InternalRangoMode.g:2047:3: ( (lv_title_1_0= RULE_STRING ) )?
-            int alt21=2;
-            int LA21_0 = input.LA(1);
+            // InternalRangoMode.g:2197:3: ( (lv_title_1_0= RULE_STRING ) )?
+            int alt22=2;
+            int LA22_0 = input.LA(1);
 
-            if ( (LA21_0==RULE_STRING) ) {
-                alt21=1;
+            if ( (LA22_0==RULE_STRING) ) {
+                alt22=1;
             }
-            switch (alt21) {
+            switch (alt22) {
                 case 1 :
-                    // InternalRangoMode.g:2048:4: (lv_title_1_0= RULE_STRING )
+                    // InternalRangoMode.g:2198:4: (lv_title_1_0= RULE_STRING )
                     {
-                    // InternalRangoMode.g:2048:4: (lv_title_1_0= RULE_STRING )
-                    // InternalRangoMode.g:2049:5: lv_title_1_0= RULE_STRING
+                    // InternalRangoMode.g:2198:4: (lv_title_1_0= RULE_STRING )
+                    // InternalRangoMode.g:2199:5: lv_title_1_0= RULE_STRING
                     {
-                    lv_title_1_0=(Token)match(input,RULE_STRING,FOLLOW_6); 
+                    lv_title_1_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
                     					newLeafNode(lv_title_1_0, grammarAccess.getLevelAccess().getTitleSTRINGTerminalRuleCall_1_0());
                     				
@@ -4924,20 +5296,20 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_44); 
+            otherlv_2=(Token)match(input,13,FOLLOW_46); 
 
             			newLeafNode(otherlv_2, grammarAccess.getLevelAccess().getLeftCurlyBracketKeyword_2());
             		
-            // InternalRangoMode.g:2069:3: ( (lv_arena_3_0= ruleArena ) )
-            // InternalRangoMode.g:2070:4: (lv_arena_3_0= ruleArena )
+            // InternalRangoMode.g:2219:3: ( (lv_arena_3_0= ruleArena ) )
+            // InternalRangoMode.g:2220:4: (lv_arena_3_0= ruleArena )
             {
-            // InternalRangoMode.g:2070:4: (lv_arena_3_0= ruleArena )
-            // InternalRangoMode.g:2071:5: lv_arena_3_0= ruleArena
+            // InternalRangoMode.g:2220:4: (lv_arena_3_0= ruleArena )
+            // InternalRangoMode.g:2221:5: lv_arena_3_0= ruleArena
             {
 
             					newCompositeNode(grammarAccess.getLevelAccess().getArenaArenaParserRuleCall_3_0());
             				
-            pushFollow(FOLLOW_42);
+            pushFollow(FOLLOW_44);
             lv_arena_3_0=ruleArena();
 
             state._fsp--;
@@ -4959,16 +5331,16 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2088:3: ( (lv_spawning_4_0= ruleSpawnStrategy ) )
-            // InternalRangoMode.g:2089:4: (lv_spawning_4_0= ruleSpawnStrategy )
+            // InternalRangoMode.g:2238:3: ( (lv_spawning_4_0= ruleSpawnStrategy ) )
+            // InternalRangoMode.g:2239:4: (lv_spawning_4_0= ruleSpawnStrategy )
             {
-            // InternalRangoMode.g:2089:4: (lv_spawning_4_0= ruleSpawnStrategy )
-            // InternalRangoMode.g:2090:5: lv_spawning_4_0= ruleSpawnStrategy
+            // InternalRangoMode.g:2239:4: (lv_spawning_4_0= ruleSpawnStrategy )
+            // InternalRangoMode.g:2240:5: lv_spawning_4_0= ruleSpawnStrategy
             {
 
             					newCompositeNode(grammarAccess.getLevelAccess().getSpawningSpawnStrategyParserRuleCall_4_0());
             				
-            pushFollow(FOLLOW_45);
+            pushFollow(FOLLOW_47);
             lv_spawning_4_0=ruleSpawnStrategy();
 
             state._fsp--;
@@ -4990,7 +5362,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,24,FOLLOW_2); 
+            otherlv_5=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_5, grammarAccess.getLevelAccess().getRightCurlyBracketKeyword_5());
             		
@@ -5017,7 +5389,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSpeedBonus"
-    // InternalRangoMode.g:2115:1: entryRuleSpeedBonus returns [EObject current=null] : iv_ruleSpeedBonus= ruleSpeedBonus EOF ;
+    // InternalRangoMode.g:2265:1: entryRuleSpeedBonus returns [EObject current=null] : iv_ruleSpeedBonus= ruleSpeedBonus EOF ;
     public final EObject entryRuleSpeedBonus() throws RecognitionException {
         EObject current = null;
 
@@ -5025,8 +5397,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2115:51: (iv_ruleSpeedBonus= ruleSpeedBonus EOF )
-            // InternalRangoMode.g:2116:2: iv_ruleSpeedBonus= ruleSpeedBonus EOF
+            // InternalRangoMode.g:2265:51: (iv_ruleSpeedBonus= ruleSpeedBonus EOF )
+            // InternalRangoMode.g:2266:2: iv_ruleSpeedBonus= ruleSpeedBonus EOF
             {
              newCompositeNode(grammarAccess.getSpeedBonusRule()); 
             pushFollow(FOLLOW_1);
@@ -5053,7 +5425,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSpeedBonus"
-    // InternalRangoMode.g:2122:1: ruleSpeedBonus returns [EObject current=null] : ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? ) ;
+    // InternalRangoMode.g:2272:1: ruleSpeedBonus returns [EObject current=null] : ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? ) ;
     public final EObject ruleSpeedBonus() throws RecognitionException {
         EObject current = null;
 
@@ -5073,14 +5445,14 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2128:2: ( ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? ) )
-            // InternalRangoMode.g:2129:2: ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? )
+            // InternalRangoMode.g:2278:2: ( ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? ) )
+            // InternalRangoMode.g:2279:2: ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? )
             {
-            // InternalRangoMode.g:2129:2: ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? )
-            // InternalRangoMode.g:2130:3: () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )?
+            // InternalRangoMode.g:2279:2: ( () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )? )
+            // InternalRangoMode.g:2280:3: () otherlv_1= 'speed' otherlv_2= 'bonus' (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )? (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )?
             {
-            // InternalRangoMode.g:2130:3: ()
-            // InternalRangoMode.g:2131:4: 
+            // InternalRangoMode.g:2280:3: ()
+            // InternalRangoMode.g:2281:4: 
             {
 
             				current = forceCreateModelElement(
@@ -5090,43 +5462,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,17,FOLLOW_46); 
+            otherlv_1=(Token)match(input,20,FOLLOW_48); 
 
             			newLeafNode(otherlv_1, grammarAccess.getSpeedBonusAccess().getSpeedKeyword_1());
             		
-            otherlv_2=(Token)match(input,56,FOLLOW_47); 
+            otherlv_2=(Token)match(input,57,FOLLOW_49); 
 
             			newLeafNode(otherlv_2, grammarAccess.getSpeedBonusAccess().getBonusKeyword_2());
             		
-            // InternalRangoMode.g:2145:3: (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )?
-            int alt22=2;
-            int LA22_0 = input.LA(1);
+            // InternalRangoMode.g:2295:3: (otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times' )?
+            int alt23=2;
+            int LA23_0 = input.LA(1);
 
-            if ( (LA22_0==57) ) {
-                alt22=1;
+            if ( (LA23_0==58) ) {
+                alt23=1;
             }
-            switch (alt22) {
+            switch (alt23) {
                 case 1 :
-                    // InternalRangoMode.g:2146:4: otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times'
+                    // InternalRangoMode.g:2296:4: otherlv_3= 'up' otherlv_4= 'to' ( (lv_maxFactor_5_0= ruleDecimal ) ) otherlv_6= 'times'
                     {
-                    otherlv_3=(Token)match(input,57,FOLLOW_48); 
+                    otherlv_3=(Token)match(input,58,FOLLOW_50); 
 
                     				newLeafNode(otherlv_3, grammarAccess.getSpeedBonusAccess().getUpKeyword_3_0());
                     			
-                    otherlv_4=(Token)match(input,58,FOLLOW_10); 
+                    otherlv_4=(Token)match(input,59,FOLLOW_10); 
 
                     				newLeafNode(otherlv_4, grammarAccess.getSpeedBonusAccess().getToKeyword_3_1());
                     			
-                    // InternalRangoMode.g:2154:4: ( (lv_maxFactor_5_0= ruleDecimal ) )
-                    // InternalRangoMode.g:2155:5: (lv_maxFactor_5_0= ruleDecimal )
+                    // InternalRangoMode.g:2304:4: ( (lv_maxFactor_5_0= ruleDecimal ) )
+                    // InternalRangoMode.g:2305:5: (lv_maxFactor_5_0= ruleDecimal )
                     {
-                    // InternalRangoMode.g:2155:5: (lv_maxFactor_5_0= ruleDecimal )
-                    // InternalRangoMode.g:2156:6: lv_maxFactor_5_0= ruleDecimal
+                    // InternalRangoMode.g:2305:5: (lv_maxFactor_5_0= ruleDecimal )
+                    // InternalRangoMode.g:2306:6: lv_maxFactor_5_0= ruleDecimal
                     {
 
                     						newCompositeNode(grammarAccess.getSpeedBonusAccess().getMaxFactorDecimalParserRuleCall_3_2_0());
                     					
-                    pushFollow(FOLLOW_49);
+                    pushFollow(FOLLOW_51);
                     lv_maxFactor_5_0=ruleDecimal();
 
                     state._fsp--;
@@ -5148,7 +5520,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_6=(Token)match(input,59,FOLLOW_50); 
+                    otherlv_6=(Token)match(input,60,FOLLOW_52); 
 
                     				newLeafNode(otherlv_6, grammarAccess.getSpeedBonusAccess().getTimesKeyword_3_3());
                     			
@@ -5158,31 +5530,31 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2178:3: (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )?
-            int alt23=2;
-            int LA23_0 = input.LA(1);
+            // InternalRangoMode.g:2328:3: (otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's' )?
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( (LA23_0==60) ) {
-                alt23=1;
+            if ( (LA24_0==61) ) {
+                alt24=1;
             }
-            switch (alt23) {
+            switch (alt24) {
                 case 1 :
-                    // InternalRangoMode.g:2179:4: otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's'
+                    // InternalRangoMode.g:2329:4: otherlv_7= 'over' ( (lv_duration_8_0= ruleDecimal ) ) otherlv_9= 's'
                     {
-                    otherlv_7=(Token)match(input,60,FOLLOW_10); 
+                    otherlv_7=(Token)match(input,61,FOLLOW_10); 
 
                     				newLeafNode(otherlv_7, grammarAccess.getSpeedBonusAccess().getOverKeyword_4_0());
                     			
-                    // InternalRangoMode.g:2183:4: ( (lv_duration_8_0= ruleDecimal ) )
-                    // InternalRangoMode.g:2184:5: (lv_duration_8_0= ruleDecimal )
+                    // InternalRangoMode.g:2333:4: ( (lv_duration_8_0= ruleDecimal ) )
+                    // InternalRangoMode.g:2334:5: (lv_duration_8_0= ruleDecimal )
                     {
-                    // InternalRangoMode.g:2184:5: (lv_duration_8_0= ruleDecimal )
-                    // InternalRangoMode.g:2185:6: lv_duration_8_0= ruleDecimal
+                    // InternalRangoMode.g:2334:5: (lv_duration_8_0= ruleDecimal )
+                    // InternalRangoMode.g:2335:6: lv_duration_8_0= ruleDecimal
                     {
 
                     						newCompositeNode(grammarAccess.getSpeedBonusAccess().getDurationDecimalParserRuleCall_4_1_0());
                     					
-                    pushFollow(FOLLOW_23);
+                    pushFollow(FOLLOW_26);
                     lv_duration_8_0=ruleDecimal();
 
                     state._fsp--;
@@ -5204,7 +5576,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_9=(Token)match(input,34,FOLLOW_2); 
+                    otherlv_9=(Token)match(input,36,FOLLOW_2); 
 
                     				newLeafNode(otherlv_9, grammarAccess.getSpeedBonusAccess().getSKeyword_4_2());
                     			
@@ -5237,7 +5609,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleArena"
-    // InternalRangoMode.g:2211:1: entryRuleArena returns [EObject current=null] : iv_ruleArena= ruleArena EOF ;
+    // InternalRangoMode.g:2361:1: entryRuleArena returns [EObject current=null] : iv_ruleArena= ruleArena EOF ;
     public final EObject entryRuleArena() throws RecognitionException {
         EObject current = null;
 
@@ -5245,8 +5617,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2211:46: (iv_ruleArena= ruleArena EOF )
-            // InternalRangoMode.g:2212:2: iv_ruleArena= ruleArena EOF
+            // InternalRangoMode.g:2361:46: (iv_ruleArena= ruleArena EOF )
+            // InternalRangoMode.g:2362:2: iv_ruleArena= ruleArena EOF
             {
              newCompositeNode(grammarAccess.getArenaRule()); 
             pushFollow(FOLLOW_1);
@@ -5273,7 +5645,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleArena"
-    // InternalRangoMode.g:2218:1: ruleArena returns [EObject current=null] : (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' ) ;
+    // InternalRangoMode.g:2368:1: ruleArena returns [EObject current=null] : (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' ) ;
     public final EObject ruleArena() throws RecognitionException {
         EObject current = null;
 
@@ -5299,31 +5671,31 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2224:2: ( (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' ) )
-            // InternalRangoMode.g:2225:2: (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' )
+            // InternalRangoMode.g:2374:2: ( (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' ) )
+            // InternalRangoMode.g:2375:2: (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' )
             {
-            // InternalRangoMode.g:2225:2: (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' )
-            // InternalRangoMode.g:2226:3: otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}'
+            // InternalRangoMode.g:2375:2: (otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}' )
+            // InternalRangoMode.g:2376:3: otherlv_0= 'arena' otherlv_1= '{' otherlv_2= 'background' ( (lv_background_3_0= RULE_STRING ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) ) ( (lv_obstacles_14_0= ruleObstacle ) )* otherlv_15= '}'
             {
-            otherlv_0=(Token)match(input,61,FOLLOW_6); 
+            otherlv_0=(Token)match(input,62,FOLLOW_7); 
 
             			newLeafNode(otherlv_0, grammarAccess.getArenaAccess().getArenaKeyword_0());
             		
-            otherlv_1=(Token)match(input,13,FOLLOW_51); 
+            otherlv_1=(Token)match(input,13,FOLLOW_53); 
 
             			newLeafNode(otherlv_1, grammarAccess.getArenaAccess().getLeftCurlyBracketKeyword_1());
             		
-            otherlv_2=(Token)match(input,62,FOLLOW_8); 
+            otherlv_2=(Token)match(input,63,FOLLOW_12); 
 
             			newLeafNode(otherlv_2, grammarAccess.getArenaAccess().getBackgroundKeyword_2());
             		
-            // InternalRangoMode.g:2238:3: ( (lv_background_3_0= RULE_STRING ) )
-            // InternalRangoMode.g:2239:4: (lv_background_3_0= RULE_STRING )
+            // InternalRangoMode.g:2388:3: ( (lv_background_3_0= RULE_STRING ) )
+            // InternalRangoMode.g:2389:4: (lv_background_3_0= RULE_STRING )
             {
-            // InternalRangoMode.g:2239:4: (lv_background_3_0= RULE_STRING )
-            // InternalRangoMode.g:2240:5: lv_background_3_0= RULE_STRING
+            // InternalRangoMode.g:2389:4: (lv_background_3_0= RULE_STRING )
+            // InternalRangoMode.g:2390:5: lv_background_3_0= RULE_STRING
             {
-            lv_background_3_0=(Token)match(input,RULE_STRING,FOLLOW_52); 
+            lv_background_3_0=(Token)match(input,RULE_STRING,FOLLOW_54); 
 
             					newLeafNode(lv_background_3_0, grammarAccess.getArenaAccess().getBackgroundSTRINGTerminalRuleCall_3_0());
             				
@@ -5343,76 +5715,76 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2256:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) )
-            // InternalRangoMode.g:2257:4: ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) )
+            // InternalRangoMode.g:2406:3: ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) ) )
+            // InternalRangoMode.g:2407:4: ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) )
             {
-            // InternalRangoMode.g:2257:4: ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) )
-            // InternalRangoMode.g:2258:5: ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* )
+            // InternalRangoMode.g:2407:4: ( ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* ) )
+            // InternalRangoMode.g:2408:5: ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* )
             {
              
             				  getUnorderedGroupHelper().enter(grammarAccess.getArenaAccess().getUnorderedGroup_4());
             				
-            // InternalRangoMode.g:2261:5: ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* )
-            // InternalRangoMode.g:2262:6: ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )*
+            // InternalRangoMode.g:2411:5: ( ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )* )
+            // InternalRangoMode.g:2412:6: ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )*
             {
-            // InternalRangoMode.g:2262:6: ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )*
-            loop24:
+            // InternalRangoMode.g:2412:6: ( ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) ) )*
+            loop25:
             do {
-                int alt24=4;
-                int LA24_0 = input.LA(1);
+                int alt25=4;
+                int LA25_0 = input.LA(1);
 
-                if ( LA24_0 == 63 && getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 0) ) {
-                    alt24=1;
+                if ( LA25_0 == 64 && getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 0) ) {
+                    alt25=1;
                 }
-                else if ( LA24_0 == 64 && getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 1) ) {
-                    alt24=2;
+                else if ( LA25_0 == 65 && getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 1) ) {
+                    alt25=2;
                 }
-                else if ( LA24_0 == 41 && getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 2) ) {
-                    alt24=3;
+                else if ( LA25_0 == 42 && getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 2) ) {
+                    alt25=3;
                 }
 
 
-                switch (alt24) {
+                switch (alt25) {
             	case 1 :
-            	    // InternalRangoMode.g:2263:4: ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) )
+            	    // InternalRangoMode.g:2413:4: ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:2263:4: ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) )
-            	    // InternalRangoMode.g:2264:5: {...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) )
+            	    // InternalRangoMode.g:2413:4: ({...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) ) )
+            	    // InternalRangoMode.g:2414:5: {...}? => ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 0) ) {
             	        throw new FailedPredicateException(input, "ruleArena", "getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 0)");
             	    }
-            	    // InternalRangoMode.g:2264:102: ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) )
-            	    // InternalRangoMode.g:2265:6: ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) )
+            	    // InternalRangoMode.g:2414:102: ( ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) ) )
+            	    // InternalRangoMode.g:2415:6: ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 0);
             	    					
-            	    // InternalRangoMode.g:2268:9: ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) )
-            	    // InternalRangoMode.g:2268:10: {...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) )
+            	    // InternalRangoMode.g:2418:9: ({...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) ) )
+            	    // InternalRangoMode.g:2418:10: {...}? => (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleArena", "true");
             	    }
-            	    // InternalRangoMode.g:2268:19: (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) )
-            	    // InternalRangoMode.g:2268:20: otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) )
+            	    // InternalRangoMode.g:2418:19: (otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) ) )
+            	    // InternalRangoMode.g:2418:20: otherlv_5= 'floor' ( (otherlv_6= RULE_ID ) )
             	    {
-            	    otherlv_5=(Token)match(input,63,FOLLOW_3); 
+            	    otherlv_5=(Token)match(input,64,FOLLOW_3); 
 
             	    									newLeafNode(otherlv_5, grammarAccess.getArenaAccess().getFloorKeyword_4_0_0());
             	    								
-            	    // InternalRangoMode.g:2272:9: ( (otherlv_6= RULE_ID ) )
-            	    // InternalRangoMode.g:2273:10: (otherlv_6= RULE_ID )
+            	    // InternalRangoMode.g:2422:9: ( (otherlv_6= RULE_ID ) )
+            	    // InternalRangoMode.g:2423:10: (otherlv_6= RULE_ID )
             	    {
-            	    // InternalRangoMode.g:2273:10: (otherlv_6= RULE_ID )
-            	    // InternalRangoMode.g:2274:11: otherlv_6= RULE_ID
+            	    // InternalRangoMode.g:2423:10: (otherlv_6= RULE_ID )
+            	    // InternalRangoMode.g:2424:11: otherlv_6= RULE_ID
             	    {
 
             	    											if (current==null) {
             	    												current = createModelElement(grammarAccess.getArenaRule());
             	    											}
             	    										
-            	    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_52); 
+            	    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_54); 
 
             	    											newLeafNode(otherlv_6, grammarAccess.getArenaAccess().getFloorMaterialCrossReference_4_0_1_0());
             	    										
@@ -5441,45 +5813,45 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // InternalRangoMode.g:2291:4: ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) )
+            	    // InternalRangoMode.g:2441:4: ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) )
             	    {
-            	    // InternalRangoMode.g:2291:4: ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) )
-            	    // InternalRangoMode.g:2292:5: {...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) )
+            	    // InternalRangoMode.g:2441:4: ({...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) ) )
+            	    // InternalRangoMode.g:2442:5: {...}? => ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 1) ) {
             	        throw new FailedPredicateException(input, "ruleArena", "getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 1)");
             	    }
-            	    // InternalRangoMode.g:2292:102: ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) )
-            	    // InternalRangoMode.g:2293:6: ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) )
+            	    // InternalRangoMode.g:2442:102: ( ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) ) )
+            	    // InternalRangoMode.g:2443:6: ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 1);
             	    					
-            	    // InternalRangoMode.g:2296:9: ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) )
-            	    // InternalRangoMode.g:2296:10: {...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) )
+            	    // InternalRangoMode.g:2446:9: ({...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) ) )
+            	    // InternalRangoMode.g:2446:10: {...}? => (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleArena", "true");
             	    }
-            	    // InternalRangoMode.g:2296:19: (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) )
-            	    // InternalRangoMode.g:2296:20: otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) )
+            	    // InternalRangoMode.g:2446:19: (otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) ) )
+            	    // InternalRangoMode.g:2446:20: otherlv_7= 'walls' ( (otherlv_8= RULE_ID ) )
             	    {
-            	    otherlv_7=(Token)match(input,64,FOLLOW_3); 
+            	    otherlv_7=(Token)match(input,65,FOLLOW_3); 
 
             	    									newLeafNode(otherlv_7, grammarAccess.getArenaAccess().getWallsKeyword_4_1_0());
             	    								
-            	    // InternalRangoMode.g:2300:9: ( (otherlv_8= RULE_ID ) )
-            	    // InternalRangoMode.g:2301:10: (otherlv_8= RULE_ID )
+            	    // InternalRangoMode.g:2450:9: ( (otherlv_8= RULE_ID ) )
+            	    // InternalRangoMode.g:2451:10: (otherlv_8= RULE_ID )
             	    {
-            	    // InternalRangoMode.g:2301:10: (otherlv_8= RULE_ID )
-            	    // InternalRangoMode.g:2302:11: otherlv_8= RULE_ID
+            	    // InternalRangoMode.g:2451:10: (otherlv_8= RULE_ID )
+            	    // InternalRangoMode.g:2452:11: otherlv_8= RULE_ID
             	    {
 
             	    											if (current==null) {
             	    												current = createModelElement(grammarAccess.getArenaRule());
             	    											}
             	    										
-            	    otherlv_8=(Token)match(input,RULE_ID,FOLLOW_52); 
+            	    otherlv_8=(Token)match(input,RULE_ID,FOLLOW_54); 
 
             	    											newLeafNode(otherlv_8, grammarAccess.getArenaAccess().getWallsMaterialCrossReference_4_1_1_0());
             	    										
@@ -5508,51 +5880,51 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 3 :
-            	    // InternalRangoMode.g:2319:4: ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) )
+            	    // InternalRangoMode.g:2469:4: ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) )
             	    {
-            	    // InternalRangoMode.g:2319:4: ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) )
-            	    // InternalRangoMode.g:2320:5: {...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) )
+            	    // InternalRangoMode.g:2469:4: ({...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) ) )
+            	    // InternalRangoMode.g:2470:5: {...}? => ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 2) ) {
             	        throw new FailedPredicateException(input, "ruleArena", "getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 2)");
             	    }
-            	    // InternalRangoMode.g:2320:102: ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) )
-            	    // InternalRangoMode.g:2321:6: ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) )
+            	    // InternalRangoMode.g:2470:102: ( ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) ) )
+            	    // InternalRangoMode.g:2471:6: ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) )
             	    {
 
             	    						getUnorderedGroupHelper().select(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 2);
             	    					
-            	    // InternalRangoMode.g:2324:9: ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) )
-            	    // InternalRangoMode.g:2324:10: {...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' )
+            	    // InternalRangoMode.g:2474:9: ({...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' ) )
+            	    // InternalRangoMode.g:2474:10: {...}? => (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleArena", "true");
             	    }
-            	    // InternalRangoMode.g:2324:19: (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' )
-            	    // InternalRangoMode.g:2324:20: otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%'
+            	    // InternalRangoMode.g:2474:19: (otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%' )
+            	    // InternalRangoMode.g:2474:20: otherlv_9= 'player' otherlv_10= 'starts' otherlv_11= 'at' ( (lv_playerStart_12_0= ruleDecimal ) ) otherlv_13= '%'
             	    {
-            	    otherlv_9=(Token)match(input,41,FOLLOW_53); 
+            	    otherlv_9=(Token)match(input,42,FOLLOW_55); 
 
             	    									newLeafNode(otherlv_9, grammarAccess.getArenaAccess().getPlayerKeyword_4_2_0());
             	    								
-            	    otherlv_10=(Token)match(input,65,FOLLOW_21); 
+            	    otherlv_10=(Token)match(input,66,FOLLOW_24); 
 
             	    									newLeafNode(otherlv_10, grammarAccess.getArenaAccess().getStartsKeyword_4_2_1());
             	    								
-            	    otherlv_11=(Token)match(input,29,FOLLOW_10); 
+            	    otherlv_11=(Token)match(input,31,FOLLOW_10); 
 
             	    									newLeafNode(otherlv_11, grammarAccess.getArenaAccess().getAtKeyword_4_2_2());
             	    								
-            	    // InternalRangoMode.g:2336:9: ( (lv_playerStart_12_0= ruleDecimal ) )
-            	    // InternalRangoMode.g:2337:10: (lv_playerStart_12_0= ruleDecimal )
+            	    // InternalRangoMode.g:2486:9: ( (lv_playerStart_12_0= ruleDecimal ) )
+            	    // InternalRangoMode.g:2487:10: (lv_playerStart_12_0= ruleDecimal )
             	    {
-            	    // InternalRangoMode.g:2337:10: (lv_playerStart_12_0= ruleDecimal )
-            	    // InternalRangoMode.g:2338:11: lv_playerStart_12_0= ruleDecimal
+            	    // InternalRangoMode.g:2487:10: (lv_playerStart_12_0= ruleDecimal )
+            	    // InternalRangoMode.g:2488:11: lv_playerStart_12_0= ruleDecimal
             	    {
 
             	    											newCompositeNode(grammarAccess.getArenaAccess().getPlayerStartDecimalParserRuleCall_4_2_3_0());
             	    										
-            	    pushFollow(FOLLOW_54);
+            	    pushFollow(FOLLOW_56);
             	    lv_playerStart_12_0=ruleDecimal();
 
             	    state._fsp--;
@@ -5574,7 +5946,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_13=(Token)match(input,66,FOLLOW_52); 
+            	    otherlv_13=(Token)match(input,67,FOLLOW_54); 
 
             	    									newLeafNode(otherlv_13, grammarAccess.getArenaAccess().getPercentSignKeyword_4_2_4());
             	    								
@@ -5598,7 +5970,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop24;
+            	    break loop25;
                 }
             } while (true);
 
@@ -5614,28 +5986,28 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2372:3: ( (lv_obstacles_14_0= ruleObstacle ) )*
-            loop25:
+            // InternalRangoMode.g:2522:3: ( (lv_obstacles_14_0= ruleObstacle ) )*
+            loop26:
             do {
-                int alt25=2;
-                int LA25_0 = input.LA(1);
+                int alt26=2;
+                int LA26_0 = input.LA(1);
 
-                if ( (LA25_0==69||LA25_0==73||LA25_0==76) ) {
-                    alt25=1;
+                if ( (LA26_0==70||LA26_0==74||LA26_0==77) ) {
+                    alt26=1;
                 }
 
 
-                switch (alt25) {
+                switch (alt26) {
             	case 1 :
-            	    // InternalRangoMode.g:2373:4: (lv_obstacles_14_0= ruleObstacle )
+            	    // InternalRangoMode.g:2523:4: (lv_obstacles_14_0= ruleObstacle )
             	    {
-            	    // InternalRangoMode.g:2373:4: (lv_obstacles_14_0= ruleObstacle )
-            	    // InternalRangoMode.g:2374:5: lv_obstacles_14_0= ruleObstacle
+            	    // InternalRangoMode.g:2523:4: (lv_obstacles_14_0= ruleObstacle )
+            	    // InternalRangoMode.g:2524:5: lv_obstacles_14_0= ruleObstacle
             	    {
 
             	    					newCompositeNode(grammarAccess.getArenaAccess().getObstaclesObstacleParserRuleCall_5_0());
             	    				
-            	    pushFollow(FOLLOW_55);
+            	    pushFollow(FOLLOW_57);
             	    lv_obstacles_14_0=ruleObstacle();
 
             	    state._fsp--;
@@ -5659,11 +6031,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop25;
+            	    break loop26;
                 }
             } while (true);
 
-            otherlv_15=(Token)match(input,24,FOLLOW_2); 
+            otherlv_15=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_15, grammarAccess.getArenaAccess().getRightCurlyBracketKeyword_6());
             		
@@ -5690,7 +6062,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAt"
-    // InternalRangoMode.g:2400:1: ruleAt[EObject in_current] returns [EObject current=in_current] : (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' ) ;
+    // InternalRangoMode.g:2550:1: ruleAt[EObject in_current] returns [EObject current=in_current] : (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' ) ;
     public final EObject ruleAt(EObject in_current) throws RecognitionException {
         EObject current = in_current;
 
@@ -5709,30 +6081,30 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2406:2: ( (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' ) )
-            // InternalRangoMode.g:2407:2: (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' )
+            // InternalRangoMode.g:2556:2: ( (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' ) )
+            // InternalRangoMode.g:2557:2: (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' )
             {
-            // InternalRangoMode.g:2407:2: (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' )
-            // InternalRangoMode.g:2408:3: otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')'
+            // InternalRangoMode.g:2557:2: (otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')' )
+            // InternalRangoMode.g:2558:3: otherlv_0= 'at' otherlv_1= '(' ( (lv_x_2_0= ruleDecimal ) ) otherlv_3= '%' otherlv_4= ',' ( (lv_y_5_0= ruleDecimal ) ) otherlv_6= '%' otherlv_7= ')'
             {
-            otherlv_0=(Token)match(input,29,FOLLOW_56); 
+            otherlv_0=(Token)match(input,31,FOLLOW_58); 
 
             			newLeafNode(otherlv_0, grammarAccess.getAtAccess().getAtKeyword_0());
             		
-            otherlv_1=(Token)match(input,67,FOLLOW_10); 
+            otherlv_1=(Token)match(input,68,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getAtAccess().getLeftParenthesisKeyword_1());
             		
-            // InternalRangoMode.g:2416:3: ( (lv_x_2_0= ruleDecimal ) )
-            // InternalRangoMode.g:2417:4: (lv_x_2_0= ruleDecimal )
+            // InternalRangoMode.g:2566:3: ( (lv_x_2_0= ruleDecimal ) )
+            // InternalRangoMode.g:2567:4: (lv_x_2_0= ruleDecimal )
             {
-            // InternalRangoMode.g:2417:4: (lv_x_2_0= ruleDecimal )
-            // InternalRangoMode.g:2418:5: lv_x_2_0= ruleDecimal
+            // InternalRangoMode.g:2567:4: (lv_x_2_0= ruleDecimal )
+            // InternalRangoMode.g:2568:5: lv_x_2_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getAtAccess().getXDecimalParserRuleCall_2_0());
             				
-            pushFollow(FOLLOW_54);
+            pushFollow(FOLLOW_56);
             lv_x_2_0=ruleDecimal();
 
             state._fsp--;
@@ -5754,24 +6126,24 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,66,FOLLOW_57); 
+            otherlv_3=(Token)match(input,67,FOLLOW_59); 
 
             			newLeafNode(otherlv_3, grammarAccess.getAtAccess().getPercentSignKeyword_3());
             		
-            otherlv_4=(Token)match(input,23,FOLLOW_10); 
+            otherlv_4=(Token)match(input,26,FOLLOW_10); 
 
             			newLeafNode(otherlv_4, grammarAccess.getAtAccess().getCommaKeyword_4());
             		
-            // InternalRangoMode.g:2443:3: ( (lv_y_5_0= ruleDecimal ) )
-            // InternalRangoMode.g:2444:4: (lv_y_5_0= ruleDecimal )
+            // InternalRangoMode.g:2593:3: ( (lv_y_5_0= ruleDecimal ) )
+            // InternalRangoMode.g:2594:4: (lv_y_5_0= ruleDecimal )
             {
-            // InternalRangoMode.g:2444:4: (lv_y_5_0= ruleDecimal )
-            // InternalRangoMode.g:2445:5: lv_y_5_0= ruleDecimal
+            // InternalRangoMode.g:2594:4: (lv_y_5_0= ruleDecimal )
+            // InternalRangoMode.g:2595:5: lv_y_5_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getAtAccess().getYDecimalParserRuleCall_5_0());
             				
-            pushFollow(FOLLOW_54);
+            pushFollow(FOLLOW_56);
             lv_y_5_0=ruleDecimal();
 
             state._fsp--;
@@ -5793,11 +6165,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,66,FOLLOW_58); 
+            otherlv_6=(Token)match(input,67,FOLLOW_60); 
 
             			newLeafNode(otherlv_6, grammarAccess.getAtAccess().getPercentSignKeyword_6());
             		
-            otherlv_7=(Token)match(input,68,FOLLOW_2); 
+            otherlv_7=(Token)match(input,69,FOLLOW_2); 
 
             			newLeafNode(otherlv_7, grammarAccess.getAtAccess().getRightParenthesisKeyword_7());
             		
@@ -5824,7 +6196,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleObstacle"
-    // InternalRangoMode.g:2474:1: entryRuleObstacle returns [EObject current=null] : iv_ruleObstacle= ruleObstacle EOF ;
+    // InternalRangoMode.g:2624:1: entryRuleObstacle returns [EObject current=null] : iv_ruleObstacle= ruleObstacle EOF ;
     public final EObject entryRuleObstacle() throws RecognitionException {
         EObject current = null;
 
@@ -5832,8 +6204,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2474:49: (iv_ruleObstacle= ruleObstacle EOF )
-            // InternalRangoMode.g:2475:2: iv_ruleObstacle= ruleObstacle EOF
+            // InternalRangoMode.g:2624:49: (iv_ruleObstacle= ruleObstacle EOF )
+            // InternalRangoMode.g:2625:2: iv_ruleObstacle= ruleObstacle EOF
             {
              newCompositeNode(grammarAccess.getObstacleRule()); 
             pushFollow(FOLLOW_1);
@@ -5860,7 +6232,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleObstacle"
-    // InternalRangoMode.g:2481:1: ruleObstacle returns [EObject current=null] : (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter ) ;
+    // InternalRangoMode.g:2631:1: ruleObstacle returns [EObject current=null] : (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter ) ;
     public final EObject ruleObstacle() throws RecognitionException {
         EObject current = null;
 
@@ -5875,37 +6247,37 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2487:2: ( (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter ) )
-            // InternalRangoMode.g:2488:2: (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter )
+            // InternalRangoMode.g:2637:2: ( (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter ) )
+            // InternalRangoMode.g:2638:2: (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter )
             {
-            // InternalRangoMode.g:2488:2: (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter )
-            int alt26=3;
+            // InternalRangoMode.g:2638:2: (this_Block_0= ruleBlock | this_JumpPad_1= ruleJumpPad | this_Teleporter_2= ruleTeleporter )
+            int alt27=3;
             switch ( input.LA(1) ) {
-            case 69:
+            case 70:
                 {
-                alt26=1;
+                alt27=1;
                 }
                 break;
-            case 73:
+            case 74:
                 {
-                alt26=2;
+                alt27=2;
                 }
                 break;
-            case 76:
+            case 77:
                 {
-                alt26=3;
+                alt27=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 26, 0, input);
+                    new NoViableAltException("", 27, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt26) {
+            switch (alt27) {
                 case 1 :
-                    // InternalRangoMode.g:2489:3: this_Block_0= ruleBlock
+                    // InternalRangoMode.g:2639:3: this_Block_0= ruleBlock
                     {
 
                     			newCompositeNode(grammarAccess.getObstacleAccess().getBlockParserRuleCall_0());
@@ -5923,7 +6295,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:2498:3: this_JumpPad_1= ruleJumpPad
+                    // InternalRangoMode.g:2648:3: this_JumpPad_1= ruleJumpPad
                     {
 
                     			newCompositeNode(grammarAccess.getObstacleAccess().getJumpPadParserRuleCall_1());
@@ -5941,7 +6313,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalRangoMode.g:2507:3: this_Teleporter_2= ruleTeleporter
+                    // InternalRangoMode.g:2657:3: this_Teleporter_2= ruleTeleporter
                     {
 
                     			newCompositeNode(grammarAccess.getObstacleAccess().getTeleporterParserRuleCall_2());
@@ -5981,7 +6353,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBlock"
-    // InternalRangoMode.g:2519:1: entryRuleBlock returns [EObject current=null] : iv_ruleBlock= ruleBlock EOF ;
+    // InternalRangoMode.g:2669:1: entryRuleBlock returns [EObject current=null] : iv_ruleBlock= ruleBlock EOF ;
     public final EObject entryRuleBlock() throws RecognitionException {
         EObject current = null;
 
@@ -5989,8 +6361,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2519:46: (iv_ruleBlock= ruleBlock EOF )
-            // InternalRangoMode.g:2520:2: iv_ruleBlock= ruleBlock EOF
+            // InternalRangoMode.g:2669:46: (iv_ruleBlock= ruleBlock EOF )
+            // InternalRangoMode.g:2670:2: iv_ruleBlock= ruleBlock EOF
             {
              newCompositeNode(grammarAccess.getBlockRule()); 
             pushFollow(FOLLOW_1);
@@ -6017,7 +6389,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBlock"
-    // InternalRangoMode.g:2526:1: ruleBlock returns [EObject current=null] : (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? ) ;
+    // InternalRangoMode.g:2676:1: ruleBlock returns [EObject current=null] : (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? ) ;
     public final EObject ruleBlock() throws RecognitionException {
         EObject current = null;
 
@@ -6036,23 +6408,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2532:2: ( (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? ) )
-            // InternalRangoMode.g:2533:2: (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? )
+            // InternalRangoMode.g:2682:2: ( (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? ) )
+            // InternalRangoMode.g:2683:2: (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? )
             {
-            // InternalRangoMode.g:2533:2: (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? )
-            // InternalRangoMode.g:2534:3: otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )?
+            // InternalRangoMode.g:2683:2: (otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )? )
+            // InternalRangoMode.g:2684:3: otherlv_0= 'block' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'size' ( (lv_width_4_0= RULE_INT ) ) otherlv_5= 'by' ( (lv_height_6_0= RULE_INT ) ) (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )?
             {
-            otherlv_0=(Token)match(input,69,FOLLOW_3); 
+            otherlv_0=(Token)match(input,70,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getBlockAccess().getBlockKeyword_0());
             		
-            // InternalRangoMode.g:2538:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:2539:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:2688:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:2689:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:2539:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:2540:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:2689:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:2690:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_21); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_24); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getBlockAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -6078,7 +6450,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			}
             			newCompositeNode(grammarAccess.getBlockAccess().getAtParserRuleCall_2());
             		
-            pushFollow(FOLLOW_59);
+            pushFollow(FOLLOW_61);
             this_At_2=ruleAt(current);
 
             state._fsp--;
@@ -6087,17 +6459,17 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			current = this_At_2;
             			afterParserOrEnumRuleCall();
             		
-            otherlv_3=(Token)match(input,70,FOLLOW_10); 
+            otherlv_3=(Token)match(input,71,FOLLOW_10); 
 
             			newLeafNode(otherlv_3, grammarAccess.getBlockAccess().getSizeKeyword_3());
             		
-            // InternalRangoMode.g:2571:3: ( (lv_width_4_0= RULE_INT ) )
-            // InternalRangoMode.g:2572:4: (lv_width_4_0= RULE_INT )
+            // InternalRangoMode.g:2721:3: ( (lv_width_4_0= RULE_INT ) )
+            // InternalRangoMode.g:2722:4: (lv_width_4_0= RULE_INT )
             {
-            // InternalRangoMode.g:2572:4: (lv_width_4_0= RULE_INT )
-            // InternalRangoMode.g:2573:5: lv_width_4_0= RULE_INT
+            // InternalRangoMode.g:2722:4: (lv_width_4_0= RULE_INT )
+            // InternalRangoMode.g:2723:5: lv_width_4_0= RULE_INT
             {
-            lv_width_4_0=(Token)match(input,RULE_INT,FOLLOW_60); 
+            lv_width_4_0=(Token)match(input,RULE_INT,FOLLOW_62); 
 
             					newLeafNode(lv_width_4_0, grammarAccess.getBlockAccess().getWidthINTTerminalRuleCall_4_0());
             				
@@ -6117,17 +6489,17 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,71,FOLLOW_10); 
+            otherlv_5=(Token)match(input,72,FOLLOW_10); 
 
             			newLeafNode(otherlv_5, grammarAccess.getBlockAccess().getByKeyword_5());
             		
-            // InternalRangoMode.g:2593:3: ( (lv_height_6_0= RULE_INT ) )
-            // InternalRangoMode.g:2594:4: (lv_height_6_0= RULE_INT )
+            // InternalRangoMode.g:2743:3: ( (lv_height_6_0= RULE_INT ) )
+            // InternalRangoMode.g:2744:4: (lv_height_6_0= RULE_INT )
             {
-            // InternalRangoMode.g:2594:4: (lv_height_6_0= RULE_INT )
-            // InternalRangoMode.g:2595:5: lv_height_6_0= RULE_INT
+            // InternalRangoMode.g:2744:4: (lv_height_6_0= RULE_INT )
+            // InternalRangoMode.g:2745:5: lv_height_6_0= RULE_INT
             {
-            lv_height_6_0=(Token)match(input,RULE_INT,FOLLOW_61); 
+            lv_height_6_0=(Token)match(input,RULE_INT,FOLLOW_63); 
 
             					newLeafNode(lv_height_6_0, grammarAccess.getBlockAccess().getHeightINTTerminalRuleCall_6_0());
             				
@@ -6147,26 +6519,26 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2611:3: (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )?
-            int alt27=2;
-            int LA27_0 = input.LA(1);
+            // InternalRangoMode.g:2761:3: (otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )?
+            int alt28=2;
+            int LA28_0 = input.LA(1);
 
-            if ( (LA27_0==72) ) {
-                alt27=1;
+            if ( (LA28_0==73) ) {
+                alt28=1;
             }
-            switch (alt27) {
+            switch (alt28) {
                 case 1 :
-                    // InternalRangoMode.g:2612:4: otherlv_7= 'of' ( (otherlv_8= RULE_ID ) )
+                    // InternalRangoMode.g:2762:4: otherlv_7= 'of' ( (otherlv_8= RULE_ID ) )
                     {
-                    otherlv_7=(Token)match(input,72,FOLLOW_3); 
+                    otherlv_7=(Token)match(input,73,FOLLOW_3); 
 
                     				newLeafNode(otherlv_7, grammarAccess.getBlockAccess().getOfKeyword_7_0());
                     			
-                    // InternalRangoMode.g:2616:4: ( (otherlv_8= RULE_ID ) )
-                    // InternalRangoMode.g:2617:5: (otherlv_8= RULE_ID )
+                    // InternalRangoMode.g:2766:4: ( (otherlv_8= RULE_ID ) )
+                    // InternalRangoMode.g:2767:5: (otherlv_8= RULE_ID )
                     {
-                    // InternalRangoMode.g:2617:5: (otherlv_8= RULE_ID )
-                    // InternalRangoMode.g:2618:6: otherlv_8= RULE_ID
+                    // InternalRangoMode.g:2767:5: (otherlv_8= RULE_ID )
+                    // InternalRangoMode.g:2768:6: otherlv_8= RULE_ID
                     {
 
                     						if (current==null) {
@@ -6212,7 +6584,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleJumpPad"
-    // InternalRangoMode.g:2634:1: entryRuleJumpPad returns [EObject current=null] : iv_ruleJumpPad= ruleJumpPad EOF ;
+    // InternalRangoMode.g:2784:1: entryRuleJumpPad returns [EObject current=null] : iv_ruleJumpPad= ruleJumpPad EOF ;
     public final EObject entryRuleJumpPad() throws RecognitionException {
         EObject current = null;
 
@@ -6220,8 +6592,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2634:48: (iv_ruleJumpPad= ruleJumpPad EOF )
-            // InternalRangoMode.g:2635:2: iv_ruleJumpPad= ruleJumpPad EOF
+            // InternalRangoMode.g:2784:48: (iv_ruleJumpPad= ruleJumpPad EOF )
+            // InternalRangoMode.g:2785:2: iv_ruleJumpPad= ruleJumpPad EOF
             {
              newCompositeNode(grammarAccess.getJumpPadRule()); 
             pushFollow(FOLLOW_1);
@@ -6248,7 +6620,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleJumpPad"
-    // InternalRangoMode.g:2641:1: ruleJumpPad returns [EObject current=null] : (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) ;
+    // InternalRangoMode.g:2791:1: ruleJumpPad returns [EObject current=null] : (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) ;
     public final EObject ruleJumpPad() throws RecognitionException {
         EObject current = null;
 
@@ -6267,23 +6639,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2647:2: ( (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) )
-            // InternalRangoMode.g:2648:2: (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
+            // InternalRangoMode.g:2797:2: ( (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) )
+            // InternalRangoMode.g:2798:2: (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
             {
-            // InternalRangoMode.g:2648:2: (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
-            // InternalRangoMode.g:2649:3: otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
+            // InternalRangoMode.g:2798:2: (otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
+            // InternalRangoMode.g:2799:3: otherlv_0= 'jumppad' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'launch' ( (lv_launch_4_0= ruleDecimal ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
             {
-            otherlv_0=(Token)match(input,73,FOLLOW_3); 
+            otherlv_0=(Token)match(input,74,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getJumpPadAccess().getJumppadKeyword_0());
             		
-            // InternalRangoMode.g:2653:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:2654:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:2803:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:2804:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:2654:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:2655:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:2804:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:2805:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_21); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_24); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getJumpPadAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -6309,7 +6681,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			}
             			newCompositeNode(grammarAccess.getJumpPadAccess().getAtParserRuleCall_2());
             		
-            pushFollow(FOLLOW_62);
+            pushFollow(FOLLOW_64);
             this_At_2=ruleAt(current);
 
             state._fsp--;
@@ -6318,20 +6690,20 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			current = this_At_2;
             			afterParserOrEnumRuleCall();
             		
-            otherlv_3=(Token)match(input,74,FOLLOW_10); 
+            otherlv_3=(Token)match(input,75,FOLLOW_10); 
 
             			newLeafNode(otherlv_3, grammarAccess.getJumpPadAccess().getLaunchKeyword_3());
             		
-            // InternalRangoMode.g:2686:3: ( (lv_launch_4_0= ruleDecimal ) )
-            // InternalRangoMode.g:2687:4: (lv_launch_4_0= ruleDecimal )
+            // InternalRangoMode.g:2836:3: ( (lv_launch_4_0= ruleDecimal ) )
+            // InternalRangoMode.g:2837:4: (lv_launch_4_0= ruleDecimal )
             {
-            // InternalRangoMode.g:2687:4: (lv_launch_4_0= ruleDecimal )
-            // InternalRangoMode.g:2688:5: lv_launch_4_0= ruleDecimal
+            // InternalRangoMode.g:2837:4: (lv_launch_4_0= ruleDecimal )
+            // InternalRangoMode.g:2838:5: lv_launch_4_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getJumpPadAccess().getLaunchDecimalParserRuleCall_4_0());
             				
-            pushFollow(FOLLOW_63);
+            pushFollow(FOLLOW_65);
             lv_launch_4_0=ruleDecimal();
 
             state._fsp--;
@@ -6353,26 +6725,26 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2705:3: (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
-            int alt28=2;
-            int LA28_0 = input.LA(1);
+            // InternalRangoMode.g:2855:3: (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
+            int alt29=2;
+            int LA29_0 = input.LA(1);
 
-            if ( (LA28_0==75) ) {
-                alt28=1;
+            if ( (LA29_0==76) ) {
+                alt29=1;
             }
-            switch (alt28) {
+            switch (alt29) {
                 case 1 :
-                    // InternalRangoMode.g:2706:4: otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) )
+                    // InternalRangoMode.g:2856:4: otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) )
                     {
-                    otherlv_5=(Token)match(input,75,FOLLOW_64); 
+                    otherlv_5=(Token)match(input,76,FOLLOW_66); 
 
                     				newLeafNode(otherlv_5, grammarAccess.getJumpPadAccess().getAffectsKeyword_5_0());
                     			
-                    // InternalRangoMode.g:2710:4: ( (lv_affects_6_0= ruleTarget ) )
-                    // InternalRangoMode.g:2711:5: (lv_affects_6_0= ruleTarget )
+                    // InternalRangoMode.g:2860:4: ( (lv_affects_6_0= ruleTarget ) )
+                    // InternalRangoMode.g:2861:5: (lv_affects_6_0= ruleTarget )
                     {
-                    // InternalRangoMode.g:2711:5: (lv_affects_6_0= ruleTarget )
-                    // InternalRangoMode.g:2712:6: lv_affects_6_0= ruleTarget
+                    // InternalRangoMode.g:2861:5: (lv_affects_6_0= ruleTarget )
+                    // InternalRangoMode.g:2862:6: lv_affects_6_0= ruleTarget
                     {
 
                     						newCompositeNode(grammarAccess.getJumpPadAccess().getAffectsTargetEnumRuleCall_5_1_0());
@@ -6428,7 +6800,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTeleporter"
-    // InternalRangoMode.g:2734:1: entryRuleTeleporter returns [EObject current=null] : iv_ruleTeleporter= ruleTeleporter EOF ;
+    // InternalRangoMode.g:2884:1: entryRuleTeleporter returns [EObject current=null] : iv_ruleTeleporter= ruleTeleporter EOF ;
     public final EObject entryRuleTeleporter() throws RecognitionException {
         EObject current = null;
 
@@ -6436,8 +6808,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2734:51: (iv_ruleTeleporter= ruleTeleporter EOF )
-            // InternalRangoMode.g:2735:2: iv_ruleTeleporter= ruleTeleporter EOF
+            // InternalRangoMode.g:2884:51: (iv_ruleTeleporter= ruleTeleporter EOF )
+            // InternalRangoMode.g:2885:2: iv_ruleTeleporter= ruleTeleporter EOF
             {
              newCompositeNode(grammarAccess.getTeleporterRule()); 
             pushFollow(FOLLOW_1);
@@ -6464,7 +6836,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTeleporter"
-    // InternalRangoMode.g:2741:1: ruleTeleporter returns [EObject current=null] : (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) ;
+    // InternalRangoMode.g:2891:1: ruleTeleporter returns [EObject current=null] : (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) ;
     public final EObject ruleTeleporter() throws RecognitionException {
         EObject current = null;
 
@@ -6482,23 +6854,23 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2747:2: ( (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) )
-            // InternalRangoMode.g:2748:2: (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
+            // InternalRangoMode.g:2897:2: ( (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? ) )
+            // InternalRangoMode.g:2898:2: (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
             {
-            // InternalRangoMode.g:2748:2: (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
-            // InternalRangoMode.g:2749:3: otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
+            // InternalRangoMode.g:2898:2: (otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )? )
+            // InternalRangoMode.g:2899:3: otherlv_0= 'teleporter' ( (lv_name_1_0= RULE_ID ) ) this_At_2= ruleAt[$current] otherlv_3= 'to' ( (otherlv_4= RULE_ID ) ) (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
             {
-            otherlv_0=(Token)match(input,76,FOLLOW_3); 
+            otherlv_0=(Token)match(input,77,FOLLOW_3); 
 
             			newLeafNode(otherlv_0, grammarAccess.getTeleporterAccess().getTeleporterKeyword_0());
             		
-            // InternalRangoMode.g:2753:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalRangoMode.g:2754:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:2903:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalRangoMode.g:2904:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalRangoMode.g:2754:4: (lv_name_1_0= RULE_ID )
-            // InternalRangoMode.g:2755:5: lv_name_1_0= RULE_ID
+            // InternalRangoMode.g:2904:4: (lv_name_1_0= RULE_ID )
+            // InternalRangoMode.g:2905:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_21); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_24); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getTeleporterAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -6524,7 +6896,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			}
             			newCompositeNode(grammarAccess.getTeleporterAccess().getAtParserRuleCall_2());
             		
-            pushFollow(FOLLOW_48);
+            pushFollow(FOLLOW_50);
             this_At_2=ruleAt(current);
 
             state._fsp--;
@@ -6533,22 +6905,22 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			current = this_At_2;
             			afterParserOrEnumRuleCall();
             		
-            otherlv_3=(Token)match(input,58,FOLLOW_3); 
+            otherlv_3=(Token)match(input,59,FOLLOW_3); 
 
             			newLeafNode(otherlv_3, grammarAccess.getTeleporterAccess().getToKeyword_3());
             		
-            // InternalRangoMode.g:2786:3: ( (otherlv_4= RULE_ID ) )
-            // InternalRangoMode.g:2787:4: (otherlv_4= RULE_ID )
+            // InternalRangoMode.g:2936:3: ( (otherlv_4= RULE_ID ) )
+            // InternalRangoMode.g:2937:4: (otherlv_4= RULE_ID )
             {
-            // InternalRangoMode.g:2787:4: (otherlv_4= RULE_ID )
-            // InternalRangoMode.g:2788:5: otherlv_4= RULE_ID
+            // InternalRangoMode.g:2937:4: (otherlv_4= RULE_ID )
+            // InternalRangoMode.g:2938:5: otherlv_4= RULE_ID
             {
 
             					if (current==null) {
             						current = createModelElement(grammarAccess.getTeleporterRule());
             					}
             				
-            otherlv_4=(Token)match(input,RULE_ID,FOLLOW_63); 
+            otherlv_4=(Token)match(input,RULE_ID,FOLLOW_65); 
 
             					newLeafNode(otherlv_4, grammarAccess.getTeleporterAccess().getTargetTeleporterCrossReference_4_0());
             				
@@ -6558,26 +6930,26 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:2799:3: (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
-            int alt29=2;
-            int LA29_0 = input.LA(1);
+            // InternalRangoMode.g:2949:3: (otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) ) )?
+            int alt30=2;
+            int LA30_0 = input.LA(1);
 
-            if ( (LA29_0==75) ) {
-                alt29=1;
+            if ( (LA30_0==76) ) {
+                alt30=1;
             }
-            switch (alt29) {
+            switch (alt30) {
                 case 1 :
-                    // InternalRangoMode.g:2800:4: otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) )
+                    // InternalRangoMode.g:2950:4: otherlv_5= 'affects' ( (lv_affects_6_0= ruleTarget ) )
                     {
-                    otherlv_5=(Token)match(input,75,FOLLOW_64); 
+                    otherlv_5=(Token)match(input,76,FOLLOW_66); 
 
                     				newLeafNode(otherlv_5, grammarAccess.getTeleporterAccess().getAffectsKeyword_5_0());
                     			
-                    // InternalRangoMode.g:2804:4: ( (lv_affects_6_0= ruleTarget ) )
-                    // InternalRangoMode.g:2805:5: (lv_affects_6_0= ruleTarget )
+                    // InternalRangoMode.g:2954:4: ( (lv_affects_6_0= ruleTarget ) )
+                    // InternalRangoMode.g:2955:5: (lv_affects_6_0= ruleTarget )
                     {
-                    // InternalRangoMode.g:2805:5: (lv_affects_6_0= ruleTarget )
-                    // InternalRangoMode.g:2806:6: lv_affects_6_0= ruleTarget
+                    // InternalRangoMode.g:2955:5: (lv_affects_6_0= ruleTarget )
+                    // InternalRangoMode.g:2956:6: lv_affects_6_0= ruleTarget
                     {
 
                     						newCompositeNode(grammarAccess.getTeleporterAccess().getAffectsTargetEnumRuleCall_5_1_0());
@@ -6633,7 +7005,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSpawnStrategy"
-    // InternalRangoMode.g:2828:1: entryRuleSpawnStrategy returns [EObject current=null] : iv_ruleSpawnStrategy= ruleSpawnStrategy EOF ;
+    // InternalRangoMode.g:2978:1: entryRuleSpawnStrategy returns [EObject current=null] : iv_ruleSpawnStrategy= ruleSpawnStrategy EOF ;
     public final EObject entryRuleSpawnStrategy() throws RecognitionException {
         EObject current = null;
 
@@ -6641,8 +7013,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2828:54: (iv_ruleSpawnStrategy= ruleSpawnStrategy EOF )
-            // InternalRangoMode.g:2829:2: iv_ruleSpawnStrategy= ruleSpawnStrategy EOF
+            // InternalRangoMode.g:2978:54: (iv_ruleSpawnStrategy= ruleSpawnStrategy EOF )
+            // InternalRangoMode.g:2979:2: iv_ruleSpawnStrategy= ruleSpawnStrategy EOF
             {
              newCompositeNode(grammarAccess.getSpawnStrategyRule()); 
             pushFollow(FOLLOW_1);
@@ -6669,7 +7041,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSpawnStrategy"
-    // InternalRangoMode.g:2835:1: ruleSpawnStrategy returns [EObject current=null] : (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule ) ;
+    // InternalRangoMode.g:2985:1: ruleSpawnStrategy returns [EObject current=null] : (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule ) ;
     public final EObject ruleSpawnStrategy() throws RecognitionException {
         EObject current = null;
 
@@ -6682,28 +7054,28 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2841:2: ( (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule ) )
-            // InternalRangoMode.g:2842:2: (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule )
+            // InternalRangoMode.g:2991:2: ( (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule ) )
+            // InternalRangoMode.g:2992:2: (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule )
             {
-            // InternalRangoMode.g:2842:2: (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule )
-            int alt30=2;
-            int LA30_0 = input.LA(1);
+            // InternalRangoMode.g:2992:2: (this_FixedLayout_0= ruleFixedLayout | this_WaveSchedule_1= ruleWaveSchedule )
+            int alt31=2;
+            int LA31_0 = input.LA(1);
 
-            if ( (LA30_0==77) ) {
-                alt30=1;
+            if ( (LA31_0==78) ) {
+                alt31=1;
             }
-            else if ( (LA30_0==78) ) {
-                alt30=2;
+            else if ( (LA31_0==79) ) {
+                alt31=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 30, 0, input);
+                    new NoViableAltException("", 31, 0, input);
 
                 throw nvae;
             }
-            switch (alt30) {
+            switch (alt31) {
                 case 1 :
-                    // InternalRangoMode.g:2843:3: this_FixedLayout_0= ruleFixedLayout
+                    // InternalRangoMode.g:2993:3: this_FixedLayout_0= ruleFixedLayout
                     {
 
                     			newCompositeNode(grammarAccess.getSpawnStrategyAccess().getFixedLayoutParserRuleCall_0());
@@ -6721,7 +7093,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:2852:3: this_WaveSchedule_1= ruleWaveSchedule
+                    // InternalRangoMode.g:3002:3: this_WaveSchedule_1= ruleWaveSchedule
                     {
 
                     			newCompositeNode(grammarAccess.getSpawnStrategyAccess().getWaveScheduleParserRuleCall_1());
@@ -6761,7 +7133,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFixedLayout"
-    // InternalRangoMode.g:2864:1: entryRuleFixedLayout returns [EObject current=null] : iv_ruleFixedLayout= ruleFixedLayout EOF ;
+    // InternalRangoMode.g:3014:1: entryRuleFixedLayout returns [EObject current=null] : iv_ruleFixedLayout= ruleFixedLayout EOF ;
     public final EObject entryRuleFixedLayout() throws RecognitionException {
         EObject current = null;
 
@@ -6769,8 +7141,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2864:52: (iv_ruleFixedLayout= ruleFixedLayout EOF )
-            // InternalRangoMode.g:2865:2: iv_ruleFixedLayout= ruleFixedLayout EOF
+            // InternalRangoMode.g:3014:52: (iv_ruleFixedLayout= ruleFixedLayout EOF )
+            // InternalRangoMode.g:3015:2: iv_ruleFixedLayout= ruleFixedLayout EOF
             {
              newCompositeNode(grammarAccess.getFixedLayoutRule()); 
             pushFollow(FOLLOW_1);
@@ -6797,7 +7169,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFixedLayout"
-    // InternalRangoMode.g:2871:1: ruleFixedLayout returns [EObject current=null] : (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' ) ;
+    // InternalRangoMode.g:3021:1: ruleFixedLayout returns [EObject current=null] : (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' ) ;
     public final EObject ruleFixedLayout() throws RecognitionException {
         EObject current = null;
 
@@ -6811,43 +7183,43 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2877:2: ( (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' ) )
-            // InternalRangoMode.g:2878:2: (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' )
+            // InternalRangoMode.g:3027:2: ( (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' ) )
+            // InternalRangoMode.g:3028:2: (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' )
             {
-            // InternalRangoMode.g:2878:2: (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' )
-            // InternalRangoMode.g:2879:3: otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}'
+            // InternalRangoMode.g:3028:2: (otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}' )
+            // InternalRangoMode.g:3029:3: otherlv_0= 'layout' otherlv_1= '{' ( (lv_spawns_2_0= ruleEnemySpawn ) )+ otherlv_3= '}'
             {
-            otherlv_0=(Token)match(input,77,FOLLOW_6); 
+            otherlv_0=(Token)match(input,78,FOLLOW_7); 
 
             			newLeafNode(otherlv_0, grammarAccess.getFixedLayoutAccess().getLayoutKeyword_0());
             		
-            otherlv_1=(Token)match(input,13,FOLLOW_65); 
+            otherlv_1=(Token)match(input,13,FOLLOW_67); 
 
             			newLeafNode(otherlv_1, grammarAccess.getFixedLayoutAccess().getLeftCurlyBracketKeyword_1());
             		
-            // InternalRangoMode.g:2887:3: ( (lv_spawns_2_0= ruleEnemySpawn ) )+
-            int cnt31=0;
-            loop31:
+            // InternalRangoMode.g:3037:3: ( (lv_spawns_2_0= ruleEnemySpawn ) )+
+            int cnt32=0;
+            loop32:
             do {
-                int alt31=2;
-                int LA31_0 = input.LA(1);
+                int alt32=2;
+                int LA32_0 = input.LA(1);
 
-                if ( (LA31_0==RULE_ID||LA31_0==RULE_INT) ) {
-                    alt31=1;
+                if ( (LA32_0==RULE_ID||LA32_0==RULE_INT) ) {
+                    alt32=1;
                 }
 
 
-                switch (alt31) {
+                switch (alt32) {
             	case 1 :
-            	    // InternalRangoMode.g:2888:4: (lv_spawns_2_0= ruleEnemySpawn )
+            	    // InternalRangoMode.g:3038:4: (lv_spawns_2_0= ruleEnemySpawn )
             	    {
-            	    // InternalRangoMode.g:2888:4: (lv_spawns_2_0= ruleEnemySpawn )
-            	    // InternalRangoMode.g:2889:5: lv_spawns_2_0= ruleEnemySpawn
+            	    // InternalRangoMode.g:3038:4: (lv_spawns_2_0= ruleEnemySpawn )
+            	    // InternalRangoMode.g:3039:5: lv_spawns_2_0= ruleEnemySpawn
             	    {
 
             	    					newCompositeNode(grammarAccess.getFixedLayoutAccess().getSpawnsEnemySpawnParserRuleCall_2_0());
             	    				
-            	    pushFollow(FOLLOW_66);
+            	    pushFollow(FOLLOW_68);
             	    lv_spawns_2_0=ruleEnemySpawn();
 
             	    state._fsp--;
@@ -6871,15 +7243,15 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt31 >= 1 ) break loop31;
+            	    if ( cnt32 >= 1 ) break loop32;
                         EarlyExitException eee =
-                            new EarlyExitException(31, input);
+                            new EarlyExitException(32, input);
                         throw eee;
                 }
-                cnt31++;
+                cnt32++;
             } while (true);
 
-            otherlv_3=(Token)match(input,24,FOLLOW_2); 
+            otherlv_3=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getFixedLayoutAccess().getRightCurlyBracketKeyword_3());
             		
@@ -6906,7 +7278,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleWaveSchedule"
-    // InternalRangoMode.g:2914:1: entryRuleWaveSchedule returns [EObject current=null] : iv_ruleWaveSchedule= ruleWaveSchedule EOF ;
+    // InternalRangoMode.g:3064:1: entryRuleWaveSchedule returns [EObject current=null] : iv_ruleWaveSchedule= ruleWaveSchedule EOF ;
     public final EObject entryRuleWaveSchedule() throws RecognitionException {
         EObject current = null;
 
@@ -6914,8 +7286,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:2914:53: (iv_ruleWaveSchedule= ruleWaveSchedule EOF )
-            // InternalRangoMode.g:2915:2: iv_ruleWaveSchedule= ruleWaveSchedule EOF
+            // InternalRangoMode.g:3064:53: (iv_ruleWaveSchedule= ruleWaveSchedule EOF )
+            // InternalRangoMode.g:3065:2: iv_ruleWaveSchedule= ruleWaveSchedule EOF
             {
              newCompositeNode(grammarAccess.getWaveScheduleRule()); 
             pushFollow(FOLLOW_1);
@@ -6942,7 +7314,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleWaveSchedule"
-    // InternalRangoMode.g:2921:1: ruleWaveSchedule returns [EObject current=null] : (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' ) ;
+    // InternalRangoMode.g:3071:1: ruleWaveSchedule returns [EObject current=null] : (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' ) ;
     public final EObject ruleWaveSchedule() throws RecognitionException {
         EObject current = null;
 
@@ -6960,34 +7332,34 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:2927:2: ( (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' ) )
-            // InternalRangoMode.g:2928:2: (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' )
+            // InternalRangoMode.g:3077:2: ( (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' ) )
+            // InternalRangoMode.g:3078:2: (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' )
             {
-            // InternalRangoMode.g:2928:2: (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' )
-            // InternalRangoMode.g:2929:3: otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}'
+            // InternalRangoMode.g:3078:2: (otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}' )
+            // InternalRangoMode.g:3079:3: otherlv_0= 'waves' ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )? otherlv_5= '{' ( (lv_waves_6_0= ruleWave ) )+ otherlv_7= '}'
             {
-            otherlv_0=(Token)match(input,78,FOLLOW_67); 
+            otherlv_0=(Token)match(input,79,FOLLOW_69); 
 
             			newLeafNode(otherlv_0, grammarAccess.getWaveScheduleAccess().getWavesKeyword_0());
             		
-            // InternalRangoMode.g:2933:3: ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )?
-            int alt33=2;
-            int LA33_0 = input.LA(1);
+            // InternalRangoMode.g:3083:3: ( ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )? )?
+            int alt34=2;
+            int LA34_0 = input.LA(1);
 
-            if ( (LA33_0==79) ) {
-                alt33=1;
+            if ( (LA34_0==80) ) {
+                alt34=1;
             }
-            switch (alt33) {
+            switch (alt34) {
                 case 1 :
-                    // InternalRangoMode.g:2934:4: ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )?
+                    // InternalRangoMode.g:3084:4: ( (lv_loop_1_0= 'looping' ) ) (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )?
                     {
-                    // InternalRangoMode.g:2934:4: ( (lv_loop_1_0= 'looping' ) )
-                    // InternalRangoMode.g:2935:5: (lv_loop_1_0= 'looping' )
+                    // InternalRangoMode.g:3084:4: ( (lv_loop_1_0= 'looping' ) )
+                    // InternalRangoMode.g:3085:5: (lv_loop_1_0= 'looping' )
                     {
-                    // InternalRangoMode.g:2935:5: (lv_loop_1_0= 'looping' )
-                    // InternalRangoMode.g:2936:6: lv_loop_1_0= 'looping'
+                    // InternalRangoMode.g:3085:5: (lv_loop_1_0= 'looping' )
+                    // InternalRangoMode.g:3086:6: lv_loop_1_0= 'looping'
                     {
-                    lv_loop_1_0=(Token)match(input,79,FOLLOW_68); 
+                    lv_loop_1_0=(Token)match(input,80,FOLLOW_70); 
 
                     						newLeafNode(lv_loop_1_0, grammarAccess.getWaveScheduleAccess().getLoopLoopingKeyword_1_0_0());
                     					
@@ -7003,32 +7375,32 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalRangoMode.g:2948:4: (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )?
-                    int alt32=2;
-                    int LA32_0 = input.LA(1);
+                    // InternalRangoMode.g:3098:4: (otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) ) )?
+                    int alt33=2;
+                    int LA33_0 = input.LA(1);
 
-                    if ( (LA32_0==80) ) {
-                        alt32=1;
+                    if ( (LA33_0==81) ) {
+                        alt33=1;
                     }
-                    switch (alt32) {
+                    switch (alt33) {
                         case 1 :
-                            // InternalRangoMode.g:2949:5: otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) )
+                            // InternalRangoMode.g:3099:5: otherlv_2= 'escalate' otherlv_3= 'by' ( (lv_escalation_4_0= RULE_INT ) )
                             {
-                            otherlv_2=(Token)match(input,80,FOLLOW_60); 
+                            otherlv_2=(Token)match(input,81,FOLLOW_62); 
 
                             					newLeafNode(otherlv_2, grammarAccess.getWaveScheduleAccess().getEscalateKeyword_1_1_0());
                             				
-                            otherlv_3=(Token)match(input,71,FOLLOW_10); 
+                            otherlv_3=(Token)match(input,72,FOLLOW_10); 
 
                             					newLeafNode(otherlv_3, grammarAccess.getWaveScheduleAccess().getByKeyword_1_1_1());
                             				
-                            // InternalRangoMode.g:2957:5: ( (lv_escalation_4_0= RULE_INT ) )
-                            // InternalRangoMode.g:2958:6: (lv_escalation_4_0= RULE_INT )
+                            // InternalRangoMode.g:3107:5: ( (lv_escalation_4_0= RULE_INT ) )
+                            // InternalRangoMode.g:3108:6: (lv_escalation_4_0= RULE_INT )
                             {
-                            // InternalRangoMode.g:2958:6: (lv_escalation_4_0= RULE_INT )
-                            // InternalRangoMode.g:2959:7: lv_escalation_4_0= RULE_INT
+                            // InternalRangoMode.g:3108:6: (lv_escalation_4_0= RULE_INT )
+                            // InternalRangoMode.g:3109:7: lv_escalation_4_0= RULE_INT
                             {
-                            lv_escalation_4_0=(Token)match(input,RULE_INT,FOLLOW_6); 
+                            lv_escalation_4_0=(Token)match(input,RULE_INT,FOLLOW_7); 
 
                             							newLeafNode(lv_escalation_4_0, grammarAccess.getWaveScheduleAccess().getEscalationINTTerminalRuleCall_1_1_2_0());
                             						
@@ -7060,33 +7432,33 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,13,FOLLOW_69); 
+            otherlv_5=(Token)match(input,13,FOLLOW_71); 
 
             			newLeafNode(otherlv_5, grammarAccess.getWaveScheduleAccess().getLeftCurlyBracketKeyword_2());
             		
-            // InternalRangoMode.g:2981:3: ( (lv_waves_6_0= ruleWave ) )+
-            int cnt34=0;
-            loop34:
+            // InternalRangoMode.g:3131:3: ( (lv_waves_6_0= ruleWave ) )+
+            int cnt35=0;
+            loop35:
             do {
-                int alt34=2;
-                int LA34_0 = input.LA(1);
+                int alt35=2;
+                int LA35_0 = input.LA(1);
 
-                if ( (LA34_0==81) ) {
-                    alt34=1;
+                if ( (LA35_0==82) ) {
+                    alt35=1;
                 }
 
 
-                switch (alt34) {
+                switch (alt35) {
             	case 1 :
-            	    // InternalRangoMode.g:2982:4: (lv_waves_6_0= ruleWave )
+            	    // InternalRangoMode.g:3132:4: (lv_waves_6_0= ruleWave )
             	    {
-            	    // InternalRangoMode.g:2982:4: (lv_waves_6_0= ruleWave )
-            	    // InternalRangoMode.g:2983:5: lv_waves_6_0= ruleWave
+            	    // InternalRangoMode.g:3132:4: (lv_waves_6_0= ruleWave )
+            	    // InternalRangoMode.g:3133:5: lv_waves_6_0= ruleWave
             	    {
 
             	    					newCompositeNode(grammarAccess.getWaveScheduleAccess().getWavesWaveParserRuleCall_3_0());
             	    				
-            	    pushFollow(FOLLOW_70);
+            	    pushFollow(FOLLOW_72);
             	    lv_waves_6_0=ruleWave();
 
             	    state._fsp--;
@@ -7110,15 +7482,15 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt34 >= 1 ) break loop34;
+            	    if ( cnt35 >= 1 ) break loop35;
                         EarlyExitException eee =
-                            new EarlyExitException(34, input);
+                            new EarlyExitException(35, input);
                         throw eee;
                 }
-                cnt34++;
+                cnt35++;
             } while (true);
 
-            otherlv_7=(Token)match(input,24,FOLLOW_2); 
+            otherlv_7=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_7, grammarAccess.getWaveScheduleAccess().getRightCurlyBracketKeyword_4());
             		
@@ -7145,7 +7517,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleWave"
-    // InternalRangoMode.g:3008:1: entryRuleWave returns [EObject current=null] : iv_ruleWave= ruleWave EOF ;
+    // InternalRangoMode.g:3158:1: entryRuleWave returns [EObject current=null] : iv_ruleWave= ruleWave EOF ;
     public final EObject entryRuleWave() throws RecognitionException {
         EObject current = null;
 
@@ -7153,8 +7525,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3008:45: (iv_ruleWave= ruleWave EOF )
-            // InternalRangoMode.g:3009:2: iv_ruleWave= ruleWave EOF
+            // InternalRangoMode.g:3158:45: (iv_ruleWave= ruleWave EOF )
+            // InternalRangoMode.g:3159:2: iv_ruleWave= ruleWave EOF
             {
              newCompositeNode(grammarAccess.getWaveRule()); 
             pushFollow(FOLLOW_1);
@@ -7181,7 +7553,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleWave"
-    // InternalRangoMode.g:3015:1: ruleWave returns [EObject current=null] : (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' ) ;
+    // InternalRangoMode.g:3165:1: ruleWave returns [EObject current=null] : (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' ) ;
     public final EObject ruleWave() throws RecognitionException {
         EObject current = null;
 
@@ -7199,41 +7571,41 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3021:2: ( (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' ) )
-            // InternalRangoMode.g:3022:2: (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' )
+            // InternalRangoMode.g:3171:2: ( (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' ) )
+            // InternalRangoMode.g:3172:2: (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' )
             {
-            // InternalRangoMode.g:3022:2: (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' )
-            // InternalRangoMode.g:3023:3: otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}'
+            // InternalRangoMode.g:3172:2: (otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}' )
+            // InternalRangoMode.g:3173:3: otherlv_0= 'wave' (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )? otherlv_4= '{' ( (lv_spawns_5_0= ruleEnemySpawn ) )+ otherlv_6= '}'
             {
-            otherlv_0=(Token)match(input,81,FOLLOW_71); 
+            otherlv_0=(Token)match(input,82,FOLLOW_73); 
 
             			newLeafNode(otherlv_0, grammarAccess.getWaveAccess().getWaveKeyword_0());
             		
-            // InternalRangoMode.g:3027:3: (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )?
-            int alt35=2;
-            int LA35_0 = input.LA(1);
+            // InternalRangoMode.g:3177:3: (otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's' )?
+            int alt36=2;
+            int LA36_0 = input.LA(1);
 
-            if ( (LA35_0==82) ) {
-                alt35=1;
+            if ( (LA36_0==83) ) {
+                alt36=1;
             }
-            switch (alt35) {
+            switch (alt36) {
                 case 1 :
-                    // InternalRangoMode.g:3028:4: otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's'
+                    // InternalRangoMode.g:3178:4: otherlv_1= 'after' ( (lv_delay_2_0= ruleDecimal ) ) otherlv_3= 's'
                     {
-                    otherlv_1=(Token)match(input,82,FOLLOW_10); 
+                    otherlv_1=(Token)match(input,83,FOLLOW_10); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getWaveAccess().getAfterKeyword_1_0());
                     			
-                    // InternalRangoMode.g:3032:4: ( (lv_delay_2_0= ruleDecimal ) )
-                    // InternalRangoMode.g:3033:5: (lv_delay_2_0= ruleDecimal )
+                    // InternalRangoMode.g:3182:4: ( (lv_delay_2_0= ruleDecimal ) )
+                    // InternalRangoMode.g:3183:5: (lv_delay_2_0= ruleDecimal )
                     {
-                    // InternalRangoMode.g:3033:5: (lv_delay_2_0= ruleDecimal )
-                    // InternalRangoMode.g:3034:6: lv_delay_2_0= ruleDecimal
+                    // InternalRangoMode.g:3183:5: (lv_delay_2_0= ruleDecimal )
+                    // InternalRangoMode.g:3184:6: lv_delay_2_0= ruleDecimal
                     {
 
                     						newCompositeNode(grammarAccess.getWaveAccess().getDelayDecimalParserRuleCall_1_1_0());
                     					
-                    pushFollow(FOLLOW_23);
+                    pushFollow(FOLLOW_26);
                     lv_delay_2_0=ruleDecimal();
 
                     state._fsp--;
@@ -7255,7 +7627,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,34,FOLLOW_6); 
+                    otherlv_3=(Token)match(input,36,FOLLOW_7); 
 
                     				newLeafNode(otherlv_3, grammarAccess.getWaveAccess().getSKeyword_1_2());
                     			
@@ -7265,33 +7637,33 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,13,FOLLOW_65); 
+            otherlv_4=(Token)match(input,13,FOLLOW_67); 
 
             			newLeafNode(otherlv_4, grammarAccess.getWaveAccess().getLeftCurlyBracketKeyword_2());
             		
-            // InternalRangoMode.g:3060:3: ( (lv_spawns_5_0= ruleEnemySpawn ) )+
-            int cnt36=0;
-            loop36:
+            // InternalRangoMode.g:3210:3: ( (lv_spawns_5_0= ruleEnemySpawn ) )+
+            int cnt37=0;
+            loop37:
             do {
-                int alt36=2;
-                int LA36_0 = input.LA(1);
+                int alt37=2;
+                int LA37_0 = input.LA(1);
 
-                if ( (LA36_0==RULE_ID||LA36_0==RULE_INT) ) {
-                    alt36=1;
+                if ( (LA37_0==RULE_ID||LA37_0==RULE_INT) ) {
+                    alt37=1;
                 }
 
 
-                switch (alt36) {
+                switch (alt37) {
             	case 1 :
-            	    // InternalRangoMode.g:3061:4: (lv_spawns_5_0= ruleEnemySpawn )
+            	    // InternalRangoMode.g:3211:4: (lv_spawns_5_0= ruleEnemySpawn )
             	    {
-            	    // InternalRangoMode.g:3061:4: (lv_spawns_5_0= ruleEnemySpawn )
-            	    // InternalRangoMode.g:3062:5: lv_spawns_5_0= ruleEnemySpawn
+            	    // InternalRangoMode.g:3211:4: (lv_spawns_5_0= ruleEnemySpawn )
+            	    // InternalRangoMode.g:3212:5: lv_spawns_5_0= ruleEnemySpawn
             	    {
 
             	    					newCompositeNode(grammarAccess.getWaveAccess().getSpawnsEnemySpawnParserRuleCall_3_0());
             	    				
-            	    pushFollow(FOLLOW_66);
+            	    pushFollow(FOLLOW_68);
             	    lv_spawns_5_0=ruleEnemySpawn();
 
             	    state._fsp--;
@@ -7315,15 +7687,15 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt36 >= 1 ) break loop36;
+            	    if ( cnt37 >= 1 ) break loop37;
                         EarlyExitException eee =
-                            new EarlyExitException(36, input);
+                            new EarlyExitException(37, input);
                         throw eee;
                 }
-                cnt36++;
+                cnt37++;
             } while (true);
 
-            otherlv_6=(Token)match(input,24,FOLLOW_2); 
+            otherlv_6=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_6, grammarAccess.getWaveAccess().getRightCurlyBracketKeyword_4());
             		
@@ -7350,7 +7722,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEnemySpawn"
-    // InternalRangoMode.g:3087:1: entryRuleEnemySpawn returns [EObject current=null] : iv_ruleEnemySpawn= ruleEnemySpawn EOF ;
+    // InternalRangoMode.g:3237:1: entryRuleEnemySpawn returns [EObject current=null] : iv_ruleEnemySpawn= ruleEnemySpawn EOF ;
     public final EObject entryRuleEnemySpawn() throws RecognitionException {
         EObject current = null;
 
@@ -7358,8 +7730,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3087:51: (iv_ruleEnemySpawn= ruleEnemySpawn EOF )
-            // InternalRangoMode.g:3088:2: iv_ruleEnemySpawn= ruleEnemySpawn EOF
+            // InternalRangoMode.g:3237:51: (iv_ruleEnemySpawn= ruleEnemySpawn EOF )
+            // InternalRangoMode.g:3238:2: iv_ruleEnemySpawn= ruleEnemySpawn EOF
             {
              newCompositeNode(grammarAccess.getEnemySpawnRule()); 
             pushFollow(FOLLOW_1);
@@ -7386,7 +7758,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnemySpawn"
-    // InternalRangoMode.g:3094:1: ruleEnemySpawn returns [EObject current=null] : ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? ) ;
+    // InternalRangoMode.g:3244:1: ruleEnemySpawn returns [EObject current=null] : ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? ) ;
     public final EObject ruleEnemySpawn() throws RecognitionException {
         EObject current = null;
 
@@ -7405,30 +7777,30 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3100:2: ( ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? ) )
-            // InternalRangoMode.g:3101:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? )
+            // InternalRangoMode.g:3250:2: ( ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? ) )
+            // InternalRangoMode.g:3251:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? )
             {
-            // InternalRangoMode.g:3101:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? )
-            // InternalRangoMode.g:3102:3: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )?
+            // InternalRangoMode.g:3251:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )? )
+            // InternalRangoMode.g:3252:3: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )? ( (otherlv_2= RULE_ID ) ) otherlv_3= 'size' ( (lv_size_4_0= RULE_INT ) ) this_At_5= ruleAt[$current] (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )?
             {
-            // InternalRangoMode.g:3102:3: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )?
-            int alt37=2;
-            int LA37_0 = input.LA(1);
+            // InternalRangoMode.g:3252:3: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*' )?
+            int alt38=2;
+            int LA38_0 = input.LA(1);
 
-            if ( (LA37_0==RULE_INT) ) {
-                alt37=1;
+            if ( (LA38_0==RULE_INT) ) {
+                alt38=1;
             }
-            switch (alt37) {
+            switch (alt38) {
                 case 1 :
-                    // InternalRangoMode.g:3103:4: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*'
+                    // InternalRangoMode.g:3253:4: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= '*'
                     {
-                    // InternalRangoMode.g:3103:4: ( (lv_count_0_0= RULE_INT ) )
-                    // InternalRangoMode.g:3104:5: (lv_count_0_0= RULE_INT )
+                    // InternalRangoMode.g:3253:4: ( (lv_count_0_0= RULE_INT ) )
+                    // InternalRangoMode.g:3254:5: (lv_count_0_0= RULE_INT )
                     {
-                    // InternalRangoMode.g:3104:5: (lv_count_0_0= RULE_INT )
-                    // InternalRangoMode.g:3105:6: lv_count_0_0= RULE_INT
+                    // InternalRangoMode.g:3254:5: (lv_count_0_0= RULE_INT )
+                    // InternalRangoMode.g:3255:6: lv_count_0_0= RULE_INT
                     {
-                    lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_24); 
+                    lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_9); 
 
                     						newLeafNode(lv_count_0_0, grammarAccess.getEnemySpawnAccess().getCountINTTerminalRuleCall_0_0_0());
                     					
@@ -7448,7 +7820,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,35,FOLLOW_3); 
+                    otherlv_1=(Token)match(input,15,FOLLOW_3); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getEnemySpawnAccess().getAsteriskKeyword_0_1());
                     			
@@ -7458,18 +7830,18 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:3126:3: ( (otherlv_2= RULE_ID ) )
-            // InternalRangoMode.g:3127:4: (otherlv_2= RULE_ID )
+            // InternalRangoMode.g:3276:3: ( (otherlv_2= RULE_ID ) )
+            // InternalRangoMode.g:3277:4: (otherlv_2= RULE_ID )
             {
-            // InternalRangoMode.g:3127:4: (otherlv_2= RULE_ID )
-            // InternalRangoMode.g:3128:5: otherlv_2= RULE_ID
+            // InternalRangoMode.g:3277:4: (otherlv_2= RULE_ID )
+            // InternalRangoMode.g:3278:5: otherlv_2= RULE_ID
             {
 
             					if (current==null) {
             						current = createModelElement(grammarAccess.getEnemySpawnRule());
             					}
             				
-            otherlv_2=(Token)match(input,RULE_ID,FOLLOW_59); 
+            otherlv_2=(Token)match(input,RULE_ID,FOLLOW_61); 
 
             					newLeafNode(otherlv_2, grammarAccess.getEnemySpawnAccess().getTypeEnemyTypeCrossReference_1_0());
             				
@@ -7479,17 +7851,17 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,70,FOLLOW_10); 
+            otherlv_3=(Token)match(input,71,FOLLOW_10); 
 
             			newLeafNode(otherlv_3, grammarAccess.getEnemySpawnAccess().getSizeKeyword_2());
             		
-            // InternalRangoMode.g:3143:3: ( (lv_size_4_0= RULE_INT ) )
-            // InternalRangoMode.g:3144:4: (lv_size_4_0= RULE_INT )
+            // InternalRangoMode.g:3293:3: ( (lv_size_4_0= RULE_INT ) )
+            // InternalRangoMode.g:3294:4: (lv_size_4_0= RULE_INT )
             {
-            // InternalRangoMode.g:3144:4: (lv_size_4_0= RULE_INT )
-            // InternalRangoMode.g:3145:5: lv_size_4_0= RULE_INT
+            // InternalRangoMode.g:3294:4: (lv_size_4_0= RULE_INT )
+            // InternalRangoMode.g:3295:5: lv_size_4_0= RULE_INT
             {
-            lv_size_4_0=(Token)match(input,RULE_INT,FOLLOW_21); 
+            lv_size_4_0=(Token)match(input,RULE_INT,FOLLOW_24); 
 
             					newLeafNode(lv_size_4_0, grammarAccess.getEnemySpawnAccess().getSizeINTTerminalRuleCall_3_0());
             				
@@ -7515,7 +7887,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			}
             			newCompositeNode(grammarAccess.getEnemySpawnAccess().getAtParserRuleCall_4());
             		
-            pushFollow(FOLLOW_72);
+            pushFollow(FOLLOW_74);
             this_At_5=ruleAt(current);
 
             state._fsp--;
@@ -7524,26 +7896,26 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             			current = this_At_5;
             			afterParserOrEnumRuleCall();
             		
-            // InternalRangoMode.g:3172:3: (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )?
-            int alt38=2;
-            int LA38_0 = input.LA(1);
+            // InternalRangoMode.g:3322:3: (otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) ) )?
+            int alt39=2;
+            int LA39_0 = input.LA(1);
 
-            if ( (LA38_0==83) ) {
-                alt38=1;
+            if ( (LA39_0==84) ) {
+                alt39=1;
             }
-            switch (alt38) {
+            switch (alt39) {
                 case 1 :
-                    // InternalRangoMode.g:3173:4: otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) )
+                    // InternalRangoMode.g:3323:4: otherlv_6= 'moving' ( (lv_direction_7_0= ruleDirection ) )
                     {
-                    otherlv_6=(Token)match(input,83,FOLLOW_73); 
+                    otherlv_6=(Token)match(input,84,FOLLOW_75); 
 
                     				newLeafNode(otherlv_6, grammarAccess.getEnemySpawnAccess().getMovingKeyword_5_0());
                     			
-                    // InternalRangoMode.g:3177:4: ( (lv_direction_7_0= ruleDirection ) )
-                    // InternalRangoMode.g:3178:5: (lv_direction_7_0= ruleDirection )
+                    // InternalRangoMode.g:3327:4: ( (lv_direction_7_0= ruleDirection ) )
+                    // InternalRangoMode.g:3328:5: (lv_direction_7_0= ruleDirection )
                     {
-                    // InternalRangoMode.g:3178:5: (lv_direction_7_0= ruleDirection )
-                    // InternalRangoMode.g:3179:6: lv_direction_7_0= ruleDirection
+                    // InternalRangoMode.g:3328:5: (lv_direction_7_0= ruleDirection )
+                    // InternalRangoMode.g:3329:6: lv_direction_7_0= ruleDirection
                     {
 
                     						newCompositeNode(grammarAccess.getEnemySpawnAccess().getDirectionDirectionEnumRuleCall_5_1_0());
@@ -7599,7 +7971,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDrops"
-    // InternalRangoMode.g:3202:1: ruleDrops[EObject in_current] returns [EObject current=in_current] : (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' ) ;
+    // InternalRangoMode.g:3352:1: ruleDrops[EObject in_current] returns [EObject current=in_current] : (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' ) ;
     public final EObject ruleDrops(EObject in_current) throws RecognitionException {
         EObject current = in_current;
 
@@ -7613,13 +7985,13 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3208:2: ( (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' ) )
-            // InternalRangoMode.g:3209:2: (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' )
+            // InternalRangoMode.g:3358:2: ( (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' ) )
+            // InternalRangoMode.g:3359:2: (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' )
             {
-            // InternalRangoMode.g:3209:2: (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' )
-            // InternalRangoMode.g:3210:3: otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}'
+            // InternalRangoMode.g:3359:2: (otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}' )
+            // InternalRangoMode.g:3360:3: otherlv_0= 'drops' otherlv_1= '{' ( (lv_drops_2_0= ruleDropTable ) )+ otherlv_3= '}'
             {
-            otherlv_0=(Token)match(input,84,FOLLOW_6); 
+            otherlv_0=(Token)match(input,85,FOLLOW_7); 
 
             			newLeafNode(otherlv_0, grammarAccess.getDropsAccess().getDropsKeyword_0());
             		
@@ -7627,29 +7999,29 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_1, grammarAccess.getDropsAccess().getLeftCurlyBracketKeyword_1());
             		
-            // InternalRangoMode.g:3218:3: ( (lv_drops_2_0= ruleDropTable ) )+
-            int cnt39=0;
-            loop39:
+            // InternalRangoMode.g:3368:3: ( (lv_drops_2_0= ruleDropTable ) )+
+            int cnt40=0;
+            loop40:
             do {
-                int alt39=2;
-                int LA39_0 = input.LA(1);
+                int alt40=2;
+                int LA40_0 = input.LA(1);
 
-                if ( (LA39_0==RULE_ID) ) {
-                    alt39=1;
+                if ( (LA40_0==RULE_ID) ) {
+                    alt40=1;
                 }
 
 
-                switch (alt39) {
+                switch (alt40) {
             	case 1 :
-            	    // InternalRangoMode.g:3219:4: (lv_drops_2_0= ruleDropTable )
+            	    // InternalRangoMode.g:3369:4: (lv_drops_2_0= ruleDropTable )
             	    {
-            	    // InternalRangoMode.g:3219:4: (lv_drops_2_0= ruleDropTable )
-            	    // InternalRangoMode.g:3220:5: lv_drops_2_0= ruleDropTable
+            	    // InternalRangoMode.g:3369:4: (lv_drops_2_0= ruleDropTable )
+            	    // InternalRangoMode.g:3370:5: lv_drops_2_0= ruleDropTable
             	    {
 
             	    					newCompositeNode(grammarAccess.getDropsAccess().getDropsDropTableParserRuleCall_2_0());
             	    				
-            	    pushFollow(FOLLOW_74);
+            	    pushFollow(FOLLOW_76);
             	    lv_drops_2_0=ruleDropTable();
 
             	    state._fsp--;
@@ -7673,15 +8045,15 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt39 >= 1 ) break loop39;
+            	    if ( cnt40 >= 1 ) break loop40;
                         EarlyExitException eee =
-                            new EarlyExitException(39, input);
+                            new EarlyExitException(40, input);
                         throw eee;
                 }
-                cnt39++;
+                cnt40++;
             } while (true);
 
-            otherlv_3=(Token)match(input,24,FOLLOW_2); 
+            otherlv_3=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getDropsAccess().getRightCurlyBracketKeyword_3());
             		
@@ -7708,7 +8080,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDropTable"
-    // InternalRangoMode.g:3245:1: entryRuleDropTable returns [EObject current=null] : iv_ruleDropTable= ruleDropTable EOF ;
+    // InternalRangoMode.g:3395:1: entryRuleDropTable returns [EObject current=null] : iv_ruleDropTable= ruleDropTable EOF ;
     public final EObject entryRuleDropTable() throws RecognitionException {
         EObject current = null;
 
@@ -7716,8 +8088,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3245:50: (iv_ruleDropTable= ruleDropTable EOF )
-            // InternalRangoMode.g:3246:2: iv_ruleDropTable= ruleDropTable EOF
+            // InternalRangoMode.g:3395:50: (iv_ruleDropTable= ruleDropTable EOF )
+            // InternalRangoMode.g:3396:2: iv_ruleDropTable= ruleDropTable EOF
             {
              newCompositeNode(grammarAccess.getDropTableRule()); 
             pushFollow(FOLLOW_1);
@@ -7744,7 +8116,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDropTable"
-    // InternalRangoMode.g:3252:1: ruleDropTable returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' ) ;
+    // InternalRangoMode.g:3402:1: ruleDropTable returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' ) ;
     public final EObject ruleDropTable() throws RecognitionException {
         EObject current = null;
 
@@ -7764,17 +8136,17 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3258:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' ) )
-            // InternalRangoMode.g:3259:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' )
+            // InternalRangoMode.g:3408:2: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' ) )
+            // InternalRangoMode.g:3409:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' )
             {
-            // InternalRangoMode.g:3259:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' )
-            // InternalRangoMode.g:3260:3: ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}'
+            // InternalRangoMode.g:3409:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}' )
+            // InternalRangoMode.g:3410:3: ( (otherlv_0= RULE_ID ) ) ( (lv_chance_1_0= ruleDecimal ) ) otherlv_2= '%' otherlv_3= '{' ( (lv_entries_4_0= ruleDrop ) ) (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )* otherlv_7= '}'
             {
-            // InternalRangoMode.g:3260:3: ( (otherlv_0= RULE_ID ) )
-            // InternalRangoMode.g:3261:4: (otherlv_0= RULE_ID )
+            // InternalRangoMode.g:3410:3: ( (otherlv_0= RULE_ID ) )
+            // InternalRangoMode.g:3411:4: (otherlv_0= RULE_ID )
             {
-            // InternalRangoMode.g:3261:4: (otherlv_0= RULE_ID )
-            // InternalRangoMode.g:3262:5: otherlv_0= RULE_ID
+            // InternalRangoMode.g:3411:4: (otherlv_0= RULE_ID )
+            // InternalRangoMode.g:3412:5: otherlv_0= RULE_ID
             {
 
             					if (current==null) {
@@ -7791,16 +8163,16 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:3273:3: ( (lv_chance_1_0= ruleDecimal ) )
-            // InternalRangoMode.g:3274:4: (lv_chance_1_0= ruleDecimal )
+            // InternalRangoMode.g:3423:3: ( (lv_chance_1_0= ruleDecimal ) )
+            // InternalRangoMode.g:3424:4: (lv_chance_1_0= ruleDecimal )
             {
-            // InternalRangoMode.g:3274:4: (lv_chance_1_0= ruleDecimal )
-            // InternalRangoMode.g:3275:5: lv_chance_1_0= ruleDecimal
+            // InternalRangoMode.g:3424:4: (lv_chance_1_0= ruleDecimal )
+            // InternalRangoMode.g:3425:5: lv_chance_1_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getDropTableAccess().getChanceDecimalParserRuleCall_1_0());
             				
-            pushFollow(FOLLOW_54);
+            pushFollow(FOLLOW_56);
             lv_chance_1_0=ruleDecimal();
 
             state._fsp--;
@@ -7822,7 +8194,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,66,FOLLOW_6); 
+            otherlv_2=(Token)match(input,67,FOLLOW_7); 
 
             			newLeafNode(otherlv_2, grammarAccess.getDropTableAccess().getPercentSignKeyword_2());
             		
@@ -7830,16 +8202,16 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_3, grammarAccess.getDropTableAccess().getLeftCurlyBracketKeyword_3());
             		
-            // InternalRangoMode.g:3300:3: ( (lv_entries_4_0= ruleDrop ) )
-            // InternalRangoMode.g:3301:4: (lv_entries_4_0= ruleDrop )
+            // InternalRangoMode.g:3450:3: ( (lv_entries_4_0= ruleDrop ) )
+            // InternalRangoMode.g:3451:4: (lv_entries_4_0= ruleDrop )
             {
-            // InternalRangoMode.g:3301:4: (lv_entries_4_0= ruleDrop )
-            // InternalRangoMode.g:3302:5: lv_entries_4_0= ruleDrop
+            // InternalRangoMode.g:3451:4: (lv_entries_4_0= ruleDrop )
+            // InternalRangoMode.g:3452:5: lv_entries_4_0= ruleDrop
             {
 
             					newCompositeNode(grammarAccess.getDropTableAccess().getEntriesDropParserRuleCall_4_0());
             				
-            pushFollow(FOLLOW_17);
+            pushFollow(FOLLOW_20);
             lv_entries_4_0=ruleDrop();
 
             state._fsp--;
@@ -7861,35 +8233,35 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:3319:3: (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )*
-            loop40:
+            // InternalRangoMode.g:3469:3: (otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) ) )*
+            loop41:
             do {
-                int alt40=2;
-                int LA40_0 = input.LA(1);
+                int alt41=2;
+                int LA41_0 = input.LA(1);
 
-                if ( (LA40_0==23) ) {
-                    alt40=1;
+                if ( (LA41_0==26) ) {
+                    alt41=1;
                 }
 
 
-                switch (alt40) {
+                switch (alt41) {
             	case 1 :
-            	    // InternalRangoMode.g:3320:4: otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) )
+            	    // InternalRangoMode.g:3470:4: otherlv_5= ',' ( (lv_entries_6_0= ruleDrop ) )
             	    {
-            	    otherlv_5=(Token)match(input,23,FOLLOW_3); 
+            	    otherlv_5=(Token)match(input,26,FOLLOW_3); 
 
             	    				newLeafNode(otherlv_5, grammarAccess.getDropTableAccess().getCommaKeyword_5_0());
             	    			
-            	    // InternalRangoMode.g:3324:4: ( (lv_entries_6_0= ruleDrop ) )
-            	    // InternalRangoMode.g:3325:5: (lv_entries_6_0= ruleDrop )
+            	    // InternalRangoMode.g:3474:4: ( (lv_entries_6_0= ruleDrop ) )
+            	    // InternalRangoMode.g:3475:5: (lv_entries_6_0= ruleDrop )
             	    {
-            	    // InternalRangoMode.g:3325:5: (lv_entries_6_0= ruleDrop )
-            	    // InternalRangoMode.g:3326:6: lv_entries_6_0= ruleDrop
+            	    // InternalRangoMode.g:3475:5: (lv_entries_6_0= ruleDrop )
+            	    // InternalRangoMode.g:3476:6: lv_entries_6_0= ruleDrop
             	    {
 
             	    						newCompositeNode(grammarAccess.getDropTableAccess().getEntriesDropParserRuleCall_5_1_0());
             	    					
-            	    pushFollow(FOLLOW_17);
+            	    pushFollow(FOLLOW_20);
             	    lv_entries_6_0=ruleDrop();
 
             	    state._fsp--;
@@ -7916,11 +8288,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop40;
+            	    break loop41;
                 }
             } while (true);
 
-            otherlv_7=(Token)match(input,24,FOLLOW_2); 
+            otherlv_7=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_7, grammarAccess.getDropTableAccess().getRightCurlyBracketKeyword_6());
             		
@@ -7947,7 +8319,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDrop"
-    // InternalRangoMode.g:3352:1: entryRuleDrop returns [EObject current=null] : iv_ruleDrop= ruleDrop EOF ;
+    // InternalRangoMode.g:3502:1: entryRuleDrop returns [EObject current=null] : iv_ruleDrop= ruleDrop EOF ;
     public final EObject entryRuleDrop() throws RecognitionException {
         EObject current = null;
 
@@ -7955,8 +8327,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3352:45: (iv_ruleDrop= ruleDrop EOF )
-            // InternalRangoMode.g:3353:2: iv_ruleDrop= ruleDrop EOF
+            // InternalRangoMode.g:3502:45: (iv_ruleDrop= ruleDrop EOF )
+            // InternalRangoMode.g:3503:2: iv_ruleDrop= ruleDrop EOF
             {
              newCompositeNode(grammarAccess.getDropRule()); 
             pushFollow(FOLLOW_1);
@@ -7983,7 +8355,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDrop"
-    // InternalRangoMode.g:3359:1: ruleDrop returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? ) ;
+    // InternalRangoMode.g:3509:1: ruleDrop returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? ) ;
     public final EObject ruleDrop() throws RecognitionException {
         EObject current = null;
 
@@ -7995,24 +8367,24 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3365:2: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? ) )
-            // InternalRangoMode.g:3366:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? )
+            // InternalRangoMode.g:3515:2: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? ) )
+            // InternalRangoMode.g:3516:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? )
             {
-            // InternalRangoMode.g:3366:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? )
-            // InternalRangoMode.g:3367:3: ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )?
+            // InternalRangoMode.g:3516:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )? )
+            // InternalRangoMode.g:3517:3: ( (otherlv_0= RULE_ID ) ) (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )?
             {
-            // InternalRangoMode.g:3367:3: ( (otherlv_0= RULE_ID ) )
-            // InternalRangoMode.g:3368:4: (otherlv_0= RULE_ID )
+            // InternalRangoMode.g:3517:3: ( (otherlv_0= RULE_ID ) )
+            // InternalRangoMode.g:3518:4: (otherlv_0= RULE_ID )
             {
-            // InternalRangoMode.g:3368:4: (otherlv_0= RULE_ID )
-            // InternalRangoMode.g:3369:5: otherlv_0= RULE_ID
+            // InternalRangoMode.g:3518:4: (otherlv_0= RULE_ID )
+            // InternalRangoMode.g:3519:5: otherlv_0= RULE_ID
             {
 
             					if (current==null) {
             						current = createModelElement(grammarAccess.getDropRule());
             					}
             				
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_75); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_77); 
 
             					newLeafNode(otherlv_0, grammarAccess.getDropAccess().getPowerUpPowerUpCrossReference_0_0());
             				
@@ -8022,26 +8394,26 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalRangoMode.g:3380:3: (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )?
-            int alt41=2;
-            int LA41_0 = input.LA(1);
+            // InternalRangoMode.g:3530:3: (otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) ) )?
+            int alt42=2;
+            int LA42_0 = input.LA(1);
 
-            if ( (LA41_0==85) ) {
-                alt41=1;
+            if ( (LA42_0==86) ) {
+                alt42=1;
             }
-            switch (alt41) {
+            switch (alt42) {
                 case 1 :
-                    // InternalRangoMode.g:3381:4: otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) )
+                    // InternalRangoMode.g:3531:4: otherlv_1= 'weight' ( (lv_weight_2_0= RULE_INT ) )
                     {
-                    otherlv_1=(Token)match(input,85,FOLLOW_10); 
+                    otherlv_1=(Token)match(input,86,FOLLOW_10); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getDropAccess().getWeightKeyword_1_0());
                     			
-                    // InternalRangoMode.g:3385:4: ( (lv_weight_2_0= RULE_INT ) )
-                    // InternalRangoMode.g:3386:5: (lv_weight_2_0= RULE_INT )
+                    // InternalRangoMode.g:3535:4: ( (lv_weight_2_0= RULE_INT ) )
+                    // InternalRangoMode.g:3536:5: (lv_weight_2_0= RULE_INT )
                     {
-                    // InternalRangoMode.g:3386:5: (lv_weight_2_0= RULE_INT )
-                    // InternalRangoMode.g:3387:6: lv_weight_2_0= RULE_INT
+                    // InternalRangoMode.g:3536:5: (lv_weight_2_0= RULE_INT )
+                    // InternalRangoMode.g:3537:6: lv_weight_2_0= RULE_INT
                     {
                     lv_weight_2_0=(Token)match(input,RULE_INT,FOLLOW_2); 
 
@@ -8092,7 +8464,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEndCondition"
-    // InternalRangoMode.g:3408:1: entryRuleEndCondition returns [EObject current=null] : iv_ruleEndCondition= ruleEndCondition EOF ;
+    // InternalRangoMode.g:3558:1: entryRuleEndCondition returns [EObject current=null] : iv_ruleEndCondition= ruleEndCondition EOF ;
     public final EObject entryRuleEndCondition() throws RecognitionException {
         EObject current = null;
 
@@ -8100,8 +8472,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3408:53: (iv_ruleEndCondition= ruleEndCondition EOF )
-            // InternalRangoMode.g:3409:2: iv_ruleEndCondition= ruleEndCondition EOF
+            // InternalRangoMode.g:3558:53: (iv_ruleEndCondition= ruleEndCondition EOF )
+            // InternalRangoMode.g:3559:2: iv_ruleEndCondition= ruleEndCondition EOF
             {
              newCompositeNode(grammarAccess.getEndConditionRule()); 
             pushFollow(FOLLOW_1);
@@ -8128,7 +8500,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEndCondition"
-    // InternalRangoMode.g:3415:1: ruleEndCondition returns [EObject current=null] : (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive ) ;
+    // InternalRangoMode.g:3565:1: ruleEndCondition returns [EObject current=null] : (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive ) ;
     public final EObject ruleEndCondition() throws RecognitionException {
         EObject current = null;
 
@@ -8151,15 +8523,15 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3421:2: ( (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive ) )
-            // InternalRangoMode.g:3422:2: (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive )
+            // InternalRangoMode.g:3571:2: ( (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive ) )
+            // InternalRangoMode.g:3572:2: (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive )
             {
-            // InternalRangoMode.g:3422:2: (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive )
-            int alt42=7;
-            alt42 = dfa42.predict(input);
-            switch (alt42) {
+            // InternalRangoMode.g:3572:2: (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive )
+            int alt43=7;
+            alt43 = dfa43.predict(input);
+            switch (alt43) {
                 case 1 :
-                    // InternalRangoMode.g:3423:3: this_Cleared_0= ruleCleared
+                    // InternalRangoMode.g:3573:3: this_Cleared_0= ruleCleared
                     {
 
                     			newCompositeNode(grammarAccess.getEndConditionAccess().getClearedParserRuleCall_0());
@@ -8177,7 +8549,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:3432:3: this_TimeReached_1= ruleTimeReached
+                    // InternalRangoMode.g:3582:3: this_TimeReached_1= ruleTimeReached
                     {
 
                     			newCompositeNode(grammarAccess.getEndConditionAccess().getTimeReachedParserRuleCall_1());
@@ -8195,7 +8567,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalRangoMode.g:3441:3: this_ScoreReached_2= ruleScoreReached
+                    // InternalRangoMode.g:3591:3: this_ScoreReached_2= ruleScoreReached
                     {
 
                     			newCompositeNode(grammarAccess.getEndConditionAccess().getScoreReachedParserRuleCall_2());
@@ -8213,7 +8585,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalRangoMode.g:3450:3: this_EnemiesPopped_3= ruleEnemiesPopped
+                    // InternalRangoMode.g:3600:3: this_EnemiesPopped_3= ruleEnemiesPopped
                     {
 
                     			newCompositeNode(grammarAccess.getEndConditionAccess().getEnemiesPoppedParserRuleCall_3());
@@ -8231,7 +8603,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalRangoMode.g:3459:3: this_WavesSurvived_4= ruleWavesSurvived
+                    // InternalRangoMode.g:3609:3: this_WavesSurvived_4= ruleWavesSurvived
                     {
 
                     			newCompositeNode(grammarAccess.getEndConditionAccess().getWavesSurvivedParserRuleCall_4());
@@ -8249,7 +8621,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalRangoMode.g:3468:3: this_HealthDepleted_5= ruleHealthDepleted
+                    // InternalRangoMode.g:3618:3: this_HealthDepleted_5= ruleHealthDepleted
                     {
 
                     			newCompositeNode(grammarAccess.getEndConditionAccess().getHealthDepletedParserRuleCall_5());
@@ -8267,7 +8639,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // InternalRangoMode.g:3477:3: this_EnemiesAlive_6= ruleEnemiesAlive
+                    // InternalRangoMode.g:3627:3: this_EnemiesAlive_6= ruleEnemiesAlive
                     {
 
                     			newCompositeNode(grammarAccess.getEndConditionAccess().getEnemiesAliveParserRuleCall_6());
@@ -8307,7 +8679,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCleared"
-    // InternalRangoMode.g:3489:1: entryRuleCleared returns [EObject current=null] : iv_ruleCleared= ruleCleared EOF ;
+    // InternalRangoMode.g:3639:1: entryRuleCleared returns [EObject current=null] : iv_ruleCleared= ruleCleared EOF ;
     public final EObject entryRuleCleared() throws RecognitionException {
         EObject current = null;
 
@@ -8315,8 +8687,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3489:48: (iv_ruleCleared= ruleCleared EOF )
-            // InternalRangoMode.g:3490:2: iv_ruleCleared= ruleCleared EOF
+            // InternalRangoMode.g:3639:48: (iv_ruleCleared= ruleCleared EOF )
+            // InternalRangoMode.g:3640:2: iv_ruleCleared= ruleCleared EOF
             {
              newCompositeNode(grammarAccess.getClearedRule()); 
             pushFollow(FOLLOW_1);
@@ -8343,7 +8715,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCleared"
-    // InternalRangoMode.g:3496:1: ruleCleared returns [EObject current=null] : ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' ) ;
+    // InternalRangoMode.g:3646:1: ruleCleared returns [EObject current=null] : ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' ) ;
     public final EObject ruleCleared() throws RecognitionException {
         EObject current = null;
 
@@ -8355,14 +8727,14 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3502:2: ( ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' ) )
-            // InternalRangoMode.g:3503:2: ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' )
+            // InternalRangoMode.g:3652:2: ( ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' ) )
+            // InternalRangoMode.g:3653:2: ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' )
             {
-            // InternalRangoMode.g:3503:2: ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' )
-            // InternalRangoMode.g:3504:3: () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared'
+            // InternalRangoMode.g:3653:2: ( () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared' )
+            // InternalRangoMode.g:3654:3: () otherlv_1= 'all' otherlv_2= 'enemies' otherlv_3= 'cleared'
             {
-            // InternalRangoMode.g:3504:3: ()
-            // InternalRangoMode.g:3505:4: 
+            // InternalRangoMode.g:3654:3: ()
+            // InternalRangoMode.g:3655:4: 
             {
 
             				current = forceCreateModelElement(
@@ -8372,15 +8744,15 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,86,FOLLOW_76); 
+            otherlv_1=(Token)match(input,87,FOLLOW_78); 
 
             			newLeafNode(otherlv_1, grammarAccess.getClearedAccess().getAllKeyword_1());
             		
-            otherlv_2=(Token)match(input,87,FOLLOW_77); 
+            otherlv_2=(Token)match(input,88,FOLLOW_79); 
 
             			newLeafNode(otherlv_2, grammarAccess.getClearedAccess().getEnemiesKeyword_2());
             		
-            otherlv_3=(Token)match(input,88,FOLLOW_2); 
+            otherlv_3=(Token)match(input,89,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getClearedAccess().getClearedKeyword_3());
             		
@@ -8407,7 +8779,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTimeReached"
-    // InternalRangoMode.g:3527:1: entryRuleTimeReached returns [EObject current=null] : iv_ruleTimeReached= ruleTimeReached EOF ;
+    // InternalRangoMode.g:3677:1: entryRuleTimeReached returns [EObject current=null] : iv_ruleTimeReached= ruleTimeReached EOF ;
     public final EObject entryRuleTimeReached() throws RecognitionException {
         EObject current = null;
 
@@ -8415,8 +8787,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3527:52: (iv_ruleTimeReached= ruleTimeReached EOF )
-            // InternalRangoMode.g:3528:2: iv_ruleTimeReached= ruleTimeReached EOF
+            // InternalRangoMode.g:3677:52: (iv_ruleTimeReached= ruleTimeReached EOF )
+            // InternalRangoMode.g:3678:2: iv_ruleTimeReached= ruleTimeReached EOF
             {
              newCompositeNode(grammarAccess.getTimeReachedRule()); 
             pushFollow(FOLLOW_1);
@@ -8443,7 +8815,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTimeReached"
-    // InternalRangoMode.g:3534:1: ruleTimeReached returns [EObject current=null] : (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' ) ;
+    // InternalRangoMode.g:3684:1: ruleTimeReached returns [EObject current=null] : (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' ) ;
     public final EObject ruleTimeReached() throws RecognitionException {
         EObject current = null;
 
@@ -8457,30 +8829,30 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3540:2: ( (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' ) )
-            // InternalRangoMode.g:3541:2: (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' )
+            // InternalRangoMode.g:3690:2: ( (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' ) )
+            // InternalRangoMode.g:3691:2: (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' )
             {
-            // InternalRangoMode.g:3541:2: (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' )
-            // InternalRangoMode.g:3542:3: otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's'
+            // InternalRangoMode.g:3691:2: (otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's' )
+            // InternalRangoMode.g:3692:3: otherlv_0= 'time' otherlv_1= 'reaches' ( (lv_seconds_2_0= ruleDecimal ) ) otherlv_3= 's'
             {
-            otherlv_0=(Token)match(input,89,FOLLOW_78); 
+            otherlv_0=(Token)match(input,90,FOLLOW_80); 
 
             			newLeafNode(otherlv_0, grammarAccess.getTimeReachedAccess().getTimeKeyword_0());
             		
-            otherlv_1=(Token)match(input,90,FOLLOW_10); 
+            otherlv_1=(Token)match(input,91,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getTimeReachedAccess().getReachesKeyword_1());
             		
-            // InternalRangoMode.g:3550:3: ( (lv_seconds_2_0= ruleDecimal ) )
-            // InternalRangoMode.g:3551:4: (lv_seconds_2_0= ruleDecimal )
+            // InternalRangoMode.g:3700:3: ( (lv_seconds_2_0= ruleDecimal ) )
+            // InternalRangoMode.g:3701:4: (lv_seconds_2_0= ruleDecimal )
             {
-            // InternalRangoMode.g:3551:4: (lv_seconds_2_0= ruleDecimal )
-            // InternalRangoMode.g:3552:5: lv_seconds_2_0= ruleDecimal
+            // InternalRangoMode.g:3701:4: (lv_seconds_2_0= ruleDecimal )
+            // InternalRangoMode.g:3702:5: lv_seconds_2_0= ruleDecimal
             {
 
             					newCompositeNode(grammarAccess.getTimeReachedAccess().getSecondsDecimalParserRuleCall_2_0());
             				
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_26);
             lv_seconds_2_0=ruleDecimal();
 
             state._fsp--;
@@ -8502,7 +8874,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,34,FOLLOW_2); 
+            otherlv_3=(Token)match(input,36,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getTimeReachedAccess().getSKeyword_3());
             		
@@ -8529,7 +8901,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleScoreReached"
-    // InternalRangoMode.g:3577:1: entryRuleScoreReached returns [EObject current=null] : iv_ruleScoreReached= ruleScoreReached EOF ;
+    // InternalRangoMode.g:3727:1: entryRuleScoreReached returns [EObject current=null] : iv_ruleScoreReached= ruleScoreReached EOF ;
     public final EObject entryRuleScoreReached() throws RecognitionException {
         EObject current = null;
 
@@ -8537,8 +8909,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3577:53: (iv_ruleScoreReached= ruleScoreReached EOF )
-            // InternalRangoMode.g:3578:2: iv_ruleScoreReached= ruleScoreReached EOF
+            // InternalRangoMode.g:3727:53: (iv_ruleScoreReached= ruleScoreReached EOF )
+            // InternalRangoMode.g:3728:2: iv_ruleScoreReached= ruleScoreReached EOF
             {
              newCompositeNode(grammarAccess.getScoreReachedRule()); 
             pushFollow(FOLLOW_1);
@@ -8565,7 +8937,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleScoreReached"
-    // InternalRangoMode.g:3584:1: ruleScoreReached returns [EObject current=null] : (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) ) ;
+    // InternalRangoMode.g:3734:1: ruleScoreReached returns [EObject current=null] : (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) ) ;
     public final EObject ruleScoreReached() throws RecognitionException {
         EObject current = null;
 
@@ -8577,25 +8949,25 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3590:2: ( (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) ) )
-            // InternalRangoMode.g:3591:2: (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) )
+            // InternalRangoMode.g:3740:2: ( (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) ) )
+            // InternalRangoMode.g:3741:2: (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) )
             {
-            // InternalRangoMode.g:3591:2: (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) )
-            // InternalRangoMode.g:3592:3: otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) )
+            // InternalRangoMode.g:3741:2: (otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) ) )
+            // InternalRangoMode.g:3742:3: otherlv_0= 'score' otherlv_1= 'reaches' ( (lv_points_2_0= RULE_INT ) )
             {
-            otherlv_0=(Token)match(input,91,FOLLOW_78); 
+            otherlv_0=(Token)match(input,92,FOLLOW_80); 
 
             			newLeafNode(otherlv_0, grammarAccess.getScoreReachedAccess().getScoreKeyword_0());
             		
-            otherlv_1=(Token)match(input,90,FOLLOW_10); 
+            otherlv_1=(Token)match(input,91,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getScoreReachedAccess().getReachesKeyword_1());
             		
-            // InternalRangoMode.g:3600:3: ( (lv_points_2_0= RULE_INT ) )
-            // InternalRangoMode.g:3601:4: (lv_points_2_0= RULE_INT )
+            // InternalRangoMode.g:3750:3: ( (lv_points_2_0= RULE_INT ) )
+            // InternalRangoMode.g:3751:4: (lv_points_2_0= RULE_INT )
             {
-            // InternalRangoMode.g:3601:4: (lv_points_2_0= RULE_INT )
-            // InternalRangoMode.g:3602:5: lv_points_2_0= RULE_INT
+            // InternalRangoMode.g:3751:4: (lv_points_2_0= RULE_INT )
+            // InternalRangoMode.g:3752:5: lv_points_2_0= RULE_INT
             {
             lv_points_2_0=(Token)match(input,RULE_INT,FOLLOW_2); 
 
@@ -8640,7 +9012,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEnemiesPopped"
-    // InternalRangoMode.g:3622:1: entryRuleEnemiesPopped returns [EObject current=null] : iv_ruleEnemiesPopped= ruleEnemiesPopped EOF ;
+    // InternalRangoMode.g:3772:1: entryRuleEnemiesPopped returns [EObject current=null] : iv_ruleEnemiesPopped= ruleEnemiesPopped EOF ;
     public final EObject entryRuleEnemiesPopped() throws RecognitionException {
         EObject current = null;
 
@@ -8648,8 +9020,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3622:54: (iv_ruleEnemiesPopped= ruleEnemiesPopped EOF )
-            // InternalRangoMode.g:3623:2: iv_ruleEnemiesPopped= ruleEnemiesPopped EOF
+            // InternalRangoMode.g:3772:54: (iv_ruleEnemiesPopped= ruleEnemiesPopped EOF )
+            // InternalRangoMode.g:3773:2: iv_ruleEnemiesPopped= ruleEnemiesPopped EOF
             {
              newCompositeNode(grammarAccess.getEnemiesPoppedRule()); 
             pushFollow(FOLLOW_1);
@@ -8676,7 +9048,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnemiesPopped"
-    // InternalRangoMode.g:3629:1: ruleEnemiesPopped returns [EObject current=null] : ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' ) ;
+    // InternalRangoMode.g:3779:1: ruleEnemiesPopped returns [EObject current=null] : ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' ) ;
     public final EObject ruleEnemiesPopped() throws RecognitionException {
         EObject current = null;
 
@@ -8688,19 +9060,19 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3635:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' ) )
-            // InternalRangoMode.g:3636:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' )
+            // InternalRangoMode.g:3785:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' ) )
+            // InternalRangoMode.g:3786:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' )
             {
-            // InternalRangoMode.g:3636:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' )
-            // InternalRangoMode.g:3637:3: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped'
+            // InternalRangoMode.g:3786:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped' )
+            // InternalRangoMode.g:3787:3: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'popped'
             {
-            // InternalRangoMode.g:3637:3: ( (lv_count_0_0= RULE_INT ) )
-            // InternalRangoMode.g:3638:4: (lv_count_0_0= RULE_INT )
+            // InternalRangoMode.g:3787:3: ( (lv_count_0_0= RULE_INT ) )
+            // InternalRangoMode.g:3788:4: (lv_count_0_0= RULE_INT )
             {
-            // InternalRangoMode.g:3638:4: (lv_count_0_0= RULE_INT )
-            // InternalRangoMode.g:3639:5: lv_count_0_0= RULE_INT
+            // InternalRangoMode.g:3788:4: (lv_count_0_0= RULE_INT )
+            // InternalRangoMode.g:3789:5: lv_count_0_0= RULE_INT
             {
-            lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_76); 
+            lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_78); 
 
             					newLeafNode(lv_count_0_0, grammarAccess.getEnemiesPoppedAccess().getCountINTTerminalRuleCall_0_0());
             				
@@ -8720,11 +9092,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,87,FOLLOW_79); 
+            otherlv_1=(Token)match(input,88,FOLLOW_81); 
 
             			newLeafNode(otherlv_1, grammarAccess.getEnemiesPoppedAccess().getEnemiesKeyword_1());
             		
-            otherlv_2=(Token)match(input,92,FOLLOW_2); 
+            otherlv_2=(Token)match(input,93,FOLLOW_2); 
 
             			newLeafNode(otherlv_2, grammarAccess.getEnemiesPoppedAccess().getPoppedKeyword_2());
             		
@@ -8751,7 +9123,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleWavesSurvived"
-    // InternalRangoMode.g:3667:1: entryRuleWavesSurvived returns [EObject current=null] : iv_ruleWavesSurvived= ruleWavesSurvived EOF ;
+    // InternalRangoMode.g:3817:1: entryRuleWavesSurvived returns [EObject current=null] : iv_ruleWavesSurvived= ruleWavesSurvived EOF ;
     public final EObject entryRuleWavesSurvived() throws RecognitionException {
         EObject current = null;
 
@@ -8759,8 +9131,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3667:54: (iv_ruleWavesSurvived= ruleWavesSurvived EOF )
-            // InternalRangoMode.g:3668:2: iv_ruleWavesSurvived= ruleWavesSurvived EOF
+            // InternalRangoMode.g:3817:54: (iv_ruleWavesSurvived= ruleWavesSurvived EOF )
+            // InternalRangoMode.g:3818:2: iv_ruleWavesSurvived= ruleWavesSurvived EOF
             {
              newCompositeNode(grammarAccess.getWavesSurvivedRule()); 
             pushFollow(FOLLOW_1);
@@ -8787,7 +9159,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleWavesSurvived"
-    // InternalRangoMode.g:3674:1: ruleWavesSurvived returns [EObject current=null] : ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' ) ;
+    // InternalRangoMode.g:3824:1: ruleWavesSurvived returns [EObject current=null] : ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' ) ;
     public final EObject ruleWavesSurvived() throws RecognitionException {
         EObject current = null;
 
@@ -8799,19 +9171,19 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3680:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' ) )
-            // InternalRangoMode.g:3681:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' )
+            // InternalRangoMode.g:3830:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' ) )
+            // InternalRangoMode.g:3831:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' )
             {
-            // InternalRangoMode.g:3681:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' )
-            // InternalRangoMode.g:3682:3: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived'
+            // InternalRangoMode.g:3831:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived' )
+            // InternalRangoMode.g:3832:3: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'waves' otherlv_2= 'survived'
             {
-            // InternalRangoMode.g:3682:3: ( (lv_count_0_0= RULE_INT ) )
-            // InternalRangoMode.g:3683:4: (lv_count_0_0= RULE_INT )
+            // InternalRangoMode.g:3832:3: ( (lv_count_0_0= RULE_INT ) )
+            // InternalRangoMode.g:3833:4: (lv_count_0_0= RULE_INT )
             {
-            // InternalRangoMode.g:3683:4: (lv_count_0_0= RULE_INT )
-            // InternalRangoMode.g:3684:5: lv_count_0_0= RULE_INT
+            // InternalRangoMode.g:3833:4: (lv_count_0_0= RULE_INT )
+            // InternalRangoMode.g:3834:5: lv_count_0_0= RULE_INT
             {
-            lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_80); 
+            lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_82); 
 
             					newLeafNode(lv_count_0_0, grammarAccess.getWavesSurvivedAccess().getCountINTTerminalRuleCall_0_0());
             				
@@ -8831,11 +9203,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,78,FOLLOW_81); 
+            otherlv_1=(Token)match(input,79,FOLLOW_83); 
 
             			newLeafNode(otherlv_1, grammarAccess.getWavesSurvivedAccess().getWavesKeyword_1());
             		
-            otherlv_2=(Token)match(input,93,FOLLOW_2); 
+            otherlv_2=(Token)match(input,94,FOLLOW_2); 
 
             			newLeafNode(otherlv_2, grammarAccess.getWavesSurvivedAccess().getSurvivedKeyword_2());
             		
@@ -8862,7 +9234,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleHealthDepleted"
-    // InternalRangoMode.g:3712:1: entryRuleHealthDepleted returns [EObject current=null] : iv_ruleHealthDepleted= ruleHealthDepleted EOF ;
+    // InternalRangoMode.g:3862:1: entryRuleHealthDepleted returns [EObject current=null] : iv_ruleHealthDepleted= ruleHealthDepleted EOF ;
     public final EObject entryRuleHealthDepleted() throws RecognitionException {
         EObject current = null;
 
@@ -8870,8 +9242,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3712:55: (iv_ruleHealthDepleted= ruleHealthDepleted EOF )
-            // InternalRangoMode.g:3713:2: iv_ruleHealthDepleted= ruleHealthDepleted EOF
+            // InternalRangoMode.g:3862:55: (iv_ruleHealthDepleted= ruleHealthDepleted EOF )
+            // InternalRangoMode.g:3863:2: iv_ruleHealthDepleted= ruleHealthDepleted EOF
             {
              newCompositeNode(grammarAccess.getHealthDepletedRule()); 
             pushFollow(FOLLOW_1);
@@ -8898,7 +9270,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleHealthDepleted"
-    // InternalRangoMode.g:3719:1: ruleHealthDepleted returns [EObject current=null] : ( () otherlv_1= 'health' otherlv_2= 'depleted' ) ;
+    // InternalRangoMode.g:3869:1: ruleHealthDepleted returns [EObject current=null] : ( () otherlv_1= 'health' otherlv_2= 'depleted' ) ;
     public final EObject ruleHealthDepleted() throws RecognitionException {
         EObject current = null;
 
@@ -8909,14 +9281,14 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3725:2: ( ( () otherlv_1= 'health' otherlv_2= 'depleted' ) )
-            // InternalRangoMode.g:3726:2: ( () otherlv_1= 'health' otherlv_2= 'depleted' )
+            // InternalRangoMode.g:3875:2: ( ( () otherlv_1= 'health' otherlv_2= 'depleted' ) )
+            // InternalRangoMode.g:3876:2: ( () otherlv_1= 'health' otherlv_2= 'depleted' )
             {
-            // InternalRangoMode.g:3726:2: ( () otherlv_1= 'health' otherlv_2= 'depleted' )
-            // InternalRangoMode.g:3727:3: () otherlv_1= 'health' otherlv_2= 'depleted'
+            // InternalRangoMode.g:3876:2: ( () otherlv_1= 'health' otherlv_2= 'depleted' )
+            // InternalRangoMode.g:3877:3: () otherlv_1= 'health' otherlv_2= 'depleted'
             {
-            // InternalRangoMode.g:3727:3: ()
-            // InternalRangoMode.g:3728:4: 
+            // InternalRangoMode.g:3877:3: ()
+            // InternalRangoMode.g:3878:4: 
             {
 
             				current = forceCreateModelElement(
@@ -8926,11 +9298,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,43,FOLLOW_82); 
+            otherlv_1=(Token)match(input,44,FOLLOW_84); 
 
             			newLeafNode(otherlv_1, grammarAccess.getHealthDepletedAccess().getHealthKeyword_1());
             		
-            otherlv_2=(Token)match(input,94,FOLLOW_2); 
+            otherlv_2=(Token)match(input,95,FOLLOW_2); 
 
             			newLeafNode(otherlv_2, grammarAccess.getHealthDepletedAccess().getDepletedKeyword_2());
             		
@@ -8957,7 +9329,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEnemiesAlive"
-    // InternalRangoMode.g:3746:1: entryRuleEnemiesAlive returns [EObject current=null] : iv_ruleEnemiesAlive= ruleEnemiesAlive EOF ;
+    // InternalRangoMode.g:3896:1: entryRuleEnemiesAlive returns [EObject current=null] : iv_ruleEnemiesAlive= ruleEnemiesAlive EOF ;
     public final EObject entryRuleEnemiesAlive() throws RecognitionException {
         EObject current = null;
 
@@ -8965,8 +9337,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3746:53: (iv_ruleEnemiesAlive= ruleEnemiesAlive EOF )
-            // InternalRangoMode.g:3747:2: iv_ruleEnemiesAlive= ruleEnemiesAlive EOF
+            // InternalRangoMode.g:3896:53: (iv_ruleEnemiesAlive= ruleEnemiesAlive EOF )
+            // InternalRangoMode.g:3897:2: iv_ruleEnemiesAlive= ruleEnemiesAlive EOF
             {
              newCompositeNode(grammarAccess.getEnemiesAliveRule()); 
             pushFollow(FOLLOW_1);
@@ -8993,7 +9365,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnemiesAlive"
-    // InternalRangoMode.g:3753:1: ruleEnemiesAlive returns [EObject current=null] : ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' ) ;
+    // InternalRangoMode.g:3903:1: ruleEnemiesAlive returns [EObject current=null] : ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' ) ;
     public final EObject ruleEnemiesAlive() throws RecognitionException {
         EObject current = null;
 
@@ -9005,19 +9377,19 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3759:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' ) )
-            // InternalRangoMode.g:3760:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' )
+            // InternalRangoMode.g:3909:2: ( ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' ) )
+            // InternalRangoMode.g:3910:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' )
             {
-            // InternalRangoMode.g:3760:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' )
-            // InternalRangoMode.g:3761:3: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive'
+            // InternalRangoMode.g:3910:2: ( ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive' )
+            // InternalRangoMode.g:3911:3: ( (lv_count_0_0= RULE_INT ) ) otherlv_1= 'enemies' otherlv_2= 'alive'
             {
-            // InternalRangoMode.g:3761:3: ( (lv_count_0_0= RULE_INT ) )
-            // InternalRangoMode.g:3762:4: (lv_count_0_0= RULE_INT )
+            // InternalRangoMode.g:3911:3: ( (lv_count_0_0= RULE_INT ) )
+            // InternalRangoMode.g:3912:4: (lv_count_0_0= RULE_INT )
             {
-            // InternalRangoMode.g:3762:4: (lv_count_0_0= RULE_INT )
-            // InternalRangoMode.g:3763:5: lv_count_0_0= RULE_INT
+            // InternalRangoMode.g:3912:4: (lv_count_0_0= RULE_INT )
+            // InternalRangoMode.g:3913:5: lv_count_0_0= RULE_INT
             {
-            lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_76); 
+            lv_count_0_0=(Token)match(input,RULE_INT,FOLLOW_78); 
 
             					newLeafNode(lv_count_0_0, grammarAccess.getEnemiesAliveAccess().getCountINTTerminalRuleCall_0_0());
             				
@@ -9037,11 +9409,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,87,FOLLOW_83); 
+            otherlv_1=(Token)match(input,88,FOLLOW_85); 
 
             			newLeafNode(otherlv_1, grammarAccess.getEnemiesAliveAccess().getEnemiesKeyword_1());
             		
-            otherlv_2=(Token)match(input,95,FOLLOW_2); 
+            otherlv_2=(Token)match(input,96,FOLLOW_2); 
 
             			newLeafNode(otherlv_2, grammarAccess.getEnemiesAliveAccess().getAliveKeyword_2());
             		
@@ -9068,7 +9440,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDecimal"
-    // InternalRangoMode.g:3791:1: entryRuleDecimal returns [String current=null] : iv_ruleDecimal= ruleDecimal EOF ;
+    // InternalRangoMode.g:3941:1: entryRuleDecimal returns [String current=null] : iv_ruleDecimal= ruleDecimal EOF ;
     public final String entryRuleDecimal() throws RecognitionException {
         String current = null;
 
@@ -9076,8 +9448,8 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalRangoMode.g:3791:47: (iv_ruleDecimal= ruleDecimal EOF )
-            // InternalRangoMode.g:3792:2: iv_ruleDecimal= ruleDecimal EOF
+            // InternalRangoMode.g:3941:47: (iv_ruleDecimal= ruleDecimal EOF )
+            // InternalRangoMode.g:3942:2: iv_ruleDecimal= ruleDecimal EOF
             {
              newCompositeNode(grammarAccess.getDecimalRule()); 
             pushFollow(FOLLOW_1);
@@ -9104,7 +9476,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDecimal"
-    // InternalRangoMode.g:3798:1: ruleDecimal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? ) ;
+    // InternalRangoMode.g:3948:1: ruleDecimal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? ) ;
     public final AntlrDatatypeRuleToken ruleDecimal() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -9116,31 +9488,31 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3804:2: ( (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? ) )
-            // InternalRangoMode.g:3805:2: (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? )
+            // InternalRangoMode.g:3954:2: ( (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? ) )
+            // InternalRangoMode.g:3955:2: (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? )
             {
-            // InternalRangoMode.g:3805:2: (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? )
-            // InternalRangoMode.g:3806:3: this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )?
+            // InternalRangoMode.g:3955:2: (this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )? )
+            // InternalRangoMode.g:3956:3: this_INT_0= RULE_INT (kw= '.' this_INT_2= RULE_INT )?
             {
-            this_INT_0=(Token)match(input,RULE_INT,FOLLOW_84); 
+            this_INT_0=(Token)match(input,RULE_INT,FOLLOW_86); 
 
             			current.merge(this_INT_0);
             		
 
             			newLeafNode(this_INT_0, grammarAccess.getDecimalAccess().getINTTerminalRuleCall_0());
             		
-            // InternalRangoMode.g:3813:3: (kw= '.' this_INT_2= RULE_INT )?
-            int alt43=2;
-            int LA43_0 = input.LA(1);
+            // InternalRangoMode.g:3963:3: (kw= '.' this_INT_2= RULE_INT )?
+            int alt44=2;
+            int LA44_0 = input.LA(1);
 
-            if ( (LA43_0==96) ) {
-                alt43=1;
+            if ( (LA44_0==97) ) {
+                alt44=1;
             }
-            switch (alt43) {
+            switch (alt44) {
                 case 1 :
-                    // InternalRangoMode.g:3814:4: kw= '.' this_INT_2= RULE_INT
+                    // InternalRangoMode.g:3964:4: kw= '.' this_INT_2= RULE_INT
                     {
-                    kw=(Token)match(input,96,FOLLOW_10); 
+                    kw=(Token)match(input,97,FOLLOW_10); 
 
                     				current.merge(kw);
                     				newLeafNode(kw, grammarAccess.getDecimalAccess().getFullStopKeyword_1_0());
@@ -9180,8 +9552,307 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleDecimal"
 
 
+    // $ANTLR start "ruleDifficultyTier"
+    // InternalRangoMode.g:3981:1: ruleDifficultyTier returns [Enumerator current=null] : ( (enumLiteral_0= 'easy' ) | (enumLiteral_1= 'medium' ) | (enumLiteral_2= 'hard' ) ) ;
+    public final Enumerator ruleDifficultyTier() throws RecognitionException {
+        Enumerator current = null;
+
+        Token enumLiteral_0=null;
+        Token enumLiteral_1=null;
+        Token enumLiteral_2=null;
+
+
+        	enterRule();
+
+        try {
+            // InternalRangoMode.g:3987:2: ( ( (enumLiteral_0= 'easy' ) | (enumLiteral_1= 'medium' ) | (enumLiteral_2= 'hard' ) ) )
+            // InternalRangoMode.g:3988:2: ( (enumLiteral_0= 'easy' ) | (enumLiteral_1= 'medium' ) | (enumLiteral_2= 'hard' ) )
+            {
+            // InternalRangoMode.g:3988:2: ( (enumLiteral_0= 'easy' ) | (enumLiteral_1= 'medium' ) | (enumLiteral_2= 'hard' ) )
+            int alt45=3;
+            switch ( input.LA(1) ) {
+            case 98:
+                {
+                alt45=1;
+                }
+                break;
+            case 99:
+                {
+                alt45=2;
+                }
+                break;
+            case 100:
+                {
+                alt45=3;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 45, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt45) {
+                case 1 :
+                    // InternalRangoMode.g:3989:3: (enumLiteral_0= 'easy' )
+                    {
+                    // InternalRangoMode.g:3989:3: (enumLiteral_0= 'easy' )
+                    // InternalRangoMode.g:3990:4: enumLiteral_0= 'easy'
+                    {
+                    enumLiteral_0=(Token)match(input,98,FOLLOW_2); 
+
+                    				current = grammarAccess.getDifficultyTierAccess().getEASYEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_0, grammarAccess.getDifficultyTierAccess().getEASYEnumLiteralDeclaration_0());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalRangoMode.g:3997:3: (enumLiteral_1= 'medium' )
+                    {
+                    // InternalRangoMode.g:3997:3: (enumLiteral_1= 'medium' )
+                    // InternalRangoMode.g:3998:4: enumLiteral_1= 'medium'
+                    {
+                    enumLiteral_1=(Token)match(input,99,FOLLOW_2); 
+
+                    				current = grammarAccess.getDifficultyTierAccess().getMEDIUMEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_1, grammarAccess.getDifficultyTierAccess().getMEDIUMEnumLiteralDeclaration_1());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // InternalRangoMode.g:4005:3: (enumLiteral_2= 'hard' )
+                    {
+                    // InternalRangoMode.g:4005:3: (enumLiteral_2= 'hard' )
+                    // InternalRangoMode.g:4006:4: enumLiteral_2= 'hard'
+                    {
+                    enumLiteral_2=(Token)match(input,100,FOLLOW_2); 
+
+                    				current = grammarAccess.getDifficultyTierAccess().getHARDEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_2, grammarAccess.getDifficultyTierAccess().getHARDEnumLiteralDeclaration_2());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            	leaveRule();
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleDifficultyTier"
+
+
+    // $ANTLR start "ruleModifierTarget"
+    // InternalRangoMode.g:4016:1: ruleModifierTarget returns [Enumerator current=null] : ( (enumLiteral_0= 'enemy.speed' ) | (enumLiteral_1= 'enemy.points' ) | (enumLiteral_2= 'player.health' ) | (enumLiteral_3= 'player.speed' ) | (enumLiteral_4= 'drop.chance' ) | (enumLiteral_5= 'wave.delay' ) ) ;
+    public final Enumerator ruleModifierTarget() throws RecognitionException {
+        Enumerator current = null;
+
+        Token enumLiteral_0=null;
+        Token enumLiteral_1=null;
+        Token enumLiteral_2=null;
+        Token enumLiteral_3=null;
+        Token enumLiteral_4=null;
+        Token enumLiteral_5=null;
+
+
+        	enterRule();
+
+        try {
+            // InternalRangoMode.g:4022:2: ( ( (enumLiteral_0= 'enemy.speed' ) | (enumLiteral_1= 'enemy.points' ) | (enumLiteral_2= 'player.health' ) | (enumLiteral_3= 'player.speed' ) | (enumLiteral_4= 'drop.chance' ) | (enumLiteral_5= 'wave.delay' ) ) )
+            // InternalRangoMode.g:4023:2: ( (enumLiteral_0= 'enemy.speed' ) | (enumLiteral_1= 'enemy.points' ) | (enumLiteral_2= 'player.health' ) | (enumLiteral_3= 'player.speed' ) | (enumLiteral_4= 'drop.chance' ) | (enumLiteral_5= 'wave.delay' ) )
+            {
+            // InternalRangoMode.g:4023:2: ( (enumLiteral_0= 'enemy.speed' ) | (enumLiteral_1= 'enemy.points' ) | (enumLiteral_2= 'player.health' ) | (enumLiteral_3= 'player.speed' ) | (enumLiteral_4= 'drop.chance' ) | (enumLiteral_5= 'wave.delay' ) )
+            int alt46=6;
+            switch ( input.LA(1) ) {
+            case 101:
+                {
+                alt46=1;
+                }
+                break;
+            case 102:
+                {
+                alt46=2;
+                }
+                break;
+            case 103:
+                {
+                alt46=3;
+                }
+                break;
+            case 104:
+                {
+                alt46=4;
+                }
+                break;
+            case 105:
+                {
+                alt46=5;
+                }
+                break;
+            case 106:
+                {
+                alt46=6;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 46, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt46) {
+                case 1 :
+                    // InternalRangoMode.g:4024:3: (enumLiteral_0= 'enemy.speed' )
+                    {
+                    // InternalRangoMode.g:4024:3: (enumLiteral_0= 'enemy.speed' )
+                    // InternalRangoMode.g:4025:4: enumLiteral_0= 'enemy.speed'
+                    {
+                    enumLiteral_0=(Token)match(input,101,FOLLOW_2); 
+
+                    				current = grammarAccess.getModifierTargetAccess().getENEMY_SPEEDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_0, grammarAccess.getModifierTargetAccess().getENEMY_SPEEDEnumLiteralDeclaration_0());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalRangoMode.g:4032:3: (enumLiteral_1= 'enemy.points' )
+                    {
+                    // InternalRangoMode.g:4032:3: (enumLiteral_1= 'enemy.points' )
+                    // InternalRangoMode.g:4033:4: enumLiteral_1= 'enemy.points'
+                    {
+                    enumLiteral_1=(Token)match(input,102,FOLLOW_2); 
+
+                    				current = grammarAccess.getModifierTargetAccess().getENEMY_POINTSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_1, grammarAccess.getModifierTargetAccess().getENEMY_POINTSEnumLiteralDeclaration_1());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // InternalRangoMode.g:4040:3: (enumLiteral_2= 'player.health' )
+                    {
+                    // InternalRangoMode.g:4040:3: (enumLiteral_2= 'player.health' )
+                    // InternalRangoMode.g:4041:4: enumLiteral_2= 'player.health'
+                    {
+                    enumLiteral_2=(Token)match(input,103,FOLLOW_2); 
+
+                    				current = grammarAccess.getModifierTargetAccess().getPLAYER_HEALTHEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_2, grammarAccess.getModifierTargetAccess().getPLAYER_HEALTHEnumLiteralDeclaration_2());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // InternalRangoMode.g:4048:3: (enumLiteral_3= 'player.speed' )
+                    {
+                    // InternalRangoMode.g:4048:3: (enumLiteral_3= 'player.speed' )
+                    // InternalRangoMode.g:4049:4: enumLiteral_3= 'player.speed'
+                    {
+                    enumLiteral_3=(Token)match(input,104,FOLLOW_2); 
+
+                    				current = grammarAccess.getModifierTargetAccess().getPLAYER_SPEEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_3, grammarAccess.getModifierTargetAccess().getPLAYER_SPEEDEnumLiteralDeclaration_3());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // InternalRangoMode.g:4056:3: (enumLiteral_4= 'drop.chance' )
+                    {
+                    // InternalRangoMode.g:4056:3: (enumLiteral_4= 'drop.chance' )
+                    // InternalRangoMode.g:4057:4: enumLiteral_4= 'drop.chance'
+                    {
+                    enumLiteral_4=(Token)match(input,105,FOLLOW_2); 
+
+                    				current = grammarAccess.getModifierTargetAccess().getDROP_CHANCEEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_4, grammarAccess.getModifierTargetAccess().getDROP_CHANCEEnumLiteralDeclaration_4());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // InternalRangoMode.g:4064:3: (enumLiteral_5= 'wave.delay' )
+                    {
+                    // InternalRangoMode.g:4064:3: (enumLiteral_5= 'wave.delay' )
+                    // InternalRangoMode.g:4065:4: enumLiteral_5= 'wave.delay'
+                    {
+                    enumLiteral_5=(Token)match(input,106,FOLLOW_2); 
+
+                    				current = grammarAccess.getModifierTargetAccess().getWAVE_DELAYEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_5, grammarAccess.getModifierTargetAccess().getWAVE_DELAYEnumLiteralDeclaration_5());
+                    			
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            	leaveRule();
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleModifierTarget"
+
+
     // $ANTLR start "ruleTarget"
-    // InternalRangoMode.g:3831:1: ruleTarget returns [Enumerator current=null] : ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) ) ;
+    // InternalRangoMode.g:4075:1: ruleTarget returns [Enumerator current=null] : ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) ) ;
     public final Enumerator ruleTarget() throws RecognitionException {
         Enumerator current = null;
 
@@ -9193,42 +9864,42 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3837:2: ( ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) ) )
-            // InternalRangoMode.g:3838:2: ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) )
+            // InternalRangoMode.g:4081:2: ( ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) ) )
+            // InternalRangoMode.g:4082:2: ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) )
             {
-            // InternalRangoMode.g:3838:2: ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) )
-            int alt44=3;
+            // InternalRangoMode.g:4082:2: ( (enumLiteral_0= 'everything' ) | (enumLiteral_1= 'enemies' ) | (enumLiteral_2= 'player' ) )
+            int alt47=3;
             switch ( input.LA(1) ) {
-            case 97:
+            case 107:
                 {
-                alt44=1;
+                alt47=1;
                 }
                 break;
-            case 87:
+            case 88:
                 {
-                alt44=2;
+                alt47=2;
                 }
                 break;
-            case 41:
+            case 42:
                 {
-                alt44=3;
+                alt47=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 44, 0, input);
+                    new NoViableAltException("", 47, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt44) {
+            switch (alt47) {
                 case 1 :
-                    // InternalRangoMode.g:3839:3: (enumLiteral_0= 'everything' )
+                    // InternalRangoMode.g:4083:3: (enumLiteral_0= 'everything' )
                     {
-                    // InternalRangoMode.g:3839:3: (enumLiteral_0= 'everything' )
-                    // InternalRangoMode.g:3840:4: enumLiteral_0= 'everything'
+                    // InternalRangoMode.g:4083:3: (enumLiteral_0= 'everything' )
+                    // InternalRangoMode.g:4084:4: enumLiteral_0= 'everything'
                     {
-                    enumLiteral_0=(Token)match(input,97,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,107,FOLLOW_2); 
 
                     				current = grammarAccess.getTargetAccess().getALLEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getTargetAccess().getALLEnumLiteralDeclaration_0());
@@ -9240,12 +9911,12 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:3847:3: (enumLiteral_1= 'enemies' )
+                    // InternalRangoMode.g:4091:3: (enumLiteral_1= 'enemies' )
                     {
-                    // InternalRangoMode.g:3847:3: (enumLiteral_1= 'enemies' )
-                    // InternalRangoMode.g:3848:4: enumLiteral_1= 'enemies'
+                    // InternalRangoMode.g:4091:3: (enumLiteral_1= 'enemies' )
+                    // InternalRangoMode.g:4092:4: enumLiteral_1= 'enemies'
                     {
-                    enumLiteral_1=(Token)match(input,87,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,88,FOLLOW_2); 
 
                     				current = grammarAccess.getTargetAccess().getENEMIESEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getTargetAccess().getENEMIESEnumLiteralDeclaration_1());
@@ -9257,12 +9928,12 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalRangoMode.g:3855:3: (enumLiteral_2= 'player' )
+                    // InternalRangoMode.g:4099:3: (enumLiteral_2= 'player' )
                     {
-                    // InternalRangoMode.g:3855:3: (enumLiteral_2= 'player' )
-                    // InternalRangoMode.g:3856:4: enumLiteral_2= 'player'
+                    // InternalRangoMode.g:4099:3: (enumLiteral_2= 'player' )
+                    // InternalRangoMode.g:4100:4: enumLiteral_2= 'player'
                     {
-                    enumLiteral_2=(Token)match(input,41,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,42,FOLLOW_2); 
 
                     				current = grammarAccess.getTargetAccess().getPLAYEREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getTargetAccess().getPLAYEREnumLiteralDeclaration_2());
@@ -9296,7 +9967,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDirection"
-    // InternalRangoMode.g:3866:1: ruleDirection returns [Enumerator current=null] : ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) ) ;
+    // InternalRangoMode.g:4110:1: ruleDirection returns [Enumerator current=null] : ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) ) ;
     public final Enumerator ruleDirection() throws RecognitionException {
         Enumerator current = null;
 
@@ -9307,33 +9978,33 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalRangoMode.g:3872:2: ( ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) ) )
-            // InternalRangoMode.g:3873:2: ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) )
+            // InternalRangoMode.g:4116:2: ( ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) ) )
+            // InternalRangoMode.g:4117:2: ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) )
             {
-            // InternalRangoMode.g:3873:2: ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) )
-            int alt45=2;
-            int LA45_0 = input.LA(1);
+            // InternalRangoMode.g:4117:2: ( (enumLiteral_0= 'left' ) | (enumLiteral_1= 'right' ) )
+            int alt48=2;
+            int LA48_0 = input.LA(1);
 
-            if ( (LA45_0==98) ) {
-                alt45=1;
+            if ( (LA48_0==108) ) {
+                alt48=1;
             }
-            else if ( (LA45_0==99) ) {
-                alt45=2;
+            else if ( (LA48_0==109) ) {
+                alt48=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 45, 0, input);
+                    new NoViableAltException("", 48, 0, input);
 
                 throw nvae;
             }
-            switch (alt45) {
+            switch (alt48) {
                 case 1 :
-                    // InternalRangoMode.g:3874:3: (enumLiteral_0= 'left' )
+                    // InternalRangoMode.g:4118:3: (enumLiteral_0= 'left' )
                     {
-                    // InternalRangoMode.g:3874:3: (enumLiteral_0= 'left' )
-                    // InternalRangoMode.g:3875:4: enumLiteral_0= 'left'
+                    // InternalRangoMode.g:4118:3: (enumLiteral_0= 'left' )
+                    // InternalRangoMode.g:4119:4: enumLiteral_0= 'left'
                     {
-                    enumLiteral_0=(Token)match(input,98,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,108,FOLLOW_2); 
 
                     				current = grammarAccess.getDirectionAccess().getLEFTEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getDirectionAccess().getLEFTEnumLiteralDeclaration_0());
@@ -9345,12 +10016,12 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalRangoMode.g:3882:3: (enumLiteral_1= 'right' )
+                    // InternalRangoMode.g:4126:3: (enumLiteral_1= 'right' )
                     {
-                    // InternalRangoMode.g:3882:3: (enumLiteral_1= 'right' )
-                    // InternalRangoMode.g:3883:4: enumLiteral_1= 'right'
+                    // InternalRangoMode.g:4126:3: (enumLiteral_1= 'right' )
+                    // InternalRangoMode.g:4127:4: enumLiteral_1= 'right'
                     {
-                    enumLiteral_1=(Token)match(input,99,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,109,FOLLOW_2); 
 
                     				current = grammarAccess.getDirectionAccess().getRIGHTEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getDirectionAccess().getRIGHTEnumLiteralDeclaration_1());
@@ -9385,14 +10056,14 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     // Delegated rules
 
 
-    protected DFA42 dfa42 = new DFA42(this);
+    protected DFA43 dfa43 = new DFA43(this);
     static final String dfa_1s = "\12\uffff";
-    static final String dfa_2s = "\1\6\3\uffff\1\116\1\uffff\1\134\3\uffff";
-    static final String dfa_3s = "\1\133\3\uffff\1\127\1\uffff\1\137\3\uffff";
+    static final String dfa_2s = "\1\6\3\uffff\1\117\1\uffff\1\135\3\uffff";
+    static final String dfa_3s = "\1\134\3\uffff\1\130\1\uffff\1\140\3\uffff";
     static final String dfa_4s = "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\1\uffff\1\5\1\4\1\7";
     static final String dfa_5s = "\12\uffff}>";
     static final String[] dfa_6s = {
-            "\1\4\44\uffff\1\5\52\uffff\1\1\2\uffff\1\2\1\uffff\1\3",
+            "\1\4\45\uffff\1\5\52\uffff\1\1\2\uffff\1\2\1\uffff\1\3",
             "",
             "",
             "",
@@ -9411,11 +10082,11 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     static final short[] dfa_5 = DFA.unpackEncodedString(dfa_5s);
     static final short[][] dfa_6 = unpackEncodedStringArray(dfa_6s);
 
-    class DFA42 extends DFA {
+    class DFA43 extends DFA {
 
-        public DFA42(BaseRecognizer recognizer) {
+        public DFA43(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 42;
+            this.decisionNumber = 43;
             this.eot = dfa_1;
             this.eof = dfa_1;
             this.min = dfa_2;
@@ -9425,7 +10096,7 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
             this.transition = dfa_6;
         }
         public String getDescription() {
-            return "3422:2: (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive )";
+            return "3572:2: (this_Cleared_0= ruleCleared | this_TimeReached_1= ruleTimeReached | this_ScoreReached_2= ruleScoreReached | this_EnemiesPopped_3= ruleEnemiesPopped | this_WavesSurvived_4= ruleWavesSurvived | this_HealthDepleted_5= ruleHealthDepleted | this_EnemiesAlive_6= ruleEnemiesAlive )";
         }
     }
  
@@ -9433,86 +10104,88 @@ public class InternalRangoModeParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0001034000001022L,0x0000000000100000L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0001034000001002L,0x0000000000100000L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x000000000007C000L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x00000000000FC000L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0002068000011022L,0x0000000000200000L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0002068000011002L,0x0000000000200000L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000000000L,0x0000001C00000000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000004000L,0x000007E000000000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x00000011C0020000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000001800000L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000010000012L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000010000002L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x00000000003E0000L});
+    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x00000000007E0000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000018000000L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000002700100000L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000004004000L});
     public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000001014000L});
-    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000EC0000020000L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000EC0001020000L});
-    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000FC0001020000L});
-    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0002020000000000L});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x2084000000020000L});
-    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0048000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x20CC000000020000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0048000000000000L});
-    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000080000000040L,0x000000000A400000L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0060000000000000L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0020000001000000L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000000000000000L,0x0000000000006000L});
-    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000000000002020L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x1200000000000002L});
-    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0800000000000000L});
-    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x1000000000000002L});
-    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x4000000000000000L});
-    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x8000020001000000L,0x0000000000001221L});
-    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_54 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_55 = new BitSet(new long[]{0x0000000001000000L,0x0000000000001220L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000040000012L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x00000000000A4000L});
+    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0001D80000100000L});
+    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0001D80000104000L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0001F80000104000L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0004040000000000L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x4108000000100000L});
+    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0090000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x4198000000100000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0090000000000000L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0020000000000000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000100000000040L,0x0000000014800000L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x00C0000000000000L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0040000000004000L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000000000000000L,0x000000000000C000L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x4000000000000000L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x2400000000000002L});
+    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0800000000000000L});
+    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x1000000000000000L});
+    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x2000000000000002L});
+    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x8000000000000000L});
+    public static final BitSet FOLLOW_54 = new BitSet(new long[]{0x0000040000004000L,0x0000000000002443L});
+    public static final BitSet FOLLOW_55 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
     public static final BitSet FOLLOW_56 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_57 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_57 = new BitSet(new long[]{0x0000000000004000L,0x0000000000002440L});
     public static final BitSet FOLLOW_58 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
-    public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000800L});
-    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000020000000000L,0x0000000200800000L});
-    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000000000000050L});
-    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000000001000050L});
-    public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000002000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000000000002000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000001000000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000002000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000000002L,0x0000000000080000L});
-    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000000000L,0x0000000C00000000L});
-    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000001000010L});
-    public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000000002L,0x0000000000200000L});
-    public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
-    public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
-    public static final BitSet FOLLOW_78 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
-    public static final BitSet FOLLOW_79 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000200L});
+    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000000000000002L,0x0000000000001000L});
+    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000040000000000L,0x0000080001000000L});
+    public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000000050L});
+    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000000000004050L});
+    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000000002000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000000002000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000004000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000002000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
+    public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000000000L,0x0000300000000000L});
+    public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000000004010L});
+    public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0000000000000002L,0x0000000000400000L});
+    public static final BitSet FOLLOW_78 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_79 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+    public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
     public static final BitSet FOLLOW_81 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
-    public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
-    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000000L});
-    public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000000000000002L,0x0000000100000000L});
+    public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
+    public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000000000000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_85 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_86 = new BitSet(new long[]{0x0000000000000002L,0x0000000200000000L});
 
 }

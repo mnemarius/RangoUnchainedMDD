@@ -38,9 +38,13 @@ public class RangoModeParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getObstacleAccess().getAlternatives(), "rule__Obstacle__Alternatives");
 			builder.put(grammarAccess.getSpawnStrategyAccess().getAlternatives(), "rule__SpawnStrategy__Alternatives");
 			builder.put(grammarAccess.getEndConditionAccess().getAlternatives(), "rule__EndCondition__Alternatives");
+			builder.put(grammarAccess.getDifficultyTierAccess().getAlternatives(), "rule__DifficultyTier__Alternatives");
+			builder.put(grammarAccess.getModifierTargetAccess().getAlternatives(), "rule__ModifierTarget__Alternatives");
 			builder.put(grammarAccess.getTargetAccess().getAlternatives(), "rule__Target__Alternatives");
 			builder.put(grammarAccess.getDirectionAccess().getAlternatives(), "rule__Direction__Alternatives");
 			builder.put(grammarAccess.getEditionAccess().getGroup(), "rule__Edition__Group__0");
+			builder.put(grammarAccess.getDifficultyAccess().getGroup(), "rule__Difficulty__Group__0");
+			builder.put(grammarAccess.getModifierAccess().getGroup(), "rule__Modifier__Group__0");
 			builder.put(grammarAccess.getEnemyTypeAccess().getGroup(), "rule__EnemyType__Group__0");
 			builder.put(grammarAccess.getEnemyTypeAccess().getGroup_3_0(), "rule__EnemyType__Group_3_0__0");
 			builder.put(grammarAccess.getEnemyTypeAccess().getGroup_3_1(), "rule__EnemyType__Group_3_1__0");
@@ -120,7 +124,12 @@ public class RangoModeParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getEditionAccess().getPowerUpsAssignment_3_1(), "rule__Edition__PowerUpsAssignment_3_1");
 			builder.put(grammarAccess.getEditionAccess().getMaterialsAssignment_3_2(), "rule__Edition__MaterialsAssignment_3_2");
 			builder.put(grammarAccess.getEditionAccess().getPlayersAssignment_3_3(), "rule__Edition__PlayersAssignment_3_3");
-			builder.put(grammarAccess.getEditionAccess().getModesAssignment_3_5(), "rule__Edition__ModesAssignment_3_5");
+			builder.put(grammarAccess.getEditionAccess().getDifficultiesAssignment_3_5(), "rule__Edition__DifficultiesAssignment_3_5");
+			builder.put(grammarAccess.getEditionAccess().getModesAssignment_3_6(), "rule__Edition__ModesAssignment_3_6");
+			builder.put(grammarAccess.getDifficultyAccess().getTierAssignment_1(), "rule__Difficulty__TierAssignment_1");
+			builder.put(grammarAccess.getDifficultyAccess().getModifiersAssignment_3(), "rule__Difficulty__ModifiersAssignment_3");
+			builder.put(grammarAccess.getModifierAccess().getTargetAssignment_0(), "rule__Modifier__TargetAssignment_0");
+			builder.put(grammarAccess.getModifierAccess().getFactorAssignment_2(), "rule__Modifier__FactorAssignment_2");
 			builder.put(grammarAccess.getEnemyTypeAccess().getNameAssignment_1(), "rule__EnemyType__NameAssignment_1");
 			builder.put(grammarAccess.getEnemyTypeAccess().getSpriteAssignment_3_0_1(), "rule__EnemyType__SpriteAssignment_3_0_1");
 			builder.put(grammarAccess.getEnemyTypeAccess().getScaleAssignment_3_1_1(), "rule__EnemyType__ScaleAssignment_3_1_1");

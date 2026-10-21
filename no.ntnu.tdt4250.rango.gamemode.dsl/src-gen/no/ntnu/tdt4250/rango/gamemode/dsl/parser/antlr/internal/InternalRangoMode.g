@@ -213,9 +213,29 @@ ruleEdition returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_5_0());
+						newCompositeNode(grammarAccess.getEditionAccess().getDifficultiesDifficultyParserRuleCall_3_5_0());
 					}
-					lv_modes_8_0=ruleGameMode
+					lv_difficulties_8_0=ruleDifficulty
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getEditionRule());
+						}
+						add(
+							$current,
+							"difficulties",
+							lv_difficulties_8_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Difficulty");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			    |
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_6_0());
+					}
+					lv_modes_9_0=ruleGameMode
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEditionRule());
@@ -223,13 +243,143 @@ ruleEdition returns [EObject current=null]
 						add(
 							$current,
 							"modes",
-							lv_modes_8_0,
+							lv_modes_9_0,
 							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
+	)
+;
+
+// Entry rule entryRuleDifficulty
+entryRuleDifficulty returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getDifficultyRule()); }
+	iv_ruleDifficulty=ruleDifficulty
+	{ $current=$iv_ruleDifficulty.current; }
+	EOF;
+
+// Rule Difficulty
+ruleDifficulty returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='difficulty'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getDifficultyAccess().getDifficultyKeyword_0());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getDifficultyAccess().getTierDifficultyTierEnumRuleCall_1_0());
+				}
+				lv_tier_1_0=ruleDifficultyTier
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getDifficultyRule());
+					}
+					set(
+						$current,
+						"tier",
+						lv_tier_1_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DifficultyTier");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_2='{'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getDifficultyAccess().getLeftCurlyBracketKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getDifficultyAccess().getModifiersModifierParserRuleCall_3_0());
+				}
+				lv_modifiers_3_0=ruleModifier
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getDifficultyRule());
+					}
+					add(
+						$current,
+						"modifiers",
+						lv_modifiers_3_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Modifier");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		otherlv_4='}'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getDifficultyAccess().getRightCurlyBracketKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRuleModifier
+entryRuleModifier returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getModifierRule()); }
+	iv_ruleModifier=ruleModifier
+	{ $current=$iv_ruleModifier.current; }
+	EOF;
+
+// Rule Modifier
+ruleModifier returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getModifierAccess().getTargetModifierTargetEnumRuleCall_0_0());
+				}
+				lv_target_0_0=ruleModifierTarget
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getModifierRule());
+					}
+					set(
+						$current,
+						"target",
+						lv_target_0_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.ModifierTarget");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_1='*'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getModifierAccess().getAsteriskKeyword_1());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getModifierAccess().getFactorDecimalParserRuleCall_2_0());
+				}
+				lv_factor_2_0=ruleDecimal
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getModifierRule());
+					}
+					set(
+						$current,
+						"factor",
+						lv_factor_2_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 	)
 ;
 
@@ -3824,6 +3974,100 @@ ruleDecimal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
 				newLeafNode(this_INT_2, grammarAccess.getDecimalAccess().getINTTerminalRuleCall_1_1());
 			}
 		)?
+	)
+;
+
+// Rule DifficultyTier
+ruleDifficultyTier returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='easy'
+			{
+				$current = grammarAccess.getDifficultyTierAccess().getEASYEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getDifficultyTierAccess().getEASYEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='medium'
+			{
+				$current = grammarAccess.getDifficultyTierAccess().getMEDIUMEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getDifficultyTierAccess().getMEDIUMEnumLiteralDeclaration_1());
+			}
+		)
+		    |
+		(
+			enumLiteral_2='hard'
+			{
+				$current = grammarAccess.getDifficultyTierAccess().getHARDEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_2, grammarAccess.getDifficultyTierAccess().getHARDEnumLiteralDeclaration_2());
+			}
+		)
+	)
+;
+
+// Rule ModifierTarget
+ruleModifierTarget returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='enemy.speed'
+			{
+				$current = grammarAccess.getModifierTargetAccess().getENEMY_SPEEDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getModifierTargetAccess().getENEMY_SPEEDEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='enemy.points'
+			{
+				$current = grammarAccess.getModifierTargetAccess().getENEMY_POINTSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getModifierTargetAccess().getENEMY_POINTSEnumLiteralDeclaration_1());
+			}
+		)
+		    |
+		(
+			enumLiteral_2='player.health'
+			{
+				$current = grammarAccess.getModifierTargetAccess().getPLAYER_HEALTHEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_2, grammarAccess.getModifierTargetAccess().getPLAYER_HEALTHEnumLiteralDeclaration_2());
+			}
+		)
+		    |
+		(
+			enumLiteral_3='player.speed'
+			{
+				$current = grammarAccess.getModifierTargetAccess().getPLAYER_SPEEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_3, grammarAccess.getModifierTargetAccess().getPLAYER_SPEEDEnumLiteralDeclaration_3());
+			}
+		)
+		    |
+		(
+			enumLiteral_4='drop.chance'
+			{
+				$current = grammarAccess.getModifierTargetAccess().getDROP_CHANCEEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_4, grammarAccess.getModifierTargetAccess().getDROP_CHANCEEnumLiteralDeclaration_4());
+			}
+		)
+		    |
+		(
+			enumLiteral_5='wave.delay'
+			{
+				$current = grammarAccess.getModifierTargetAccess().getWAVE_DELAYEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_5, grammarAccess.getModifierTargetAccess().getWAVE_DELAYEnumLiteralDeclaration_5());
+			}
+		)
 	)
 ;
 

@@ -172,10 +172,18 @@ public class GamemodeValidator extends EObjectValidator {
 				return validateHealthDepleted((HealthDepleted)value, diagnostics, context);
 			case GamemodePackage.ENEMIES_ALIVE:
 				return validateEnemiesAlive((EnemiesAlive)value, diagnostics, context);
+			case GamemodePackage.DIFFICULTY:
+				return validateDifficulty((Difficulty)value, diagnostics, context);
+			case GamemodePackage.MODIFIER:
+				return validateModifier((Modifier)value, diagnostics, context);
 			case GamemodePackage.TARGET:
 				return validateTarget((Target)value, diagnostics, context);
 			case GamemodePackage.DIRECTION:
 				return validateDirection((Direction)value, diagnostics, context);
+			case GamemodePackage.DIFFICULTY_TIER:
+				return validateDifficultyTier((DifficultyTier)value, diagnostics, context);
+			case GamemodePackage.MODIFIER_TARGET:
+				return validateModifierTarget((ModifierTarget)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -2218,6 +2226,113 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateDifficulty(Difficulty difficulty, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(difficulty, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validateDifficulty_distinctTargets(difficulty, diagnostics, context);
+		if (result || diagnostics != null) result &= validateDifficulty_onePerTier(difficulty, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * The cached validation expression for the distinctTargets constraint of '<em>Difficulty</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String DIFFICULTY__DISTINCT_TARGETS__EEXPRESSION = "modifiers->isUnique(target)";
+
+	/**
+	 * Validates the distinctTargets constraint of '<em>Difficulty</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDifficulty_distinctTargets(Difficulty difficulty, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.DIFFICULTY,
+				 difficulty,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "distinctTargets",
+				 DIFFICULTY__DISTINCT_TARGETS__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
+	}
+
+	/**
+	 * Validates the onePerTier constraint of '<em>Difficulty</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateDifficulty_onePerTier(Difficulty difficulty, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.onePerTier(difficulty), diagnostics);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateModifier(Modifier modifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(modifier, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(modifier, diagnostics, context);
+		if (result || diagnostics != null) result &= validateModifier_positiveFactor(modifier, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * The cached validation expression for the positiveFactor constraint of '<em>Modifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String MODIFIER__POSITIVE_FACTOR__EEXPRESSION = "factor > 0";
+
+	/**
+	 * Validates the positiveFactor constraint of '<em>Modifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateModifier_positiveFactor(Modifier modifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.MODIFIER,
+				 modifier,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "positiveFactor",
+				 MODIFIER__POSITIVE_FACTOR__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateTarget(Target target, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
@@ -2228,6 +2343,24 @@ public class GamemodeValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDirection(Direction direction, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDifficultyTier(DifficultyTier difficultyTier, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateModifierTarget(ModifierTarget modifierTarget, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

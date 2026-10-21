@@ -10,9 +10,13 @@ import org.junit.jupiter.api.Test;
 
 import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
 import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
+import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
+import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
@@ -261,6 +265,15 @@ public class ConstraintsTest {
 	}
 
 	@Test
+	public void eachDifficultyTierIsDefinedOnce() {
+		f.edition.getDifficulties().add(difficulty(DifficultyTier.HARD, ModifierTarget.ENEMY_SPEED, 1.3f));
+		f.edition.getDifficulties().add(difficulty(DifficultyTier.EASY, ModifierTarget.ENEMY_SPEED, 0.8f));
+		assertEquals(Diagnostic.OK, ModelFixture.validate(f.edition).getSeverity());
+		f.edition.getDifficulties().add(difficulty(DifficultyTier.HARD, ModifierTarget.PLAYER_HEALTH, 0.5f));
+		assertCode(GamemodeConstraints.DUPLICATE_DIFFICULTY);
+	}
+
+	@Test
 	public void teleportersStayInTheirArena() {
 		Teleporter here = ModelFixture.F.createTeleporter();
 		here.setName("Here");
@@ -274,6 +287,16 @@ public class ConstraintsTest {
 	}
 
 	// ---------------------------------------------------------------- helpers
+
+	private static Difficulty difficulty(DifficultyTier tier, ModifierTarget target, float factor) {
+		Difficulty difficulty = ModelFixture.F.createDifficulty();
+		difficulty.setTier(tier);
+		Modifier modifier = ModelFixture.F.createModifier();
+		modifier.setTarget(target);
+		modifier.setFactor(factor);
+		difficulty.getModifiers().add(modifier);
+		return difficulty;
+	}
 
 	private void assertViolated(String constraint) {
 		List<String> messages = messages(ModelFixture.validate(f.edition));

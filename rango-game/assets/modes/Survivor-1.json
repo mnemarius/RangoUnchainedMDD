@@ -5,11 +5,11 @@
   },
   "entitiesData": [
     { "name": "Background", "dimension": {}, "typeInfo": { "type": "Background", "subType": "Desert" } },
-    { "name": "Player-Rango", "health": 5, "dimension": { "x": 5.5, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
+    { "name": "Player-Tank", "health": 6, "dimension": { "x": 10.0, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
     { "name": "ObsticleLeft", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Left" } },
     { "name": "ObsticleRight", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Right" } },
     { "name": "ObsticleRoof", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Roof" } },
     { "name": "ObsticleFloor", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Floor" } },
-    { "name": "Enemy Bomb", "dimension": { "x": 64.4, "y": 66.4, "relative": true }, "velocity": { "x": -2.0, "y": 0.0 }, "typeInfo": { "type": "Enemy", "subType": "Bomb", "size": 2 } }
+    { "name": "Pillar", "dimension": { "x": 50.0, "y": 20.0, "width": 40, "height": 160, "relative": true }, "typeInfo": { "type": "Obsticle", "subType": "Block", "sprite": "Obstacles/Stone.png" } }
   ]
 }

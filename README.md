@@ -133,6 +133,12 @@ them:
 - **PowerUp**: sprite and the effects it gives. **Material**: bounce factor and texture. **PlayerProfile**:
   health, max health, speed, tongue time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
+- **Edition** also *contains* its **Difficulty**s, at most one per **DifficultyTier** (`easy`,
+  `medium`, `hard`), which apply to every mode. A difficulty *contains* **Modifier**s, each of which
+  multiplies one kind of modelled value (**ModifierTarget**: `enemy.speed`, `enemy.points`,
+  `player.health`, `player.speed`, `drop.chance`, `wave.delay`) by a factor. The tiers are an enum,
+  since their order matters and the game can rely on the same three. What a tier does is modelled,
+  not hard-coded.
 - **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
   **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
   written down: they are derived from what its levels spawn.
@@ -182,7 +188,8 @@ delegates. Standalone code registers the delegates through `GamemodeOCL.initiali
 `positiveScale`, `atMostSixteenFragments` (a split has 1 to 16 fragments), `intervalWithinDuration`
 (poison ticks within its duration), `insideArena`, `healthWithinMaximum`, `escalationNeedsLoop`,
 `chanceIsPercentage` (a drop chance is above 0 and at most 100), `distinctPowerUps`
-(`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bounceInRange`, `bonusAboveOne` (a speed bonus is worth more than plain points).
+(`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bounceInRange`, `bonusAboveOne` (a speed bonus is worth more than plain points),
+`distinctTargets` (a difficulty modifies each value at most once), `positiveFactor`.
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes, which the quick fixes use:
@@ -199,6 +206,7 @@ codes, which the quick fixes use:
 | `oneTablePerEnemy` | A list of drop tables (of a mode or of the edition) has at most one table per enemy type. |
 | `fitsRole` | Health depleted and enemies alive can only lose a round; the other conditions can only win it. |
 | `targetInSameArena` | A teleporter leads to a teleporter of the same arena. |
+| `onePerTier` | An edition defines each difficulty tier at most once. |
 
 ## Concrete syntax and editor
 
@@ -212,7 +220,8 @@ The editor adds:
 
 - **Validation**: the OCL and Java constraints of the metamodel, plus warnings for unused building
   blocks, sprite paths that are not images, duplicate titles, and drop tables for enemies that never
-  appear where the table applies, and a note on endless modes.
+  appear where the table applies, a harder difficulty that makes something easier than the tier
+  below it (such as slower enemies on hard than on medium), and a note on endless modes.
 - **Scoping**: a teleporter can only target another teleporter of its own arena.
 - **Quick fixes**: make a mode end (win when cleared, or loop the waves), add "lose when health depleted", move a condition to the other
   list, add drop tables for the enemies without one, remove an unused element or a drop table without

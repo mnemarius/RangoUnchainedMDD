@@ -45,12 +45,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Assignment cPlayersAssignment_3_3 = (Assignment)cAlternatives_3.eContents().get(3);
 		private final RuleCall cPlayersPlayerProfileParserRuleCall_3_3_0 = (RuleCall)cPlayersAssignment_3_3.eContents().get(0);
 		private final RuleCall cDropsParserRuleCall_3_4 = (RuleCall)cAlternatives_3.eContents().get(4);
-		private final Assignment cModesAssignment_3_5 = (Assignment)cAlternatives_3.eContents().get(5);
-		private final RuleCall cModesGameModeParserRuleCall_3_5_0 = (RuleCall)cModesAssignment_3_5.eContents().get(0);
+		private final Assignment cDifficultiesAssignment_3_5 = (Assignment)cAlternatives_3.eContents().get(5);
+		private final RuleCall cDifficultiesDifficultyParserRuleCall_3_5_0 = (RuleCall)cDifficultiesAssignment_3_5.eContents().get(0);
+		private final Assignment cModesAssignment_3_6 = (Assignment)cAlternatives_3.eContents().get(6);
+		private final RuleCall cModesGameModeParserRuleCall_3_6_0 = (RuleCall)cModesAssignment_3_6.eContents().get(0);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// The edition: the building blocks of the product, its default drop tables, and its game modes, in
-		//// any order.
+		//// The edition: the building blocks of the product, its default drop tables, its difficulties,
+		//// and its game modes, in any order.
 		//Edition returns Edition:
 		//    'edition' name=ID (title=STRING)?
 		//    (    enemyTypes+=EnemyType
@@ -58,6 +60,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//    |    materials+=Material
 		//    |    players+=PlayerProfile
 		//    |    Drops
+		//    |    difficulties+=Difficulty
 		//    |    modes+=GameMode
 		//    )*;
 		@Override public ParserRule getRule() { return rule; }
@@ -68,6 +71,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//|    materials+=Material
 		//|    players+=PlayerProfile
 		//|    Drops
+		//|    difficulties+=Difficulty
 		//|    modes+=GameMode
 		//)*
 		public Group getGroup() { return cGroup; }
@@ -92,6 +96,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//|    materials+=Material
 		//|    players+=PlayerProfile
 		//|    Drops
+		//|    difficulties+=Difficulty
 		//|    modes+=GameMode
 		//)*
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
@@ -123,11 +128,95 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//Drops
 		public RuleCall getDropsParserRuleCall_3_4() { return cDropsParserRuleCall_3_4; }
 		
+		//difficulties+=Difficulty
+		public Assignment getDifficultiesAssignment_3_5() { return cDifficultiesAssignment_3_5; }
+		
+		//Difficulty
+		public RuleCall getDifficultiesDifficultyParserRuleCall_3_5_0() { return cDifficultiesDifficultyParserRuleCall_3_5_0; }
+		
 		//modes+=GameMode
-		public Assignment getModesAssignment_3_5() { return cModesAssignment_3_5; }
+		public Assignment getModesAssignment_3_6() { return cModesAssignment_3_6; }
 		
 		//GameMode
-		public RuleCall getModesGameModeParserRuleCall_3_5_0() { return cModesGameModeParserRuleCall_3_5_0; }
+		public RuleCall getModesGameModeParserRuleCall_3_6_0() { return cModesGameModeParserRuleCall_3_6_0; }
+	}
+	public class DifficultyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Difficulty");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cDifficultyKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cTierAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTierDifficultyTierEnumRuleCall_1_0 = (RuleCall)cTierAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cModifiersAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cModifiersModifierParserRuleCall_3_0 = (RuleCall)cModifiersAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//// ---------------------------------------------------------------------------------------------
+		//// Difficulties: what each tier multiplies, in every game mode of the edition. A value without
+		//// a modifier stays as modelled.
+		////
+		////   difficulty hard {
+		////       enemy.speed * 1.3
+		////       player.health * 0.5
+		////   }
+		//Difficulty returns Difficulty:
+		//    'difficulty' tier=DifficultyTier '{' (modifiers+=Modifier)* '}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'difficulty' tier=DifficultyTier '{' (modifiers+=Modifier)* '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'difficulty'
+		public Keyword getDifficultyKeyword_0() { return cDifficultyKeyword_0; }
+		
+		//tier=DifficultyTier
+		public Assignment getTierAssignment_1() { return cTierAssignment_1; }
+		
+		//DifficultyTier
+		public RuleCall getTierDifficultyTierEnumRuleCall_1_0() { return cTierDifficultyTierEnumRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//(modifiers+=Modifier)*
+		public Assignment getModifiersAssignment_3() { return cModifiersAssignment_3; }
+		
+		//Modifier
+		public RuleCall getModifiersModifierParserRuleCall_3_0() { return cModifiersModifierParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+	public class ModifierElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Modifier");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cTargetAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cTargetModifierTargetEnumRuleCall_0_0 = (RuleCall)cTargetAssignment_0.eContents().get(0);
+		private final Keyword cAsteriskKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cFactorAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cFactorDecimalParserRuleCall_2_0 = (RuleCall)cFactorAssignment_2.eContents().get(0);
+		
+		//Modifier returns Modifier:
+		//    target=ModifierTarget '*' factor=Decimal;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//target=ModifierTarget '*' factor=Decimal
+		public Group getGroup() { return cGroup; }
+		
+		//target=ModifierTarget
+		public Assignment getTargetAssignment_0() { return cTargetAssignment_0; }
+		
+		//ModifierTarget
+		public RuleCall getTargetModifierTargetEnumRuleCall_0_0() { return cTargetModifierTargetEnumRuleCall_0_0; }
+		
+		//'*'
+		public Keyword getAsteriskKeyword_1() { return cAsteriskKeyword_1; }
+		
+		//factor=Decimal
+		public Assignment getFactorAssignment_2() { return cFactorAssignment_2; }
+		
+		//Decimal
+		public RuleCall getFactorDecimalParserRuleCall_2_0() { return cFactorDecimalParserRuleCall_2_0; }
 	}
 	public class EnemyTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType");
@@ -2395,6 +2484,102 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		public RuleCall getINTTerminalRuleCall_1_1() { return cINTTerminalRuleCall_1_1; }
 	}
 	
+	public class DifficultyTierElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DifficultyTier");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cEASYEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cEASYEasyKeyword_0_0 = (Keyword)cEASYEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cMEDIUMEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cMEDIUMMediumKeyword_1_0 = (Keyword)cMEDIUMEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cHARDEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cHARDHardKeyword_2_0 = (Keyword)cHARDEnumLiteralDeclaration_2.eContents().get(0);
+		
+		//enum DifficultyTier returns DifficultyTier:
+		//    EASY='easy' | MEDIUM='medium' | HARD='hard';
+		public EnumRule getRule() { return rule; }
+		
+		//EASY='easy' | MEDIUM='medium' | HARD='hard'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//EASY='easy'
+		public EnumLiteralDeclaration getEASYEnumLiteralDeclaration_0() { return cEASYEnumLiteralDeclaration_0; }
+		
+		//'easy'
+		public Keyword getEASYEasyKeyword_0_0() { return cEASYEasyKeyword_0_0; }
+		
+		//MEDIUM='medium'
+		public EnumLiteralDeclaration getMEDIUMEnumLiteralDeclaration_1() { return cMEDIUMEnumLiteralDeclaration_1; }
+		
+		//'medium'
+		public Keyword getMEDIUMMediumKeyword_1_0() { return cMEDIUMMediumKeyword_1_0; }
+		
+		//HARD='hard'
+		public EnumLiteralDeclaration getHARDEnumLiteralDeclaration_2() { return cHARDEnumLiteralDeclaration_2; }
+		
+		//'hard'
+		public Keyword getHARDHardKeyword_2_0() { return cHARDHardKeyword_2_0; }
+	}
+	public class ModifierTargetElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.ModifierTarget");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cENEMY_SPEEDEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cENEMY_SPEEDEnemySpeedKeyword_0_0 = (Keyword)cENEMY_SPEEDEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cENEMY_POINTSEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cENEMY_POINTSEnemyPointsKeyword_1_0 = (Keyword)cENEMY_POINTSEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cPLAYER_HEALTHEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cPLAYER_HEALTHPlayerHealthKeyword_2_0 = (Keyword)cPLAYER_HEALTHEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cPLAYER_SPEEDEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cPLAYER_SPEEDPlayerSpeedKeyword_3_0 = (Keyword)cPLAYER_SPEEDEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cDROP_CHANCEEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cDROP_CHANCEDropChanceKeyword_4_0 = (Keyword)cDROP_CHANCEEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cWAVE_DELAYEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cWAVE_DELAYWaveDelayKeyword_5_0 = (Keyword)cWAVE_DELAYEnumLiteralDeclaration_5.eContents().get(0);
+		
+		//enum ModifierTarget returns ModifierTarget:
+		//    ENEMY_SPEED='enemy.speed' | ENEMY_POINTS='enemy.points' | PLAYER_HEALTH='player.health'
+		//    | PLAYER_SPEED='player.speed' | DROP_CHANCE='drop.chance' | WAVE_DELAY='wave.delay';
+		public EnumRule getRule() { return rule; }
+		
+		//ENEMY_SPEED='enemy.speed' | ENEMY_POINTS='enemy.points' | PLAYER_HEALTH='player.health'
+		//| PLAYER_SPEED='player.speed' | DROP_CHANCE='drop.chance' | WAVE_DELAY='wave.delay'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//ENEMY_SPEED='enemy.speed'
+		public EnumLiteralDeclaration getENEMY_SPEEDEnumLiteralDeclaration_0() { return cENEMY_SPEEDEnumLiteralDeclaration_0; }
+		
+		//'enemy.speed'
+		public Keyword getENEMY_SPEEDEnemySpeedKeyword_0_0() { return cENEMY_SPEEDEnemySpeedKeyword_0_0; }
+		
+		//ENEMY_POINTS='enemy.points'
+		public EnumLiteralDeclaration getENEMY_POINTSEnumLiteralDeclaration_1() { return cENEMY_POINTSEnumLiteralDeclaration_1; }
+		
+		//'enemy.points'
+		public Keyword getENEMY_POINTSEnemyPointsKeyword_1_0() { return cENEMY_POINTSEnemyPointsKeyword_1_0; }
+		
+		//PLAYER_HEALTH='player.health'
+		public EnumLiteralDeclaration getPLAYER_HEALTHEnumLiteralDeclaration_2() { return cPLAYER_HEALTHEnumLiteralDeclaration_2; }
+		
+		//'player.health'
+		public Keyword getPLAYER_HEALTHPlayerHealthKeyword_2_0() { return cPLAYER_HEALTHPlayerHealthKeyword_2_0; }
+		
+		//PLAYER_SPEED='player.speed'
+		public EnumLiteralDeclaration getPLAYER_SPEEDEnumLiteralDeclaration_3() { return cPLAYER_SPEEDEnumLiteralDeclaration_3; }
+		
+		//'player.speed'
+		public Keyword getPLAYER_SPEEDPlayerSpeedKeyword_3_0() { return cPLAYER_SPEEDPlayerSpeedKeyword_3_0; }
+		
+		//DROP_CHANCE='drop.chance'
+		public EnumLiteralDeclaration getDROP_CHANCEEnumLiteralDeclaration_4() { return cDROP_CHANCEEnumLiteralDeclaration_4; }
+		
+		//'drop.chance'
+		public Keyword getDROP_CHANCEDropChanceKeyword_4_0() { return cDROP_CHANCEDropChanceKeyword_4_0; }
+		
+		//WAVE_DELAY='wave.delay'
+		public EnumLiteralDeclaration getWAVE_DELAYEnumLiteralDeclaration_5() { return cWAVE_DELAYEnumLiteralDeclaration_5; }
+		
+		//'wave.delay'
+		public Keyword getWAVE_DELAYWaveDelayKeyword_5_0() { return cWAVE_DELAYWaveDelayKeyword_5_0; }
+	}
 	public class TargetElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Target");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -2459,6 +2644,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	private final EditionElements pEdition;
+	private final DifficultyElements pDifficulty;
+	private final DifficultyTierElements eDifficultyTier;
+	private final ModifierElements pModifier;
+	private final ModifierTargetElements eModifierTarget;
 	private final EnemyTypeElements pEnemyType;
 	private final SplitRuleElements pSplitRule;
 	private final VanishElements pVanish;
@@ -2512,6 +2701,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
 		this.pEdition = new EditionElements();
+		this.pDifficulty = new DifficultyElements();
+		this.eDifficultyTier = new DifficultyTierElements();
+		this.pModifier = new ModifierElements();
+		this.eModifierTarget = new ModifierTargetElements();
 		this.pEnemyType = new EnemyTypeElements();
 		this.pSplitRule = new SplitRuleElements();
 		this.pVanish = new VanishElements();
@@ -2584,8 +2777,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// The edition: the building blocks of the product, its default drop tables, and its game modes, in
-	//// any order.
+	//// The edition: the building blocks of the product, its default drop tables, its difficulties,
+	//// and its game modes, in any order.
 	//Edition returns Edition:
 	//    'edition' name=ID (title=STRING)?
 	//    (    enemyTypes+=EnemyType
@@ -2593,6 +2786,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    |    materials+=Material
 	//    |    players+=PlayerProfile
 	//    |    Drops
+	//    |    difficulties+=Difficulty
 	//    |    modes+=GameMode
 	//    )*;
 	public EditionElements getEditionAccess() {
@@ -2601,6 +2795,55 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	
 	public ParserRule getEditionRule() {
 		return getEditionAccess().getRule();
+	}
+	
+	//// ---------------------------------------------------------------------------------------------
+	//// Difficulties: what each tier multiplies, in every game mode of the edition. A value without
+	//// a modifier stays as modelled.
+	////
+	////   difficulty hard {
+	////       enemy.speed * 1.3
+	////       player.health * 0.5
+	////   }
+	//Difficulty returns Difficulty:
+	//    'difficulty' tier=DifficultyTier '{' (modifiers+=Modifier)* '}';
+	public DifficultyElements getDifficultyAccess() {
+		return pDifficulty;
+	}
+	
+	public ParserRule getDifficultyRule() {
+		return getDifficultyAccess().getRule();
+	}
+	
+	//enum DifficultyTier returns DifficultyTier:
+	//    EASY='easy' | MEDIUM='medium' | HARD='hard';
+	public DifficultyTierElements getDifficultyTierAccess() {
+		return eDifficultyTier;
+	}
+	
+	public EnumRule getDifficultyTierRule() {
+		return getDifficultyTierAccess().getRule();
+	}
+	
+	//Modifier returns Modifier:
+	//    target=ModifierTarget '*' factor=Decimal;
+	public ModifierElements getModifierAccess() {
+		return pModifier;
+	}
+	
+	public ParserRule getModifierRule() {
+		return getModifierAccess().getRule();
+	}
+	
+	//enum ModifierTarget returns ModifierTarget:
+	//    ENEMY_SPEED='enemy.speed' | ENEMY_POINTS='enemy.points' | PLAYER_HEALTH='player.health'
+	//    | PLAYER_SPEED='player.speed' | DROP_CHANCE='drop.chance' | WAVE_DELAY='wave.delay';
+	public ModifierTargetElements getModifierTargetAccess() {
+		return eModifierTarget;
+	}
+	
+	public EnumRule getModifierTargetRule() {
+		return getModifierTargetAccess().getRule();
 	}
 	
 	//// ---------------------------------------------------------------------------------------------

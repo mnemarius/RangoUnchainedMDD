@@ -4,6 +4,7 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator
 
 import com.google.inject.Inject
+import no.ntnu.tdt4250.rango.gamemode.DifficultyTier
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
@@ -56,10 +57,11 @@ class RangoModeGenerator extends AbstractGenerator {
 		import java.util.Arrays;
 		import java.util.List;
 
+		import io.github.RangoUnchained.Modes.Difficulty;
 		import io.github.RangoUnchained.Modes.GameModeDefinition;
 
 		/**
-		 * The edition «edition.name»: its product name and its game modes, in menu order.
+		 * The edition «edition.name»: its product name, its game modes, in menu order, and its difficulties.
 		 */
 		public final class GeneratedEdition {
 
@@ -68,6 +70,9 @@ class RangoModeGenerator extends AbstractGenerator {
 
 		    /** The model this edition was generated from. */
 		    public static final String SOURCE = «source.javaString»;
+
+		    /** The position in {@link #difficulties()} of the tier the menu starts at: medium, if there is one. */
+		    public static final int DEFAULT_DIFFICULTY = «edition.defaultDifficulty»;
 
 		    private GeneratedEdition() {
 		    }
@@ -79,8 +84,27 @@ class RangoModeGenerator extends AbstractGenerator {
 		            «ENDFOR»
 		        );
 		    }
+
+		    /** The difficulties, from the easiest tier to the hardest; empty if the modes are played as modelled. */
+		    public static List<Difficulty> difficulties() {
+		        return Arrays.<Difficulty>asList(
+		            «FOR difficulty : edition.sortedDifficulties SEPARATOR ','»
+		            new Difficulty(«difficulty.tier.literal.javaString», «difficulty.tier.literal.toFirstUpper.javaString»)«FOR modifier : difficulty.modifiers»
+		                .with(Difficulty.«modifier.target.getName», «modifier.factor.javaFloat»)«ENDFOR»
+		            «ENDFOR»
+		        );
+		    }
 		}
 	'''
+
+	/** The difficulties of an edition, from the easiest tier to the hardest. */
+	def sortedDifficulties(Edition edition) {
+		edition.difficulties.sortBy[tier]
+	}
+
+	def defaultDifficulty(Edition edition) {
+		Math.max(0, edition.sortedDifficulties.map[tier].indexOf(DifficultyTier.MEDIUM))
+	}
 
 	def androidValues(Edition edition, String source) '''
 		<?xml version="1.0" encoding="utf-8"?>

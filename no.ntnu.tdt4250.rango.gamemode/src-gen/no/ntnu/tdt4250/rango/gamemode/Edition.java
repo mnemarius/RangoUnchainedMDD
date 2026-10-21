@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPlayers <em>Players</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getModes <em>Modes</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getDrops <em>Drops</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getDifficulties <em>Difficulties</em>}</li>
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition()
@@ -145,5 +146,20 @@ public interface Edition extends NamedElement {
 	 * @generated
 	 */
 	EList<DropTable> getDrops();
+
+	/**
+	 * Returns the value of the '<em><b>Difficulties</b></em>' containment reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.Difficulty}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The difficulties players can choose between, at most one per tier. They apply to every game mode of the edition. Without any, the modes are played exactly as modelled.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Difficulties</em>' containment reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition_Difficulties()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Difficulty> getDifficulties();
 
 } // Edition

@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
@@ -17,6 +18,7 @@ import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Material;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Positioned;
@@ -91,6 +93,23 @@ public class RangoModeFormatter extends AbstractFormatter2 {
   protected void _format(final PlayerProfile player, @Extension final IFormattableDocument document) {
     this.block(player, document);
     this.lines(player, document, "character", "health", "speed", "tongue", "cooldown", "grace");
+  }
+
+  protected void _format(final Difficulty difficulty, @Extension final IFormattableDocument document) {
+    this.block(difficulty, document);
+    EList<Modifier> _modifiers = difficulty.getModifiers();
+    for (final Modifier modifier : _modifiers) {
+      {
+        final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
+          it.newLine();
+        };
+        document.<Modifier>prepend(modifier, _function);
+        final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+          it.oneSpace();
+        };
+        document.surround(this.textRegionExtensions.regionFor(modifier).keyword("*"), _function_1);
+      }
+    }
   }
 
   protected void _format(final GameMode mode, @Extension final IFormattableDocument document) {
@@ -387,6 +406,9 @@ public class RangoModeFormatter extends AbstractFormatter2 {
       return;
     } else if (edition instanceof Arena) {
       _format((Arena)edition, document);
+      return;
+    } else if (edition instanceof Difficulty) {
+      _format((Difficulty)edition, document);
       return;
     } else if (edition instanceof DropTable) {
       _format((DropTable)edition, document);

@@ -14,8 +14,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.google.inject.Inject;
 
+import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
+import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.dsl.validation.RangoModeValidator;
@@ -240,6 +243,69 @@ public class ValidationTest {
 		assertEquals("One", edition.getModes().get(0).getLevels().get(0).getTitle());
 		validation.assertError(edition, GamemodePackage.Literals.CLEARED, GamemodeConstraints.SOURCE + "." + GamemodeConstraints.CONDITION_UNREACHABLE,
 				"In level 2, the waves loop");
+	}
+
+	@Test
+	public void difficultiesAreParsed() throws Exception {
+		Edition edition = edition("""
+				difficulty easy {
+					enemy.speed * 0.8
+					drop.chance * 1.5
+				}
+				difficulty medium { }
+				difficulty hard {
+					enemy.speed * 1.3
+					player.health * 0.5
+				}
+				""", VALID_BODY);
+		validation.assertNoIssues(edition);
+		var difficulties = edition.getDifficulties();
+		assertEquals(3, difficulties.size());
+		assertEquals(DifficultyTier.EASY, difficulties.get(0).getTier());
+		assertEquals(DifficultyTier.MEDIUM, difficulties.get(1).getTier());
+		assertTrue(difficulties.get(1).getModifiers().isEmpty());
+		Modifier health = difficulties.get(2).getModifiers().get(1);
+		assertEquals(ModifierTarget.PLAYER_HEALTH, health.getTarget());
+		assertEquals(0.5f, health.getFactor());
+	}
+
+	@Test
+	public void eachTierIsDefinedOnce() throws Exception {
+		Edition edition = edition("difficulty hard { enemy.speed * 1.3 }\ndifficulty hard { enemy.speed * 1.5 }", VALID_BODY);
+		validation.assertError(edition, GamemodePackage.Literals.DIFFICULTY,
+				GamemodeConstraints.SOURCE + "." + GamemodeConstraints.DUPLICATE_DIFFICULTY, "already defines the hard difficulty");
+	}
+
+	@Test
+	public void eachValueIsModifiedOncePerLevel() throws Exception {
+		Edition edition = edition("difficulty hard { enemy.speed * 1.3 enemy.speed * 1.5 }", VALID_BODY);
+		validation.assertError(edition, GamemodePackage.Literals.DIFFICULTY, GamemodeConstraints.SOURCE + ".0", "distinctTargets");
+	}
+
+	@Test
+	public void factorsArePositive() throws Exception {
+		Edition edition = edition("difficulty hard { enemy.speed * 0 }", VALID_BODY);
+		validation.assertError(edition, GamemodePackage.Literals.MODIFIER, GamemodeConstraints.SOURCE + ".0", "positiveFactor");
+	}
+
+	@Test
+	public void harderTiersDoNotMakeTheGameEasier() throws Exception {
+		Edition edition = edition("""
+				difficulty medium { drop.chance * 0.8 }
+				difficulty hard { enemy.speed * 0.9 drop.chance * 0.5 enemy.points * 0.5 }
+				""", VALID_BODY);
+		validation.assertWarning(edition, GamemodePackage.Literals.MODIFIER, RangoModeValidator.DIFFICULTY_ORDER,
+				"The hard difficulty makes enemy.speed easier than the medium one (0.9 against 1)");
+		// fewer drops and fewer points on hard are fine
+		assertEquals(1, validation.validate(edition).stream()
+				.filter(issue -> RangoModeValidator.DIFFICULTY_ORDER.equals(issue.getCode())).count());
+	}
+
+	@Test
+	public void tiersWithoutModifiersAreComparedAsUnchanged() throws Exception {
+		Edition edition = edition("difficulty easy { player.health * 0.5 }\ndifficulty medium { }", VALID_BODY);
+		validation.assertWarning(edition, GamemodePackage.Literals.DIFFICULTY, RangoModeValidator.DIFFICULTY_ORDER,
+				"The medium difficulty makes player.health easier than the easy one (1 against 0.5)");
 	}
 
 	@Test

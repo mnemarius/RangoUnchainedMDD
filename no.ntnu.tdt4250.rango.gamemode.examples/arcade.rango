@@ -1,7 +1,9 @@
 // An arcade edition: three short modes with different goals (a score to reach under a time limit,
 // a number of pops, a time to survive), two player profiles to choose between per mode, harmless
 // bubbles that vanish when popped but slow the player down, and a trap among the power-ups. Each mode
-// has its own drop tables, and the mine, the most dangerous enemy, drops the best power-up.
+// has its own drop tables, and the mine, the most dangerous enemy, drops the best power-up. Players
+// choose between three difficulty tiers, which apply to all modes: hard gives faster enemies, less
+// health and fewer drops, but more points per pop.
 
 edition Arcade "Rango Unchained: Arcade"
 
@@ -70,6 +72,25 @@ player Tank {
 	speed 4
 	tongue 1.2 s
 	cooldown 1.2 s
+}
+
+difficulty easy {
+	enemy.speed * 0.8
+	player.health * 1.5
+	drop.chance * 1.5
+	wave.delay * 1.25
+}
+
+difficulty medium {
+}
+
+difficulty hard {
+	enemy.speed * 1.3
+	enemy.points * 1.5
+	player.health * 0.5
+	player.speed * 0.9
+	drop.chance * 0.5
+	wave.delay * 0.75
 }
 
 mode TimeAttack "Time Attack" {
