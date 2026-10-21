@@ -71,6 +71,7 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 			case GamemodePackage.MATERIAL: return createMaterial();
 			case GamemodePackage.PLAYER_PROFILE: return createPlayerProfile();
 			case GamemodePackage.GAME_MODE: return createGameMode();
+			case GamemodePackage.SPEED_BONUS: return createSpeedBonus();
 			case GamemodePackage.ARENA: return createArena();
 			case GamemodePackage.BLOCK: return createBlock();
 			case GamemodePackage.JUMP_PAD: return createJumpPad();
@@ -101,8 +102,6 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case GamemodePackage.SCORING:
-				return createScoringFromString(eDataType, initialValue);
 			case GamemodePackage.TARGET:
 				return createTargetFromString(eDataType, initialValue);
 			case GamemodePackage.DIRECTION:
@@ -120,8 +119,6 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case GamemodePackage.SCORING:
-				return convertScoringToString(eDataType, instanceValue);
 			case GamemodePackage.TARGET:
 				return convertTargetToString(eDataType, instanceValue);
 			case GamemodePackage.DIRECTION:
@@ -283,6 +280,17 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	public GameMode createGameMode() {
 		GameModeImpl gameMode = new GameModeImpl();
 		return gameMode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SpeedBonus createSpeedBonus() {
+		SpeedBonusImpl speedBonus = new SpeedBonusImpl();
+		return speedBonus;
 	}
 
 	/**
@@ -470,26 +478,6 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	public BallsAlive createBallsAlive() {
 		BallsAliveImpl ballsAlive = new BallsAliveImpl();
 		return ballsAlive;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Scoring createScoringFromString(EDataType eDataType, String initialValue) {
-		Scoring result = Scoring.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertScoringToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

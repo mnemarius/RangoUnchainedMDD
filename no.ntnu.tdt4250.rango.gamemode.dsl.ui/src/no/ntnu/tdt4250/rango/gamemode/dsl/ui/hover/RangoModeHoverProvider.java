@@ -16,7 +16,6 @@ import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
-import no.ntnu.tdt4250.rango.gamemode.Scoring;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
@@ -47,12 +46,15 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 	private List<String> facts(EObject object) {
 		List<String> facts = new ArrayList<>();
 		if (object instanceof GameMode mode) {
+			facts.add("Ball types (spawned, or produced by popping): " + names(mode.getBallTypes()));
 			if (mode.getPopsToClear() == GamemodeDerivations.UNBOUNDED) {
 				facts.add("The waves loop: the balls never run out.");
 			} else {
 				facts.add("Pops to clear everything: " + mode.getPopsToClear());
 				facts.add("Points for clearing everything: " + mode.getMaxScore()
-						+ (mode.getScoring() == Scoring.SPEED_BONUS ? " (up to twice as many with the speed bonus)" : ""));
+						+ (mode.getSpeedBonus() != null
+								? " (up to " + factor(mode.getSpeedBonus().getMaxFactor()) + " times as many with the speed bonus)"
+								: ""));
 			}
 			facts.add("Power-ups that can drop: " + (mode.getPowerUps().isEmpty() ? "none" : names(mode.getPowerUps())));
 			if (mode.getWinConditions().isEmpty()) {
@@ -83,6 +85,10 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			facts.add("At most " + Math.round(10 / player.getCooldown()) / 10.0 + " shots per second");
 		}
 		return facts;
+	}
+
+	private static String factor(float factor) {
+		return factor == Math.rint(factor) ? String.valueOf((int) factor) : String.valueOf(factor);
 	}
 
 	private static String names(List<? extends NamedElement> elements) {

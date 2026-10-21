@@ -20,6 +20,7 @@ import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Positioned;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
 import org.eclipse.emf.common.util.EList;
@@ -83,7 +84,7 @@ public class RangoModeFormatter extends AbstractFormatter2 {
 
   protected void _format(final GameMode mode, @Extension final IFormattableDocument document) {
     this.block(mode, document);
-    this.lines(mode, document, "description", "player", "balls", "gravity", "scoring", "win", "lose");
+    this.lines(mode, document, "description", "player", "gravity", "win", "lose");
     this.lists(mode, document);
     final Consumer<ISemanticRegion> _function = (ISemanticRegion it) -> {
       final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it_1) -> {
@@ -92,10 +93,11 @@ public class RangoModeFormatter extends AbstractFormatter2 {
       document.surround(it, _function_1);
     };
     this.textRegionExtensions.regionFor(mode).keywords("or").forEach(_function);
+    SpeedBonus _speedBonus = mode.getSpeedBonus();
     Arena _arena = mode.getArena();
     SpawnStrategy _spawning = mode.getSpawning();
     DropTable _drops = mode.getDrops();
-    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_arena, _spawning, _drops)));
+    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_speedBonus, _arena, _spawning, _drops)));
     for (final EObject part : _filterNull) {
       {
         final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {

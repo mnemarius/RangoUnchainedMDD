@@ -119,8 +119,6 @@ public class ModelFixture {
 		mode.setName(name);
 		mode.setTitle(name);
 		mode.setPlayer(rango);
-		mode.getBallTypes().add(tumbleweed);
-		mode.getBallTypes().add(bomb);
 		Arena arena = F.createArena();
 		arena.setBackground("Desert");
 		mode.setArena(arena);

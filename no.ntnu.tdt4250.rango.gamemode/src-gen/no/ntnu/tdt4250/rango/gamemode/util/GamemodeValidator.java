@@ -130,6 +130,8 @@ public class GamemodeValidator extends EObjectValidator {
 				return validatePlayerProfile((PlayerProfile)value, diagnostics, context);
 			case GamemodePackage.GAME_MODE:
 				return validateGameMode((GameMode)value, diagnostics, context);
+			case GamemodePackage.SPEED_BONUS:
+				return validateSpeedBonus((SpeedBonus)value, diagnostics, context);
 			case GamemodePackage.ARENA:
 				return validateArena((Arena)value, diagnostics, context);
 			case GamemodePackage.OBSTACLE:
@@ -172,8 +174,6 @@ public class GamemodeValidator extends EObjectValidator {
 				return validateHealthDepleted((HealthDepleted)value, diagnostics, context);
 			case GamemodePackage.BALLS_ALIVE:
 				return validateBallsAlive((BallsAlive)value, diagnostics, context);
-			case GamemodePackage.SCORING:
-				return validateScoring((Scoring)value, diagnostics, context);
 			case GamemodePackage.TARGET:
 				return validateTarget((Target)value, diagnostics, context);
 			case GamemodePackage.DIRECTION:
@@ -1160,7 +1160,6 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateNamedElement_nameUniqueAmongSiblings(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_positiveGravity(gameMode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateGameMode_fragmentTypesAvailable(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_noSimultaneousOutcome(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_winnable(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_endsSomehow(gameMode, diagnostics, context);
@@ -1195,16 +1194,6 @@ public class GamemodeValidator extends EObjectValidator {
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
-	}
-
-	/**
-	 * Validates the fragmentTypesAvailable constraint of '<em>Game Mode</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateGameMode_fragmentTypesAvailable(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.fragmentTypesAvailable(gameMode), diagnostics);
 	}
 
 	/**
@@ -1245,6 +1234,84 @@ public class GamemodeValidator extends EObjectValidator {
 	 */
 	public boolean validateGameMode_healthDepletedWhenHarmful(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return report(GamemodeConstraints.healthDepletedWhenHarmful(gameMode), diagnostics);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSpeedBonus(SpeedBonus speedBonus, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(speedBonus, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validateSpeedBonus_bonusAboveOne(speedBonus, diagnostics, context);
+		if (result || diagnostics != null) result &= validateSpeedBonus_positiveDuration(speedBonus, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * The cached validation expression for the bonusAboveOne constraint of '<em>Speed Bonus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String SPEED_BONUS__BONUS_ABOVE_ONE__EEXPRESSION = "maxFactor > 1";
+
+	/**
+	 * Validates the bonusAboveOne constraint of '<em>Speed Bonus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSpeedBonus_bonusAboveOne(SpeedBonus speedBonus, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.SPEED_BONUS,
+				 speedBonus,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "bonusAboveOne",
+				 SPEED_BONUS__BONUS_ABOVE_ONE__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
+	}
+
+	/**
+	 * The cached validation expression for the positiveDuration constraint of '<em>Speed Bonus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String SPEED_BONUS__POSITIVE_DURATION__EEXPRESSION = "duration > 0";
+
+	/**
+	 * Validates the positiveDuration constraint of '<em>Speed Bonus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSpeedBonus_positiveDuration(SpeedBonus speedBonus, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.SPEED_BONUS,
+				 speedBonus,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "positiveDuration",
+				 SPEED_BONUS__POSITIVE_DURATION__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
 	}
 
 	/**
@@ -1658,7 +1725,6 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validatePositioned_insideArena(ballSpawn, diagnostics, context);
 		if (result || diagnostics != null) result &= validateBallSpawn_sizeInRange(ballSpawn, diagnostics, context);
 		if (result || diagnostics != null) result &= validateBallSpawn_positiveCount(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallSpawn_typeAvailableInMode(ballSpawn, diagnostics, context);
 		return result;
 	}
 
@@ -1718,16 +1784,6 @@ public class GamemodeValidator extends EObjectValidator {
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
-	}
-
-	/**
-	 * Validates the typeAvailableInMode constraint of '<em>Ball Spawn</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateBallSpawn_typeAvailableInMode(BallSpawn ballSpawn, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.typeAvailableInMode(ballSpawn), diagnostics);
 	}
 
 	/**
@@ -2166,15 +2222,6 @@ public class GamemodeValidator extends EObjectValidator {
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateScoring(Scoring scoring, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return true;
 	}
 
 	/**

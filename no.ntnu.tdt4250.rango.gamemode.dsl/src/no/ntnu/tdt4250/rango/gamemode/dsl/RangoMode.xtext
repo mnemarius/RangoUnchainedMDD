@@ -106,9 +106,8 @@ GameMode returns GameMode:
 	'mode' name=ID title=STRING '{'
 	('description' description=STRING)?
 	'player' player=[PlayerProfile]
-	'balls' ballTypes+=[BallType] (',' ballTypes+=[BallType])*
 	(	('gravity' gravity=Decimal)?
-	&	('scoring' scoring=Scoring)?
+	&	(speedBonus=SpeedBonus)?
 	)
 	arena=Arena
 	spawning=SpawnStrategy
@@ -117,8 +116,11 @@ GameMode returns GameMode:
 	'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
 	'}';
 
-enum Scoring returns Scoring:
-	POINTS='points' | SPEED_BONUS='speed-bonus';
+// Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
+// the points of its ball type.
+
+SpeedBonus returns SpeedBonus:
+	{SpeedBonus} 'speed' 'bonus' ('up' 'to' maxFactor=Decimal 'times')? ('over' duration=Decimal 's')?;
 
 // ---------------------------------------------------------------------------------------------
 // The arena. Positions are percentages of the arena: (0%, 0%) is the left end of the floor.

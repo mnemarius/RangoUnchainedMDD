@@ -13,9 +13,9 @@ import no.ntnu.tdt4250.rango.gamemode.HealthDepleted
 import no.ntnu.tdt4250.rango.gamemode.JumpPad
 import no.ntnu.tdt4250.rango.gamemode.Poison
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached
-import no.ntnu.tdt4250.rango.gamemode.Scoring
 import no.ntnu.tdt4250.rango.gamemode.Shield
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus
 import no.ntnu.tdt4250.rango.gamemode.Split
 import no.ntnu.tdt4250.rango.gamemode.Teleporter
 import no.ntnu.tdt4250.rango.gamemode.TimeReached
@@ -197,7 +197,7 @@ class ModeClassTemplate {
 		            «FOR type : mode.ballTypes»
 		            case «type.name.javaString»:
 		                «IF type.points > 0»
-		                context.addScore(«type.points»«IF mode.scoring == Scoring.SPEED_BONUS» * context.speedBonus()«ENDIF»);
+		                context.addScore(«type.points»«mode.speedBonus.factor»);
 		                «ENDIF»
 		                «pop(type.splitRule)»
 		                break;
@@ -292,6 +292,11 @@ class ModeClassTemplate {
 	def dispatch pop(Burst rule) '''
 		context.burst(ball, «rule.resultType.name.javaString», «rule.fragments», «rule.launchSpeed.javaFloat»);
 	'''
+
+	/** The factor a pop's points are multiplied by: the shrinking speed bonus, if the mode has one. */
+	def factor(SpeedBonus bonus) {
+		if (bonus === null) '' else ''' * context.speedBonus(«bonus.maxFactor.javaFloat», «bonus.duration.javaFloat»)'''
+	}
 
 	def drop(DropTable table) '''
 		if (context.random() * 100f < «table.chance.javaFloat») {

@@ -74,8 +74,7 @@ player Tank {
 mode TimeAttack "Time Attack" {
 	description "Score 1500 points before 90 seconds have passed. Early pops are worth up to double."
 	player Sprinter
-	balls Tumbleweed, Weed, Mine
-	scoring speed-bonus
+	speed bonus up to 2 times over 60 s
 	arena {
 		background "Desert"
 		walls Rubber
@@ -99,9 +98,7 @@ mode TimeAttack "Time Attack" {
 mode PopFrenzy "Pop Frenzy" {
 	description "A sky full of bubbles in low gravity. Pop 20 balls, or everything there is."
 	player Tank
-	balls Bubble, Tumbleweed
 	gravity 6
-	scoring points
 	arena {
 		background "Desert"
 		floor Rubber
@@ -120,7 +117,6 @@ mode PopFrenzy "Pop Frenzy" {
 mode Survivor "Survivor" {
 	description "Stay alive for a minute. A pillar splits the arena: use the teleporters to cross it."
 	player Tank
-	balls Tumbleweed, Weed, Mine
 	arena {
 		background "Desert"
 		block Pillar at (50%, 20%) size 40 by 160

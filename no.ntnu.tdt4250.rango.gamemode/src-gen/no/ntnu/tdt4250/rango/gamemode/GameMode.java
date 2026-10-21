@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPlayer <em>Player</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getBallTypes <em>Ball Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getGravity <em>Gravity</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getScoring <em>Scoring</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus <em>Speed Bonus</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getArena <em>Arena</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpawning <em>Spawning</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops <em>Drops</em>}</li>
@@ -34,7 +34,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity fragmentTypesAvailable noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG positiveGravity='gravity &gt; 0'"
  * @generated
  */
@@ -120,11 +120,11 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The ball types available in this mode. Only these can be spawned or produced by popping.
+	 * The ball types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ball Types</em>' reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_BallTypes()
-	 * @model required="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<BallType> getBallTypes();
@@ -156,29 +156,29 @@ public interface GameMode extends NamedElement {
 	void setGravity(float value);
 
 	/**
-	 * Returns the value of the '<em><b>Scoring</b></em>' attribute.
-	 * The literals are from the enumeration {@link no.ntnu.tdt4250.rango.gamemode.Scoring}.
+	 * Returns the value of the '<em><b>Speed Bonus</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Scoring</em>' attribute.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Scoring
-	 * @see #setScoring(Scoring)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Scoring()
-	 * @model
+	 * <!-- begin-model-doc -->
+	 * Makes early pops worth more. Without a speed bonus, each pop is worth the points of its ball type.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Speed Bonus</em>' containment reference.
+	 * @see #setSpeedBonus(SpeedBonus)
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_SpeedBonus()
+	 * @model containment="true"
 	 * @generated
 	 */
-	Scoring getScoring();
+	SpeedBonus getSpeedBonus();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getScoring <em>Scoring</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus <em>Speed Bonus</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Scoring</em>' attribute.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Scoring
-	 * @see #getScoring()
+	 * @param value the new value of the '<em>Speed Bonus</em>' containment reference.
+	 * @see #getSpeedBonus()
 	 * @generated
 	 */
-	void setScoring(Scoring value);
+	void setSpeedBonus(SpeedBonus value);
 
 	/**
 	 * Returns the value of the '<em><b>Arena</b></em>' containment reference.
@@ -319,7 +319,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The points earned by popping everything the mode spawns, with points scoring. -1 if the waves loop.
+	 * The points earned by popping everything the mode spawns, before any speed bonus. -1 if the waves loop.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Max Score</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_MaxScore()

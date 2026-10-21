@@ -3,7 +3,6 @@ package no.ntnu.tdt4250.rango.gamemode.dsl.generator;
 import com.google.common.collect.Iterables;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
@@ -25,9 +24,9 @@ import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
-import no.ntnu.tdt4250.rango.gamemode.Scoring;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
@@ -645,13 +644,8 @@ public class ModeClassTemplate {
             _builder.append("context.addScore(");
             int _points_1 = type_2.getPoints();
             _builder.append(_points_1, "                ");
-            {
-              Scoring _scoring = mode.getScoring();
-              boolean _equals = Objects.equals(_scoring, Scoring.SPEED_BONUS);
-              if (_equals) {
-                _builder.append(" * context.speedBonus()");
-              }
-            }
+            CharSequence _factor = this.factor(mode.getSpeedBonus());
+            _builder.append(_factor, "                ");
             _builder.append(");");
             _builder.newLineIfNotEmpty();
           }
@@ -987,6 +981,28 @@ public class ModeClassTemplate {
     _builder.append(");");
     _builder.newLineIfNotEmpty();
     return _builder;
+  }
+
+  /**
+   * The factor a pop's points are multiplied by: the shrinking speed bonus, if the mode has one.
+   */
+  public CharSequence factor(final SpeedBonus bonus) {
+    CharSequence _xifexpression = null;
+    if ((bonus == null)) {
+      _xifexpression = "";
+    } else {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append(" ");
+      _builder.append("* context.speedBonus(");
+      String _javaFloat = GeneratorNames.javaFloat(bonus.getMaxFactor());
+      _builder.append(_javaFloat, " ");
+      _builder.append(", ");
+      String _javaFloat_1 = GeneratorNames.javaFloat(bonus.getDuration());
+      _builder.append(_javaFloat_1, " ");
+      _builder.append(")");
+      _xifexpression = _builder;
+    }
+    return _xifexpression;
   }
 
   public CharSequence drop(final DropTable table) {

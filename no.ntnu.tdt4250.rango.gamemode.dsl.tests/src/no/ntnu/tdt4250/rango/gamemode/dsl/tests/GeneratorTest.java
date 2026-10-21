@@ -83,7 +83,7 @@ public class GeneratorTest {
 	public void scoringAndEffectsFollowTheModel() {
 		InMemoryFileSystemAccess files = generate("arcade");
 		String timeAttack = file(files, JAVA + "TimeAttackMode.java");
-		assertTrue(timeAttack.contains("context.addScore(30 * context.speedBonus());"));
+		assertTrue(timeAttack.contains("context.addScore(30 * context.speedBonus(2.0f, 60.0f));"));
 		assertTrue(timeAttack.contains("context.changeSpeed(2.0f, 6.0f, \"Powerup/Speed.png\");"));
 		assertTrue(timeAttack.contains("context.shield(6.0f, \"Powerup/Speed.png\");"));
 		String popFrenzy = file(files, JAVA + "PopFrenzyMode.java");

@@ -1049,48 +1049,37 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Assignment cPlayerAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final CrossReference cPlayerPlayerProfileCrossReference_6_0 = (CrossReference)cPlayerAssignment_6.eContents().get(0);
 		private final RuleCall cPlayerPlayerProfileIDTerminalRuleCall_6_0_1 = (RuleCall)cPlayerPlayerProfileCrossReference_6_0.eContents().get(1);
-		private final Keyword cBallsKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Assignment cBallTypesAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final CrossReference cBallTypesBallTypeCrossReference_8_0 = (CrossReference)cBallTypesAssignment_8.eContents().get(0);
-		private final RuleCall cBallTypesBallTypeIDTerminalRuleCall_8_0_1 = (RuleCall)cBallTypesBallTypeCrossReference_8_0.eContents().get(1);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cCommaKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cBallTypesAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final CrossReference cBallTypesBallTypeCrossReference_9_1_0 = (CrossReference)cBallTypesAssignment_9_1.eContents().get(0);
-		private final RuleCall cBallTypesBallTypeIDTerminalRuleCall_9_1_0_1 = (RuleCall)cBallTypesBallTypeCrossReference_9_1_0.eContents().get(1);
-		private final UnorderedGroup cUnorderedGroup_10 = (UnorderedGroup)cGroup.eContents().get(10);
-		private final Group cGroup_10_0 = (Group)cUnorderedGroup_10.eContents().get(0);
-		private final Keyword cGravityKeyword_10_0_0 = (Keyword)cGroup_10_0.eContents().get(0);
-		private final Assignment cGravityAssignment_10_0_1 = (Assignment)cGroup_10_0.eContents().get(1);
-		private final RuleCall cGravityDecimalParserRuleCall_10_0_1_0 = (RuleCall)cGravityAssignment_10_0_1.eContents().get(0);
-		private final Group cGroup_10_1 = (Group)cUnorderedGroup_10.eContents().get(1);
-		private final Keyword cScoringKeyword_10_1_0 = (Keyword)cGroup_10_1.eContents().get(0);
-		private final Assignment cScoringAssignment_10_1_1 = (Assignment)cGroup_10_1.eContents().get(1);
-		private final RuleCall cScoringScoringEnumRuleCall_10_1_1_0 = (RuleCall)cScoringAssignment_10_1_1.eContents().get(0);
-		private final Assignment cArenaAssignment_11 = (Assignment)cGroup.eContents().get(11);
-		private final RuleCall cArenaArenaParserRuleCall_11_0 = (RuleCall)cArenaAssignment_11.eContents().get(0);
-		private final Assignment cSpawningAssignment_12 = (Assignment)cGroup.eContents().get(12);
-		private final RuleCall cSpawningSpawnStrategyParserRuleCall_12_0 = (RuleCall)cSpawningAssignment_12.eContents().get(0);
-		private final Assignment cDropsAssignment_13 = (Assignment)cGroup.eContents().get(13);
-		private final RuleCall cDropsDropTableParserRuleCall_13_0 = (RuleCall)cDropsAssignment_13.eContents().get(0);
-		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cWinKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Keyword cWhenKeyword_14_1 = (Keyword)cGroup_14.eContents().get(1);
-		private final Assignment cWinConditionsAssignment_14_2 = (Assignment)cGroup_14.eContents().get(2);
-		private final RuleCall cWinConditionsEndConditionParserRuleCall_14_2_0 = (RuleCall)cWinConditionsAssignment_14_2.eContents().get(0);
-		private final Group cGroup_14_3 = (Group)cGroup_14.eContents().get(3);
-		private final Keyword cOrKeyword_14_3_0 = (Keyword)cGroup_14_3.eContents().get(0);
-		private final Assignment cWinConditionsAssignment_14_3_1 = (Assignment)cGroup_14_3.eContents().get(1);
-		private final RuleCall cWinConditionsEndConditionParserRuleCall_14_3_1_0 = (RuleCall)cWinConditionsAssignment_14_3_1.eContents().get(0);
-		private final Keyword cLoseKeyword_15 = (Keyword)cGroup.eContents().get(15);
-		private final Keyword cWhenKeyword_16 = (Keyword)cGroup.eContents().get(16);
-		private final Assignment cLoseConditionsAssignment_17 = (Assignment)cGroup.eContents().get(17);
-		private final RuleCall cLoseConditionsEndConditionParserRuleCall_17_0 = (RuleCall)cLoseConditionsAssignment_17.eContents().get(0);
-		private final Group cGroup_18 = (Group)cGroup.eContents().get(18);
-		private final Keyword cOrKeyword_18_0 = (Keyword)cGroup_18.eContents().get(0);
-		private final Assignment cLoseConditionsAssignment_18_1 = (Assignment)cGroup_18.eContents().get(1);
-		private final RuleCall cLoseConditionsEndConditionParserRuleCall_18_1_0 = (RuleCall)cLoseConditionsAssignment_18_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_19 = (Keyword)cGroup.eContents().get(19);
+		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
+		private final Group cGroup_7_0 = (Group)cUnorderedGroup_7.eContents().get(0);
+		private final Keyword cGravityKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
+		private final Assignment cGravityAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
+		private final RuleCall cGravityDecimalParserRuleCall_7_0_1_0 = (RuleCall)cGravityAssignment_7_0_1.eContents().get(0);
+		private final Assignment cSpeedBonusAssignment_7_1 = (Assignment)cUnorderedGroup_7.eContents().get(1);
+		private final RuleCall cSpeedBonusSpeedBonusParserRuleCall_7_1_0 = (RuleCall)cSpeedBonusAssignment_7_1.eContents().get(0);
+		private final Assignment cArenaAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cArenaArenaParserRuleCall_8_0 = (RuleCall)cArenaAssignment_8.eContents().get(0);
+		private final Assignment cSpawningAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cSpawningSpawnStrategyParserRuleCall_9_0 = (RuleCall)cSpawningAssignment_9.eContents().get(0);
+		private final Assignment cDropsAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cDropsDropTableParserRuleCall_10_0 = (RuleCall)cDropsAssignment_10.eContents().get(0);
+		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
+		private final Keyword cWinKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Keyword cWhenKeyword_11_1 = (Keyword)cGroup_11.eContents().get(1);
+		private final Assignment cWinConditionsAssignment_11_2 = (Assignment)cGroup_11.eContents().get(2);
+		private final RuleCall cWinConditionsEndConditionParserRuleCall_11_2_0 = (RuleCall)cWinConditionsAssignment_11_2.eContents().get(0);
+		private final Group cGroup_11_3 = (Group)cGroup_11.eContents().get(3);
+		private final Keyword cOrKeyword_11_3_0 = (Keyword)cGroup_11_3.eContents().get(0);
+		private final Assignment cWinConditionsAssignment_11_3_1 = (Assignment)cGroup_11_3.eContents().get(1);
+		private final RuleCall cWinConditionsEndConditionParserRuleCall_11_3_1_0 = (RuleCall)cWinConditionsAssignment_11_3_1.eContents().get(0);
+		private final Keyword cLoseKeyword_12 = (Keyword)cGroup.eContents().get(12);
+		private final Keyword cWhenKeyword_13 = (Keyword)cGroup.eContents().get(13);
+		private final Assignment cLoseConditionsAssignment_14 = (Assignment)cGroup.eContents().get(14);
+		private final RuleCall cLoseConditionsEndConditionParserRuleCall_14_0 = (RuleCall)cLoseConditionsAssignment_14.eContents().get(0);
+		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
+		private final Keyword cOrKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
+		private final Assignment cLoseConditionsAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
+		private final RuleCall cLoseConditionsEndConditionParserRuleCall_15_1_0 = (RuleCall)cLoseConditionsAssignment_15_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_16 = (Keyword)cGroup.eContents().get(16);
 		
 		//// ---------------------------------------------------------------------------------------------
 		//// Game modes.
@@ -1098,9 +1087,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//    'mode' name=ID title=STRING '{'
 		//    ('description' description=STRING)?
 		//    'player' player=[PlayerProfile]
-		//    'balls' ballTypes+=[BallType] (',' ballTypes+=[BallType])*
 		//    (    ('gravity' gravity=Decimal)?
-		//    &    ('scoring' scoring=Scoring)?
+		//    &    (speedBonus=SpeedBonus)?
 		//    )
 		//    arena=Arena
 		//    spawning=SpawnStrategy
@@ -1113,9 +1101,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'mode' name=ID title=STRING '{'
 		//('description' description=STRING)?
 		//'player' player=[PlayerProfile]
-		//'balls' ballTypes+=[BallType] (',' ballTypes+=[BallType])*
 		//(    ('gravity' gravity=Decimal)?
-		//&    ('scoring' scoring=Scoring)?
+		//&    (speedBonus=SpeedBonus)?
 		//)
 		//arena=Arena
 		//spawning=SpawnStrategy
@@ -1167,133 +1154,169 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//ID
 		public RuleCall getPlayerPlayerProfileIDTerminalRuleCall_6_0_1() { return cPlayerPlayerProfileIDTerminalRuleCall_6_0_1; }
 		
-		//'balls'
-		public Keyword getBallsKeyword_7() { return cBallsKeyword_7; }
-		
-		//ballTypes+=[BallType]
-		public Assignment getBallTypesAssignment_8() { return cBallTypesAssignment_8; }
-		
-		//[BallType]
-		public CrossReference getBallTypesBallTypeCrossReference_8_0() { return cBallTypesBallTypeCrossReference_8_0; }
-		
-		//ID
-		public RuleCall getBallTypesBallTypeIDTerminalRuleCall_8_0_1() { return cBallTypesBallTypeIDTerminalRuleCall_8_0_1; }
-		
-		//(',' ballTypes+=[BallType])*
-		public Group getGroup_9() { return cGroup_9; }
-		
-		//','
-		public Keyword getCommaKeyword_9_0() { return cCommaKeyword_9_0; }
-		
-		//ballTypes+=[BallType]
-		public Assignment getBallTypesAssignment_9_1() { return cBallTypesAssignment_9_1; }
-		
-		//[BallType]
-		public CrossReference getBallTypesBallTypeCrossReference_9_1_0() { return cBallTypesBallTypeCrossReference_9_1_0; }
-		
-		//ID
-		public RuleCall getBallTypesBallTypeIDTerminalRuleCall_9_1_0_1() { return cBallTypesBallTypeIDTerminalRuleCall_9_1_0_1; }
-		
 		//(    ('gravity' gravity=Decimal)?
-		//&    ('scoring' scoring=Scoring)?
+		//&    (speedBonus=SpeedBonus)?
 		//)
-		public UnorderedGroup getUnorderedGroup_10() { return cUnorderedGroup_10; }
+		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 		
 		//('gravity' gravity=Decimal)?
-		public Group getGroup_10_0() { return cGroup_10_0; }
+		public Group getGroup_7_0() { return cGroup_7_0; }
 		
 		//'gravity'
-		public Keyword getGravityKeyword_10_0_0() { return cGravityKeyword_10_0_0; }
+		public Keyword getGravityKeyword_7_0_0() { return cGravityKeyword_7_0_0; }
 		
 		//gravity=Decimal
-		public Assignment getGravityAssignment_10_0_1() { return cGravityAssignment_10_0_1; }
+		public Assignment getGravityAssignment_7_0_1() { return cGravityAssignment_7_0_1; }
 		
 		//Decimal
-		public RuleCall getGravityDecimalParserRuleCall_10_0_1_0() { return cGravityDecimalParserRuleCall_10_0_1_0; }
+		public RuleCall getGravityDecimalParserRuleCall_7_0_1_0() { return cGravityDecimalParserRuleCall_7_0_1_0; }
 		
-		//('scoring' scoring=Scoring)?
-		public Group getGroup_10_1() { return cGroup_10_1; }
+		//(speedBonus=SpeedBonus)?
+		public Assignment getSpeedBonusAssignment_7_1() { return cSpeedBonusAssignment_7_1; }
 		
-		//'scoring'
-		public Keyword getScoringKeyword_10_1_0() { return cScoringKeyword_10_1_0; }
-		
-		//scoring=Scoring
-		public Assignment getScoringAssignment_10_1_1() { return cScoringAssignment_10_1_1; }
-		
-		//Scoring
-		public RuleCall getScoringScoringEnumRuleCall_10_1_1_0() { return cScoringScoringEnumRuleCall_10_1_1_0; }
+		//SpeedBonus
+		public RuleCall getSpeedBonusSpeedBonusParserRuleCall_7_1_0() { return cSpeedBonusSpeedBonusParserRuleCall_7_1_0; }
 		
 		//arena=Arena
-		public Assignment getArenaAssignment_11() { return cArenaAssignment_11; }
+		public Assignment getArenaAssignment_8() { return cArenaAssignment_8; }
 		
 		//Arena
-		public RuleCall getArenaArenaParserRuleCall_11_0() { return cArenaArenaParserRuleCall_11_0; }
+		public RuleCall getArenaArenaParserRuleCall_8_0() { return cArenaArenaParserRuleCall_8_0; }
 		
 		//spawning=SpawnStrategy
-		public Assignment getSpawningAssignment_12() { return cSpawningAssignment_12; }
+		public Assignment getSpawningAssignment_9() { return cSpawningAssignment_9; }
 		
 		//SpawnStrategy
-		public RuleCall getSpawningSpawnStrategyParserRuleCall_12_0() { return cSpawningSpawnStrategyParserRuleCall_12_0; }
+		public RuleCall getSpawningSpawnStrategyParserRuleCall_9_0() { return cSpawningSpawnStrategyParserRuleCall_9_0; }
 		
 		//(drops=DropTable)?
-		public Assignment getDropsAssignment_13() { return cDropsAssignment_13; }
+		public Assignment getDropsAssignment_10() { return cDropsAssignment_10; }
 		
 		//DropTable
-		public RuleCall getDropsDropTableParserRuleCall_13_0() { return cDropsDropTableParserRuleCall_13_0; }
+		public RuleCall getDropsDropTableParserRuleCall_10_0() { return cDropsDropTableParserRuleCall_10_0; }
 		
 		//('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
-		public Group getGroup_14() { return cGroup_14; }
+		public Group getGroup_11() { return cGroup_11; }
 		
 		//'win'
-		public Keyword getWinKeyword_14_0() { return cWinKeyword_14_0; }
+		public Keyword getWinKeyword_11_0() { return cWinKeyword_11_0; }
 		
 		//'when'
-		public Keyword getWhenKeyword_14_1() { return cWhenKeyword_14_1; }
+		public Keyword getWhenKeyword_11_1() { return cWhenKeyword_11_1; }
 		
 		//winConditions+=EndCondition
-		public Assignment getWinConditionsAssignment_14_2() { return cWinConditionsAssignment_14_2; }
+		public Assignment getWinConditionsAssignment_11_2() { return cWinConditionsAssignment_11_2; }
 		
 		//EndCondition
-		public RuleCall getWinConditionsEndConditionParserRuleCall_14_2_0() { return cWinConditionsEndConditionParserRuleCall_14_2_0; }
+		public RuleCall getWinConditionsEndConditionParserRuleCall_11_2_0() { return cWinConditionsEndConditionParserRuleCall_11_2_0; }
 		
 		//('or' winConditions+=EndCondition)*
-		public Group getGroup_14_3() { return cGroup_14_3; }
+		public Group getGroup_11_3() { return cGroup_11_3; }
 		
 		//'or'
-		public Keyword getOrKeyword_14_3_0() { return cOrKeyword_14_3_0; }
+		public Keyword getOrKeyword_11_3_0() { return cOrKeyword_11_3_0; }
 		
 		//winConditions+=EndCondition
-		public Assignment getWinConditionsAssignment_14_3_1() { return cWinConditionsAssignment_14_3_1; }
+		public Assignment getWinConditionsAssignment_11_3_1() { return cWinConditionsAssignment_11_3_1; }
 		
 		//EndCondition
-		public RuleCall getWinConditionsEndConditionParserRuleCall_14_3_1_0() { return cWinConditionsEndConditionParserRuleCall_14_3_1_0; }
+		public RuleCall getWinConditionsEndConditionParserRuleCall_11_3_1_0() { return cWinConditionsEndConditionParserRuleCall_11_3_1_0; }
 		
 		//'lose'
-		public Keyword getLoseKeyword_15() { return cLoseKeyword_15; }
+		public Keyword getLoseKeyword_12() { return cLoseKeyword_12; }
 		
 		//'when'
-		public Keyword getWhenKeyword_16() { return cWhenKeyword_16; }
+		public Keyword getWhenKeyword_13() { return cWhenKeyword_13; }
 		
 		//loseConditions+=EndCondition
-		public Assignment getLoseConditionsAssignment_17() { return cLoseConditionsAssignment_17; }
+		public Assignment getLoseConditionsAssignment_14() { return cLoseConditionsAssignment_14; }
 		
 		//EndCondition
-		public RuleCall getLoseConditionsEndConditionParserRuleCall_17_0() { return cLoseConditionsEndConditionParserRuleCall_17_0; }
+		public RuleCall getLoseConditionsEndConditionParserRuleCall_14_0() { return cLoseConditionsEndConditionParserRuleCall_14_0; }
 		
 		//('or' loseConditions+=EndCondition)*
-		public Group getGroup_18() { return cGroup_18; }
+		public Group getGroup_15() { return cGroup_15; }
 		
 		//'or'
-		public Keyword getOrKeyword_18_0() { return cOrKeyword_18_0; }
+		public Keyword getOrKeyword_15_0() { return cOrKeyword_15_0; }
 		
 		//loseConditions+=EndCondition
-		public Assignment getLoseConditionsAssignment_18_1() { return cLoseConditionsAssignment_18_1; }
+		public Assignment getLoseConditionsAssignment_15_1() { return cLoseConditionsAssignment_15_1; }
 		
 		//EndCondition
-		public RuleCall getLoseConditionsEndConditionParserRuleCall_18_1_0() { return cLoseConditionsEndConditionParserRuleCall_18_1_0; }
+		public RuleCall getLoseConditionsEndConditionParserRuleCall_15_1_0() { return cLoseConditionsEndConditionParserRuleCall_15_1_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_19() { return cRightCurlyBracketKeyword_19; }
+		public Keyword getRightCurlyBracketKeyword_16() { return cRightCurlyBracketKeyword_16; }
+	}
+	public class SpeedBonusElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpeedBonus");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cSpeedBonusAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cSpeedKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cBonusKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cUpKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cToKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		private final Assignment cMaxFactorAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final RuleCall cMaxFactorDecimalParserRuleCall_3_2_0 = (RuleCall)cMaxFactorAssignment_3_2.eContents().get(0);
+		private final Keyword cTimesKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cOverKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cDurationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cDurationDecimalParserRuleCall_4_1_0 = (RuleCall)cDurationAssignment_4_1.eContents().get(0);
+		private final Keyword cSKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		
+		//// Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
+		//// the points of its ball type.
+		//SpeedBonus returns SpeedBonus:
+		//    {SpeedBonus} 'speed' 'bonus' ('up' 'to' maxFactor=Decimal 'times')? ('over' duration=Decimal 's')?;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{SpeedBonus} 'speed' 'bonus' ('up' 'to' maxFactor=Decimal 'times')? ('over' duration=Decimal 's')?
+		public Group getGroup() { return cGroup; }
+		
+		//{SpeedBonus}
+		public Action getSpeedBonusAction_0() { return cSpeedBonusAction_0; }
+		
+		//'speed'
+		public Keyword getSpeedKeyword_1() { return cSpeedKeyword_1; }
+		
+		//'bonus'
+		public Keyword getBonusKeyword_2() { return cBonusKeyword_2; }
+		
+		//('up' 'to' maxFactor=Decimal 'times')?
+		public Group getGroup_3() { return cGroup_3; }
+		
+		//'up'
+		public Keyword getUpKeyword_3_0() { return cUpKeyword_3_0; }
+		
+		//'to'
+		public Keyword getToKeyword_3_1() { return cToKeyword_3_1; }
+		
+		//maxFactor=Decimal
+		public Assignment getMaxFactorAssignment_3_2() { return cMaxFactorAssignment_3_2; }
+		
+		//Decimal
+		public RuleCall getMaxFactorDecimalParserRuleCall_3_2_0() { return cMaxFactorDecimalParserRuleCall_3_2_0; }
+		
+		//'times'
+		public Keyword getTimesKeyword_3_3() { return cTimesKeyword_3_3; }
+		
+		//('over' duration=Decimal 's')?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//'over'
+		public Keyword getOverKeyword_4_0() { return cOverKeyword_4_0; }
+		
+		//duration=Decimal
+		public Assignment getDurationAssignment_4_1() { return cDurationAssignment_4_1; }
+		
+		//Decimal
+		public RuleCall getDurationDecimalParserRuleCall_4_1_0() { return cDurationDecimalParserRuleCall_4_1_0; }
+		
+		//'s'
+		public Keyword getSKeyword_4_2() { return cSKeyword_4_2; }
 	}
 	public class ArenaElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Arena");
@@ -2287,33 +2310,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		public RuleCall getINTTerminalRuleCall_1_1() { return cINTTerminalRuleCall_1_1; }
 	}
 	
-	public class ScoringElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Scoring");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cPOINTSEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cPOINTSPointsKeyword_0_0 = (Keyword)cPOINTSEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cSPEED_BONUSEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cSPEED_BONUSSpeedBonusKeyword_1_0 = (Keyword)cSPEED_BONUSEnumLiteralDeclaration_1.eContents().get(0);
-		
-		//enum Scoring returns Scoring:
-		//    POINTS='points' | SPEED_BONUS='speed-bonus';
-		public EnumRule getRule() { return rule; }
-		
-		//POINTS='points' | SPEED_BONUS='speed-bonus'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//POINTS='points'
-		public EnumLiteralDeclaration getPOINTSEnumLiteralDeclaration_0() { return cPOINTSEnumLiteralDeclaration_0; }
-		
-		//'points'
-		public Keyword getPOINTSPointsKeyword_0_0() { return cPOINTSPointsKeyword_0_0; }
-		
-		//SPEED_BONUS='speed-bonus'
-		public EnumLiteralDeclaration getSPEED_BONUSEnumLiteralDeclaration_1() { return cSPEED_BONUSEnumLiteralDeclaration_1; }
-		
-		//'speed-bonus'
-		public Keyword getSPEED_BONUSSpeedBonusKeyword_1_0() { return cSPEED_BONUSSpeedBonusKeyword_1_0; }
-	}
 	public class TargetElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Target");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -2393,7 +2389,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	private final MaterialElements pMaterial;
 	private final PlayerProfileElements pPlayerProfile;
 	private final GameModeElements pGameMode;
-	private final ScoringElements eScoring;
+	private final SpeedBonusElements pSpeedBonus;
 	private final ArenaElements pArena;
 	private final AtElements pAt;
 	private final ObstacleElements pObstacle;
@@ -2444,7 +2440,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.pMaterial = new MaterialElements();
 		this.pPlayerProfile = new PlayerProfileElements();
 		this.pGameMode = new GameModeElements();
-		this.eScoring = new ScoringElements();
+		this.pSpeedBonus = new SpeedBonusElements();
 		this.pArena = new ArenaElements();
 		this.pAt = new AtElements();
 		this.pObstacle = new ObstacleElements();
@@ -2698,9 +2694,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    'mode' name=ID title=STRING '{'
 	//    ('description' description=STRING)?
 	//    'player' player=[PlayerProfile]
-	//    'balls' ballTypes+=[BallType] (',' ballTypes+=[BallType])*
 	//    (    ('gravity' gravity=Decimal)?
-	//    &    ('scoring' scoring=Scoring)?
+	//    &    (speedBonus=SpeedBonus)?
 	//    )
 	//    arena=Arena
 	//    spawning=SpawnStrategy
@@ -2716,14 +2711,16 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getGameModeAccess().getRule();
 	}
 	
-	//enum Scoring returns Scoring:
-	//    POINTS='points' | SPEED_BONUS='speed-bonus';
-	public ScoringElements getScoringAccess() {
-		return eScoring;
+	//// Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
+	//// the points of its ball type.
+	//SpeedBonus returns SpeedBonus:
+	//    {SpeedBonus} 'speed' 'bonus' ('up' 'to' maxFactor=Decimal 'times')? ('over' duration=Decimal 's')?;
+	public SpeedBonusElements getSpeedBonusAccess() {
+		return pSpeedBonus;
 	}
 	
-	public EnumRule getScoringRule() {
-		return getScoringAccess().getRule();
+	public ParserRule getSpeedBonusRule() {
+		return getSpeedBonusAccess().getRule();
 	}
 	
 	//// ---------------------------------------------------------------------------------------------

@@ -20,8 +20,7 @@ ball Mine {
 
 mode TimeAttack "Time Attack" {
 	player Sprinter
-	balls Tumbleweed, Weed, Mine
-	scoring speed-bonus
+	speed bonus up to 2 times over 60 s
 	arena {
 		background "Desert"
 		jumppad Launcher at (25%, 0%) launch 10 affects player
@@ -126,8 +125,11 @@ them:
   **TimedEffect** (duration), which is **Shield**, **SpeedChange** or **Poison** (damage over time).
 - **PowerUp**: sprite and the effects it gives. **Material**: bounce factor and texture. **PlayerProfile**:
   health, max health, speed, tongue time, shot cooldown and grace time.
-- **GameMode** *references* a player profile and its available ball types, and *contains* an
-  **Arena**, a **SpawnStrategy**, an optional **DropTable**, and its win and lose conditions.
+- **GameMode** *references* a player profile, and *contains* an **Arena**, a **SpawnStrategy**, an
+  optional **SpeedBonus**, an optional **DropTable**, and its win and lose conditions. Its ball types
+  are not written down: they are derived from what it spawns.
+  - Each pop is worth the points of its ball type. A **SpeedBonus** makes early pops worth up to
+    `maxFactor` times as much, falling to plain points over `duration` seconds.
   - The **Arena** has a background, floor and wall materials, and **Obstacle**s: a **Block** (size,
     material) or a **Trigger**. A trigger is a **JumpPad** or a **Teleporter**, which references its
     target teleporter. Obstacles and spawns share the abstract **Positioned** (x, y in percent of the
@@ -145,6 +147,7 @@ them:
 | Feature | Meaning |
 | --- | --- |
 | `BallType.producedTypes`, `Fragmenting.resultType` | What popping a ball creates (the fragment type defaults to the ball's own type). |
+| `GameMode.ballTypes` | The ball types of a mode: those it spawns, and everything popping them can produce (recursively). |
 | `BallSpawn/Wave/SpawnStrategy/GameMode.popsToClear` | Tongue hits needed to clear everything. Recursive over split rules and fragment types; -1 for looping waves. |
 | `GameMode.maxScore` | Points for clearing everything. |
 | `GameMode.powerUps` | The power-ups of the mode's drop table. |
@@ -159,7 +162,7 @@ Simple invariants are written in **OCL**, in the Ecore model, and evaluated by E
 delegates. Standalone code registers the delegates through `GamemodeOCL.initialize()`. Examples:
 `positiveScale`, `enoughFragmentsToBurst` (a burst has at least 3 fragments), `intervalWithinDuration`
 (poison ticks within its duration), `insideArena`, `healthWithinMaximum`, `escalationNeedsLoop`,
-`distinctPowerUps` (`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bounceInRange`.
+`distinctPowerUps` (`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bounceInRange`, `bonusAboveOne` (a speed bonus is worth more than plain points).
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes, which the quick fixes use:
@@ -168,8 +171,6 @@ codes, which the quick fixes use:
 | --- | --- |
 | `nameUniqueAmongSiblings` | No two elements of a list share a name. |
 | `distinctEffectKinds` | A ball type or power-up has at most one effect of each kind. |
-| `fragmentTypesAvailable` | The ball types of a mode are closed under splitting: whatever a pop produces is available in the mode. |
-| `typeAvailableInMode` | A mode only spawns its own ball types. |
 | `noSimultaneousOutcome` | A round cannot be won and lost by the same event (survive 60 s vs. a 60 s time limit), nor start already lost (`BallsAlive` at or below the starting number of balls). |
 | `winnable` | Every win condition can be met: no "all balls cleared" with looping waves, no "8 waves survived" with 5 non-looping waves, no more pops or points than the mode can give. |
 | `endsSomehow` | A mode without win conditions must loop its waves. |
@@ -189,13 +190,11 @@ The editor adds:
 
 - **Validation**: the OCL and Java constraints of the metamodel, plus warnings for unused building
   blocks, sprite paths that are not images, and duplicate titles, and a note on endless modes.
-- **Scoping**: a teleporter can only target another teleporter of its own arena. Ball spawns see the
-  mode's ball types first.
-- **Quick fixes**: add a missing ball type to the mode, add all produced types, make a mode end (win
-  when cleared, or loop the waves), add "lose when health depleted", move a condition to the other
+- **Scoping**: a teleporter can only target another teleporter of its own arena.
+- **Quick fixes**: make a mode end (win when cleared, or loop the waves), add "lose when health depleted", move a condition to the other
   list, remove an unused element, fix sprite and background paths.
-- **Hovers** that show the derived facts: pops to clear, maximum score, drop probabilities, what a
-  ball breaks into, and shots per second.
+- **Hovers** that show the derived facts: the ball types of a mode, pops to clear, maximum score, drop
+  probabilities, what a ball breaks into, and shots per second.
 - **Outline** with icons and summaries ("Mine: bursts into 4 Weed", "win when score reaches 1500").
 - **Content assist** for the images the game ships and for ball sizes, and **templates** for ball
   types, power-ups, materials, players, modes, waves and teleporter pairs.

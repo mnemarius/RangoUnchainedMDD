@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.dsl.validation.RangoModeValidator;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
@@ -64,7 +65,6 @@ public class ValidationTest {
 	}
 
 	private static final String VALID_BODY = """
-			balls Tumbleweed, Bomb
 			arena {
 				background "Desert"
 			}
@@ -87,17 +87,30 @@ public class ValidationTest {
 	}
 
 	@Test
-	public void fragmentTypesMustBeInTheMode() throws Exception {
-		Edition edition = edition("", VALID_BODY.replace("balls Tumbleweed, Bomb", "balls Bomb"));
-		validation.assertError(edition, GamemodePackage.Literals.GAME_MODE,
-				GamemodeConstraints.ISSUE_FRAGMENT_TYPE_UNAVAILABLE, "produces Tumbleweed");
+	public void speedBonusPartsAreOptional() throws Exception {
+		assertNull(edition("", VALID_BODY).getModes().get(0).getSpeedBonus());
+		SpeedBonus bonus = speedBonus("speed bonus");
+		assertEquals(2f, bonus.getMaxFactor());
+		assertEquals(60f, bonus.getDuration());
+		bonus = speedBonus("speed bonus over 30 s");
+		assertEquals(2f, bonus.getMaxFactor());
+		assertEquals(30f, bonus.getDuration());
+		bonus = speedBonus("speed bonus up to 1.5 times");
+		assertEquals(1.5f, bonus.getMaxFactor());
+		assertEquals(60f, bonus.getDuration());
+	}
+
+	private SpeedBonus speedBonus(String line) throws Exception {
+		Edition edition = edition("", line + "\n" + VALID_BODY);
+		validation.assertNoIssues(edition);
+		return edition.getModes().get(0).getSpeedBonus();
 	}
 
 	@Test
-	public void spawnedTypesMustBeInTheMode() throws Exception {
-		Edition edition = edition("", VALID_BODY.replace("balls Tumbleweed, Bomb", "balls Tumbleweed"));
-		validation.assertError(edition, GamemodePackage.Literals.BALL_SPAWN,
-				GamemodeConstraints.ISSUE_SPAWN_TYPE_UNAVAILABLE, "Bomb is not one of the ball types");
+	public void speedBonusMustRaiseTheScore() throws Exception {
+		Edition edition = edition("", "speed bonus up to 1 times\n" + VALID_BODY);
+		validation.assertError(edition, GamemodePackage.Literals.SPEED_BONUS, GamemodeConstraints.SOURCE + ".0",
+				"bonusAboveOne");
 	}
 
 	@Test

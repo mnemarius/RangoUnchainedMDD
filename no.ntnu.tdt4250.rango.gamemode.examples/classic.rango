@@ -17,7 +17,6 @@ player Rango {
 mode ClassicRound "Classic Round" {
 	description "Pop the tumbleweed and everything it splits into."
 	player Rango
-	balls Tumbleweed
 	arena {
 		background "Desert"
 	}

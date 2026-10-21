@@ -33,9 +33,9 @@ import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.Positioned;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
-import no.ntnu.tdt4250.rango.gamemode.Scoring;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
@@ -212,6 +212,13 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass speedBonusEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass arenaEClass = null;
 
 	/**
@@ -353,13 +360,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	private EClass ballsAliveEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum scoringEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1081,8 +1081,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getGameMode_Scoring() {
-		return (EAttribute)gameModeEClass.getEStructuralFeatures().get(5);
+	public EReference getGameMode_SpeedBonus() {
+		return (EReference)gameModeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1163,6 +1163,36 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	@Override
 	public EAttribute getGameMode_MaxScore() {
 		return (EAttribute)gameModeEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getSpeedBonus() {
+		return speedBonusEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSpeedBonus_MaxFactor() {
+		return (EAttribute)speedBonusEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSpeedBonus_Duration() {
+		return (EAttribute)speedBonusEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1761,16 +1791,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EEnum getScoring() {
-		return scoringEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EEnum getTarget() {
 		return targetEEnum;
 	}
@@ -1896,7 +1916,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEReference(gameModeEClass, GAME_MODE__PLAYER);
 		createEReference(gameModeEClass, GAME_MODE__BALL_TYPES);
 		createEAttribute(gameModeEClass, GAME_MODE__GRAVITY);
-		createEAttribute(gameModeEClass, GAME_MODE__SCORING);
+		createEReference(gameModeEClass, GAME_MODE__SPEED_BONUS);
 		createEReference(gameModeEClass, GAME_MODE__ARENA);
 		createEReference(gameModeEClass, GAME_MODE__SPAWNING);
 		createEReference(gameModeEClass, GAME_MODE__DROPS);
@@ -1905,6 +1925,10 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEReference(gameModeEClass, GAME_MODE__POWER_UPS);
 		createEAttribute(gameModeEClass, GAME_MODE__POPS_TO_CLEAR);
 		createEAttribute(gameModeEClass, GAME_MODE__MAX_SCORE);
+
+		speedBonusEClass = createEClass(SPEED_BONUS);
+		createEAttribute(speedBonusEClass, SPEED_BONUS__MAX_FACTOR);
+		createEAttribute(speedBonusEClass, SPEED_BONUS__DURATION);
 
 		arenaEClass = createEClass(ARENA);
 		createEAttribute(arenaEClass, ARENA__BACKGROUND);
@@ -1987,7 +2011,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(ballsAliveEClass, BALLS_ALIVE__COUNT);
 
 		// Create enums
-		scoringEEnum = createEEnum(SCORING);
 		targetEEnum = createEEnum(TARGET);
 		directionEEnum = createEEnum(DIRECTION);
 	}
@@ -2134,9 +2157,9 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getGameMode_Title(), ecorePackage.getEString(), "title", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_Description(), ecorePackage.getEString(), "description", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Player(), this.getPlayerProfile(), null, "player", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGameMode_BallTypes(), this.getBallType(), null, "ballTypes", null, 1, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_BallTypes(), this.getBallType(), null, "ballTypes", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_Gravity(), ecorePackage.getEFloat(), "gravity", "10.0", 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGameMode_Scoring(), this.getScoring(), "scoring", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_SpeedBonus(), this.getSpeedBonus(), null, "speedBonus", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Arena(), this.getArena(), null, "arena", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Spawning(), this.getSpawnStrategy(), null, "spawning", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Drops(), this.getDropTable(), null, "drops", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2145,6 +2168,10 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEReference(getGameMode_PowerUps(), this.getPowerUp(), null, "powerUps", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_MaxScore(), ecorePackage.getEInt(), "maxScore", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+		initEClass(speedBonusEClass, SpeedBonus.class, "SpeedBonus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSpeedBonus_MaxFactor(), ecorePackage.getEFloat(), "maxFactor", "2.0", 0, 1, SpeedBonus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSpeedBonus_Duration(), ecorePackage.getEFloat(), "duration", "60.0", 0, 1, SpeedBonus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(arenaEClass, Arena.class, "Arena", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getArena_Background(), ecorePackage.getEString(), "background", null, 1, 1, Arena.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2227,10 +2254,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getBallsAlive_Count(), ecorePackage.getEInt(), "count", null, 1, 1, BallsAlive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
-		initEEnum(scoringEEnum, Scoring.class, "Scoring");
-		addEEnumLiteral(scoringEEnum, Scoring.POINTS);
-		addEEnumLiteral(scoringEEnum, Scoring.SPEED_BONUS);
-
 		initEEnum(targetEEnum, Target.class, "Target");
 		addEEnumLiteral(targetEEnum, Target.ALL);
 		addEEnumLiteral(targetEEnum, Target.BALLS);
@@ -2348,7 +2371,13 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (gameModeEClass,
 		   source,
 		   new String[] {
-			   "constraints", "positiveGravity fragmentTypesAvailable noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful"
+			   "constraints", "positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful"
+		   });
+		addAnnotation
+		  (speedBonusEClass,
+		   source,
+		   new String[] {
+			   "constraints", "bonusAboveOne positiveDuration"
 		   });
 		addAnnotation
 		  (arenaEClass,
@@ -2390,7 +2419,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (ballSpawnEClass,
 		   source,
 		   new String[] {
-			   "constraints", "sizeInRange positiveCount typeAvailableInMode"
+			   "constraints", "sizeInRange positiveCount"
 		   });
 		addAnnotation
 		  (dropTableEClass,
@@ -2530,6 +2559,13 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		   source,
 		   new String[] {
 			   "positiveGravity", "gravity > 0"
+		   });
+		addAnnotation
+		  (speedBonusEClass,
+		   source,
+		   new String[] {
+			   "bonusAboveOne", "maxFactor > 1",
+			   "positiveDuration", "duration > 0"
 		   });
 		addAnnotation
 		  (arenaEClass,

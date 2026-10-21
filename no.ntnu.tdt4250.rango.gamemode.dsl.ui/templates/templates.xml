@@ -29,12 +29,11 @@
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode" deleted="false" description="A mode with a fixed layout, won by clearing it" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.mode" name="mode (clear the arena)">mode ${Name} "${Title}" {
 	description "${Pop everything to win.}"
 	player ${player:CrossReference('GameMode.player')}
-	balls ${type:CrossReference('GameMode.ballTypes')}
 	arena {
 		background "Desert"
 	}
 	layout {
-		${type} size 3 at (${50}%, ${70}%)
+		${type:CrossReference('BallSpawn.type')} size 3 at (${50}%, ${70}%)
 	}
 	win when all balls cleared
 	lose when health depleted
@@ -42,13 +41,12 @@
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode" deleted="false" description="An endless mode with looping, growing waves" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.endless" name="mode (endless waves)">mode ${Name} "${Title}" {
 	description "${Survive as long as you can.}"
 	player ${player:CrossReference('GameMode.player')}
-	balls ${type:CrossReference('GameMode.ballTypes')}
 	arena {
 		background "Desert"
 	}
 	waves looping escalate by ${1} {
 		wave {
-			${type} size 3 at (${50}%, ${75}%)
+			${type:CrossReference('BallSpawn.type')} size 3 at (${50}%, ${75}%)
 		}
 	}
 	lose when health depleted or ${20} balls alive

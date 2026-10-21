@@ -22,7 +22,7 @@ public class FormatterTest {
 		formatter.assertFormatted(request -> {
 			request.preferences(preferences -> preferences.put(FormatterPreferenceKeys.lineSeparator, "\n"));
 			request.setToBeFormatted("edition Tiny ball Weed { sprite \"Ball/Plant.png\" points 5 on pop : split into 2 on contact : damage 1 , heal 1 }"
-					+ " player P { health 3 } mode M \"M\" { player P balls Weed arena { background \"Desert\" } layout { 2 * Weed size 3 at ( 50 % , 70 % ) }"
+					+ " player P { health 3 } mode M \"M\" { player P speed bonus up to 3 times over 30 s arena { background \"Desert\" } layout { 2 * Weed size 3 at ( 50 % , 70 % ) }"
 					+ " win when all balls cleared lose when health depleted or time reaches 60 s }");
 			request.setExpectation("""
 					edition Tiny
@@ -40,7 +40,7 @@ public class FormatterTest {
 
 					mode M "M" {
 						player P
-						balls Weed
+						speed bonus up to 3 times over 30 s
 						arena {
 							background "Desert"
 						}

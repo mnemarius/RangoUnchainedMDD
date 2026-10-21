@@ -29,6 +29,7 @@ import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
@@ -130,6 +131,9 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 				return; 
 			case GamemodePackage.SHIELD:
 				sequence_Shield(context, (Shield) semanticObject); 
+				return; 
+			case GamemodePackage.SPEED_BONUS:
+				sequence_SpeedBonus(context, (SpeedBonus) semanticObject); 
 				return; 
 			case GamemodePackage.SPEED_CHANGE:
 				sequence_SpeedChange(context, (SpeedChange) semanticObject); 
@@ -428,9 +432,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *         title=STRING 
 	 *         description=STRING? 
 	 *         player=[PlayerProfile|ID] 
-	 *         ballTypes+=[BallType|ID] 
-	 *         ballTypes+=[BallType|ID]* 
-	 *         (gravity=Decimal | scoring=Scoring)* 
+	 *         (gravity=Decimal | speedBonus=SpeedBonus)* 
 	 *         arena=Arena 
 	 *         spawning=SpawnStrategy 
 	 *         drops=DropTable? 
@@ -589,6 +591,20 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getShieldAccess().getDurationDecimalParserRuleCall_2_0(), semanticObject.getDuration());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     SpeedBonus returns SpeedBonus
+	 *
+	 * Constraint:
+	 *     (maxFactor=Decimal? duration=Decimal?)
+	 * </pre>
+	 */
+	protected void sequence_SpeedBonus(ISerializationContext context, SpeedBonus semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

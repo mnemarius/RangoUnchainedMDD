@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
 import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
 import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
@@ -24,7 +23,6 @@ import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
-import no.ntnu.tdt4250.rango.gamemode.Scoring;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.TimeReached;
@@ -43,8 +41,6 @@ public final class GamemodeConstraints {
 
 	public static final int NAME_NOT_UNIQUE = 101;
 	public static final int DUPLICATE_EFFECT_KIND = 102;
-	public static final int FRAGMENT_TYPE_UNAVAILABLE = 103;
-	public static final int SPAWN_TYPE_UNAVAILABLE = 104;
 	public static final int SIMULTANEOUS_OUTCOME = 105;
 	public static final int LOST_AT_START = 106;
 	public static final int CONDITION_UNREACHABLE = 107;
@@ -54,8 +50,6 @@ public final class GamemodeConstraints {
 	public static final int HEALTH_NOT_DECISIVE = 111;
 
 	/** Issue codes as seen by Xtext, which joins the source and the code of an EMF diagnostic. */
-	public static final String ISSUE_FRAGMENT_TYPE_UNAVAILABLE = SOURCE + "." + FRAGMENT_TYPE_UNAVAILABLE;
-	public static final String ISSUE_SPAWN_TYPE_UNAVAILABLE = SOURCE + "." + SPAWN_TYPE_UNAVAILABLE;
 	public static final String ISSUE_NEVER_ENDS = SOURCE + "." + NEVER_ENDS;
 	public static final String ISSUE_WRONG_ROLE = SOURCE + "." + WRONG_ROLE;
 	public static final String ISSUE_HEALTH_NOT_DECISIVE = SOURCE + "." + HEALTH_NOT_DECISIVE;
@@ -99,37 +93,6 @@ public final class GamemodeConstraints {
 						"There are two " + effect.eClass().getName() + " effects; combine them into one",
 						effect, null));
 			}
-		}
-		return violations;
-	}
-
-	/**
-	 * Whatever popping the balls of a mode produces is itself available in the mode, so the set of
-	 * available ball types is closed under splitting.
-	 */
-	public static List<Violation> fragmentTypesAvailable(GameMode mode) {
-		List<Violation> violations = new ArrayList<>();
-		for (BallType type : mode.getBallTypes()) {
-			for (BallType produced : type.getProducedTypes()) {
-				if (!mode.getBallTypes().contains(produced)) {
-					violations.add(new Violation(FRAGMENT_TYPE_UNAVAILABLE,
-							"Popping a " + type.getName() + " produces " + produced.getName()
-									+ ", which is not one of the ball types of mode " + mode.getName(),
-							mode, GamemodePackage.Literals.GAME_MODE__BALL_TYPES));
-				}
-			}
-		}
-		return violations;
-	}
-
-	/** A mode only spawns balls of its own ball types. */
-	public static List<Violation> typeAvailableInMode(BallSpawn spawn) {
-		List<Violation> violations = new ArrayList<>();
-		GameMode mode = GamemodeDerivations.modeOf(spawn);
-		if (mode != null && spawn.getType() != null && !mode.getBallTypes().contains(spawn.getType())) {
-			violations.add(new Violation(SPAWN_TYPE_UNAVAILABLE,
-					spawn.getType().getName() + " is not one of the ball types of mode " + mode.getName(),
-					spawn, GamemodePackage.Literals.BALL_SPAWN__TYPE));
 		}
 		return violations;
 	}
@@ -190,10 +153,11 @@ public final class GamemodeConstraints {
 				}
 			} else if (win instanceof ScoreReached score) {
 				int maxScore = mode.getMaxScore();
-				int bonus = mode.getScoring() == Scoring.SPEED_BONUS ? 2 : 1;
-				if (maxScore != GamemodeDerivations.UNBOUNDED && score.getPoints() > (long) maxScore * bonus) {
+				float bonus = mode.getSpeedBonus() != null ? mode.getSpeedBonus().getMaxFactor() : 1;
+				long reachable = (long) Math.floor((double) maxScore * bonus);
+				if (maxScore != GamemodeDerivations.UNBOUNDED && score.getPoints() > reachable) {
 					violations.add(new Violation(CONDITION_UNREACHABLE,
-							"At most " + (long) maxScore * bonus + " points can be scored in this mode",
+							"At most " + reachable + " points can be scored in this mode",
 							win, GamemodePackage.Literals.SCORE_REACHED__POINTS));
 				}
 			}

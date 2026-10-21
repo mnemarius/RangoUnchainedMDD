@@ -7,8 +7,11 @@ public interface ModeContext {
 
     void addScore(float points);
 
-    /** The score multiplier of speed-bonus scoring: 2 at the start, falling to 1 after a minute. */
-    float speedBonus();
+    /**
+     * The score multiplier of a speed bonus: maxFactor at the start of the round, falling evenly
+     * to 1 once duration seconds have passed.
+     */
+    float speedBonus(float maxFactor, float duration);
 
     /** A random number in [0, 1). */
     float random();

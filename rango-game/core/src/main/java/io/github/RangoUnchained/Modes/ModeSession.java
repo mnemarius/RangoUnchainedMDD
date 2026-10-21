@@ -229,8 +229,8 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     }
 
     @Override
-    public float speedBonus() {
-        return Math.max(1f, 2f - elapsed / 60f);
+    public float speedBonus(float maxFactor, float duration) {
+        return Math.max(1f, maxFactor - (maxFactor - 1f) * elapsed / duration);
     }
 
     @Override

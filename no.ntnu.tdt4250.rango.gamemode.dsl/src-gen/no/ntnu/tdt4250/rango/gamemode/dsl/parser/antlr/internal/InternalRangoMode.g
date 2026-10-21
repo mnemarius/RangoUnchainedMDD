@@ -1808,64 +1808,28 @@ ruleGameMode returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_8='balls'
-		{
-			newLeafNode(otherlv_8, grammarAccess.getGameModeAccess().getBallsKeyword_7());
-		}
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getGameModeRule());
-					}
-				}
-				otherlv_9=RULE_ID
-				{
-					newLeafNode(otherlv_9, grammarAccess.getGameModeAccess().getBallTypesBallTypeCrossReference_8_0());
-				}
-			)
-		)
-		(
-			otherlv_10=','
-			{
-				newLeafNode(otherlv_10, grammarAccess.getGameModeAccess().getCommaKeyword_9_0());
-			}
-			(
-				(
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getGameModeRule());
-						}
-					}
-					otherlv_11=RULE_ID
-					{
-						newLeafNode(otherlv_11, grammarAccess.getGameModeAccess().getBallTypesBallTypeCrossReference_9_1_0());
-					}
-				)
-			)
-		)*
 		(
 			(
 				{ 
-				  getUnorderedGroupHelper().enter(grammarAccess.getGameModeAccess().getUnorderedGroup_10());
+				  getUnorderedGroupHelper().enter(grammarAccess.getGameModeAccess().getUnorderedGroup_7());
 				}
 				(
 					(
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_10(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 0)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getGameModeAccess().getUnorderedGroup_10(), 0);
+						getUnorderedGroupHelper().select(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 0);
 					}
-								({true}?=>(otherlv_13='gravity'
+								({true}?=>(otherlv_9='gravity'
 								{
-									newLeafNode(otherlv_13, grammarAccess.getGameModeAccess().getGravityKeyword_10_0_0());
+									newLeafNode(otherlv_9, grammarAccess.getGameModeAccess().getGravityKeyword_7_0_0());
 								}
 								(
 									(
 										{
-											newCompositeNode(grammarAccess.getGameModeAccess().getGravityDecimalParserRuleCall_10_0_1_0());
+											newCompositeNode(grammarAccess.getGameModeAccess().getGravityDecimalParserRuleCall_7_0_1_0());
 										}
-										lv_gravity_14_0=ruleDecimal
+										lv_gravity_10_0=ruleDecimal
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -1873,7 +1837,7 @@ ruleGameMode returns [EObject current=null]
 											set(
 												$current,
 												"gravity",
-												lv_gravity_14_0,
+												lv_gravity_10_0,
 												"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
 											afterParserOrEnumRuleCall();
 										}
@@ -1881,41 +1845,35 @@ ruleGameMode returns [EObject current=null]
 								)
 								))
 					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGameModeAccess().getUnorderedGroup_10());
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGameModeAccess().getUnorderedGroup_7());
 					}
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_10(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 1)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getGameModeAccess().getUnorderedGroup_10(), 1);
+						getUnorderedGroupHelper().select(grammarAccess.getGameModeAccess().getUnorderedGroup_7(), 1);
 					}
-								({true}?=>(otherlv_15='scoring'
-								{
-									newLeafNode(otherlv_15, grammarAccess.getGameModeAccess().getScoringKeyword_10_1_0());
-								}
-								(
-									(
-										{
-											newCompositeNode(grammarAccess.getGameModeAccess().getScoringScoringEnumRuleCall_10_1_1_0());
+								({true}?=>((
+									{
+										newCompositeNode(grammarAccess.getGameModeAccess().getSpeedBonusSpeedBonusParserRuleCall_7_1_0());
+									}
+									lv_speedBonus_11_0=ruleSpeedBonus
+									{
+										if ($current==null) {
+											$current = createModelElementForParent(grammarAccess.getGameModeRule());
 										}
-										lv_scoring_16_0=ruleScoring
-										{
-											if ($current==null) {
-												$current = createModelElementForParent(grammarAccess.getGameModeRule());
-											}
-											set(
-												$current,
-												"scoring",
-												lv_scoring_16_0,
-												"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Scoring");
-											afterParserOrEnumRuleCall();
-										}
-									)
+										set(
+											$current,
+											"speedBonus",
+											lv_speedBonus_11_0,
+											"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpeedBonus");
+										afterParserOrEnumRuleCall();
+									}
 								)
 								))
 					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGameModeAccess().getUnorderedGroup_10());
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGameModeAccess().getUnorderedGroup_7());
 					}
 				)
 			)
@@ -1923,15 +1881,15 @@ ruleGameMode returns [EObject current=null]
 				)
 			)
 				{ 
-				  getUnorderedGroupHelper().leave(grammarAccess.getGameModeAccess().getUnorderedGroup_10());
+				  getUnorderedGroupHelper().leave(grammarAccess.getGameModeAccess().getUnorderedGroup_7());
 				}
 		)
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getArenaArenaParserRuleCall_11_0());
+					newCompositeNode(grammarAccess.getGameModeAccess().getArenaArenaParserRuleCall_8_0());
 				}
-				lv_arena_17_0=ruleArena
+				lv_arena_12_0=ruleArena
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -1939,7 +1897,7 @@ ruleGameMode returns [EObject current=null]
 					set(
 						$current,
 						"arena",
-						lv_arena_17_0,
+						lv_arena_12_0,
 						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Arena");
 					afterParserOrEnumRuleCall();
 				}
@@ -1948,9 +1906,9 @@ ruleGameMode returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getSpawningSpawnStrategyParserRuleCall_12_0());
+					newCompositeNode(grammarAccess.getGameModeAccess().getSpawningSpawnStrategyParserRuleCall_9_0());
 				}
-				lv_spawning_18_0=ruleSpawnStrategy
+				lv_spawning_13_0=ruleSpawnStrategy
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -1958,7 +1916,7 @@ ruleGameMode returns [EObject current=null]
 					set(
 						$current,
 						"spawning",
-						lv_spawning_18_0,
+						lv_spawning_13_0,
 						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpawnStrategy");
 					afterParserOrEnumRuleCall();
 				}
@@ -1967,9 +1925,9 @@ ruleGameMode returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getDropsDropTableParserRuleCall_13_0());
+					newCompositeNode(grammarAccess.getGameModeAccess().getDropsDropTableParserRuleCall_10_0());
 				}
-				lv_drops_19_0=ruleDropTable
+				lv_drops_14_0=ruleDropTable
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -1977,27 +1935,27 @@ ruleGameMode returns [EObject current=null]
 					set(
 						$current,
 						"drops",
-						lv_drops_19_0,
+						lv_drops_14_0,
 						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)?
 		(
-			otherlv_20='win'
+			otherlv_15='win'
 			{
-				newLeafNode(otherlv_20, grammarAccess.getGameModeAccess().getWinKeyword_14_0());
+				newLeafNode(otherlv_15, grammarAccess.getGameModeAccess().getWinKeyword_11_0());
 			}
-			otherlv_21='when'
+			otherlv_16='when'
 			{
-				newLeafNode(otherlv_21, grammarAccess.getGameModeAccess().getWhenKeyword_14_1());
+				newLeafNode(otherlv_16, grammarAccess.getGameModeAccess().getWhenKeyword_11_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_14_2_0());
+						newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_11_2_0());
 					}
-					lv_winConditions_22_0=ruleEndCondition
+					lv_winConditions_17_0=ruleEndCondition
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -2005,23 +1963,23 @@ ruleGameMode returns [EObject current=null]
 						add(
 							$current,
 							"winConditions",
-							lv_winConditions_22_0,
+							lv_winConditions_17_0,
 							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_23='or'
+				otherlv_18='or'
 				{
-					newLeafNode(otherlv_23, grammarAccess.getGameModeAccess().getOrKeyword_14_3_0());
+					newLeafNode(otherlv_18, grammarAccess.getGameModeAccess().getOrKeyword_11_3_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_14_3_1_0());
+							newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_11_3_1_0());
 						}
-						lv_winConditions_24_0=ruleEndCondition
+						lv_winConditions_19_0=ruleEndCondition
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -2029,7 +1987,7 @@ ruleGameMode returns [EObject current=null]
 							add(
 								$current,
 								"winConditions",
-								lv_winConditions_24_0,
+								lv_winConditions_19_0,
 								"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
 							afterParserOrEnumRuleCall();
 						}
@@ -2037,20 +1995,20 @@ ruleGameMode returns [EObject current=null]
 				)
 			)*
 		)?
-		otherlv_25='lose'
+		otherlv_20='lose'
 		{
-			newLeafNode(otherlv_25, grammarAccess.getGameModeAccess().getLoseKeyword_15());
+			newLeafNode(otherlv_20, grammarAccess.getGameModeAccess().getLoseKeyword_12());
 		}
-		otherlv_26='when'
+		otherlv_21='when'
 		{
-			newLeafNode(otherlv_26, grammarAccess.getGameModeAccess().getWhenKeyword_16());
+			newLeafNode(otherlv_21, grammarAccess.getGameModeAccess().getWhenKeyword_13());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_17_0());
+					newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_14_0());
 				}
-				lv_loseConditions_27_0=ruleEndCondition
+				lv_loseConditions_22_0=ruleEndCondition
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -2058,23 +2016,23 @@ ruleGameMode returns [EObject current=null]
 					add(
 						$current,
 						"loseConditions",
-						lv_loseConditions_27_0,
+						lv_loseConditions_22_0,
 						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_28='or'
+			otherlv_23='or'
 			{
-				newLeafNode(otherlv_28, grammarAccess.getGameModeAccess().getOrKeyword_18_0());
+				newLeafNode(otherlv_23, grammarAccess.getGameModeAccess().getOrKeyword_15_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_18_1_0());
+						newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_15_1_0());
 					}
-					lv_loseConditions_29_0=ruleEndCondition
+					lv_loseConditions_24_0=ruleEndCondition
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getGameModeRule());
@@ -2082,17 +2040,113 @@ ruleGameMode returns [EObject current=null]
 						add(
 							$current,
 							"loseConditions",
-							lv_loseConditions_29_0,
+							lv_loseConditions_24_0,
 							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_30='}'
+		otherlv_25='}'
 		{
-			newLeafNode(otherlv_30, grammarAccess.getGameModeAccess().getRightCurlyBracketKeyword_19());
+			newLeafNode(otherlv_25, grammarAccess.getGameModeAccess().getRightCurlyBracketKeyword_16());
 		}
+	)
+;
+
+// Entry rule entryRuleSpeedBonus
+entryRuleSpeedBonus returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getSpeedBonusRule()); }
+	iv_ruleSpeedBonus=ruleSpeedBonus
+	{ $current=$iv_ruleSpeedBonus.current; }
+	EOF;
+
+// Rule SpeedBonus
+ruleSpeedBonus returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getSpeedBonusAccess().getSpeedBonusAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='speed'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getSpeedBonusAccess().getSpeedKeyword_1());
+		}
+		otherlv_2='bonus'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getSpeedBonusAccess().getBonusKeyword_2());
+		}
+		(
+			otherlv_3='up'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getSpeedBonusAccess().getUpKeyword_3_0());
+			}
+			otherlv_4='to'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getSpeedBonusAccess().getToKeyword_3_1());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getSpeedBonusAccess().getMaxFactorDecimalParserRuleCall_3_2_0());
+					}
+					lv_maxFactor_5_0=ruleDecimal
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getSpeedBonusRule());
+						}
+						set(
+							$current,
+							"maxFactor",
+							lv_maxFactor_5_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_6='times'
+			{
+				newLeafNode(otherlv_6, grammarAccess.getSpeedBonusAccess().getTimesKeyword_3_3());
+			}
+		)?
+		(
+			otherlv_7='over'
+			{
+				newLeafNode(otherlv_7, grammarAccess.getSpeedBonusAccess().getOverKeyword_4_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getSpeedBonusAccess().getDurationDecimalParserRuleCall_4_1_0());
+					}
+					lv_duration_8_0=ruleDecimal
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getSpeedBonusRule());
+						}
+						set(
+							$current,
+							"duration",
+							lv_duration_8_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_9='s'
+			{
+				newLeafNode(otherlv_9, grammarAccess.getSpeedBonusAccess().getSKeyword_4_2());
+			}
+		)?
 	)
 ;
 
@@ -3660,33 +3714,6 @@ ruleDecimal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
 				newLeafNode(this_INT_2, grammarAccess.getDecimalAccess().getINTTerminalRuleCall_1_1());
 			}
 		)?
-	)
-;
-
-// Rule Scoring
-ruleScoring returns [Enumerator current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			enumLiteral_0='points'
-			{
-				$current = grammarAccess.getScoringAccess().getPOINTSEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_0, grammarAccess.getScoringAccess().getPOINTSEnumLiteralDeclaration_0());
-			}
-		)
-		    |
-		(
-			enumLiteral_1='speed-bonus'
-			{
-				$current = grammarAccess.getScoringAccess().getSPEED_BONUSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_1, grammarAccess.getScoringAccess().getSPEED_BONUSEnumLiteralDeclaration_1());
-			}
-		)
 	)
 ;
 

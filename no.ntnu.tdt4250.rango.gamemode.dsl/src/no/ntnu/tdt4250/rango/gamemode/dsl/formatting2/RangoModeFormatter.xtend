@@ -58,10 +58,10 @@ class RangoModeFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(GameMode mode, extension IFormattableDocument document) {
 		mode.block(document)
-		mode.lines(document, 'description', 'player', 'balls', 'gravity', 'scoring', 'win', 'lose')
+		mode.lines(document, 'description', 'player', 'gravity', 'win', 'lose')
 		mode.lists(document)
 		mode.regionFor.keywords('or').forEach[surround[oneSpace]]
-		for (part : #[mode.arena, mode.spawning, mode.drops].filterNull) {
+		for (part : #[mode.speedBonus, mode.arena, mode.spawning, mode.drops].filterNull) {
 			part.prepend[newLine]
 			part.format
 		}

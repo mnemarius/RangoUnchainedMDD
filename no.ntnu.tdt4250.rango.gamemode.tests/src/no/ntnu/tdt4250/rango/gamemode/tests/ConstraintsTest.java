@@ -13,6 +13,7 @@ import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
 import no.ntnu.tdt4250.rango.gamemode.Burst;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.TimeReached;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
@@ -88,6 +89,22 @@ public class ConstraintsTest {
 		assertViolated("notToItself");
 	}
 
+	@Test
+	public void oclSpeedBonusRaisesTheScore() {
+		SpeedBonus bonus = ModelFixture.F.createSpeedBonus();
+		bonus.setMaxFactor(1);
+		f.clear.setSpeedBonus(bonus);
+		assertViolated("bonusAboveOne");
+	}
+
+	@Test
+	public void oclSpeedBonusLastsAWhile() {
+		SpeedBonus bonus = ModelFixture.F.createSpeedBonus();
+		bonus.setDuration(0);
+		f.clear.setSpeedBonus(bonus);
+		assertViolated("positiveDuration");
+	}
+
 	// ---------------------------------------------------------------- Java constraints
 
 	@Test
@@ -102,19 +119,6 @@ public class ConstraintsTest {
 		second.setAmount(2);
 		f.tumbleweed.getContactEffects().add(second);
 		assertCode(GamemodeConstraints.DUPLICATE_EFFECT_KIND);
-	}
-
-	@Test
-	public void fragmentTypesMustBeAvailable() {
-		f.clear.getBallTypes().remove(f.tumbleweed);
-		f.layout.getSpawns().remove(0);
-		assertCode(GamemodeConstraints.FRAGMENT_TYPE_UNAVAILABLE);
-	}
-
-	@Test
-	public void spawnedTypesMustBeAvailable() {
-		f.clear.getBallTypes().remove(f.bomb);
-		assertCode(GamemodeConstraints.SPAWN_TYPE_UNAVAILABLE);
 	}
 
 	@Test
@@ -150,8 +154,12 @@ public class ConstraintsTest {
 		score.setPoints(300);
 		f.clear.getWinConditions().add(score);
 		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
-		f.clear.setScoring(no.ntnu.tdt4250.rango.gamemode.Scoring.SPEED_BONUS);
+		SpeedBonus bonus = ModelFixture.F.createSpeedBonus();
+		f.clear.setSpeedBonus(bonus);
 		assertEquals(Diagnostic.OK, ModelFixture.validate(f.edition).getSeverity());
+		// the reachable score follows the factor of the model: 215 points at most 1.2 times
+		bonus.setMaxFactor(1.2f);
+		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
 	}
 
 	@Test

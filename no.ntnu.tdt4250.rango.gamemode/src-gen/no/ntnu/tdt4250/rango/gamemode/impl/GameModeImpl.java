@@ -13,9 +13,9 @@ import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
-import no.ntnu.tdt4250.rango.gamemode.Scoring;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 
+import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getPlayer <em>Player</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getBallTypes <em>Ball Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getGravity <em>Gravity</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getScoring <em>Scoring</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getSpeedBonus <em>Speed Bonus</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getArena <em>Arena</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getSpawning <em>Spawning</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getDrops <em>Drops</em>}</li>
@@ -108,16 +108,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	protected PlayerProfile player;
 
 	/**
-	 * The cached value of the '{@link #getBallTypes() <em>Ball Types</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBallTypes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<BallType> ballTypes;
-
-	/**
 	 * The default value of the '{@link #getGravity() <em>Gravity</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -138,24 +128,14 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	protected float gravity = GRAVITY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getScoring() <em>Scoring</em>}' attribute.
+	 * The cached value of the '{@link #getSpeedBonus() <em>Speed Bonus</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getScoring()
+	 * @see #getSpeedBonus()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Scoring SCORING_EDEFAULT = Scoring.POINTS;
-
-	/**
-	 * The cached value of the '{@link #getScoring() <em>Scoring</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getScoring()
-	 * @generated
-	 * @ordered
-	 */
-	protected Scoring scoring = SCORING_EDEFAULT;
+	protected SpeedBonus speedBonus;
 
 	/**
 	 * The cached value of the '{@link #getArena() <em>Arena</em>}' containment reference.
@@ -335,14 +315,11 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public EList<BallType> getBallTypes() {
-		if (ballTypes == null) {
-			ballTypes = new EObjectResolvingEList<BallType>(BallType.class, this, GamemodePackage.GAME_MODE__BALL_TYPES);
-		}
-		return ballTypes;
+		return GamemodeDerivations.ballTypes(this);
 	}
 
 	/**
@@ -374,8 +351,23 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	 * @generated
 	 */
 	@Override
-	public Scoring getScoring() {
-		return scoring;
+	public SpeedBonus getSpeedBonus() {
+		return speedBonus;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSpeedBonus(SpeedBonus newSpeedBonus, NotificationChain msgs) {
+		SpeedBonus oldSpeedBonus = speedBonus;
+		speedBonus = newSpeedBonus;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__SPEED_BONUS, oldSpeedBonus, newSpeedBonus);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -384,11 +376,18 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	 * @generated
 	 */
 	@Override
-	public void setScoring(Scoring newScoring) {
-		Scoring oldScoring = scoring;
-		scoring = newScoring == null ? SCORING_EDEFAULT : newScoring;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__SCORING, oldScoring, scoring));
+	public void setSpeedBonus(SpeedBonus newSpeedBonus) {
+		if (newSpeedBonus != speedBonus) {
+			NotificationChain msgs = null;
+			if (speedBonus != null)
+				msgs = ((InternalEObject)speedBonus).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__SPEED_BONUS, null, msgs);
+			if (newSpeedBonus != null)
+				msgs = ((InternalEObject)newSpeedBonus).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__SPEED_BONUS, null, msgs);
+			msgs = basicSetSpeedBonus(newSpeedBonus, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__SPEED_BONUS, newSpeedBonus, newSpeedBonus));
 	}
 
 	/**
@@ -590,6 +589,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GamemodePackage.GAME_MODE__SPEED_BONUS:
+				return basicSetSpeedBonus(null, msgs);
 			case GamemodePackage.GAME_MODE__ARENA:
 				return basicSetArena(null, msgs);
 			case GamemodePackage.GAME_MODE__SPAWNING:
@@ -623,8 +624,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return getBallTypes();
 			case GamemodePackage.GAME_MODE__GRAVITY:
 				return getGravity();
-			case GamemodePackage.GAME_MODE__SCORING:
-				return getScoring();
+			case GamemodePackage.GAME_MODE__SPEED_BONUS:
+				return getSpeedBonus();
 			case GamemodePackage.GAME_MODE__ARENA:
 				return getArena();
 			case GamemodePackage.GAME_MODE__SPAWNING:
@@ -663,15 +664,11 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__PLAYER:
 				setPlayer((PlayerProfile)newValue);
 				return;
-			case GamemodePackage.GAME_MODE__BALL_TYPES:
-				getBallTypes().clear();
-				getBallTypes().addAll((Collection<? extends BallType>)newValue);
-				return;
 			case GamemodePackage.GAME_MODE__GRAVITY:
 				setGravity((Float)newValue);
 				return;
-			case GamemodePackage.GAME_MODE__SCORING:
-				setScoring((Scoring)newValue);
+			case GamemodePackage.GAME_MODE__SPEED_BONUS:
+				setSpeedBonus((SpeedBonus)newValue);
 				return;
 			case GamemodePackage.GAME_MODE__ARENA:
 				setArena((Arena)newValue);
@@ -711,14 +708,11 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__PLAYER:
 				setPlayer((PlayerProfile)null);
 				return;
-			case GamemodePackage.GAME_MODE__BALL_TYPES:
-				getBallTypes().clear();
-				return;
 			case GamemodePackage.GAME_MODE__GRAVITY:
 				setGravity(GRAVITY_EDEFAULT);
 				return;
-			case GamemodePackage.GAME_MODE__SCORING:
-				setScoring(SCORING_EDEFAULT);
+			case GamemodePackage.GAME_MODE__SPEED_BONUS:
+				setSpeedBonus((SpeedBonus)null);
 				return;
 			case GamemodePackage.GAME_MODE__ARENA:
 				setArena((Arena)null);
@@ -754,11 +748,11 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__PLAYER:
 				return player != null;
 			case GamemodePackage.GAME_MODE__BALL_TYPES:
-				return ballTypes != null && !ballTypes.isEmpty();
+				return !getBallTypes().isEmpty();
 			case GamemodePackage.GAME_MODE__GRAVITY:
 				return gravity != GRAVITY_EDEFAULT;
-			case GamemodePackage.GAME_MODE__SCORING:
-				return scoring != SCORING_EDEFAULT;
+			case GamemodePackage.GAME_MODE__SPEED_BONUS:
+				return speedBonus != null;
 			case GamemodePackage.GAME_MODE__ARENA:
 				return arena != null;
 			case GamemodePackage.GAME_MODE__SPAWNING:
@@ -795,8 +789,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 		result.append(description);
 		result.append(", gravity: ");
 		result.append(gravity);
-		result.append(", scoring: ");
-		result.append(scoring);
 		result.append(')');
 		return result.toString();
 	}

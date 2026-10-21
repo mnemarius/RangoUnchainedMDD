@@ -3,12 +3,8 @@
  */
 package no.ntnu.tdt4250.rango.gamemode.dsl.ui.quickfix;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
@@ -16,7 +12,6 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
@@ -32,36 +27,6 @@ import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
  * model (semantic modifications), so the editor reformats only the changed parts.
  */
 public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
-
-	@Fix(GamemodeConstraints.ISSUE_SPAWN_TYPE_UNAVAILABLE)
-	public void addSpawnedType(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "Add the ball type to the mode", "Adds the spawned ball type to the balls of the mode.",
-				"ball.png", (EObject element, IModificationContext context) -> {
-					BallSpawn spawn = (BallSpawn) element;
-					GameMode mode = EcoreUtil2.getContainerOfType(spawn, GameMode.class);
-					if (mode != null && !mode.getBallTypes().contains(spawn.getType())) {
-						mode.getBallTypes().add(spawn.getType());
-					}
-				});
-	}
-
-	@Fix(GamemodeConstraints.ISSUE_FRAGMENT_TYPE_UNAVAILABLE)
-	public void addProducedTypes(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "Add the missing ball types to the mode",
-				"Adds every ball type that popping the balls of the mode can produce.", "ball.png",
-				(EObject element, IModificationContext context) -> {
-					GameMode mode = (GameMode) element;
-					List<BallType> pending = new ArrayList<>(mode.getBallTypes());
-					while (!pending.isEmpty()) {
-						for (BallType produced : pending.remove(0).getProducedTypes()) {
-							if (!mode.getBallTypes().contains(produced)) {
-								mode.getBallTypes().add(produced);
-								pending.add(produced);
-							}
-						}
-					}
-				});
-	}
 
 	@Fix(GamemodeConstraints.ISSUE_NEVER_ENDS)
 	public void makeModeEnd(Issue issue, IssueResolutionAcceptor acceptor) {

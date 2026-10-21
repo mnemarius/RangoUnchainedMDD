@@ -25,6 +25,24 @@ public class DerivedFeaturesTest {
 	}
 
 	@Test
+	public void ballTypesAreTheSpawnedTypesAndWhatTheyProduce() {
+		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getBallTypes());
+		// only a Bomb is spawned, but it bursts into Tumbleweeds; the edition's order is kept
+		f.layout.getSpawns().remove(0);
+		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getBallTypes());
+		// a Tumbleweed only splits into Tumbleweeds
+		f.layout.getSpawns().set(0, ModelFixture.spawn(f.tumbleweed, 3, 1));
+		assertEquals(List.of(f.tumbleweed), f.clear.getBallTypes());
+	}
+
+	@Test
+	public void ballTypesFollowCyclesOnce() {
+		((Fragmenting) f.tumbleweed.getSplitRule()).setFragmentType(f.bomb);
+		f.layout.getSpawns().remove(1);
+		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getBallTypes());
+	}
+
+	@Test
 	public void popsToClearFollowFragmentsAcrossTypes() {
 		// a large Tumbleweed: 1 + 2 * (1 + 2 * 1) = 7
 		assertEquals(7, f.layout.getSpawns().get(0).getPopsToClear());

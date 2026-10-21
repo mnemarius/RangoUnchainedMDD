@@ -413,7 +413,7 @@
       <details key="documentation" value="A way to play the game: the rules of one round, from what spawns to when the round ends."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="positiveGravity fragmentTypesAvailable noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful"/>
+      <details key="constraints" value="positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="positiveGravity" value="gravity > 0"/>
@@ -434,10 +434,10 @@
         <details key="documentation" value="The profile the player plays with in this mode."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ballTypes" lowerBound="1"
-        upperBound="-1" eType="#//BallType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ballTypes" upperBound="-1"
+        eType="#//BallType" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The ball types available in this mode. Only these can be spawned or produced by popping."/>
+        <details key="documentation" value="The ball types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gravity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
@@ -446,7 +446,12 @@
         <details key="documentation" value="Downward acceleration in the arena, in metres per second squared."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scoring" eType="#//Scoring"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="speedBonus" eType="#//SpeedBonus"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Makes early pops worth more. Without a speed bonus, each pop is worth the points of its ball type."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arena" lowerBound="1" eType="#//Arena"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -492,24 +497,33 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxScore" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The points earned by popping everything the mode spawns, with points scoring. -1 if the waves loop."/>
+        <details key="documentation" value="The points earned by popping everything the mode spawns, before any speed bonus. -1 if the waves loop."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Scoring">
+  <eClassifiers xsi:type="ecore:EClass" name="SpeedBonus">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="How pops are turned into score."/>
+      <details key="documentation" value="Early pops are worth more: each pop is worth the points of the ball type times a bonus, which starts at the maximum factor and falls evenly to 1 over the duration of the bonus."/>
     </eAnnotations>
-    <eLiterals name="POINTS" literal="points">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="bonusAboveOne positiveDuration"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
+      <details key="bonusAboveOne" value="maxFactor > 1"/>
+      <details key="positiveDuration" value="duration > 0"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxFactor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="2.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Each pop is worth the points of the popped ball type."/>
+        <details key="documentation" value="What a pop is worth at the start of the round, as a multiple of the points of its ball type."/>
       </eAnnotations>
-    </eLiterals>
-    <eLiterals name="SPEED_BONUS" value="1" literal="speed-bonus">
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="duration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="60.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Each pop is worth the points of the ball type, times a bonus that shrinks as the round goes on (the scoring of the original campaign)."/>
+        <details key="documentation" value="Seconds until the bonus has worn off and pops are worth their plain points."/>
       </eAnnotations>
-    </eLiterals>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Arena">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -709,7 +723,7 @@
       <details key="documentation" value="One or more balls of the same type and size that enter the arena at a position. Several balls are spread out sideways."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="sizeInRange positiveCount typeAvailableInMode"/>
+      <details key="constraints" value="sizeInRange positiveCount"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="sizeInRange" value="size >= 1 and size &lt;= 3"/>

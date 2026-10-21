@@ -118,21 +118,23 @@ class GameMode {
   title : String
   description : String [0..1]
   gravity : Float [0..1]
-  scoring : Scoring [0..1]
+  /ballTypes : BallType [*]
   /popsToClear : Int [0..1]
   /maxScore : Int [0..1]
   /powerUps : PowerUp [*]
   --
   <<positiveGravity>>
-  <<fragmentTypesAvailable>>
   <<noSimultaneousOutcome>>
   <<winnable>>
   <<endsSomehow>>
   <<healthDepletedWhenHarmful>>
 }
-enum Scoring {
-  POINTS
-  SPEED_BONUS
+class SpeedBonus {
+  maxFactor : Float [0..1]
+  duration : Float [0..1]
+  --
+  <<bonusAboveOne>>
+  <<positiveDuration>>
 }
 class Arena {
   background : String
@@ -193,7 +195,6 @@ class BallSpawn {
   --
   <<sizeInRange>>
   <<positiveCount>>
-  <<typeAvailableInMode>>
 }
 enum Direction {
   LEFT
@@ -271,9 +272,9 @@ NamedElement <|-- PowerUp
 NamedElement <|-- Material
 NamedElement <|-- PlayerProfile
 GameMode --> "player 1" PlayerProfile
-GameMode --> "ballTypes 1..*" BallType
 GameMode *--> "arena 1" Arena
 GameMode *--> "spawning 1" SpawnStrategy
+GameMode *--> "speedBonus 0..1" SpeedBonus
 GameMode *--> "drops 0..1" DropTable
 GameMode *--> "winConditions *" EndCondition
 GameMode *--> "loseConditions 1..*" EndCondition

@@ -14,6 +14,7 @@ import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.BallType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
+import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.Fragmenting;
@@ -175,6 +176,38 @@ public final class GamemodeDerivations {
 			return 0;
 		}
 		return table.getChance() * drop.getWeight() / table.getTotalWeight();
+	}
+
+	/**
+	 * The ball types that can appear in a mode: those it spawns, and everything popping them can
+	 * produce, in the order the edition declares them.
+	 */
+	public static EList<BallType> ballTypes(GameMode mode) {
+		Set<BallType> reachable = new LinkedHashSet<>();
+		List<BallType> pending = new ArrayList<>();
+		for (BallSpawn spawn : allSpawns(mode.getSpawning())) {
+			pending.add(spawn.getType());
+		}
+		while (!pending.isEmpty()) {
+			BallType type = pending.remove(pending.size() - 1);
+			if (type != null && reachable.add(type)) {
+				pending.addAll(type.getProducedTypes());
+			}
+		}
+		List<BallType> types = new ArrayList<>();
+		if (mode.eContainer() instanceof Edition edition) {
+			for (BallType type : edition.getBallTypes()) {
+				if (reachable.contains(type)) {
+					types.add(type);
+				}
+			}
+		}
+		for (BallType type : reachable) {
+			if (!types.contains(type)) {
+				types.add(type);
+			}
+		}
+		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__BALL_TYPES, types);
 	}
 
 	public static EList<PowerUp> powerUps(GameMode mode) {

@@ -24,7 +24,7 @@ package no.ntnu.tdt4250.rango.gamemode;
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallSpawn()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='sizeInRange positiveCount typeAvailableInMode'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='sizeInRange positiveCount'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG sizeInRange='size &gt;= 1 and size &lt;= 3' positiveCount='count &gt;= 1'"
  * @generated
  */

@@ -12,19 +12,11 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 
 /**
- * Scoping of the game mode DSL.
- * <ul>
- * <li>A teleporter can only lead to another teleporter of its own arena.</li>
- * <li>The ball types of a spawn are looked up among the ball types of its mode first. The other ball
- * types of the edition stay visible behind them, so that a spawn of a type the mode does not offer
- * still resolves and the metamodel constraint {@code typeAvailableInMode} can explain the problem
- * (with a quick fix) instead of a bare "could not resolve" error.</li>
- * </ul>
+ * Scoping of the game mode DSL: a teleporter can only lead to another teleporter of its own arena.
  */
 public class RangoModeScopeProvider extends AbstractRangoModeScopeProvider {
 
@@ -37,12 +29,6 @@ public class RangoModeScopeProvider extends AbstractRangoModeScopeProvider {
 						.filter(teleporter -> teleporter != context)
 						.toList();
 				return Scopes.scopeFor(targets);
-			}
-		}
-		if (reference == GamemodePackage.Literals.BALL_SPAWN__TYPE) {
-			GameMode mode = EcoreUtil2.getContainerOfType(context, GameMode.class);
-			if (mode != null) {
-				return Scopes.scopeFor(mode.getBallTypes(), super.getScope(context, reference));
 			}
 		}
 		return super.getScope(context, reference);

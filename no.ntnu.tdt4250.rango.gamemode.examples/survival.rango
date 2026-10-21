@@ -76,7 +76,6 @@ player Rango {
 mode Endless "Endless Survival" {
 	description "The waves never stop, and grow every round. Survive as long as you can."
 	player Rango
-	balls Tumbleweed, Armadillo, Cactus, Bomb
 	arena {
 		background "Desert"
 		floor Grass
@@ -107,7 +106,6 @@ mode Endless "Endless Survival" {
 mode WaveRush "Wave Rush" {
 	description "Five waves with hardly a break between them. Get through all of them."
 	player Rango
-	balls Tumbleweed, Armadillo
 	gravity 12
 	arena {
 		background "Desert"

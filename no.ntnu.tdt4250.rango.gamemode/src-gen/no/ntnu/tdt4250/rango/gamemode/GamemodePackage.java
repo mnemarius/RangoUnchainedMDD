@@ -1144,13 +1144,13 @@ public interface GamemodePackage extends EPackage {
 	int GAME_MODE__GRAVITY = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Scoring</b></em>' attribute.
+	 * The feature id for the '<em><b>Speed Bonus</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE__SCORING = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int GAME_MODE__SPEED_BONUS = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Arena</b></em>' containment reference.
@@ -1243,6 +1243,52 @@ public interface GamemodePackage extends EPackage {
 	int GAME_MODE_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpeedBonusImpl <em>Speed Bonus</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.SpeedBonusImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpeedBonus()
+	 * @generated
+	 */
+	int SPEED_BONUS = 20;
+
+	/**
+	 * The feature id for the '<em><b>Max Factor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_BONUS__MAX_FACTOR = 0;
+
+	/**
+	 * The feature id for the '<em><b>Duration</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_BONUS__DURATION = 1;
+
+	/**
+	 * The number of structural features of the '<em>Speed Bonus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_BONUS_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Speed Bonus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_BONUS_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ArenaImpl <em>Arena</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1250,7 +1296,207 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getArena()
 	 * @generated
 	 */
-	int ARENA = 20;
+	int ARENA = 21;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl <em>Obstacle</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getObstacle()
+	 * @generated
+	 */
+	int OBSTACLE = 22;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl <em>Block</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBlock()
+	 * @generated
+	 */
+	int BLOCK = 23;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl <em>Trigger</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTrigger()
+	 * @generated
+	 */
+	int TRIGGER = 24;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl <em>Jump Pad</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getJumpPad()
+	 * @generated
+	 */
+	int JUMP_PAD = 25;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl <em>Teleporter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTeleporter()
+	 * @generated
+	 */
+	int TELEPORTER = 26;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl <em>Spawn Strategy</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpawnStrategy()
+	 * @generated
+	 */
+	int SPAWN_STRATEGY = 27;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl <em>Fixed Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getFixedLayout()
+	 * @generated
+	 */
+	int FIXED_LAYOUT = 28;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl <em>Wave Schedule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWaveSchedule()
+	 * @generated
+	 */
+	int WAVE_SCHEDULE = 29;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl <em>Wave</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWave()
+	 * @generated
+	 */
+	int WAVE = 30;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl <em>Ball Spawn</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallSpawn()
+	 * @generated
+	 */
+	int BALL_SPAWN = 31;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl <em>Drop Table</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDropTable()
+	 * @generated
+	 */
+	int DROP_TABLE = 32;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl <em>Drop</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDrop()
+	 * @generated
+	 */
+	int DROP = 33;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl <em>End Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEndCondition()
+	 * @generated
+	 */
+	int END_CONDITION = 34;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl <em>Cleared</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getCleared()
+	 * @generated
+	 */
+	int CLEARED = 35;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl <em>Time Reached</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeReached()
+	 * @generated
+	 */
+	int TIME_REACHED = 36;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl <em>Score Reached</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getScoreReached()
+	 * @generated
+	 */
+	int SCORE_REACHED = 37;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl <em>Balls Popped</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsPopped()
+	 * @generated
+	 */
+	int BALLS_POPPED = 38;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWavesSurvived()
+	 * @generated
+	 */
+	int WAVES_SURVIVED = 39;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl <em>Health Depleted</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHealthDepleted()
+	 * @generated
+	 */
+	int HEALTH_DEPLETED = 40;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl <em>Balls Alive</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsAlive()
+	 * @generated
+	 */
+	int BALLS_ALIVE = 41;
 
 	/**
 	 * The feature id for the '<em><b>Background</b></em>' attribute.
@@ -1316,16 +1562,6 @@ public interface GamemodePackage extends EPackage {
 	int ARENA_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl <em>Obstacle</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getObstacle()
-	 * @generated
-	 */
-	int OBSTACLE = 21;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1369,16 +1605,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int OBSTACLE_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl <em>Block</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBlock()
-	 * @generated
-	 */
-	int BLOCK = 22;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1453,16 +1679,6 @@ public interface GamemodePackage extends EPackage {
 	int BLOCK_OPERATION_COUNT = OBSTACLE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl <em>Trigger</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTrigger()
-	 * @generated
-	 */
-	int TRIGGER = 23;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1515,16 +1731,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int TRIGGER_OPERATION_COUNT = OBSTACLE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl <em>Jump Pad</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getJumpPad()
-	 * @generated
-	 */
-	int JUMP_PAD = 24;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1590,16 +1796,6 @@ public interface GamemodePackage extends EPackage {
 	int JUMP_PAD_OPERATION_COUNT = TRIGGER_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl <em>Teleporter</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTeleporter()
-	 * @generated
-	 */
-	int TELEPORTER = 25;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1663,16 +1859,6 @@ public interface GamemodePackage extends EPackage {
 	int TELEPORTER_OPERATION_COUNT = TRIGGER_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl <em>Spawn Strategy</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpawnStrategy()
-	 * @generated
-	 */
-	int SPAWN_STRATEGY = 26;
-
-	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1698,16 +1884,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int SPAWN_STRATEGY_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl <em>Fixed Layout</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getFixedLayout()
-	 * @generated
-	 */
-	int FIXED_LAYOUT = 27;
 
 	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
@@ -1744,16 +1920,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int FIXED_LAYOUT_OPERATION_COUNT = SPAWN_STRATEGY_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl <em>Wave Schedule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWaveSchedule()
-	 * @generated
-	 */
-	int WAVE_SCHEDULE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
@@ -1810,16 +1976,6 @@ public interface GamemodePackage extends EPackage {
 	int WAVE_SCHEDULE_OPERATION_COUNT = SPAWN_STRATEGY_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl <em>Wave</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWave()
-	 * @generated
-	 */
-	int WAVE = 29;
-
-	/**
 	 * The feature id for the '<em><b>Delay</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1872,16 +2028,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int WAVE_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl <em>Ball Spawn</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallSpawn()
-	 * @generated
-	 */
-	int BALL_SPAWN = 30;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -1965,16 +2111,6 @@ public interface GamemodePackage extends EPackage {
 	int BALL_SPAWN_OPERATION_COUNT = POSITIONED_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl <em>Drop Table</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDropTable()
-	 * @generated
-	 */
-	int DROP_TABLE = 31;
-
-	/**
 	 * The feature id for the '<em><b>Chance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2018,16 +2154,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int DROP_TABLE_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl <em>Drop</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDrop()
-	 * @generated
-	 */
-	int DROP = 32;
 
 	/**
 	 * The feature id for the '<em><b>Table</b></em>' container reference.
@@ -2084,16 +2210,6 @@ public interface GamemodePackage extends EPackage {
 	int DROP_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl <em>End Condition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEndCondition()
-	 * @generated
-	 */
-	int END_CONDITION = 33;
-
-	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2121,16 +2237,6 @@ public interface GamemodePackage extends EPackage {
 	int END_CONDITION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl <em>Cleared</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getCleared()
-	 * @generated
-	 */
-	int CLEARED = 34;
-
-	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2156,16 +2262,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int CLEARED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl <em>Time Reached</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeReached()
-	 * @generated
-	 */
-	int TIME_REACHED = 35;
 
 	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
@@ -2204,16 +2300,6 @@ public interface GamemodePackage extends EPackage {
 	int TIME_REACHED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl <em>Score Reached</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getScoreReached()
-	 * @generated
-	 */
-	int SCORE_REACHED = 36;
-
-	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2248,16 +2334,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int SCORE_REACHED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl <em>Balls Popped</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsPopped()
-	 * @generated
-	 */
-	int BALLS_POPPED = 37;
 
 	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
@@ -2296,16 +2372,6 @@ public interface GamemodePackage extends EPackage {
 	int BALLS_POPPED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWavesSurvived()
-	 * @generated
-	 */
-	int WAVES_SURVIVED = 38;
-
-	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2342,16 +2408,6 @@ public interface GamemodePackage extends EPackage {
 	int WAVES_SURVIVED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl <em>Health Depleted</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHealthDepleted()
-	 * @generated
-	 */
-	int HEALTH_DEPLETED = 39;
-
-	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2377,16 +2433,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int HEALTH_DEPLETED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl <em>Balls Alive</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsAlive()
-	 * @generated
-	 */
-	int BALLS_ALIVE = 40;
 
 	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
@@ -2423,16 +2469,6 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int BALLS_ALIVE_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Scoring <em>Scoring</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.Scoring
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getScoring()
-	 * @generated
-	 */
-	int SCORING = 41;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}' enum.
@@ -3129,15 +3165,15 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getGameMode_Gravity();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getScoring <em>Scoring</em>}'.
+	 * Returns the meta object for the containment reference '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus <em>Speed Bonus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Scoring</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getScoring()
+	 * @return the meta object for the containment reference '<em>Speed Bonus</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus()
 	 * @see #getGameMode()
 	 * @generated
 	 */
-	EAttribute getGameMode_Scoring();
+	EReference getGameMode_SpeedBonus();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getArena <em>Arena</em>}'.
@@ -3226,6 +3262,38 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGameMode_MaxScore();
+
+	/**
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.SpeedBonus <em>Speed Bonus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Speed Bonus</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.SpeedBonus
+	 * @generated
+	 */
+	EClass getSpeedBonus();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.SpeedBonus#getMaxFactor <em>Max Factor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Factor</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.SpeedBonus#getMaxFactor()
+	 * @see #getSpeedBonus()
+	 * @generated
+	 */
+	EAttribute getSpeedBonus_MaxFactor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.SpeedBonus#getDuration <em>Duration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Duration</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.SpeedBonus#getDuration()
+	 * @see #getSpeedBonus()
+	 * @generated
+	 */
+	EAttribute getSpeedBonus_Duration();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Arena <em>Arena</em>}'.
@@ -3856,16 +3924,6 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getBallsAlive_Count();
 
 	/**
-	 * Returns the meta object for enum '{@link no.ntnu.tdt4250.rango.gamemode.Scoring <em>Scoring</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Scoring</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Scoring
-	 * @generated
-	 */
-	EEnum getScoring();
-
-	/**
 	 * Returns the meta object for enum '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4453,12 +4511,12 @@ public interface GamemodePackage extends EPackage {
 		EAttribute GAME_MODE__GRAVITY = eINSTANCE.getGameMode_Gravity();
 
 		/**
-		 * The meta object literal for the '<em><b>Scoring</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Speed Bonus</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute GAME_MODE__SCORING = eINSTANCE.getGameMode_Scoring();
+		EReference GAME_MODE__SPEED_BONUS = eINSTANCE.getGameMode_SpeedBonus();
 
 		/**
 		 * The meta object literal for the '<em><b>Arena</b></em>' containment reference feature.
@@ -4523,6 +4581,32 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GAME_MODE__MAX_SCORE = eINSTANCE.getGameMode_MaxScore();
+
+		/**
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpeedBonusImpl <em>Speed Bonus</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.SpeedBonusImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpeedBonus()
+		 * @generated
+		 */
+		EClass SPEED_BONUS = eINSTANCE.getSpeedBonus();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Factor</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPEED_BONUS__MAX_FACTOR = eINSTANCE.getSpeedBonus_MaxFactor();
+
+		/**
+		 * The meta object literal for the '<em><b>Duration</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPEED_BONUS__DURATION = eINSTANCE.getSpeedBonus_Duration();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ArenaImpl <em>Arena</em>}' class.
@@ -5037,16 +5121,6 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BALLS_ALIVE__COUNT = eINSTANCE.getBallsAlive_Count();
-
-		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.Scoring <em>Scoring</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.Scoring
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getScoring()
-		 * @generated
-		 */
-		EEnum SCORING = eINSTANCE.getScoring();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}' enum.

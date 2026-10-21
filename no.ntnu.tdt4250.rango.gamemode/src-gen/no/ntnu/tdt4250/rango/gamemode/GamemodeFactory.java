@@ -148,6 +148,15 @@ public interface GamemodeFactory extends EFactory {
 	GameMode createGameMode();
 
 	/**
+	 * Returns a new object of class '<em>Speed Bonus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Speed Bonus</em>'.
+	 * @generated
+	 */
+	SpeedBonus createSpeedBonus();
+
+	/**
 	 * Returns a new object of class '<em>Arena</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
