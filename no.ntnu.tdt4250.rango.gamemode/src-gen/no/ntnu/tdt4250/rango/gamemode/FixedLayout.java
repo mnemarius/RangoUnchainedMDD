@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * All balls are in place when the round starts, as in the campaign levels.
+ * All enemies are in place when the round starts, as in the campaign levels.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -27,7 +27,7 @@ import org.eclipse.emf.common.util.EList;
 public interface FixedLayout extends SpawnStrategy {
 	/**
 	 * Returns the value of the '<em><b>Spawns</b></em>' containment reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.BallSpawn}.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Spawns</em>' containment reference list.
@@ -35,6 +35,6 @@ public interface FixedLayout extends SpawnStrategy {
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EList<BallSpawn> getSpawns();
+	EList<EnemySpawn> getSpawns();
 
 } // FixedLayout

@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * What popping one ball type can drop. Each pop drops at most one power-up: with the table's chance, one of its entries, picked by weight.
+ * What popping one enemy type can drop. Each pop drops at most one power-up: with the table's chance, one of its entries, picked by weight.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getChance <em>Chance</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getEntries <em>Entries</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getTotalWeight <em>Total Weight</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getBallType <em>Ball Type</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getEnemyType <em>Enemy Type</em>}</li>
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getDropTable()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='chanceIsPercentage distinctPowerUps oneTablePerBall'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='chanceIsPercentage distinctPowerUps oneTablePerEnemy'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG chanceIsPercentage='chance &gt; 0 and chance &lt;= 100' distinctPowerUps='entries-&gt;isUnique(powerUp)'"
  * @generated
  */
@@ -85,28 +85,28 @@ public interface DropTable extends EObject {
 	int getTotalWeight();
 
 	/**
-	 * Returns the value of the '<em><b>Ball Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Enemy Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The ball type whose pops roll on this table.
+	 * The enemy type whose pops roll on this table.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Ball Type</em>' reference.
-	 * @see #setBallType(BallType)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getDropTable_BallType()
+	 * @return the value of the '<em>Enemy Type</em>' reference.
+	 * @see #setEnemyType(EnemyType)
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getDropTable_EnemyType()
 	 * @model required="true"
 	 * @generated
 	 */
-	BallType getBallType();
+	EnemyType getEnemyType();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getBallType <em>Ball Type</em>}' reference.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getEnemyType <em>Enemy Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ball Type</em>' reference.
-	 * @see #getBallType()
+	 * @param value the new value of the '<em>Enemy Type</em>' reference.
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	void setBallType(BallType value);
+	void setEnemyType(EnemyType value);
 
 } // DropTable

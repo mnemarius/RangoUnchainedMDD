@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Balls arrive in waves. A wave starts once the previous one has been cleared and its delay has passed.
+ * Enemies arrive in waves. A wave starts once the previous one has been cleared and its delay has passed.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -58,7 +58,7 @@ public interface WaveSchedule extends SpawnStrategy {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Extra balls added to every spawn of a wave each time the waves start over.
+	 * Extra enemies added to every spawn of a wave each time the waves start over.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Escalation</em>' attribute.
 	 * @see #setEscalation(int)

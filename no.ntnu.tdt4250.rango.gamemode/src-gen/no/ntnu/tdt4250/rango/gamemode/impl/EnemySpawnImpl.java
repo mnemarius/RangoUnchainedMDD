@@ -3,8 +3,8 @@
 package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Direction;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 
@@ -17,22 +17,22 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ball Spawn</b></em>'.
+ * An implementation of the model object '<em><b>Enemy Spawn</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl#getType <em>Type</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl#getSize <em>Size</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl#getCount <em>Count</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl#getDirection <em>Direction</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl#getPopsToClear <em>Pops To Clear</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl#getType <em>Type</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl#getSize <em>Size</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl#getCount <em>Count</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl#getDirection <em>Direction</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl#getPopsToClear <em>Pops To Clear</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
+public class EnemySpawnImpl extends PositionedImpl implements EnemySpawn {
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -41,7 +41,7 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	 * @generated
 	 * @ordered
 	 */
-	protected BallType type;
+	protected EnemyType type;
 
 	/**
 	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
@@ -118,7 +118,7 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BallSpawnImpl() {
+	protected EnemySpawnImpl() {
 		super();
 	}
 
@@ -129,7 +129,7 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GamemodePackage.Literals.BALL_SPAWN;
+		return GamemodePackage.Literals.ENEMY_SPAWN;
 	}
 
 	/**
@@ -138,13 +138,13 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	 * @generated
 	 */
 	@Override
-	public BallType getType() {
+	public EnemyType getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
-			type = (BallType)eResolveProxy(oldType);
+			type = (EnemyType)eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GamemodePackage.BALL_SPAWN__TYPE, oldType, type));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GamemodePackage.ENEMY_SPAWN__TYPE, oldType, type));
 			}
 		}
 		return type;
@@ -155,7 +155,7 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BallType basicGetType() {
+	public EnemyType basicGetType() {
 		return type;
 	}
 
@@ -165,11 +165,11 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	 * @generated
 	 */
 	@Override
-	public void setType(BallType newType) {
-		BallType oldType = type;
+	public void setType(EnemyType newType) {
+		EnemyType oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_SPAWN__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_SPAWN__TYPE, oldType, type));
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 		int oldSize = size;
 		size = newSize;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_SPAWN__SIZE, oldSize, size));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_SPAWN__SIZE, oldSize, size));
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 		int oldCount = count;
 		count = newCount;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_SPAWN__COUNT, oldCount, count));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_SPAWN__COUNT, oldCount, count));
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 		Direction oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_SPAWN__DIRECTION, oldDirection, direction));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_SPAWN__DIRECTION, oldDirection, direction));
 	}
 
 	/**
@@ -259,16 +259,16 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GamemodePackage.BALL_SPAWN__TYPE:
+			case GamemodePackage.ENEMY_SPAWN__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
-			case GamemodePackage.BALL_SPAWN__SIZE:
+			case GamemodePackage.ENEMY_SPAWN__SIZE:
 				return getSize();
-			case GamemodePackage.BALL_SPAWN__COUNT:
+			case GamemodePackage.ENEMY_SPAWN__COUNT:
 				return getCount();
-			case GamemodePackage.BALL_SPAWN__DIRECTION:
+			case GamemodePackage.ENEMY_SPAWN__DIRECTION:
 				return getDirection();
-			case GamemodePackage.BALL_SPAWN__POPS_TO_CLEAR:
+			case GamemodePackage.ENEMY_SPAWN__POPS_TO_CLEAR:
 				return getPopsToClear();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -282,16 +282,16 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GamemodePackage.BALL_SPAWN__TYPE:
-				setType((BallType)newValue);
+			case GamemodePackage.ENEMY_SPAWN__TYPE:
+				setType((EnemyType)newValue);
 				return;
-			case GamemodePackage.BALL_SPAWN__SIZE:
+			case GamemodePackage.ENEMY_SPAWN__SIZE:
 				setSize((Integer)newValue);
 				return;
-			case GamemodePackage.BALL_SPAWN__COUNT:
+			case GamemodePackage.ENEMY_SPAWN__COUNT:
 				setCount((Integer)newValue);
 				return;
-			case GamemodePackage.BALL_SPAWN__DIRECTION:
+			case GamemodePackage.ENEMY_SPAWN__DIRECTION:
 				setDirection((Direction)newValue);
 				return;
 		}
@@ -306,16 +306,16 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.BALL_SPAWN__TYPE:
-				setType((BallType)null);
+			case GamemodePackage.ENEMY_SPAWN__TYPE:
+				setType((EnemyType)null);
 				return;
-			case GamemodePackage.BALL_SPAWN__SIZE:
+			case GamemodePackage.ENEMY_SPAWN__SIZE:
 				setSize(SIZE_EDEFAULT);
 				return;
-			case GamemodePackage.BALL_SPAWN__COUNT:
+			case GamemodePackage.ENEMY_SPAWN__COUNT:
 				setCount(COUNT_EDEFAULT);
 				return;
-			case GamemodePackage.BALL_SPAWN__DIRECTION:
+			case GamemodePackage.ENEMY_SPAWN__DIRECTION:
 				setDirection(DIRECTION_EDEFAULT);
 				return;
 		}
@@ -330,15 +330,15 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.BALL_SPAWN__TYPE:
+			case GamemodePackage.ENEMY_SPAWN__TYPE:
 				return type != null;
-			case GamemodePackage.BALL_SPAWN__SIZE:
+			case GamemodePackage.ENEMY_SPAWN__SIZE:
 				return size != SIZE_EDEFAULT;
-			case GamemodePackage.BALL_SPAWN__COUNT:
+			case GamemodePackage.ENEMY_SPAWN__COUNT:
 				return count != COUNT_EDEFAULT;
-			case GamemodePackage.BALL_SPAWN__DIRECTION:
+			case GamemodePackage.ENEMY_SPAWN__DIRECTION:
 				return direction != DIRECTION_EDEFAULT;
-			case GamemodePackage.BALL_SPAWN__POPS_TO_CLEAR:
+			case GamemodePackage.ENEMY_SPAWN__POPS_TO_CLEAR:
 				return getPopsToClear() != POPS_TO_CLEAR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -364,4 +364,4 @@ public class BallSpawnImpl extends PositionedImpl implements BallSpawn {
 		return result.toString();
 	}
 
-} //BallSpawnImpl
+} //EnemySpawnImpl

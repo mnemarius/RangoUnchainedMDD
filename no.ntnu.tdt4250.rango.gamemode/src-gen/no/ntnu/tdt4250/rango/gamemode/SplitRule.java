@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * The behaviour of a ball when it is popped.
+ * The behaviour of a enemy when it is popped.
  * <!-- end-model-doc -->
  *
  *

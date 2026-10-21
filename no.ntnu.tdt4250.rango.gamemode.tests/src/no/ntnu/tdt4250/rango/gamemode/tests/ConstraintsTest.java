@@ -8,13 +8,13 @@ import java.util.List;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.junit.jupiter.api.Test;
 
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
-import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
-import no.ntnu.tdt4250.rango.gamemode.Burst;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
+import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.TimeReached;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
@@ -42,9 +42,15 @@ public class ConstraintsTest {
 	}
 
 	@Test
-	public void oclBurstNeedsThreeFragments() {
-		((Burst) f.bomb.getSplitRule()).setFragments(2);
-		assertViolated("enoughFragmentsToBurst");
+	public void oclSplitNeedsAFragment() {
+		((Split) f.bomb.getSplitRule()).setFragments(0);
+		assertViolated("atLeastOneFragment");
+	}
+
+	@Test
+	public void oclSplitHasAtMostSixteenFragments() {
+		((Split) f.bomb.getSplitRule()).setFragments(17);
+		assertViolated("atMostSixteenFragments");
 	}
 
 	@Test
@@ -141,7 +147,7 @@ public class ConstraintsTest {
 
 	@Test
 	public void cannotBeLostAtTheStart() {
-		BallsAlive overrun = ModelFixture.F.createBallsAlive();
+		EnemiesAlive overrun = ModelFixture.F.createEnemiesAlive();
 		overrun.setCount(2);
 		f.clear.getLoseConditions().add(overrun);
 		assertCode(GamemodeConstraints.LOST_AT_START);
@@ -149,7 +155,7 @@ public class ConstraintsTest {
 
 	@Test
 	public void winConditionsMustBeReachable() {
-		BallsPopped popped = ModelFixture.F.createBallsPopped();
+		EnemiesPopped popped = ModelFixture.F.createEnemiesPopped();
 		popped.setCount(21);
 		f.clear.getWinConditions().add(popped);
 		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
@@ -198,13 +204,13 @@ public class ConstraintsTest {
 	}
 
 	@Test
-	public void everyBallOfAModeHasADropTable() {
+	public void everyEnemyOfAModeHasADropTable() {
 		f.waves.getDrops().remove(f.tumbleweedDrops);
 		assertCode(GamemodeConstraints.NO_DROP_TABLE);
 	}
 
 	@Test
-	public void ballsThatOnlyAppearAsFragmentsNeedADropTableToo() {
+	public void enemiesThatOnlyAppearAsFragmentsNeedADropTableToo() {
 		// Clear then only spawns a Bomb, but the Bomb bursts into Tumbleweeds
 		f.layout.getSpawns().remove(0);
 		f.edition.getDrops().remove(f.tumbleweedDefault);
@@ -218,7 +224,7 @@ public class ConstraintsTest {
 	}
 
 	@Test
-	public void aBallHasOneDropTablePerList() {
+	public void aEnemyHasOneDropTablePerList() {
 		DropTable second = ModelFixture.dropTable(f.bomb, 5);
 		second.getEntries().add(ModelFixture.drop(f.heart, 1));
 		f.waves.getDrops().add(second);

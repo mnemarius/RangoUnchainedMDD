@@ -10,18 +10,18 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreEList;
 
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
-import no.ntnu.tdt4250.rango.gamemode.Fragmenting;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
+import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
 
@@ -31,67 +31,75 @@ import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
  */
 public final class GamemodeDerivations {
 
-	/** The value of the counting features when a mode never runs out of balls. */
+	/** The value of the counting features when a mode never runs out of enemies. */
 	public static final int UNBOUNDED = -1;
 
-	/** The largest size class of a ball. Larger (invalid) sizes are counted as this one. */
+	/** The largest size class of a enemy. Larger (invalid) sizes are counted as this one. */
 	public static final int MAX_SIZE = 3;
+
+	/** The number of fragments that close into a full ring. Fewer fan out upwards, more close the gaps. */
+	public static final int FULL_RING = 8;
 
 	private GamemodeDerivations() {
 	}
 
-	/** The type the fragments of a rule get: its fragment type, or else the ball type owning it. */
-	public static BallType resultType(Fragmenting rule) {
+	/** The type the fragments of a rule get: its fragment type, or else the enemy type owning it. */
+	public static EnemyType resultType(Split rule) {
 		if (rule.getFragmentType() != null) {
 			return rule.getFragmentType();
 		}
 		EObject owner = rule.eContainer();
-		return owner instanceof BallType type ? type : null;
+		return owner instanceof EnemyType type ? type : null;
 	}
 
-	/** The ball types that popping a ball of the given type can create. */
-	public static EList<BallType> producedTypes(BallType type) {
-		List<BallType> produced = new ArrayList<>();
-		if (type.getSplitRule() instanceof Fragmenting rule && resultType(rule) != null) {
+	/** The angle between neighbouring fragments, in degrees: 45 up to a full ring, then 360 over the count. */
+	public static float spacing(Split rule) {
+		return 360f / Math.max(rule.getFragments(), FULL_RING);
+	}
+
+	/** The enemy types that popping a enemy of the given type can create. */
+	public static EList<EnemyType> producedTypes(EnemyType type) {
+		List<EnemyType> produced = new ArrayList<>();
+		if (type.getSplitRule() instanceof Split rule && resultType(rule) != null) {
 			produced.add(resultType(rule));
 		}
-		return unmodifiable(type, GamemodePackage.Literals.BALL_TYPE__PRODUCED_TYPES, produced);
+		return unmodifiable(type, GamemodePackage.Literals.ENEMY_TYPE__PRODUCED_TYPES, produced);
 	}
 
 	/**
-	 * The hits needed to get rid of one ball of a type and size, and of everything it breaks into.
-	 * With f fragments of the same type: 1 for a small ball, 1 + f for a medium one, 1 + f + f² for a large one.
+	 * The hits needed to get rid of one enemy of a type and size, and of everything it breaks into.
+	 * With f fragments of the same type: 1 for a small enemy, 1 + f for a medium one, 1 + f + f² for a large one.
 	 */
-	public static long popsFor(BallType type, int size) {
+	public static long popsFor(EnemyType type, int size) {
 		if (type == null || size < 1) {
 			return 0;
 		}
 		int clamped = Math.min(size, MAX_SIZE);
-		if (clamped == 1 || !(type.getSplitRule() instanceof Fragmenting rule)) {
+		if (clamped == 1 || !(type.getSplitRule() instanceof Split rule)) {
 			return 1;
 		}
 		return 1 + (long) Math.max(rule.getFragments(), 0) * popsFor(resultType(rule), clamped - 1);
 	}
 
-	/** The points earned by popping one ball of a type and size and everything it breaks into. */
-	public static long pointsFor(BallType type, int size) {
+	/** The points earned by popping one enemy of a type and size and everything it breaks into. */
+	public static long pointsFor(EnemyType type, int size) {
 		if (type == null || size < 1) {
 			return 0;
 		}
 		int clamped = Math.min(size, MAX_SIZE);
-		if (clamped == 1 || !(type.getSplitRule() instanceof Fragmenting rule)) {
+		if (clamped == 1 || !(type.getSplitRule() instanceof Split rule)) {
 			return type.getPoints();
 		}
 		return type.getPoints() + (long) Math.max(rule.getFragments(), 0) * pointsFor(resultType(rule), clamped - 1);
 	}
 
-	public static int popsToClear(BallSpawn spawn) {
+	public static int popsToClear(EnemySpawn spawn) {
 		return saturate(spawn.getCount() * popsFor(spawn.getType(), spawn.getSize()));
 	}
 
 	public static int popsToClear(Wave wave) {
 		long pops = 0;
-		for (BallSpawn spawn : wave.getSpawns()) {
+		for (EnemySpawn spawn : wave.getSpawns()) {
 			pops += spawn.getPopsToClear();
 		}
 		return saturate(pops);
@@ -100,7 +108,7 @@ public final class GamemodeDerivations {
 	public static int popsToClear(SpawnStrategy strategy) {
 		long pops = 0;
 		if (strategy instanceof FixedLayout layout) {
-			for (BallSpawn spawn : layout.getSpawns()) {
+			for (EnemySpawn spawn : layout.getSpawns()) {
 				pops += spawn.getPopsToClear();
 			}
 		} else if (strategy instanceof WaveSchedule schedule) {
@@ -124,15 +132,15 @@ public final class GamemodeDerivations {
 			return UNBOUNDED;
 		}
 		long points = 0;
-		for (BallSpawn spawn : allSpawns(strategy)) {
+		for (EnemySpawn spawn : allSpawns(strategy)) {
 			points += spawn.getCount() * pointsFor(spawn.getType(), spawn.getSize());
 		}
 		return saturate(points);
 	}
 
 	/** All spawns of a strategy, in order: those of the layout, or those of every wave. */
-	public static List<BallSpawn> allSpawns(SpawnStrategy strategy) {
-		List<BallSpawn> spawns = new ArrayList<>();
+	public static List<EnemySpawn> allSpawns(SpawnStrategy strategy) {
+		List<EnemySpawn> spawns = new ArrayList<>();
 		if (strategy instanceof FixedLayout layout) {
 			spawns.addAll(layout.getSpawns());
 		} else if (strategy instanceof WaveSchedule schedule) {
@@ -143,19 +151,19 @@ public final class GamemodeDerivations {
 		return spawns;
 	}
 
-	/** The number of balls in the arena when the round starts (fixed layout) or the first wave arrives. */
-	public static int initialBalls(SpawnStrategy strategy) {
-		List<BallSpawn> spawns = new ArrayList<>();
+	/** The number of enemies in the arena when the round starts (fixed layout) or the first wave arrives. */
+	public static int initialEnemies(SpawnStrategy strategy) {
+		List<EnemySpawn> spawns = new ArrayList<>();
 		if (strategy instanceof FixedLayout layout) {
 			spawns.addAll(layout.getSpawns());
 		} else if (strategy instanceof WaveSchedule schedule && !schedule.getWaves().isEmpty()) {
 			spawns.addAll(schedule.getWaves().get(0).getSpawns());
 		}
-		long balls = 0;
-		for (BallSpawn spawn : spawns) {
-			balls += spawn.getCount();
+		long enemies = 0;
+		for (EnemySpawn spawn : spawns) {
+			enemies += spawn.getCount();
 		}
-		return saturate(balls);
+		return saturate(enemies);
 	}
 
 	public static int number(Wave wave) {
@@ -195,10 +203,10 @@ public final class GamemodeDerivations {
 		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__EFFECTIVE_DROPS, tables);
 	}
 
-	/** The drop table that applies to pops of the given ball type in the mode, or null if there is none. */
-	public static DropTable dropTableFor(GameMode mode, BallType type) {
+	/** The drop table that applies to pops of the given enemy type in the mode, or null if there is none. */
+	public static DropTable dropTableFor(GameMode mode, EnemyType type) {
 		for (DropTable table : mode.getEffectiveDrops()) {
-			if (table.getBallType() == type) {
+			if (table.getEnemyType() == type) {
 				return table;
 			}
 		}
@@ -206,35 +214,35 @@ public final class GamemodeDerivations {
 	}
 
 	/**
-	 * The ball types that can appear in a mode: those it spawns, and everything popping them can
+	 * The enemy types that can appear in a mode: those it spawns, and everything popping them can
 	 * produce, in the order the edition declares them.
 	 */
-	public static EList<BallType> ballTypes(GameMode mode) {
-		Set<BallType> reachable = new LinkedHashSet<>();
-		List<BallType> pending = new ArrayList<>();
-		for (BallSpawn spawn : allSpawns(mode.getSpawning())) {
+	public static EList<EnemyType> enemyTypes(GameMode mode) {
+		Set<EnemyType> reachable = new LinkedHashSet<>();
+		List<EnemyType> pending = new ArrayList<>();
+		for (EnemySpawn spawn : allSpawns(mode.getSpawning())) {
 			pending.add(spawn.getType());
 		}
 		while (!pending.isEmpty()) {
-			BallType type = pending.remove(pending.size() - 1);
+			EnemyType type = pending.remove(pending.size() - 1);
 			if (type != null && reachable.add(type)) {
 				pending.addAll(type.getProducedTypes());
 			}
 		}
-		List<BallType> types = new ArrayList<>();
+		List<EnemyType> types = new ArrayList<>();
 		if (mode.eContainer() instanceof Edition edition) {
-			for (BallType type : edition.getBallTypes()) {
+			for (EnemyType type : edition.getEnemyTypes()) {
 				if (reachable.contains(type)) {
 					types.add(type);
 				}
 			}
 		}
-		for (BallType type : reachable) {
+		for (EnemyType type : reachable) {
 			if (!types.contains(type)) {
 				types.add(type);
 			}
 		}
-		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__BALL_TYPES, types);
+		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__ENEMY_TYPES, types);
 	}
 
 	public static EList<PowerUp> powerUps(GameMode mode) {

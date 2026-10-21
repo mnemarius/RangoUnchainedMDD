@@ -6,50 +6,50 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Ball Type</b></em>'.
+ * A representation of the model object '<em><b>Enemy Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A kind of ball. Its kind is given by its tuning and by the behaviour it owns: what happens when it is popped and what it does to the player on contact. Balls come in three sizes (3 is the largest).
+ * A kind of enemy. Its kind is given by its tuning and by the behaviour it owns: what happens when it is popped and what it does to the player on contact. Enemies come in three sizes (3 is the largest).
  * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSprite <em>Sprite</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getScale <em>Scale</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getBounce <em>Bounce</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSpeed <em>Speed</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getPoints <em>Points</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSplitRule <em>Split Rule</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getContactEffects <em>Contact Effects</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallType#getProducedTypes <em>Produced Types</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSprite <em>Sprite</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getScale <em>Scale</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getBounce <em>Bounce</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSpeed <em>Speed</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getPoints <em>Points</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSplitRule <em>Split Rule</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getContactEffects <em>Contact Effects</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getProducedTypes <em>Produced Types</em>}</li>
  * </ul>
  *
- * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType()
+ * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveScale positiveBounce positiveSpeed nonNegativePoints distinctEffectKinds'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG positiveScale='scale &gt; 0' positiveBounce='bounce &gt; 0' positiveSpeed='speed &gt; 0' nonNegativePoints='points &gt;= 0'"
  * @generated
  */
-public interface BallType extends NamedElement {
+public interface EnemyType extends NamedElement {
 	/**
 	 * Returns the value of the '<em><b>Sprite</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The image of the ball, as a path in the game's assets folder.
+	 * The image of the enemy, as a path in the game's assets folder.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Sprite</em>' attribute.
 	 * @see #setSprite(String)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_Sprite()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_Sprite()
 	 * @model required="true"
 	 * @generated
 	 */
 	String getSprite();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSprite <em>Sprite</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSprite <em>Sprite</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Sprite</em>' attribute.
@@ -64,18 +64,18 @@ public interface BallType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Size relative to a standard ball of the same size class.
+	 * Size relative to a standard enemy of the same size class.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Scale</em>' attribute.
 	 * @see #setScale(float)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_Scale()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_Scale()
 	 * @model default="1.0"
 	 * @generated
 	 */
 	float getScale();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getScale <em>Scale</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getScale <em>Scale</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Scale</em>' attribute.
@@ -90,18 +90,18 @@ public interface BallType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Bounce height relative to a standard ball of the same size class.
+	 * Bounce height relative to a standard enemy of the same size class.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bounce</em>' attribute.
 	 * @see #setBounce(float)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_Bounce()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_Bounce()
 	 * @model default="1.0"
 	 * @generated
 	 */
 	float getBounce();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getBounce <em>Bounce</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getBounce <em>Bounce</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Bounce</em>' attribute.
@@ -120,14 +120,14 @@ public interface BallType extends NamedElement {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Speed</em>' attribute.
 	 * @see #setSpeed(float)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_Speed()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_Speed()
 	 * @model default="5.0"
 	 * @generated
 	 */
 	float getSpeed();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSpeed <em>Speed</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSpeed <em>Speed</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Speed</em>' attribute.
@@ -142,18 +142,18 @@ public interface BallType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Score awarded for each pop of a ball of this type.
+	 * Score awarded for each pop of a enemy of this type.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Points</em>' attribute.
 	 * @see #setPoints(int)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_Points()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_Points()
 	 * @model default="10"
 	 * @generated
 	 */
 	int getPoints();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getPoints <em>Points</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getPoints <em>Points</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Points</em>' attribute.
@@ -167,18 +167,18 @@ public interface BallType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What happens when a ball of this type is hit by the tongue.
+	 * What happens when a enemy of this type is hit by the tongue.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Split Rule</em>' containment reference.
 	 * @see #setSplitRule(SplitRule)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_SplitRule()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_SplitRule()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	SplitRule getSplitRule();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSplitRule <em>Split Rule</em>}' containment reference.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSplitRule <em>Split Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Split Rule</em>' containment reference.
@@ -193,10 +193,10 @@ public interface BallType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What a ball of this type does to the player when they touch.
+	 * What a enemy of this type does to the player when they touch.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Contact Effects</em>' containment reference list.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_ContactEffects()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_ContactEffects()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
@@ -204,17 +204,17 @@ public interface BallType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Produced Types</b></em>' reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.BallType}.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.EnemyType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The ball types that popping a ball of this type can create: none if it vanishes, otherwise the type of its fragments.
+	 * The enemy types that popping a enemy of this type can create: none if it vanishes, otherwise the type of its fragments.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Produced Types</em>' reference list.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallType_ProducedTypes()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_ProducedTypes()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList<BallType> getProducedTypes();
+	EList<EnemyType> getProducedTypes();
 
-} // BallType
+} // EnemyType

@@ -9,10 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Material;
@@ -70,7 +70,7 @@ public class RangoModeFormatter extends AbstractFormatter2 {
     this.drops(edition, document);
   }
 
-  protected void _format(final BallType type, @Extension final IFormattableDocument document) {
+  protected void _format(final EnemyType type, @Extension final IFormattableDocument document) {
     this.block(type, document);
     this.lines(type, document, "sprite", "scale", "bounce", "speed", "points", "on");
     this.lists(type, document);
@@ -166,14 +166,14 @@ public class RangoModeFormatter extends AbstractFormatter2 {
 
   protected void _format(final FixedLayout layout, @Extension final IFormattableDocument document) {
     this.block(layout, document);
-    EList<BallSpawn> _spawns = layout.getSpawns();
-    for (final BallSpawn spawn : _spawns) {
+    EList<EnemySpawn> _spawns = layout.getSpawns();
+    for (final EnemySpawn spawn : _spawns) {
       {
         final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
           it.newLine();
         };
-        document.<BallSpawn>prepend(spawn, _function);
-        document.<BallSpawn>format(spawn);
+        document.<EnemySpawn>prepend(spawn, _function);
+        document.<EnemySpawn>format(spawn);
       }
     }
   }
@@ -194,14 +194,14 @@ public class RangoModeFormatter extends AbstractFormatter2 {
 
   protected void _format(final Wave wave, @Extension final IFormattableDocument document) {
     this.block(wave, document);
-    EList<BallSpawn> _spawns = wave.getSpawns();
-    for (final BallSpawn spawn : _spawns) {
+    EList<EnemySpawn> _spawns = wave.getSpawns();
+    for (final EnemySpawn spawn : _spawns) {
       {
         final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
           it.newLine();
         };
-        document.<BallSpawn>prepend(spawn, _function);
-        document.<BallSpawn>format(spawn);
+        document.<EnemySpawn>prepend(spawn, _function);
+        document.<EnemySpawn>format(spawn);
       }
     }
   }
@@ -321,58 +321,58 @@ public class RangoModeFormatter extends AbstractFormatter2 {
   }
 
   @XbaseGenerated
-  public void format(final Object type, final IFormattableDocument document) {
-    if (type instanceof XtextResource) {
-      _format((XtextResource)type, document);
+  public void format(final Object edition, final IFormattableDocument document) {
+    if (edition instanceof XtextResource) {
+      _format((XtextResource)edition, document);
       return;
-    } else if (type instanceof BallType) {
-      _format((BallType)type, document);
+    } else if (edition instanceof Edition) {
+      _format((Edition)edition, document);
       return;
-    } else if (type instanceof Edition) {
-      _format((Edition)type, document);
+    } else if (edition instanceof EnemyType) {
+      _format((EnemyType)edition, document);
       return;
-    } else if (type instanceof FixedLayout) {
-      _format((FixedLayout)type, document);
+    } else if (edition instanceof FixedLayout) {
+      _format((FixedLayout)edition, document);
       return;
-    } else if (type instanceof GameMode) {
-      _format((GameMode)type, document);
+    } else if (edition instanceof GameMode) {
+      _format((GameMode)edition, document);
       return;
-    } else if (type instanceof Material) {
-      _format((Material)type, document);
+    } else if (edition instanceof Material) {
+      _format((Material)edition, document);
       return;
-    } else if (type instanceof PlayerProfile) {
-      _format((PlayerProfile)type, document);
+    } else if (edition instanceof PlayerProfile) {
+      _format((PlayerProfile)edition, document);
       return;
-    } else if (type instanceof PowerUp) {
-      _format((PowerUp)type, document);
+    } else if (edition instanceof PowerUp) {
+      _format((PowerUp)edition, document);
       return;
-    } else if (type instanceof WaveSchedule) {
-      _format((WaveSchedule)type, document);
+    } else if (edition instanceof WaveSchedule) {
+      _format((WaveSchedule)edition, document);
       return;
-    } else if (type instanceof Arena) {
-      _format((Arena)type, document);
+    } else if (edition instanceof Arena) {
+      _format((Arena)edition, document);
       return;
-    } else if (type instanceof DropTable) {
-      _format((DropTable)type, document);
+    } else if (edition instanceof DropTable) {
+      _format((DropTable)edition, document);
       return;
-    } else if (type instanceof Positioned) {
-      _format((Positioned)type, document);
+    } else if (edition instanceof Positioned) {
+      _format((Positioned)edition, document);
       return;
-    } else if (type instanceof Wave) {
-      _format((Wave)type, document);
+    } else if (edition instanceof Wave) {
+      _format((Wave)edition, document);
       return;
-    } else if (type instanceof EObject) {
-      _format((EObject)type, document);
+    } else if (edition instanceof EObject) {
+      _format((EObject)edition, document);
       return;
-    } else if (type == null) {
+    } else if (edition == null) {
       _format((Void)null, document);
       return;
-    } else if (type != null) {
-      _format(type, document);
+    } else if (edition != null) {
+      _format(edition, document);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(type, document).toString());
+        Arrays.<Object>asList(edition, document).toString());
     }
   }
 }

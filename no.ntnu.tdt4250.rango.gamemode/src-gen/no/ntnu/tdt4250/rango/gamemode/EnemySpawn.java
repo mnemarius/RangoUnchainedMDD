@@ -5,54 +5,54 @@ package no.ntnu.tdt4250.rango.gamemode;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Ball Spawn</b></em>'.
+ * A representation of the model object '<em><b>Enemy Spawn</b></em>'.
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * One or more balls of the same type and size that enter the arena at a position. Several balls are spread out sideways.
+ * One or more enemies of the same type and size that enter the arena at a position. Several enemies are spread out sideways.
  * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getType <em>Type</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getSize <em>Size</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getCount <em>Count</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getDirection <em>Direction</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getPopsToClear <em>Pops To Clear</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getType <em>Type</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getSize <em>Size</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getCount <em>Count</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getDirection <em>Direction</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getPopsToClear <em>Pops To Clear</em>}</li>
  * </ul>
  *
- * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallSpawn()
+ * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemySpawn()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='sizeInRange positiveCount'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG sizeInRange='size &gt;= 1 and size &lt;= 3' positiveCount='count &gt;= 1'"
  * @generated
  */
-public interface BallSpawn extends Positioned {
+public interface EnemySpawn extends Positioned {
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The type of the balls.
+	 * The type of the enemies.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
-	 * @see #setType(BallType)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallSpawn_Type()
+	 * @see #setType(EnemyType)
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemySpawn_Type()
 	 * @model required="true"
 	 * @generated
 	 */
-	BallType getType();
+	EnemyType getType();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getType <em>Type</em>}' reference.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getType <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' reference.
 	 * @see #getType()
 	 * @generated
 	 */
-	void setType(BallType value);
+	void setType(EnemyType value);
 
 	/**
 	 * Returns the value of the '<em><b>Size</b></em>' attribute.
@@ -60,18 +60,18 @@ public interface BallSpawn extends Positioned {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The size class of the balls, from 1 (small) to 3 (large).
+	 * The size class of the enemies, from 1 (small) to 3 (large).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Size</em>' attribute.
 	 * @see #setSize(int)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallSpawn_Size()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemySpawn_Size()
 	 * @model default="3"
 	 * @generated
 	 */
 	int getSize();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getSize <em>Size</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getSize <em>Size</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Size</em>' attribute.
@@ -86,18 +86,18 @@ public interface BallSpawn extends Positioned {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * How many balls are spawned.
+	 * How many enemies are spawned.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Count</em>' attribute.
 	 * @see #setCount(int)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallSpawn_Count()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemySpawn_Count()
 	 * @model default="1"
 	 * @generated
 	 */
 	int getCount();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getCount <em>Count</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getCount <em>Count</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Count</em>' attribute.
@@ -113,19 +113,19 @@ public interface BallSpawn extends Positioned {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Which way the balls start moving.
+	 * Which way the enemies start moving.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.Direction
 	 * @see #setDirection(Direction)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallSpawn_Direction()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemySpawn_Direction()
 	 * @model default="right"
 	 * @generated
 	 */
 	Direction getDirection();
 
 	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getDirection <em>Direction</em>}' attribute.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getDirection <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Direction</em>' attribute.
@@ -140,13 +140,13 @@ public interface BallSpawn extends Positioned {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The tongue hits needed to pop these balls and everything they break into.
+	 * The tongue hits needed to pop these enemies and everything they break into.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Pops To Clear</em>' attribute.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBallSpawn_PopsToClear()
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemySpawn_PopsToClear()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	int getPopsToClear();
 
-} // BallSpawn
+} // EnemySpawn

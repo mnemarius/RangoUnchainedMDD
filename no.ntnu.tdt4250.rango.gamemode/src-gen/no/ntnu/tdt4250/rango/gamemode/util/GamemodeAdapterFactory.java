@@ -80,8 +80,8 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createEditionAdapter();
 			}
 			@Override
-			public Adapter caseBallType(BallType object) {
-				return createBallTypeAdapter();
+			public Adapter caseEnemyType(EnemyType object) {
+				return createEnemyTypeAdapter();
 			}
 			@Override
 			public Adapter caseSplitRule(SplitRule object) {
@@ -92,16 +92,8 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createVanishAdapter();
 			}
 			@Override
-			public Adapter caseFragmenting(Fragmenting object) {
-				return createFragmentingAdapter();
-			}
-			@Override
 			public Adapter caseSplit(Split object) {
 				return createSplitAdapter();
-			}
-			@Override
-			public Adapter caseBurst(Burst object) {
-				return createBurstAdapter();
 			}
 			@Override
 			public Adapter casePlayerEffect(PlayerEffect object) {
@@ -192,8 +184,8 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createWaveAdapter();
 			}
 			@Override
-			public Adapter caseBallSpawn(BallSpawn object) {
-				return createBallSpawnAdapter();
+			public Adapter caseEnemySpawn(EnemySpawn object) {
+				return createEnemySpawnAdapter();
 			}
 			@Override
 			public Adapter caseDropTable(DropTable object) {
@@ -220,8 +212,8 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createScoreReachedAdapter();
 			}
 			@Override
-			public Adapter caseBallsPopped(BallsPopped object) {
-				return createBallsPoppedAdapter();
+			public Adapter caseEnemiesPopped(EnemiesPopped object) {
+				return createEnemiesPoppedAdapter();
 			}
 			@Override
 			public Adapter caseWavesSurvived(WavesSurvived object) {
@@ -232,8 +224,8 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createHealthDepletedAdapter();
 			}
 			@Override
-			public Adapter caseBallsAlive(BallsAlive object) {
-				return createBallsAliveAdapter();
+			public Adapter caseEnemiesAlive(EnemiesAlive object) {
+				return createEnemiesAliveAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -298,16 +290,16 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.BallType <em>Ball Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType <em>Enemy Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType
 	 * @generated
 	 */
-	public Adapter createBallTypeAdapter() {
+	public Adapter createEnemyTypeAdapter() {
 		return null;
 	}
 
@@ -340,20 +332,6 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Fragmenting <em>Fragmenting</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Fragmenting
-	 * @generated
-	 */
-	public Adapter createFragmentingAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Split <em>Split</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -364,20 +342,6 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSplitAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Burst <em>Burst</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Burst
-	 * @generated
-	 */
-	public Adapter createBurstAdapter() {
 		return null;
 	}
 
@@ -690,16 +654,16 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn <em>Ball Spawn</em>}'.
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn <em>Enemy Spawn</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallSpawn
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemySpawn
 	 * @generated
 	 */
-	public Adapter createBallSpawnAdapter() {
+	public Adapter createEnemySpawnAdapter() {
 		return null;
 	}
 
@@ -788,16 +752,16 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.BallsPopped <em>Balls Popped</em>}'.
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.EnemiesPopped <em>Enemies Popped</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallsPopped
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemiesPopped
 	 * @generated
 	 */
-	public Adapter createBallsPoppedAdapter() {
+	public Adapter createEnemiesPoppedAdapter() {
 		return null;
 	}
 
@@ -830,16 +794,16 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.BallsAlive <em>Balls Alive</em>}'.
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.EnemiesAlive <em>Enemies Alive</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallsAlive
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemiesAlive
 	 * @generated
 	 */
-	public Adapter createBallsAliveAdapter() {
+	public Adapter createEnemiesAliveAdapter() {
 		return null;
 	}
 

@@ -14,7 +14,7 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
@@ -36,7 +36,7 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Fix(GamemodeConstraints.ISSUE_NEVER_ENDS)
 	public void makeModeEnd(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "Win when all balls are cleared", "Adds the win condition 'all balls cleared'.", "win.png",
+		acceptor.accept(issue, "Win when all enemies are cleared", "Adds the win condition 'all enemies cleared'.", "win.png",
 				(EObject element, IModificationContext context) -> {
 					((GameMode) element).getWinConditions().add(GamemodeFactory.eINSTANCE.createCleared());
 				});
@@ -57,24 +57,24 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 	}
 
 	/**
-	 * Gives every ball type of the mode that lacks one a drop table: 10 % of the first power-up of the
+	 * Gives every enemy type of the mode that lacks one a drop table: 10 % of the first power-up of the
 	 * edition. The tables go where the mode's drops come from: the mode's own tables if it has any,
 	 * otherwise the edition's.
 	 */
 	@Fix(GamemodeConstraints.ISSUE_NO_DROP_TABLE)
 	public void addDropTables(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "Add drop tables for the balls without one",
-				"Adds a 10% drop table for each ball type of the mode that has none, dropping the edition's first power-up.",
+		acceptor.accept(issue, "Add drop tables for the enemies without one",
+				"Adds a 10% drop table for each enemy type of the mode that has none, dropping the edition's first power-up.",
 				"drops.png", (EObject element, IModificationContext context) -> {
 					GameMode mode = (GameMode) element;
 					if (!(mode.eContainer() instanceof Edition edition) || edition.getPowerUps().isEmpty()) {
 						return;
 					}
 					List<DropTable> tables = mode.getDrops().isEmpty() ? edition.getDrops() : mode.getDrops();
-					for (BallType type : mode.getBallTypes()) {
+					for (EnemyType type : mode.getEnemyTypes()) {
 						if (GamemodeDerivations.dropTableFor(mode, type) == null) {
 							DropTable table = GamemodeFactory.eINSTANCE.createDropTable();
-							table.setBallType(type);
+							table.setEnemyType(type);
 							table.setChance(10);
 							Drop drop = GamemodeFactory.eINSTANCE.createDrop();
 							drop.setPowerUp(edition.getPowerUps().get(0));
@@ -116,7 +116,7 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 	public void addPngExtension(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Add '.png'", "Adds the file extension of the game's images.", null,
 				(EObject element, IModificationContext context) -> {
-					if (element instanceof BallType type) {
+					if (element instanceof EnemyType type) {
 						type.setSprite(type.getSprite() + ".png");
 					} else if (element instanceof PowerUp powerUp) {
 						powerUp.setSprite(powerUp.getSprite() + ".png");

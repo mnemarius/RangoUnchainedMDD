@@ -4,61 +4,61 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import io.github.RangoUnchained.Controllers.LevelController;
-import io.github.RangoUnchained.Model.Components.BallComponent;
+import io.github.RangoUnchained.Model.Components.EnemyComponent;
 import io.github.RangoUnchained.Model.Components.BodyComponent;
 import io.github.RangoUnchained.Model.Components.BounceComponent;
 import io.github.RangoUnchained.Model.Components.Component;
 import io.github.RangoUnchained.Model.Components.ContactComponent;
 import io.github.RangoUnchained.Model.Components.HealthComponent;
-import io.github.RangoUnchained.Model.Components.ModeBallComponent;
+import io.github.RangoUnchained.Model.Components.ModeEnemyComponent;
 import io.github.RangoUnchained.Model.Components.SpriteComponent;
 import io.github.RangoUnchained.Model.Components.StatComponent;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.level.GameLevel.LevelData.EntityData;
-import io.github.RangoUnchained.Modes.BallKind;
+import io.github.RangoUnchained.Modes.EnemyKind;
 import io.github.RangoUnchained.Modes.ModeSession;
 import io.github.RangoUnchained.Views.Utils.Constants;
 
-public class BallFactory {
+public class EnemyFactory {
 
-    public static BallEntity create(EntityData entityData) {
+    public static EnemyEntity create(EntityData entityData) {
 
-        BallEntity ball = new BallEntity();
+        EnemyEntity enemy = new EnemyEntity();
 
-        ball.addComponent(createBodyComponent(entityData,ball));
-        ball.addComponent(createBounceComponent(entityData));
-        ball.addComponent(createHealthComponent(entityData));
-        ball.addComponent(createSpriteComponent(entityData));
-        ball.addComponent(createStatComponent(entityData));
-        ball.addComponent(createBallComponent(entityData));
-        ball.addComponent(createContactComponent(entityData));
+        enemy.addComponent(createBodyComponent(entityData,enemy));
+        enemy.addComponent(createBounceComponent(entityData));
+        enemy.addComponent(createHealthComponent(entityData));
+        enemy.addComponent(createSpriteComponent(entityData));
+        enemy.addComponent(createStatComponent(entityData));
+        enemy.addComponent(createEnemyComponent(entityData));
+        enemy.addComponent(createContactComponent(entityData));
 
-        BallKind kind = modeKind(entityData);
+        EnemyKind kind = modeKind(entityData);
         if (kind != null) {
-            ball.addComponent(new ModeBallComponent(kind, entityData.typeInfo.size));
+            enemy.addComponent(new ModeEnemyComponent(kind, entityData.typeInfo.size));
         }
 
-        return ball;
+        return enemy;
     }
 
-    private static final int BIGBALLRADIUS = 64;
-    private static final int MEDIUMBALLRADIUS = 48;
-    private static final int SMALLBALLRADIUS = 32;
+    private static final int BIGENEMYRADIUS = 64;
+    private static final int MEDIUMENEMYRADIUS = 48;
+    private static final int SMALLENEMYRADIUS = 32;
 
-    private static final int BIGBALLPOPPED = 0;
-    private static final int MEDIUMBALLPOPPED = 1;
-    private static final int SMALLBALLPOPPED = 2;
+    private static final int BIGENEMYPOPPED = 0;
+    private static final int MEDIUMENEMYPOPPED = 1;
+    private static final int SMALLENEMYPOPPED = 2;
 
     private static final float SMALLPULSE = 0.005f;
     private static final float MEDIUMPULSE = 0.01f;
     private static final float BIGPULSE = 0.03f;
 
 
-    private static Component createBodyComponent(EntityData entityData, BallEntity ball){
+    private static Component createBodyComponent(EntityData entityData, EnemyEntity enemy){
 
         //calculate radius
         int size = entityData.typeInfo.size;
-        float radius = size == 3  ? BIGBALLRADIUS : size == 2  ? MEDIUMBALLRADIUS : SMALLBALLRADIUS;
+        float radius = size == 3  ? BIGENEMYRADIUS : size == 2  ? MEDIUMENEMYRADIUS : SMALLENEMYRADIUS;
         radius = radius * scale(entityData);
         radius = radius / Constants.PPM;
 
@@ -69,7 +69,7 @@ public class BallFactory {
         World world = LevelController.getInstance().getWorld();
 
 
-        BodyComponent body = BodyFactory.createBody(world, x, y, BodyDef.BodyType.DynamicBody, BodyFactory.createCircleFixture(radius/2,EntityFactory.CATEGORY_BALL,EntityFactory.MASK_BALL),false);
+        BodyComponent body = BodyFactory.createBody(world, x, y, BodyDef.BodyType.DynamicBody, BodyFactory.createCircleFixture(radius/2,EntityFactory.CATEGORY_ENEMY,EntityFactory.MASK_ENEMY),false);
         if (entityData.velocity != null) {
             body.getBody().setLinearVelocity(entityData.velocity);
         }
@@ -77,13 +77,13 @@ public class BallFactory {
 
         float pulse = size==3 ? BIGPULSE : size==2 ? MEDIUMPULSE :SMALLPULSE;
         body.getBody().applyAngularImpulse(pulse, true);
-        body.getBody().setUserData(ball);
+        body.getBody().setUserData(enemy);
         return body;
     }
 
     private static Component createStatComponent(EntityData entityData){
         int size = entityData.typeInfo.size;
-        int timesPopped = size == 3 ? BIGBALLPOPPED : size == 2 ? MEDIUMBALLPOPPED : SMALLBALLPOPPED;
+        int timesPopped = size == 3 ? BIGENEMYPOPPED : size == 2 ? MEDIUMENEMYPOPPED : SMALLENEMYPOPPED;
         StatComponent statComp = new StatComponent();
         statComp.setTimesPopped(timesPopped);
         return statComp;
@@ -93,12 +93,12 @@ public class BallFactory {
         String spritePath;
 
 
-        BallKind kind = modeKind(entityData);
+        EnemyKind kind = modeKind(entityData);
         spritePath = kind != null ? kind.sprite : entityData.typeInfo.type + "/" + entityData.typeInfo.subType + ".png";
 
 
         int size = entityData.typeInfo.size;
-        float radius = size == 3  ? BIGBALLRADIUS : size == 2  ? MEDIUMBALLRADIUS : SMALLBALLRADIUS;
+        float radius = size == 3  ? BIGENEMYRADIUS : size == 2  ? MEDIUMENEMYRADIUS : SMALLENEMYRADIUS;
 
         radius = radius * scale(entityData);
         return new SpriteComponent(spritePath, radius, radius);
@@ -110,13 +110,13 @@ public class BallFactory {
         return new BounceComponent(bounceType);
     }
 
-    private static Component createBallComponent(EntityData entityData){
+    private static Component createEnemyComponent(EntityData entityData){
 
-        int ballType = entityData.typeInfo.subType.equals("Armedillo") ? BallComponent.ARMEDILLOTYPE :
-        entityData.typeInfo.subType.equals("Cactus") ? BallComponent.CACTUSTYPE:
-        entityData.typeInfo.subType.equals("Tumbleweed") ? BallComponent.TUMBLEWEEDTYPE:
-        entityData.typeInfo.subType.equals("Bomb") ? BallComponent.BOMB: -1;
-        return new BallComponent(ballType);
+        int enemyType = entityData.typeInfo.subType.equals("Armedillo") ? EnemyComponent.ARMEDILLOTYPE :
+        entityData.typeInfo.subType.equals("Cactus") ? EnemyComponent.CACTUSTYPE:
+        entityData.typeInfo.subType.equals("Tumbleweed") ? EnemyComponent.TUMBLEWEEDTYPE:
+        entityData.typeInfo.subType.equals("Bomb") ? EnemyComponent.BOMB: -1;
+        return new EnemyComponent(enemyType);
     }
 
     private static Component createContactComponent(EntityData entityData){
@@ -125,14 +125,14 @@ public class BallFactory {
         return contactComponent;
     }
 
-    /** The kind of the ball in the game mode being played, or null when a campaign level is played. */
-    private static BallKind modeKind(EntityData entityData) {
+    /** The kind of the enemy in the game mode being played, or null when a campaign level is played. */
+    private static EnemyKind modeKind(EntityData entityData) {
         ModeSession session = ModeSession.active();
-        return session == null ? null : session.getMode().ballKind(entityData.typeInfo.subType);
+        return session == null ? null : session.getMode().enemyKind(entityData.typeInfo.subType);
     }
 
     private static float scale(EntityData entityData) {
-        BallKind kind = modeKind(entityData);
+        EnemyKind kind = modeKind(entityData);
         return kind == null ? 1f : kind.scale;
     }
 

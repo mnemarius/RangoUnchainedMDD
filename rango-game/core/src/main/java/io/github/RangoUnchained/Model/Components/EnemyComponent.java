@@ -1,9 +1,9 @@
 package io.github.RangoUnchained.Model.Components;
 
 /**
- * Component representing the type of a ball entity.
+ * Component representing the type of a enemy entity.
  */
-public class BallComponent implements Component{
+public class EnemyComponent implements Component{
 
     public static final int ARMEDILLOTYPE = 0;
     public static final int TUMBLEWEEDTYPE = 1;
@@ -13,11 +13,11 @@ public class BallComponent implements Component{
     private final int TYPE;
 
     /**
-     * Constructs a new {@link BallComponent} with the specified type.
+     * Constructs a new {@link EnemyComponent} with the specified type.
      *
-     * @param type the ball type
+     * @param type the enemy type
      */
-    public BallComponent(int type){
+    public EnemyComponent(int type){
         this.TYPE = type;
     }
 

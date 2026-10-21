@@ -61,13 +61,13 @@ public class AudioLoader {
         audioMap.put(AudioComponent.ActionType.MOVE, sounds);
 
         sounds = new LinkedList<>();
-        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/PopBalloonSound_1.mp3")));
-        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/PopBalloonSound_2.mp3")));
-        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/PopBalloonSound_3.mp3")));
+        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/PopEnemyoonSound_1.mp3")));
+        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/PopEnemyoonSound_2.mp3")));
+        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/PopEnemyoonSound_3.mp3")));
         audioMap.put(AudioComponent.ActionType.POP, sounds);
 
         sounds = new LinkedList<>();
-        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/BalloonBounce.mp3")));
+        sounds.add(Gdx.audio.newSound(Gdx.files.internal("SoundEffects/EnemyoonBounce.mp3")));
         audioMap.put(AudioComponent.ActionType.BOUNCE, sounds);
     }
 

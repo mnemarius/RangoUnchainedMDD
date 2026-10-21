@@ -14,7 +14,7 @@ import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Components.AudioComponent;
 import io.github.RangoUnchained.Model.Components.InputComponent;
 import io.github.RangoUnchained.Model.ContactStrategies.ContactStrategy;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Entities.PlayerEntity;
 import io.github.RangoUnchained.Model.Entities.ProjectileEntity;
@@ -45,7 +45,7 @@ public class AudioSystem implements Systems, ContactStrategy {
         ContactSystem centralContactListener = LevelController.getInstance().getSystem(ContactSystem.class);
 
         centralContactListener.subscribe(
-            BallEntity.class, ProjectileEntity.class,
+            EnemyEntity.class, ProjectileEntity.class,
             collisionEvent -> playSound(AudioComponent.ActionType.POP, VOLUME_POP),
             null);
     }

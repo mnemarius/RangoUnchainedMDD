@@ -5,7 +5,7 @@ package io.github.RangoUnchained.Modes;
  */
 public interface ArenaBuilder {
 
-    void jumpPad(String name, float x, float y, float launch, boolean balls, boolean player);
+    void jumpPad(String name, float x, float y, float launch, boolean enemies, boolean player);
 
-    void teleporter(String name, float x, float y, String target, boolean balls, boolean player);
+    void teleporter(String name, float x, float y, String target, boolean enemies, boolean player);
 }

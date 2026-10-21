@@ -35,7 +35,7 @@ public class KillEnemyStrategy implements TutorialStepStrategy{
 
     @Override
     public boolean isComplete(TutorialStepStrategyContext context) {
-        return (context.amountBallsKilled == amountKills) || (timeElapsed > maxTime);
+        return (context.amountEnemiesKilled == amountKills) || (timeElapsed > maxTime);
     }
 
     @Override

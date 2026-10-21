@@ -6,7 +6,7 @@ import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 import java.util.Collection;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -41,7 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getPlayer <em>Player</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getBallTypes <em>Ball Types</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getGravity <em>Gravity</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getSpeedBonus <em>Speed Bonus</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getArena <em>Arena</em>}</li>
@@ -319,8 +318,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	 * @generated NOT
 	 */
 	@Override
-	public EList<BallType> getBallTypes() {
-		return GamemodeDerivations.ballTypes(this);
+	public EList<EnemyType> getEnemyTypes() {
+		return GamemodeDerivations.enemyTypes(this);
 	}
 
 	/**
@@ -599,8 +598,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__PLAYER:
 				if (resolve) return getPlayer();
 				return basicGetPlayer();
-			case GamemodePackage.GAME_MODE__BALL_TYPES:
-				return getBallTypes();
+			case GamemodePackage.GAME_MODE__ENEMY_TYPES:
+				return getEnemyTypes();
 			case GamemodePackage.GAME_MODE__GRAVITY:
 				return getGravity();
 			case GamemodePackage.GAME_MODE__SPEED_BONUS:
@@ -729,8 +728,8 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case GamemodePackage.GAME_MODE__PLAYER:
 				return player != null;
-			case GamemodePackage.GAME_MODE__BALL_TYPES:
-				return !getBallTypes().isEmpty();
+			case GamemodePackage.GAME_MODE__ENEMY_TYPES:
+				return !getEnemyTypes().isEmpty();
 			case GamemodePackage.GAME_MODE__GRAVITY:
 				return gravity != GRAVITY_EDEFAULT;
 			case GamemodePackage.GAME_MODE__SPEED_BONUS:

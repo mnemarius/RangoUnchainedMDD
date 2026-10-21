@@ -9,7 +9,7 @@ package no.ntnu.tdt4250.rango.gamemode;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * No ball is left and none is still to come.
+ * No enemy is left and none is still to come.
  * <!-- end-model-doc -->
  *
  *

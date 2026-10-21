@@ -9,7 +9,7 @@ package no.ntnu.tdt4250.rango.gamemode;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * The ball disappears at once, whatever its size.
+ * The enemy disappears at once, whatever its size.
  * <!-- end-model-doc -->
  *
  *

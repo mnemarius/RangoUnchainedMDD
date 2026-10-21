@@ -29,14 +29,14 @@ public enum Target implements Enumerator {
 	ALL(0, "ALL", "everything"),
 
 	/**
-	 * The '<em><b>BALLS</b></em>' literal object.
+	 * The '<em><b>ENEMIES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #BALLS_VALUE
+	 * @see #ENEMIES_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	BALLS(1, "BALLS", "balls"),
+	ENEMIES(1, "ENEMIES", "enemies"),
 
 	/**
 	 * The '<em><b>PLAYER</b></em>' literal object.
@@ -60,15 +60,15 @@ public enum Target implements Enumerator {
 	public static final int ALL_VALUE = 0;
 
 	/**
-	 * The '<em><b>BALLS</b></em>' literal value.
+	 * The '<em><b>ENEMIES</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #BALLS
-	 * @model literal="balls"
+	 * @see #ENEMIES
+	 * @model literal="enemies"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int BALLS_VALUE = 1;
+	public static final int ENEMIES_VALUE = 1;
 
 	/**
 	 * The '<em><b>PLAYER</b></em>' literal value.
@@ -90,7 +90,7 @@ public enum Target implements Enumerator {
 	private static final Target[] VALUES_ARRAY =
 		new Target[] {
 			ALL,
-			BALLS,
+			ENEMIES,
 			PLAYER,
 		};
 
@@ -149,7 +149,7 @@ public enum Target implements Enumerator {
 	public static Target get(int value) {
 		switch (value) {
 			case ALL_VALUE: return ALL;
-			case BALLS_VALUE: return BALLS;
+			case ENEMIES_VALUE: return ENEMIES;
 			case PLAYER_VALUE: return PLAYER;
 		}
 		return null;

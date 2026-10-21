@@ -1,20 +1,21 @@
-// A survival edition: waves instead of fixed levels, four ball types with their own behaviour
-// (a bomb bursts into tumbleweeds, a cactus poisons), surfaces of different materials, a jump pad,
-// a pair of teleporters, and power-ups dropped at random: the tougher the ball, the likelier and the
-// better its drop. The edition's drop tables apply to Endless Survival; Wave Rush has its own, stingier
-// ones. Endless Survival never ends until it is lost; Wave Rush is won by getting through five waves.
+// A survival edition: waves instead of fixed levels, four enemy types with their own behaviour
+// (a bomb explodes into a ring of tumbleweeds, a cactus poisons), surfaces of different materials, a
+// jump pad, a pair of teleporters, and power-ups dropped at random: the tougher the enemy, the likelier
+// and the better its drop. The edition's drop tables apply to Endless Survival; Wave Rush has its own,
+// stingier ones. Endless Survival never ends until it is lost; Wave Rush is won by getting through
+// five waves.
 
 edition Survival "Rango Unchained: Survival"
 
-ball Tumbleweed {
-	sprite "Ball/Tumbleweed.png"
+enemy Tumbleweed {
+	sprite "Enemy/Tumbleweed.png"
 	points 10
 	on pop: split into 2
 	on contact: damage 1
 }
 
-ball Armadillo {
-	sprite "Ball/Armedillo.png"
+enemy Armadillo {
+	sprite "Enemy/Armedillo.png"
 	scale 1.2
 	bounce 1.15
 	speed 4
@@ -23,19 +24,19 @@ ball Armadillo {
 	on contact: damage 2
 }
 
-ball Cactus {
-	sprite "Ball/Cactus.png"
+enemy Cactus {
+	sprite "Enemy/Cactus.png"
 	bounce 0.8
 	points 15
 	on pop: split into 1
 	on contact: damage 1, poison 1 every 2 s for 6 s
 }
 
-ball Bomb {
-	sprite "Ball/Bomb.png"
+enemy Bomb {
+	sprite "Enemy/Bomb.png"
 	speed 3
 	points 25
-	on pop: burst into 6 Tumbleweed launched at 6
+	on pop: split into 8 Tumbleweed launched at 6
 	on contact: damage 2
 }
 
@@ -92,8 +93,8 @@ mode Endless "Endless Survival" {
 		block Ledge at (25%, 45%) size 180 by 24 of Ice
 		block Shelf at (75%, 45%) size 180 by 24 of Grass
 		jumppad Spring at (50%, 0%) launch 12 affects everything
-		teleporter West at (6%, 20%) to East affects balls
-		teleporter East at (94%, 20%) to West affects balls
+		teleporter West at (6%, 20%) to East affects enemies
+		teleporter East at (94%, 20%) to West affects enemies
 	}
 	waves looping escalate by 1 {
 		wave {
@@ -107,7 +108,7 @@ mode Endless "Endless Survival" {
 			Bomb size 3 at (50%, 85%)
 		}
 	}
-	lose when health depleted or 25 balls alive
+	lose when health depleted or 25 enemies alive
 }
 
 mode WaveRush "Wave Rush" {

@@ -96,18 +96,14 @@ public class GamemodeValidator extends EObjectValidator {
 				return validatePositioned((Positioned)value, diagnostics, context);
 			case GamemodePackage.EDITION:
 				return validateEdition((Edition)value, diagnostics, context);
-			case GamemodePackage.BALL_TYPE:
-				return validateBallType((BallType)value, diagnostics, context);
+			case GamemodePackage.ENEMY_TYPE:
+				return validateEnemyType((EnemyType)value, diagnostics, context);
 			case GamemodePackage.SPLIT_RULE:
 				return validateSplitRule((SplitRule)value, diagnostics, context);
 			case GamemodePackage.VANISH:
 				return validateVanish((Vanish)value, diagnostics, context);
-			case GamemodePackage.FRAGMENTING:
-				return validateFragmenting((Fragmenting)value, diagnostics, context);
 			case GamemodePackage.SPLIT:
 				return validateSplit((Split)value, diagnostics, context);
-			case GamemodePackage.BURST:
-				return validateBurst((Burst)value, diagnostics, context);
 			case GamemodePackage.PLAYER_EFFECT:
 				return validatePlayerEffect((PlayerEffect)value, diagnostics, context);
 			case GamemodePackage.DAMAGE:
@@ -152,8 +148,8 @@ public class GamemodeValidator extends EObjectValidator {
 				return validateWaveSchedule((WaveSchedule)value, diagnostics, context);
 			case GamemodePackage.WAVE:
 				return validateWave((Wave)value, diagnostics, context);
-			case GamemodePackage.BALL_SPAWN:
-				return validateBallSpawn((BallSpawn)value, diagnostics, context);
+			case GamemodePackage.ENEMY_SPAWN:
+				return validateEnemySpawn((EnemySpawn)value, diagnostics, context);
 			case GamemodePackage.DROP_TABLE:
 				return validateDropTable((DropTable)value, diagnostics, context);
 			case GamemodePackage.DROP:
@@ -166,14 +162,14 @@ public class GamemodeValidator extends EObjectValidator {
 				return validateTimeReached((TimeReached)value, diagnostics, context);
 			case GamemodePackage.SCORE_REACHED:
 				return validateScoreReached((ScoreReached)value, diagnostics, context);
-			case GamemodePackage.BALLS_POPPED:
-				return validateBallsPopped((BallsPopped)value, diagnostics, context);
+			case GamemodePackage.ENEMIES_POPPED:
+				return validateEnemiesPopped((EnemiesPopped)value, diagnostics, context);
 			case GamemodePackage.WAVES_SURVIVED:
 				return validateWavesSurvived((WavesSurvived)value, diagnostics, context);
 			case GamemodePackage.HEALTH_DEPLETED:
 				return validateHealthDepleted((HealthDepleted)value, diagnostics, context);
-			case GamemodePackage.BALLS_ALIVE:
-				return validateBallsAlive((BallsAlive)value, diagnostics, context);
+			case GamemodePackage.ENEMIES_ALIVE:
+				return validateEnemiesAlive((EnemiesAlive)value, diagnostics, context);
 			case GamemodePackage.TARGET:
 				return validateTarget((Target)value, diagnostics, context);
 			case GamemodePackage.DIRECTION:
@@ -284,149 +280,149 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallType(BallType ballType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(ballType, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validateNamedElement_nameUniqueAmongSiblings(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallType_positiveScale(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallType_positiveBounce(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallType_positiveSpeed(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallType_nonNegativePoints(ballType, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallType_distinctEffectKinds(ballType, diagnostics, context);
+	public boolean validateEnemyType(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(enemyType, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validateNamedElement_nameUniqueAmongSiblings(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemyType_positiveScale(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemyType_positiveBounce(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemyType_positiveSpeed(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemyType_nonNegativePoints(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemyType_distinctEffectKinds(enemyType, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * The cached validation expression for the positiveScale constraint of '<em>Ball Type</em>'.
+	 * The cached validation expression for the positiveScale constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALL_TYPE__POSITIVE_SCALE__EEXPRESSION = "scale > 0";
+	protected static final String ENEMY_TYPE__POSITIVE_SCALE__EEXPRESSION = "scale > 0";
 
 	/**
-	 * Validates the positiveScale constraint of '<em>Ball Type</em>'.
+	 * Validates the positiveScale constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallType_positiveScale(BallType ballType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemyType_positiveScale(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALL_TYPE,
-				 ballType,
+				(GamemodePackage.Literals.ENEMY_TYPE,
+				 enemyType,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "positiveScale",
-				 BALL_TYPE__POSITIVE_SCALE__EEXPRESSION,
+				 ENEMY_TYPE__POSITIVE_SCALE__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
 	}
 
 	/**
-	 * The cached validation expression for the positiveBounce constraint of '<em>Ball Type</em>'.
+	 * The cached validation expression for the positiveBounce constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALL_TYPE__POSITIVE_BOUNCE__EEXPRESSION = "bounce > 0";
+	protected static final String ENEMY_TYPE__POSITIVE_BOUNCE__EEXPRESSION = "bounce > 0";
 
 	/**
-	 * Validates the positiveBounce constraint of '<em>Ball Type</em>'.
+	 * Validates the positiveBounce constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallType_positiveBounce(BallType ballType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemyType_positiveBounce(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALL_TYPE,
-				 ballType,
+				(GamemodePackage.Literals.ENEMY_TYPE,
+				 enemyType,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "positiveBounce",
-				 BALL_TYPE__POSITIVE_BOUNCE__EEXPRESSION,
+				 ENEMY_TYPE__POSITIVE_BOUNCE__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
 	}
 
 	/**
-	 * The cached validation expression for the positiveSpeed constraint of '<em>Ball Type</em>'.
+	 * The cached validation expression for the positiveSpeed constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALL_TYPE__POSITIVE_SPEED__EEXPRESSION = "speed > 0";
+	protected static final String ENEMY_TYPE__POSITIVE_SPEED__EEXPRESSION = "speed > 0";
 
 	/**
-	 * Validates the positiveSpeed constraint of '<em>Ball Type</em>'.
+	 * Validates the positiveSpeed constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallType_positiveSpeed(BallType ballType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemyType_positiveSpeed(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALL_TYPE,
-				 ballType,
+				(GamemodePackage.Literals.ENEMY_TYPE,
+				 enemyType,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "positiveSpeed",
-				 BALL_TYPE__POSITIVE_SPEED__EEXPRESSION,
+				 ENEMY_TYPE__POSITIVE_SPEED__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
 	}
 
 	/**
-	 * The cached validation expression for the nonNegativePoints constraint of '<em>Ball Type</em>'.
+	 * The cached validation expression for the nonNegativePoints constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALL_TYPE__NON_NEGATIVE_POINTS__EEXPRESSION = "points >= 0";
+	protected static final String ENEMY_TYPE__NON_NEGATIVE_POINTS__EEXPRESSION = "points >= 0";
 
 	/**
-	 * Validates the nonNegativePoints constraint of '<em>Ball Type</em>'.
+	 * Validates the nonNegativePoints constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallType_nonNegativePoints(BallType ballType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemyType_nonNegativePoints(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALL_TYPE,
-				 ballType,
+				(GamemodePackage.Literals.ENEMY_TYPE,
+				 enemyType,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "nonNegativePoints",
-				 BALL_TYPE__NON_NEGATIVE_POINTS__EEXPRESSION,
+				 ENEMY_TYPE__NON_NEGATIVE_POINTS__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
 	}
 
 	/**
-	 * Validates the distinctEffectKinds constraint of '<em>Ball Type</em>'.
+	 * Validates the distinctEffectKinds constraint of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean validateBallType_distinctEffectKinds(BallType ballType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.distinctEffectKinds(ballType, ballType.getContactEffects()), diagnostics);
+	public boolean validateEnemyType_distinctEffectKinds(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.distinctEffectKinds(enemyType, enemyType.getContactEffects()), diagnostics);
 	}
 
 	/**
@@ -452,84 +448,6 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFragmenting(Fragmenting fragmenting, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(fragmenting, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFragmenting_atLeastOneFragment(fragmenting, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFragmenting_positiveLaunchSpeed(fragmenting, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * The cached validation expression for the atLeastOneFragment constraint of '<em>Fragmenting</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String FRAGMENTING__AT_LEAST_ONE_FRAGMENT__EEXPRESSION = "fragments >= 1";
-
-	/**
-	 * Validates the atLeastOneFragment constraint of '<em>Fragmenting</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateFragmenting_atLeastOneFragment(Fragmenting fragmenting, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.FRAGMENTING,
-				 fragmenting,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "atLeastOneFragment",
-				 FRAGMENTING__AT_LEAST_ONE_FRAGMENT__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
-	}
-
-	/**
-	 * The cached validation expression for the positiveLaunchSpeed constraint of '<em>Fragmenting</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String FRAGMENTING__POSITIVE_LAUNCH_SPEED__EEXPRESSION = "launchSpeed > 0";
-
-	/**
-	 * Validates the positiveLaunchSpeed constraint of '<em>Fragmenting</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateFragmenting_positiveLaunchSpeed(Fragmenting fragmenting, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.FRAGMENTING,
-				 fragmenting,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positiveLaunchSpeed",
-				 FRAGMENTING__POSITIVE_LAUNCH_SPEED__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateSplit(Split split, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(split, diagnostics, context)) return false;
 		boolean result = validate_EveryMultiplicityConforms(split, diagnostics, context);
@@ -540,56 +458,94 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(split, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(split, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(split, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFragmenting_atLeastOneFragment(split, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFragmenting_positiveLaunchSpeed(split, diagnostics, context);
+		if (result || diagnostics != null) result &= validateSplit_atLeastOneFragment(split, diagnostics, context);
+		if (result || diagnostics != null) result &= validateSplit_atMostSixteenFragments(split, diagnostics, context);
+		if (result || diagnostics != null) result &= validateSplit_positiveLaunchSpeed(split, diagnostics, context);
 		return result;
 	}
 
 	/**
+	 * The cached validation expression for the atLeastOneFragment constraint of '<em>Split</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBurst(Burst burst, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(burst, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFragmenting_atLeastOneFragment(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFragmenting_positiveLaunchSpeed(burst, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBurst_enoughFragmentsToBurst(burst, diagnostics, context);
-		return result;
-	}
+	protected static final String SPLIT__AT_LEAST_ONE_FRAGMENT__EEXPRESSION = "fragments >= 1";
 
 	/**
-	 * The cached validation expression for the enoughFragmentsToBurst constraint of '<em>Burst</em>'.
+	 * Validates the atLeastOneFragment constraint of '<em>Split</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BURST__ENOUGH_FRAGMENTS_TO_BURST__EEXPRESSION = "fragments >= 3";
-
-	/**
-	 * Validates the enoughFragmentsToBurst constraint of '<em>Burst</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateBurst_enoughFragmentsToBurst(Burst burst, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateSplit_atLeastOneFragment(Split split, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BURST,
-				 burst,
+				(GamemodePackage.Literals.SPLIT,
+				 split,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "enoughFragmentsToBurst",
-				 BURST__ENOUGH_FRAGMENTS_TO_BURST__EEXPRESSION,
+				 "atLeastOneFragment",
+				 SPLIT__AT_LEAST_ONE_FRAGMENT__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
+	}
+
+	/**
+	 * The cached validation expression for the atMostSixteenFragments constraint of '<em>Split</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String SPLIT__AT_MOST_SIXTEEN_FRAGMENTS__EEXPRESSION = "fragments <= 16";
+
+	/**
+	 * Validates the atMostSixteenFragments constraint of '<em>Split</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSplit_atMostSixteenFragments(Split split, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.SPLIT,
+				 split,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "atMostSixteenFragments",
+				 SPLIT__AT_MOST_SIXTEEN_FRAGMENTS__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
+	}
+
+	/**
+	 * The cached validation expression for the positiveLaunchSpeed constraint of '<em>Split</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String SPLIT__POSITIVE_LAUNCH_SPEED__EEXPRESSION = "launchSpeed > 0";
+
+	/**
+	 * Validates the positiveLaunchSpeed constraint of '<em>Split</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSplit_positiveLaunchSpeed(Split split, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.SPLIT,
+				 split,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "positiveLaunchSpeed",
+				 SPLIT__POSITIVE_LAUNCH_SPEED__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
@@ -1164,7 +1120,7 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateGameMode_winnable(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_endsSomehow(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_healthDepletedWhenHarmful(gameMode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateGameMode_everyBallDrops(gameMode, diagnostics, context);
+		if (result || diagnostics != null) result &= validateGameMode_everyEnemyDrops(gameMode, diagnostics, context);
 		return result;
 	}
 
@@ -1238,13 +1194,13 @@ public class GamemodeValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Validates the everyBallDrops constraint of '<em>Game Mode</em>'.
+	 * Validates the everyEnemyDrops constraint of '<em>Game Mode</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean validateGameMode_everyBallDrops(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.everyBallDrops(gameMode), diagnostics);
+	public boolean validateGameMode_everyEnemyDrops(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.everyEnemyDrops(gameMode), diagnostics);
 	}
 
 	/**
@@ -1723,75 +1679,75 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallSpawn(BallSpawn ballSpawn, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(ballSpawn, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validatePositioned_insideArena(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallSpawn_sizeInRange(ballSpawn, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallSpawn_positiveCount(ballSpawn, diagnostics, context);
+	public boolean validateEnemySpawn(EnemySpawn enemySpawn, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(enemySpawn, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePositioned_insideArena(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemySpawn_sizeInRange(enemySpawn, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemySpawn_positiveCount(enemySpawn, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * The cached validation expression for the sizeInRange constraint of '<em>Ball Spawn</em>'.
+	 * The cached validation expression for the sizeInRange constraint of '<em>Enemy Spawn</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALL_SPAWN__SIZE_IN_RANGE__EEXPRESSION = "size >= 1 and size <= 3";
+	protected static final String ENEMY_SPAWN__SIZE_IN_RANGE__EEXPRESSION = "size >= 1 and size <= 3";
 
 	/**
-	 * Validates the sizeInRange constraint of '<em>Ball Spawn</em>'.
+	 * Validates the sizeInRange constraint of '<em>Enemy Spawn</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallSpawn_sizeInRange(BallSpawn ballSpawn, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemySpawn_sizeInRange(EnemySpawn enemySpawn, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALL_SPAWN,
-				 ballSpawn,
+				(GamemodePackage.Literals.ENEMY_SPAWN,
+				 enemySpawn,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "sizeInRange",
-				 BALL_SPAWN__SIZE_IN_RANGE__EEXPRESSION,
+				 ENEMY_SPAWN__SIZE_IN_RANGE__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
 	}
 
 	/**
-	 * The cached validation expression for the positiveCount constraint of '<em>Ball Spawn</em>'.
+	 * The cached validation expression for the positiveCount constraint of '<em>Enemy Spawn</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALL_SPAWN__POSITIVE_COUNT__EEXPRESSION = "count >= 1";
+	protected static final String ENEMY_SPAWN__POSITIVE_COUNT__EEXPRESSION = "count >= 1";
 
 	/**
-	 * Validates the positiveCount constraint of '<em>Ball Spawn</em>'.
+	 * Validates the positiveCount constraint of '<em>Enemy Spawn</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallSpawn_positiveCount(BallSpawn ballSpawn, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemySpawn_positiveCount(EnemySpawn enemySpawn, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALL_SPAWN,
-				 ballSpawn,
+				(GamemodePackage.Literals.ENEMY_SPAWN,
+				 enemySpawn,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "positiveCount",
-				 BALL_SPAWN__POSITIVE_COUNT__EEXPRESSION,
+				 ENEMY_SPAWN__POSITIVE_COUNT__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
@@ -1814,7 +1770,7 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(dropTable, diagnostics, context);
 		if (result || diagnostics != null) result &= validateDropTable_chanceIsPercentage(dropTable, diagnostics, context);
 		if (result || diagnostics != null) result &= validateDropTable_distinctPowerUps(dropTable, diagnostics, context);
-		if (result || diagnostics != null) result &= validateDropTable_oneTablePerBall(dropTable, diagnostics, context);
+		if (result || diagnostics != null) result &= validateDropTable_oneTablePerEnemy(dropTable, diagnostics, context);
 		return result;
 	}
 
@@ -1877,13 +1833,13 @@ public class GamemodeValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Validates the oneTablePerBall constraint of '<em>Drop Table</em>'.
+	 * Validates the oneTablePerEnemy constraint of '<em>Drop Table</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean validateDropTable_oneTablePerBall(DropTable dropTable, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.oneTablePerBall(dropTable), diagnostics);
+	public boolean validateDropTable_oneTablePerEnemy(DropTable dropTable, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.oneTablePerEnemy(dropTable), diagnostics);
 	}
 
 	/**
@@ -2085,45 +2041,45 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallsPopped(BallsPopped ballsPopped, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(ballsPopped, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(ballsPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallsPopped_positiveCount(ballsPopped, diagnostics, context);
+	public boolean validateEnemiesPopped(EnemiesPopped enemiesPopped, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(enemiesPopped, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(enemiesPopped, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemiesPopped_positiveCount(enemiesPopped, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * The cached validation expression for the positiveCount constraint of '<em>Balls Popped</em>'.
+	 * The cached validation expression for the positiveCount constraint of '<em>Enemies Popped</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALLS_POPPED__POSITIVE_COUNT__EEXPRESSION = "count > 0";
+	protected static final String ENEMIES_POPPED__POSITIVE_COUNT__EEXPRESSION = "count > 0";
 
 	/**
-	 * Validates the positiveCount constraint of '<em>Balls Popped</em>'.
+	 * Validates the positiveCount constraint of '<em>Enemies Popped</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallsPopped_positiveCount(BallsPopped ballsPopped, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemiesPopped_positiveCount(EnemiesPopped enemiesPopped, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALLS_POPPED,
-				 ballsPopped,
+				(GamemodePackage.Literals.ENEMIES_POPPED,
+				 enemiesPopped,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "positiveCount",
-				 BALLS_POPPED__POSITIVE_COUNT__EEXPRESSION,
+				 ENEMIES_POPPED__POSITIVE_COUNT__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
@@ -2202,45 +2158,45 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallsAlive(BallsAlive ballsAlive, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(ballsAlive, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(ballsAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validateBallsAlive_positiveCount(ballsAlive, diagnostics, context);
+	public boolean validateEnemiesAlive(EnemiesAlive enemiesAlive, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(enemiesAlive, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(enemiesAlive, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemiesAlive_positiveCount(enemiesAlive, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * The cached validation expression for the positiveCount constraint of '<em>Balls Alive</em>'.
+	 * The cached validation expression for the positiveCount constraint of '<em>Enemies Alive</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String BALLS_ALIVE__POSITIVE_COUNT__EEXPRESSION = "count > 0";
+	protected static final String ENEMIES_ALIVE__POSITIVE_COUNT__EEXPRESSION = "count > 0";
 
 	/**
-	 * Validates the positiveCount constraint of '<em>Balls Alive</em>'.
+	 * Validates the positiveCount constraint of '<em>Enemies Alive</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateBallsAlive_positiveCount(BallsAlive ballsAlive, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnemiesAlive_positiveCount(EnemiesAlive enemiesAlive, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.BALLS_ALIVE,
-				 ballsAlive,
+				(GamemodePackage.Literals.ENEMIES_ALIVE,
+				 enemiesAlive,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
 				 "positiveCount",
-				 BALLS_ALIVE__POSITIVE_COUNT__EEXPRESSION,
+				 ENEMIES_ALIVE__POSITIVE_COUNT__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);

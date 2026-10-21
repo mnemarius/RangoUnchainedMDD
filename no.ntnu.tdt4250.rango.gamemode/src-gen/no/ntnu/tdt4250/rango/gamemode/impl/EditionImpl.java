@@ -4,7 +4,7 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import java.util.Collection;
 
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getBallTypes <em>Ball Types</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getPowerUps <em>Power Ups</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getMaterials <em>Materials</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getPlayers <em>Players</em>}</li>
@@ -67,14 +67,14 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 	protected String title = TITLE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getBallTypes() <em>Ball Types</em>}' containment reference list.
+	 * The cached value of the '{@link #getEnemyTypes() <em>Enemy Types</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBallTypes()
+	 * @see #getEnemyTypes()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<BallType> ballTypes;
+	protected EList<EnemyType> enemyTypes;
 
 	/**
 	 * The cached value of the '{@link #getPowerUps() <em>Power Ups</em>}' containment reference list.
@@ -174,11 +174,11 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 	 * @generated
 	 */
 	@Override
-	public EList<BallType> getBallTypes() {
-		if (ballTypes == null) {
-			ballTypes = new EObjectContainmentEList<BallType>(BallType.class, this, GamemodePackage.EDITION__BALL_TYPES);
+	public EList<EnemyType> getEnemyTypes() {
+		if (enemyTypes == null) {
+			enemyTypes = new EObjectContainmentEList<EnemyType>(EnemyType.class, this, GamemodePackage.EDITION__ENEMY_TYPES);
 		}
-		return ballTypes;
+		return enemyTypes;
 	}
 
 	/**
@@ -254,8 +254,8 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GamemodePackage.EDITION__BALL_TYPES:
-				return ((InternalEList<?>)getBallTypes()).basicRemove(otherEnd, msgs);
+			case GamemodePackage.EDITION__ENEMY_TYPES:
+				return ((InternalEList<?>)getEnemyTypes()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.EDITION__POWER_UPS:
 				return ((InternalEList<?>)getPowerUps()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.EDITION__MATERIALS:
@@ -280,8 +280,8 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 		switch (featureID) {
 			case GamemodePackage.EDITION__TITLE:
 				return getTitle();
-			case GamemodePackage.EDITION__BALL_TYPES:
-				return getBallTypes();
+			case GamemodePackage.EDITION__ENEMY_TYPES:
+				return getEnemyTypes();
 			case GamemodePackage.EDITION__POWER_UPS:
 				return getPowerUps();
 			case GamemodePackage.EDITION__MATERIALS:
@@ -308,9 +308,9 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 			case GamemodePackage.EDITION__TITLE:
 				setTitle((String)newValue);
 				return;
-			case GamemodePackage.EDITION__BALL_TYPES:
-				getBallTypes().clear();
-				getBallTypes().addAll((Collection<? extends BallType>)newValue);
+			case GamemodePackage.EDITION__ENEMY_TYPES:
+				getEnemyTypes().clear();
+				getEnemyTypes().addAll((Collection<? extends EnemyType>)newValue);
 				return;
 			case GamemodePackage.EDITION__POWER_UPS:
 				getPowerUps().clear();
@@ -347,8 +347,8 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 			case GamemodePackage.EDITION__TITLE:
 				setTitle(TITLE_EDEFAULT);
 				return;
-			case GamemodePackage.EDITION__BALL_TYPES:
-				getBallTypes().clear();
+			case GamemodePackage.EDITION__ENEMY_TYPES:
+				getEnemyTypes().clear();
 				return;
 			case GamemodePackage.EDITION__POWER_UPS:
 				getPowerUps().clear();
@@ -379,8 +379,8 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 		switch (featureID) {
 			case GamemodePackage.EDITION__TITLE:
 				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-			case GamemodePackage.EDITION__BALL_TYPES:
-				return ballTypes != null && !ballTypes.isEmpty();
+			case GamemodePackage.EDITION__ENEMY_TYPES:
+				return enemyTypes != null && !enemyTypes.isEmpty();
 			case GamemodePackage.EDITION__POWER_UPS:
 				return powerUps != null && !powerUps.isEmpty();
 			case GamemodePackage.EDITION__MATERIALS:

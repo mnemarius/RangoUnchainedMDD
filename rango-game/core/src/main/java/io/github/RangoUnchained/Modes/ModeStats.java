@@ -14,10 +14,10 @@ public interface ModeStats {
 
     int wavesCleared();
 
-    int ballsAlive();
+    int enemiesAlive();
 
     int playerHealth();
 
-    /** No ball is left and none is still to come. */
+    /** No enemy is left and none is still to come. */
     boolean cleared();
 }

@@ -1,12 +1,12 @@
 // An arcade edition: three short modes with different goals (a score to reach under a time limit,
 // a number of pops, a time to survive), two player profiles to choose between per mode, harmless
 // bubbles that vanish when popped but slow the player down, and a trap among the power-ups. Each mode
-// has its own drop tables, and the mine, the most dangerous ball, drops the best power-up.
+// has its own drop tables, and the mine, the most dangerous enemy, drops the best power-up.
 
 edition Arcade "Rango Unchained: Arcade"
 
-ball Bubble {
-	sprite "Ball/Small ball.png"
+enemy Bubble {
+	sprite "Enemy/Small enemy.png"
 	scale 1.3
 	bounce 1.2
 	points 5
@@ -14,15 +14,15 @@ ball Bubble {
 	on contact: speed * 0.6 for 3 s
 }
 
-ball Tumbleweed {
-	sprite "Ball/Tumbleweed.png"
+enemy Tumbleweed {
+	sprite "Enemy/Tumbleweed.png"
 	points 10
 	on pop: split into 2
 	on contact: damage 1
 }
 
-ball Weed {
-	sprite "Ball/Plant.png"
+enemy Weed {
+	sprite "Enemy/Plant.png"
 	scale 0.9
 	speed 6
 	points 15
@@ -30,10 +30,10 @@ ball Weed {
 	on contact: damage 1
 }
 
-ball Mine {
-	sprite "Ball/Bomb.png"
+enemy Mine {
+	sprite "Enemy/Bomb.png"
 	points 30
-	on pop: burst into 4 Weed
+	on pop: split into 4 Weed
 	on contact: damage 2
 }
 
@@ -101,7 +101,7 @@ mode TimeAttack "Time Attack" {
 }
 
 mode PopFrenzy "Pop Frenzy" {
-	description "A sky full of bubbles in low gravity. Pop 20 balls, or everything there is."
+	description "A sky full of bubbles in low gravity. Pop 20 enemies, or everything there is."
 	player Tank
 	gravity 6
 	arena {
@@ -118,7 +118,7 @@ mode PopFrenzy "Pop Frenzy" {
 		Bubble 10% { Thorns }
 		Tumbleweed 20% { Heart, Thorns }
 	}
-	win when 20 balls popped or all balls cleared
+	win when 20 enemies popped or all enemies cleared
 	lose when health depleted or time reaches 120 s
 }
 

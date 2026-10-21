@@ -20,7 +20,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getTitle <em>Title</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDescription <em>Description</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPlayer <em>Player</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getBallTypes <em>Ball Types</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getGravity <em>Gravity</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus <em>Speed Bonus</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getArena <em>Arena</em>}</li>
@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyBallDrops'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyEnemyDrops'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG positiveGravity='gravity &gt; 0'"
  * @generated
  */
@@ -116,19 +116,19 @@ public interface GameMode extends NamedElement {
 	void setPlayer(PlayerProfile value);
 
 	/**
-	 * Returns the value of the '<em><b>Ball Types</b></em>' reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.BallType}.
+	 * Returns the value of the '<em><b>Enemy Types</b></em>' reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.EnemyType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The ball types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them.
+	 * The enemy types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Ball Types</em>' reference list.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_BallTypes()
+	 * @return the value of the '<em>Enemy Types</em>' reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_EnemyTypes()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
-	EList<BallType> getBallTypes();
+	EList<EnemyType> getEnemyTypes();
 
 	/**
 	 * Returns the value of the '<em><b>Gravity</b></em>' attribute.
@@ -161,7 +161,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Makes early pops worth more. Without a speed bonus, each pop is worth the points of its ball type.
+	 * Makes early pops worth more. Without a speed bonus, each pop is worth the points of its enemy type.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Speed Bonus</em>' containment reference.
 	 * @see #setSpeedBonus(SpeedBonus)
@@ -211,7 +211,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Which balls enter the arena, where and when.
+	 * Which enemies enter the arena, where and when.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Spawning</em>' containment reference.
 	 * @see #setSpawning(SpawnStrategy)
@@ -237,7 +237,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What popping each ball type of this mode can drop, one table per ball type. If the mode has drop tables, they replace those of the edition.
+	 * What popping each enemy type of this mode can drop, one table per enemy type. If the mode has drop tables, they replace those of the edition.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Drops</em>' containment reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Drops()
@@ -296,7 +296,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The tongue hits needed to pop every ball the mode spawns, counting all fragments. -1 if the waves loop, since the mode then never runs out of balls.
+	 * The tongue hits needed to pop every enemy the mode spawns, counting all fragments. -1 if the waves loop, since the mode then never runs out of enemies.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Pops To Clear</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_PopsToClear()

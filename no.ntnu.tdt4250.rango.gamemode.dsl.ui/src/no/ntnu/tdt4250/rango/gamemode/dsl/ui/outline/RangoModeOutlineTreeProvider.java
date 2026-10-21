@@ -6,7 +6,7 @@ package no.ntnu.tdt4250.rango.gamemode.dsl.ui.outline;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
@@ -52,7 +52,7 @@ public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		return true;
 	}
 
-	protected boolean _isLeaf(BallSpawn spawn) {
+	protected boolean _isLeaf(EnemySpawn spawn) {
 		return true;
 	}
 

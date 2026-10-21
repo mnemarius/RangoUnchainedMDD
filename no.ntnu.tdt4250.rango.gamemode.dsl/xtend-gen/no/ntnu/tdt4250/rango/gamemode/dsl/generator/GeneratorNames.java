@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
@@ -80,11 +80,11 @@ public class GeneratorNames {
   }
 
   /**
-   * A Java constant name for a ball type: PricklyPear becomes BALL_PRICKLY_PEAR.
+   * A Java constant name for a enemy type: PricklyPear becomes ENEMY_PRICKLY_PEAR.
    */
   public static String constant(final NamedElement element) {
     String _upperCase = element.getName().replaceAll("([a-z0-9])([A-Z])", "$1_$2").toUpperCase();
-    return ("BALL_" + _upperCase);
+    return ("ENEMY_" + _upperCase);
   }
 
   public static String title(final Edition edition) {
@@ -146,8 +146,8 @@ public class GeneratorNames {
     return _elvis.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\'", "\\\'").replace("\"", "\\\"");
   }
 
-  public static boolean balls(final Target target) {
-    return (Objects.equals(target, Target.ALL) || Objects.equals(target, Target.BALLS));
+  public static boolean enemies(final Target target) {
+    return (Objects.equals(target, Target.ALL) || Objects.equals(target, Target.ENEMIES));
   }
 
   public static boolean player(final Target target) {
@@ -155,7 +155,7 @@ public class GeneratorNames {
   }
 
   /**
-   * The waves of a mode; none if its balls are all placed at the start.
+   * The waves of a mode; none if its enemies are all placed at the start.
    */
   public static List<Wave> waves(final GameMode mode) {
     List<Wave> _xblockexpression = null;
@@ -192,10 +192,10 @@ public class GeneratorNames {
   }
 
   /**
-   * The horizontal positions of the balls of a spawn: spread out sideways around the spawn position,
-   * the same way the game's spawner spreads out the balls of a wave.
+   * The horizontal positions of the enemies of a spawn: spread out sideways around the spawn position,
+   * the same way the game's spawner spreads out the enemies of a wave.
    */
-  public static List<Float> spreadX(final BallSpawn spawn) {
+  public static List<Float> spreadX(final EnemySpawn spawn) {
     int _max = Math.max(spawn.getCount(), 0);
     final Function1<Integer, Float> _function = (Integer i) -> {
       float _x = spawn.getX();

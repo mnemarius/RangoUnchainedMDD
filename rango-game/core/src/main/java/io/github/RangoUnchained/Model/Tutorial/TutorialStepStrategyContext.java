@@ -20,6 +20,6 @@ public class TutorialStepStrategyContext {
     public boolean splitted;
     public boolean powerup;
     public boolean takenDamage;
-    public int amountBallsKilled;
+    public int amountEnemiesKilled;
     public boolean pickedUpPowerup;
 }

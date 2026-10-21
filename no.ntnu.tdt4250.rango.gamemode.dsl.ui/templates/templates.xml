@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <templates>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallType" deleted="false" description="A ball type that splits in two and hurts on contact" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.ball" name="ball">ball ${Name} {
-	sprite "${Ball/Tumbleweed.png}"
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType" deleted="false" description="A enemy type that splits in two and hurts on contact" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.enemy" name="enemy">enemy ${Name} {
+	sprite "${Enemy/Tumbleweed.png}"
 	points ${10}
 	on pop: split into ${2}
 	on contact: damage ${1}
 }</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallType" deleted="false" description="A ball type that bursts into balls of another type" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.bomb" name="ball (bursting)">ball ${Name} {
-	sprite "${Ball/Bomb.png}"
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType" deleted="false" description="A enemy type that explodes all around into enemies of another type" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.bomb" name="enemy (exploding)">enemy ${Name} {
+	sprite "${Enemy/Bomb.png}"
 	points ${25}
-	on pop: burst into ${6} ${fragment:CrossReference('Burst.fragmentType')}
+	on pop: split into ${8} ${fragment:CrossReference('Split.fragmentType')}
 	on contact: damage ${2}
 }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.PowerUp" deleted="false" description="A power-up with a timed effect" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.powerup" name="powerup">powerup ${Name} {
@@ -33,9 +33,9 @@
 		background "Desert"
 	}
 	layout {
-		${type:CrossReference('BallSpawn.type')} size 3 at (${50}%, ${70}%)
+		${type:CrossReference('EnemySpawn.type')} size 3 at (${50}%, ${70}%)
 	}
-	win when all balls cleared
+	win when all enemies cleared
 	lose when health depleted
 }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode" deleted="false" description="An endless mode with looping, growing waves" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.endless" name="mode (endless waves)">mode ${Name} "${Title}" {
@@ -46,15 +46,15 @@
 	}
 	waves looping escalate by ${1} {
 		wave {
-			${type:CrossReference('BallSpawn.type')} size 3 at (${50}%, ${75}%)
+			${type:CrossReference('EnemySpawn.type')} size 3 at (${50}%, ${75}%)
 		}
 	}
-	lose when health depleted or ${20} balls alive
+	lose when health depleted or ${20} enemies alive
 }</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Wave" deleted="false" description="A wave of balls" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.wave" name="wave">wave after ${2} s {
-	${count:2} * ${type:CrossReference('BallSpawn.type')} size ${3} at (${50}%, ${75}%) moving ${left}
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Wave" deleted="false" description="A wave of enemies" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.wave" name="wave">wave after ${2} s {
+	${count:2} * ${type:CrossReference('EnemySpawn.type')} size ${3} at (${50}%, ${75}%) moving ${left}
 }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Obstacle" deleted="false" description="Two teleporters leading to each other" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.teleporters" name="teleporter pair">teleporter ${West} at (${6}%, ${10}%) to ${East} affects ${everything}
 teleporter ${East} at (${94}%, ${10}%) to ${West} affects ${everything}</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable" deleted="false" description="The drop table of one ball type: its chance to drop, then the power-ups by weight" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.droptable" name="drop table">${ball:CrossReference('DropTable.ballType')} ${10}% { ${powerUp:CrossReference('Drop.powerUp')} weight ${2}, ${other:CrossReference('Drop.powerUp')} }</template>
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable" deleted="false" description="The drop table of one enemy type: its chance to drop, then the power-ups by weight" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.droptable" name="drop table">${enemy:CrossReference('DropTable.enemyType')} ${10}% { ${powerUp:CrossReference('Drop.powerUp')} weight ${2}, ${other:CrossReference('Drop.powerUp')} }</template>
 </templates>

@@ -31,13 +31,13 @@ public interface GamemodeFactory extends EFactory {
 	Edition createEdition();
 
 	/**
-	 * Returns a new object of class '<em>Ball Type</em>'.
+	 * Returns a new object of class '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Ball Type</em>'.
+	 * @return a new object of class '<em>Enemy Type</em>'.
 	 * @generated
 	 */
-	BallType createBallType();
+	EnemyType createEnemyType();
 
 	/**
 	 * Returns a new object of class '<em>Vanish</em>'.
@@ -56,15 +56,6 @@ public interface GamemodeFactory extends EFactory {
 	 * @generated
 	 */
 	Split createSplit();
-
-	/**
-	 * Returns a new object of class '<em>Burst</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Burst</em>'.
-	 * @generated
-	 */
-	Burst createBurst();
 
 	/**
 	 * Returns a new object of class '<em>Damage</em>'.
@@ -220,13 +211,13 @@ public interface GamemodeFactory extends EFactory {
 	Wave createWave();
 
 	/**
-	 * Returns a new object of class '<em>Ball Spawn</em>'.
+	 * Returns a new object of class '<em>Enemy Spawn</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Ball Spawn</em>'.
+	 * @return a new object of class '<em>Enemy Spawn</em>'.
 	 * @generated
 	 */
-	BallSpawn createBallSpawn();
+	EnemySpawn createEnemySpawn();
 
 	/**
 	 * Returns a new object of class '<em>Drop Table</em>'.
@@ -274,13 +265,13 @@ public interface GamemodeFactory extends EFactory {
 	ScoreReached createScoreReached();
 
 	/**
-	 * Returns a new object of class '<em>Balls Popped</em>'.
+	 * Returns a new object of class '<em>Enemies Popped</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Balls Popped</em>'.
+	 * @return a new object of class '<em>Enemies Popped</em>'.
 	 * @generated
 	 */
-	BallsPopped createBallsPopped();
+	EnemiesPopped createEnemiesPopped();
 
 	/**
 	 * Returns a new object of class '<em>Waves Survived</em>'.
@@ -301,13 +292,13 @@ public interface GamemodeFactory extends EFactory {
 	HealthDepleted createHealthDepleted();
 
 	/**
-	 * Returns a new object of class '<em>Balls Alive</em>'.
+	 * Returns a new object of class '<em>Enemies Alive</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Balls Alive</em>'.
+	 * @return a new object of class '<em>Enemies Alive</em>'.
 	 * @generated
 	 */
-	BallsAlive createBallsAlive();
+	EnemiesAlive createEnemiesAlive();
 
 	/**
 	 * Returns the package supported by this factory.

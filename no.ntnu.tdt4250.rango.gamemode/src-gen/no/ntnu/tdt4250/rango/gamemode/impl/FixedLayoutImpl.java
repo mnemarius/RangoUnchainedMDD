@@ -4,7 +4,7 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import java.util.Collection;
 
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 
@@ -40,7 +40,7 @@ public class FixedLayoutImpl extends SpawnStrategyImpl implements FixedLayout {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<BallSpawn> spawns;
+	protected EList<EnemySpawn> spawns;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,9 +67,9 @@ public class FixedLayoutImpl extends SpawnStrategyImpl implements FixedLayout {
 	 * @generated
 	 */
 	@Override
-	public EList<BallSpawn> getSpawns() {
+	public EList<EnemySpawn> getSpawns() {
 		if (spawns == null) {
-			spawns = new EObjectContainmentEList<BallSpawn>(BallSpawn.class, this, GamemodePackage.FIXED_LAYOUT__SPAWNS);
+			spawns = new EObjectContainmentEList<EnemySpawn>(EnemySpawn.class, this, GamemodePackage.FIXED_LAYOUT__SPAWNS);
 		}
 		return spawns;
 	}
@@ -113,7 +113,7 @@ public class FixedLayoutImpl extends SpawnStrategyImpl implements FixedLayout {
 		switch (featureID) {
 			case GamemodePackage.FIXED_LAYOUT__SPAWNS:
 				getSpawns().clear();
-				getSpawns().addAll((Collection<? extends BallSpawn>)newValue);
+				getSpawns().addAll((Collection<? extends EnemySpawn>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

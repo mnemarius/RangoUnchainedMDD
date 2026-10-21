@@ -12,12 +12,12 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
 /**
  * Content assist for the game mode DSL. Besides keywords and cross-references, it proposes the
- * images the game ships for sprites and backgrounds, and explains the size classes of balls.
+ * images the game ships for sprites and backgrounds, and explains the size classes of enemies.
  */
 public class RangoModeProposalProvider extends AbstractRangoModeProposalProvider {
 
-	static final List<String> BALL_SPRITES = List.of("Ball/Tumbleweed.png", "Ball/Armedillo.png", "Ball/Cactus.png",
-			"Ball/Bomb.png", "Ball/Plant.png", "Ball/Big ball.png", "Ball/Medium ball.png", "Ball/Small ball.png");
+	static final List<String> ENEMY_SPRITES = List.of("Enemy/Tumbleweed.png", "Enemy/Armedillo.png", "Enemy/Cactus.png",
+			"Enemy/Bomb.png", "Enemy/Plant.png", "Enemy/Big enemy.png", "Enemy/Medium enemy.png", "Enemy/Small enemy.png");
 
 	static final List<String> POWER_UP_SPRITES = List.of("Powerup/Health.png", "Powerup/Shield.png",
 			"Powerup/Speed.png", "Powerup/WoodShield.png");
@@ -28,9 +28,9 @@ public class RangoModeProposalProvider extends AbstractRangoModeProposalProvider
 	static final List<String> BACKGROUNDS = List.of("Desert", "red");
 
 	@Override
-	public void completeBallType_Sprite(EObject model, Assignment assignment, ContentAssistContext context,
+	public void completeEnemyType_Sprite(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
-		proposeStrings(BALL_SPRITES, context, acceptor);
+		proposeStrings(ENEMY_SPRITES, context, acceptor);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class RangoModeProposalProvider extends AbstractRangoModeProposalProvider
 	}
 
 	@Override
-	public void completeBallSpawn_Size(EObject model, Assignment assignment, ContentAssistContext context,
+	public void completeEnemySpawn_Size(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
 		acceptor.accept(createCompletionProposal("3", "3 - large", null, context));
 		acceptor.accept(createCompletionProposal("2", "2 - medium", null, context));

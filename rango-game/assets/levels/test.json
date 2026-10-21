@@ -24,7 +24,7 @@
 		  }
 	  },
 	  {
-		  "name": "Ball: Tumbleweed Small",
+		  "name": "Enemy: Tumbleweed Small",
 		  "dimension": {
 			  "x": 800,
 			  "y": 400
@@ -33,13 +33,13 @@
 			  "x": -2
 		  },
 		  "typeInfo":{
-			"type" : "Ball",
+			"type" : "Enemy",
 			"size" : 1,
 			"subType" : "Armedillo"
 		  }
 	  },
 	  {
-		  "name": "Ball: Tumbleweed Medium",
+		  "name": "Enemy: Tumbleweed Medium",
 		  "dimension": {
 			  "x": 200,
 			  "y": 400
@@ -48,13 +48,13 @@
 			  "x": 2
 		  },
 		  "typeInfo":{
-			"type" : "Ball",
+			"type" : "Enemy",
 			"size" : 2,
 			"subType" : "TumbleWeed"
 		  }
 	  },
 	  {
-		  "name": "Ball: Tumbleweed Medium",
+		  "name": "Enemy: Tumbleweed Medium",
 		  "dimension": {
 			  "x": 400,
 			  "y": 400
@@ -63,7 +63,7 @@
 			  "x": -2
 		  },
 		  "typeInfo":{
-			"type" : "Ball",
+			"type" : "Enemy",
 			"size" : 2,
 			"subType" : "Cactus"
 		  }

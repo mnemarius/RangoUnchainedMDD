@@ -3,7 +3,7 @@ package io.github.RangoUnchained.Model.Systems;
 import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Components.HealthComponent;
 import io.github.RangoUnchained.Model.ContactStrategies.ContactStrategy;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Entities.PlayerEntity;
 import io.github.RangoUnchained.Model.Systems.ContactSystem.CollisionEvent;
@@ -39,12 +39,12 @@ public class HealthSystem implements Systems, ContactStrategy{
     public void setContactStrategies() {
         ContactSystem centralContactListener = LevelController.getInstance().getSystem(ContactSystem.class);
         centralContactListener.subscribe(
-        BallEntity.class, PlayerEntity.class,
+        EnemyEntity.class, PlayerEntity.class,
         this::decreaseHealth, // For beginContact
         null);
     }
 
-    /**contact strategy between playerEntity and Ballentity */
+    /**contact strategy between playerEntity and Enemyentity */
     private void decreaseHealth(CollisionEvent collisionEvent){
         PlayerEntity player;
 

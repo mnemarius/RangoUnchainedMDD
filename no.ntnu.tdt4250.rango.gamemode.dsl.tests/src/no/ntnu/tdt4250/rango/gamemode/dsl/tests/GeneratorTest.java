@@ -74,9 +74,12 @@ public class GeneratorTest {
 	public void splitRulesBecomeFragments() {
 		InMemoryFileSystemAccess files = generate("arcade");
 		String timeAttack = file(files, JAVA + "TimeAttackMode.java");
-		assertTrue(timeAttack.contains("context.burst(ball, \"Weed\", 4, 5.0f);"));
-		assertTrue(timeAttack.contains("context.split(ball, \"Weed\", 2, 7.0f);"));
+		assertTrue(timeAttack.contains("context.split(enemy, \"Weed\", 4, 45.0f, 5.0f);"));
+		assertTrue(timeAttack.contains("context.split(enemy, \"Weed\", 2, 45.0f, 7.0f);"));
 		assertTrue(file(files, JAVA + "PopFrenzyMode.java").contains("// vanishes at once"));
+		// a Bomb splits into a full ring of eight
+		assertTrue(file(generate("survival"), JAVA + "EndlessMode.java")
+				.contains("context.split(enemy, \"Tumbleweed\", 8, 45.0f, 6.0f);"));
 	}
 
 	@Test
@@ -88,7 +91,7 @@ public class GeneratorTest {
 		assertTrue(timeAttack.contains("context.shield(6.0f, \"Powerup/Speed.png\");"));
 		String popFrenzy = file(files, JAVA + "PopFrenzyMode.java");
 		assertTrue(popFrenzy.contains("context.addScore(5);"));
-		assertTrue(popFrenzy.contains("context.changeSpeed(0.6f, 3.0f, \"Ball/Small ball.png\");"));
+		assertTrue(popFrenzy.contains("context.changeSpeed(0.6f, 3.0f, \"Enemy/Small enemy.png\");"));
 	}
 
 	@Test
@@ -111,25 +114,25 @@ public class GeneratorTest {
 	}
 
 	@Test
-	public void eachBallRollsOnItsOwnDropTable() {
+	public void eachEnemyRollsOnItsOwnDropTable() {
 		InMemoryFileSystemAccess files = generate("survival");
 		String endless = file(files, JAVA + "EndlessMode.java");
 		// Endless Survival uses the edition's drop tables: a Bomb drops something at 40 %, a Shield half of the time
 		String bomb = between(endless, "case \"Bomb\":", "break;");
 		assertTrue(bomb.contains("if (context.random() * 100f < 40.0f) { // 40 % of Bomb pops drop something"), bomb);
-		assertTrue(bomb.contains("context.dropPowerUp(\"Shield\", ball); // 50 % of drops, 20 % of pops"), bomb);
+		assertTrue(bomb.contains("context.dropPowerUp(\"Shield\", enemy); // 50 % of drops, 20 % of pops"), bomb);
 		String tumbleweed = between(endless, "case \"Tumbleweed\":", "break;");
 		assertTrue(tumbleweed.contains("if (context.random() * 100f < 10.0f) {"), tumbleweed);
-		assertTrue(tumbleweed.contains("context.dropPowerUp(\"Health\", ball);"), tumbleweed);
+		assertTrue(tumbleweed.contains("context.dropPowerUp(\"Health\", enemy);"), tumbleweed);
 		// Wave Rush has drop tables of its own, which replace the edition's
 		String armadillo = between(file(files, JAVA + "WaveRushMode.java"), "case \"Armadillo\":", "break;");
 		assertTrue(armadillo.contains("if (context.random() * 100f < 20.0f) {"), armadillo);
-		assertTrue(armadillo.contains("context.dropPowerUp(\"Health\", ball); // 75 % of drops, 15 % of pops"), armadillo);
+		assertTrue(armadillo.contains("context.dropPowerUp(\"Health\", enemy); // 75 % of drops, 15 % of pops"), armadillo);
 	}
 
-	/** The part of onBallPopped from the first occurrence of start to the next occurrence of end. */
+	/** The part of onEnemyPopped from the first occurrence of start to the next occurrence of end. */
 	private static String between(String text, String start, String end) {
-		int from = text.indexOf(start, text.indexOf("onBallPopped"));
+		int from = text.indexOf(start, text.indexOf("onEnemyPopped"));
 		assertTrue(from >= 0, "no " + start);
 		return text.substring(from, text.indexOf(end, from));
 	}
@@ -139,7 +142,7 @@ public class GeneratorTest {
 		InMemoryFileSystemAccess files = generate("arcade");
 		String popFrenzy = file(files, "assets/modes/PopFrenzy.json");
 		// six bubbles spread out around 50 %, then the two tumbleweeds of the layout
-		assertEquals(8, popFrenzy.split("\"type\": \"Ball\"").length - 1);
+		assertEquals(8, popFrenzy.split("\"type\": \"Enemy\"").length - 1);
 		assertTrue(popFrenzy.contains("\"subType\": \"Floor\", \"material\": \"Rubber\""));
 		assertTrue(popFrenzy.contains("\"health\": 6"));
 		String survivor = file(files, "assets/modes/Survivor.json");

@@ -5,8 +5,8 @@
 package io.github.RangoUnchained.Modes.Generated;
 
 import io.github.RangoUnchained.Modes.ArenaBuilder;
-import io.github.RangoUnchained.Modes.BallKind;
-import io.github.RangoUnchained.Modes.BallState;
+import io.github.RangoUnchained.Modes.EnemyKind;
+import io.github.RangoUnchained.Modes.EnemyState;
 import io.github.RangoUnchained.Modes.GameModeDefinition;
 import io.github.RangoUnchained.Modes.ModeContext;
 import io.github.RangoUnchained.Modes.ModeStats;
@@ -21,13 +21,13 @@ public final class EndlessMode extends GameModeDefinition {
     private static final PlayerSpec PLAYER = new PlayerSpec("Rango", 5, 8,
         5.0f, 0.8f, 1.0f, 1.0f);
 
-    private static final BallKind BALL_TUMBLEWEED = new BallKind("Tumbleweed", "Ball/Tumbleweed.png",
+    private static final EnemyKind ENEMY_TUMBLEWEED = new EnemyKind("Tumbleweed", "Enemy/Tumbleweed.png",
         1.0f, 1.0f, 5.0f);
-    private static final BallKind BALL_ARMADILLO = new BallKind("Armadillo", "Ball/Armedillo.png",
+    private static final EnemyKind ENEMY_ARMADILLO = new EnemyKind("Armadillo", "Enemy/Armedillo.png",
         1.2f, 1.15f, 4.0f);
-    private static final BallKind BALL_CACTUS = new BallKind("Cactus", "Ball/Cactus.png",
+    private static final EnemyKind ENEMY_CACTUS = new EnemyKind("Cactus", "Enemy/Cactus.png",
         1.0f, 0.8f, 5.0f);
-    private static final BallKind BALL_BOMB = new BallKind("Bomb", "Ball/Bomb.png",
+    private static final EnemyKind ENEMY_BOMB = new EnemyKind("Bomb", "Enemy/Bomb.png",
         1.0f, 1.0f, 3.0f);
 
     @Override
@@ -61,19 +61,19 @@ public final class EndlessMode extends GameModeDefinition {
     }
 
     @Override
-    public BallKind ballKind(String name) {
+    public EnemyKind enemyKind(String name) {
         if (name == null) {
             return null;
         }
         switch (name) {
             case "Tumbleweed":
-                return BALL_TUMBLEWEED;
+                return ENEMY_TUMBLEWEED;
             case "Armadillo":
-                return BALL_ARMADILLO;
+                return ENEMY_ARMADILLO;
             case "Cactus":
-                return BALL_CACTUS;
+                return ENEMY_CACTUS;
             case "Bomb":
-                return BALL_BOMB;
+                return ENEMY_BOMB;
             default:
                 return null;
         }
@@ -162,50 +162,50 @@ public final class EndlessMode extends GameModeDefinition {
     }
 
     @Override
-    public void onBallPopped(BallState ball, ModeContext context) {
-        switch (ball.kind) {
+    public void onEnemyPopped(EnemyState enemy, ModeContext context) {
+        switch (enemy.kind) {
             case "Tumbleweed":
                 context.addScore(10);
-                context.split(ball, "Tumbleweed", 2, 5.0f);
+                context.split(enemy, "Tumbleweed", 2, 45.0f, 5.0f);
                 if (context.random() * 100f < 10.0f) { // 10 % of Tumbleweed pops drop something
-                    context.dropPowerUp("Health", ball);
+                    context.dropPowerUp("Health", enemy);
                 }
                 break;
             case "Armadillo":
                 context.addScore(20);
-                context.split(ball, "Armadillo", 3, 6.0f);
+                context.split(enemy, "Armadillo", 3, 45.0f, 6.0f);
                 if (context.random() * 100f < 25.0f) { // 25 % of Armadillo pops drop something
                     float roll = context.random() * 3;
                     if (roll < 2) {
-                        context.dropPowerUp("Speed", ball); // 66.7 % of drops, 16.7 % of pops
+                        context.dropPowerUp("Speed", enemy); // 66.7 % of drops, 16.7 % of pops
                     } else {
-                        context.dropPowerUp("Shield", ball); // 33.3 % of drops, 8.3 % of pops
+                        context.dropPowerUp("Shield", enemy); // 33.3 % of drops, 8.3 % of pops
                     }
                 }
                 break;
             case "Cactus":
                 context.addScore(15);
-                context.split(ball, "Cactus", 1, 5.0f);
+                context.split(enemy, "Cactus", 1, 45.0f, 5.0f);
                 if (context.random() * 100f < 15.0f) { // 15 % of Cactus pops drop something
                     float roll = context.random() * 3;
                     if (roll < 2) {
-                        context.dropPowerUp("Health", ball); // 66.7 % of drops, 10 % of pops
+                        context.dropPowerUp("Health", enemy); // 66.7 % of drops, 10 % of pops
                     } else {
-                        context.dropPowerUp("Speed", ball); // 33.3 % of drops, 5 % of pops
+                        context.dropPowerUp("Speed", enemy); // 33.3 % of drops, 5 % of pops
                     }
                 }
                 break;
             case "Bomb":
                 context.addScore(25);
-                context.burst(ball, "Tumbleweed", 6, 6.0f);
+                context.split(enemy, "Tumbleweed", 8, 45.0f, 6.0f);
                 if (context.random() * 100f < 40.0f) { // 40 % of Bomb pops drop something
                     float roll = context.random() * 4;
                     if (roll < 2) {
-                        context.dropPowerUp("Shield", ball); // 50 % of drops, 20 % of pops
+                        context.dropPowerUp("Shield", enemy); // 50 % of drops, 20 % of pops
                     } else if (roll < 3) {
-                        context.dropPowerUp("Speed", ball); // 25 % of drops, 10 % of pops
+                        context.dropPowerUp("Speed", enemy); // 25 % of drops, 10 % of pops
                     } else {
-                        context.dropPowerUp("Health", ball); // 25 % of drops, 10 % of pops
+                        context.dropPowerUp("Health", enemy); // 25 % of drops, 10 % of pops
                     }
                 }
                 break;
@@ -215,8 +215,8 @@ public final class EndlessMode extends GameModeDefinition {
     }
 
     @Override
-    public void onBallTouchesPlayer(BallState ball, ModeContext context) {
-        switch (ball.kind) {
+    public void onEnemyTouchesPlayer(EnemyState enemy, ModeContext context) {
+        switch (enemy.kind) {
             case "Tumbleweed":
                 context.damage(1);
                 break;
@@ -225,7 +225,7 @@ public final class EndlessMode extends GameModeDefinition {
                 break;
             case "Cactus":
                 context.damage(1);
-                context.poison(1, 2.0f, 6.0f, "Ball/Cactus.png");
+                context.poison(1, 2.0f, 6.0f, "Enemy/Cactus.png");
                 break;
             case "Bomb":
                 context.damage(2);
@@ -260,6 +260,6 @@ public final class EndlessMode extends GameModeDefinition {
     @Override
     public boolean isLost(ModeStats stats) {
         return stats.playerHealth() <= 0
-            || stats.ballsAlive() >= 25;
+            || stats.enemiesAlive() >= 25;
     }
 }

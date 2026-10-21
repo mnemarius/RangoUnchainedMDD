@@ -5,9 +5,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.Diagnostician;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
-import no.ntnu.tdt4250.rango.gamemode.Burst;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
@@ -27,7 +26,7 @@ import no.ntnu.tdt4250.rango.gamemode.util.GamemodeOCL;
 /**
  * A small valid edition, built in code. Every test starts from it and changes one thing.
  * <ul>
- * <li>Tumbleweed splits into 2 (10 points); Bomb bursts into 4 Tumbleweed (25 points).</li>
+ * <li>Tumbleweed splits into 2 (10 points); Bomb splits into 4 Tumbleweed (25 points).</li>
  * <li>The edition's drop tables: Tumbleweed drops Heart at 5 %, Bomb drops Heart at 10 %.</li>
  * <li>Mode Clear: a fixed layout of one large Tumbleweed and one large Bomb, won when cleared. It
  * uses the edition's drop tables.</li>
@@ -41,8 +40,8 @@ public class ModelFixture {
 	static final GamemodeFactory F = GamemodeFactory.eINSTANCE;
 
 	final Edition edition = F.createEdition();
-	final BallType tumbleweed = ball("Tumbleweed", 10);
-	final BallType bomb = ball("Bomb", 25);
+	final EnemyType tumbleweed = enemy("Tumbleweed", 10);
+	final EnemyType bomb = enemy("Bomb", 25);
 	final PowerUp shield = F.createPowerUp();
 	final PowerUp heart = F.createPowerUp();
 	final PlayerProfile rango = F.createPlayerProfile();
@@ -62,12 +61,12 @@ public class ModelFixture {
 		Split split = F.createSplit();
 		split.setFragments(2);
 		tumbleweed.setSplitRule(split);
-		Burst burst = F.createBurst();
-		burst.setFragments(4);
-		burst.setFragmentType(tumbleweed);
-		bomb.setSplitRule(burst);
-		edition.getBallTypes().add(tumbleweed);
-		edition.getBallTypes().add(bomb);
+		Split blast = F.createSplit();
+		blast.setFragments(4);
+		blast.setFragmentType(tumbleweed);
+		bomb.setSplitRule(blast);
+		edition.getEnemyTypes().add(tumbleweed);
+		edition.getEnemyTypes().add(bomb);
 
 		shield.setName("Shield");
 		shield.setSprite("Powerup/Shield.png");
@@ -115,10 +114,10 @@ public class ModelFixture {
 		waves.getWinConditions().add(survived);
 	}
 
-	private BallType ball(String name, int points) {
-		BallType type = F.createBallType();
+	private EnemyType enemy(String name, int points) {
+		EnemyType type = F.createEnemyType();
 		type.setName(name);
-		type.setSprite("Ball/" + name + ".png");
+		type.setSprite("Enemy/" + name + ".png");
 		type.setPoints(points);
 		Damage damage = F.createDamage();
 		damage.setAmount(1);
@@ -137,8 +136,8 @@ public class ModelFixture {
 		edition.getModes().add(mode);
 	}
 
-	static BallSpawn spawn(BallType type, int size, int count) {
-		BallSpawn spawn = F.createBallSpawn();
+	static EnemySpawn spawn(EnemyType type, int size, int count) {
+		EnemySpawn spawn = F.createEnemySpawn();
 		spawn.setType(type);
 		spawn.setSize(size);
 		spawn.setCount(count);
@@ -147,9 +146,9 @@ public class ModelFixture {
 		return spawn;
 	}
 
-	static DropTable dropTable(BallType type, float chance) {
+	static DropTable dropTable(EnemyType type, float chance) {
 		DropTable table = F.createDropTable();
-		table.setBallType(type);
+		table.setEnemyType(type);
 		table.setChance(chance);
 		return table;
 	}

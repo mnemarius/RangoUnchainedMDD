@@ -2,7 +2,7 @@
  */
 package no.ntnu.tdt4250.rango.gamemode.impl;
 
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -13,18 +13,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Balls Alive</b></em>'.
+ * An implementation of the model object '<em><b>Enemies Popped</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl#getCount <em>Count</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl#getCount <em>Count</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
+public class EnemiesPoppedImpl extends EndConditionImpl implements EnemiesPopped {
 	/**
 	 * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -50,7 +50,7 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BallsAliveImpl() {
+	protected EnemiesPoppedImpl() {
 		super();
 	}
 
@@ -61,7 +61,7 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GamemodePackage.Literals.BALLS_ALIVE;
+		return GamemodePackage.Literals.ENEMIES_POPPED;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 		int oldCount = count;
 		count = newCount;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALLS_ALIVE__COUNT, oldCount, count));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMIES_POPPED__COUNT, oldCount, count));
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GamemodePackage.BALLS_ALIVE__COUNT:
+			case GamemodePackage.ENEMIES_POPPED__COUNT:
 				return getCount();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -109,7 +109,7 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GamemodePackage.BALLS_ALIVE__COUNT:
+			case GamemodePackage.ENEMIES_POPPED__COUNT:
 				setCount((Integer)newValue);
 				return;
 		}
@@ -124,7 +124,7 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.BALLS_ALIVE__COUNT:
+			case GamemodePackage.ENEMIES_POPPED__COUNT:
 				setCount(COUNT_EDEFAULT);
 				return;
 		}
@@ -139,7 +139,7 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.BALLS_ALIVE__COUNT:
+			case GamemodePackage.ENEMIES_POPPED__COUNT:
 				return count != COUNT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -161,4 +161,4 @@ public class BallsAliveImpl extends EndConditionImpl implements BallsAlive {
 		return result.toString();
 	}
 
-} //BallsAliveImpl
+} //EnemiesPoppedImpl

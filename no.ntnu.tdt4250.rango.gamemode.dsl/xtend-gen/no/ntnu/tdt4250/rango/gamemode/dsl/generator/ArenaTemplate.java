@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Direction;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Material;
@@ -20,7 +20,7 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 /**
  * Generates the arena resource of a game mode, in the JSON level format that the game's level loader
  * already reads: the background, the player, the walls, floor and roof with their materials, the
- * blocks, and the balls of a fixed layout. Positions are written relative to the arena and converted
+ * blocks, and the enemies of a fixed layout. Positions are written relative to the arena and converted
  * to pixels by the game when the arena is loaded. Triggers (jump pads, teleporters) need behaviour
  * that the level format cannot express; they are built by the generated mode class instead.
  */
@@ -114,12 +114,12 @@ public class ArenaTemplate {
       }
       final SpawnStrategy spawning = mode.getSpawning();
       if ((spawning instanceof FixedLayout)) {
-        EList<BallSpawn> _spawns = ((FixedLayout)spawning).getSpawns();
-        for (final BallSpawn spawn : _spawns) {
+        EList<EnemySpawn> _spawns = ((FixedLayout)spawning).getSpawns();
+        for (final EnemySpawn spawn : _spawns) {
           List<Float> _spreadX = GeneratorNames.spreadX(spawn);
           for (final Float x : _spreadX) {
-            CharSequence _ball = this.ball(spawn, (x).floatValue());
-            entities.add(_ball);
+            CharSequence _enemy = this.enemy(spawn, (x).floatValue());
+            entities.add(_enemy);
           }
         }
       }
@@ -178,11 +178,11 @@ public class ArenaTemplate {
     return _builder;
   }
 
-  public CharSequence ball(final BallSpawn spawn, final float x) {
+  public CharSequence enemy(final EnemySpawn spawn, final float x) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("{ \"name\": ");
     String _name = spawn.getType().getName();
-    String _javaString = GeneratorNames.javaString(("Ball " + _name));
+    String _javaString = GeneratorNames.javaString(("Enemy " + _name));
     _builder.append(_javaString);
     _builder.append(", \"dimension\": { \"x\": ");
     String _jsonFloat = GeneratorNames.jsonFloat(x);
@@ -200,7 +200,7 @@ public class ArenaTemplate {
         _builder.append("2.0");
       }
     }
-    _builder.append(", \"y\": 0.0 }, \"typeInfo\": { \"type\": \"Ball\", \"subType\": ");
+    _builder.append(", \"y\": 0.0 }, \"typeInfo\": { \"type\": \"Enemy\", \"subType\": ");
     String _javaString_1 = GeneratorNames.javaString(spawn.getType().getName());
     _builder.append(_javaString_1);
     _builder.append(", \"size\": ");

@@ -14,11 +14,11 @@ import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Components.BodyComponent;
 import io.github.RangoUnchained.Model.Components.Component;
 import io.github.RangoUnchained.Model.Components.HealthComponent;
-import io.github.RangoUnchained.Model.Components.ModeBallComponent;
+import io.github.RangoUnchained.Model.Components.ModeEnemyComponent;
 import io.github.RangoUnchained.Model.Components.ModePowerUpComponent;
 import io.github.RangoUnchained.Model.Components.SpeedComponent;
 import io.github.RangoUnchained.Model.Components.TriggerComponent;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Entities.PlayerEntity;
 import io.github.RangoUnchained.Model.Entities.PowerUpEntity;
@@ -37,6 +37,8 @@ import io.github.RangoUnchained.Views.Utils.Constants;
 public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilder {
 
     private static final float TELEPORT_COOLDOWN = 1f;
+    /** How far from the popped enemy's centre its fragments appear, in pixels, in their launch direction. */
+    private static final float FRAGMENT_SPREAD = 20f;
     private static final String SHIELD = "shield";
     private static final String SPEED = "speed";
     private static final String POISON = "poison";
@@ -52,7 +54,7 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     private boolean waveRunning;
     private boolean wavesFinished;
     private float calm;
-    /** Frames to wait before counting balls: spawn requests are carried out on the next frame. */
+    /** Frames to wait before counting enemies: spawn requests are carried out on the next frame. */
     private int settleFrames = 2;
     private float grace;
 
@@ -110,7 +112,7 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
                 settleFrames = 2;
                 calm = 0;
             }
-        } else if (settleFrames == 0 && ballsAlive() == 0) {
+        } else if (settleFrames == 0 && enemiesAlive() == 0) {
             waveRunning = false;
             wavesCleared++;
             nextWave++;
@@ -127,26 +129,26 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
 
     // ------------------------------------------------------------------ contacts
 
-    /** The tongue has hit a ball. */
-    public void pop(BallEntity ball) {
-        ModeBallComponent modeBall = (ModeBallComponent) ball.getComponent(ModeBallComponent.class);
-        if (modeBall == null || modeBall.isPopped()) {
+    /** The tongue has hit a enemy. */
+    public void pop(EnemyEntity enemy) {
+        ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
+        if (modeEnemy == null || modeEnemy.isPopped()) {
             return;
         }
-        modeBall.setPopped();
-        BallState state = stateOf(ball);
-        LevelController.getInstance().handleRemovalRequests(ball);
+        modeEnemy.setPopped();
+        EnemyState state = stateOf(enemy);
+        LevelController.getInstance().handleRemovalRequests(enemy);
         popped++;
-        mode.onBallPopped(state, this);
+        mode.onEnemyPopped(state, this);
     }
 
-    /** A ball has touched the player. */
-    public void touch(BallEntity ball) {
-        ModeBallComponent modeBall = (ModeBallComponent) ball.getComponent(ModeBallComponent.class);
-        if (modeBall == null || modeBall.isPopped()) {
+    /** A enemy has touched the player. */
+    public void touch(EnemyEntity enemy) {
+        ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
+        if (modeEnemy == null || modeEnemy.isPopped()) {
             return;
         }
-        mode.onBallTouchesPlayer(stateOf(ball), this);
+        mode.onEnemyTouchesPlayer(stateOf(enemy), this);
     }
 
     /** The player has caught a power-up. */
@@ -160,12 +162,12 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
         mode.onPowerUpCaught(modePowerUp.name, this);
     }
 
-    private BallState stateOf(BallEntity ball) {
-        ModeBallComponent modeBall = (ModeBallComponent) ball.getComponent(ModeBallComponent.class);
-        Body body = bodyOf(ball);
+    private EnemyState stateOf(EnemyEntity enemy) {
+        ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
+        Body body = bodyOf(enemy);
         Vector2 position = body.getPosition();
         Vector2 velocity = body.getLinearVelocity();
-        return new BallState(modeBall.kind.name, modeBall.size, position.x * Constants.PPM,
+        return new EnemyState(modeEnemy.kind.name, modeEnemy.size, position.x * Constants.PPM,
             position.y * Constants.PPM, velocity.x, velocity.y);
     }
 
@@ -193,15 +195,15 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     }
 
     @Override
-    public int ballsAlive() {
+    public int enemiesAlive() {
         GameLevel level = LevelController.getInstance().getLevel();
         if (level == null) {
             return 0;
         }
         int alive = 0;
-        for (BallEntity ball : level.getEntity(BallEntity.class)) {
-            ModeBallComponent modeBall = (ModeBallComponent) ball.getComponent(ModeBallComponent.class);
-            if (modeBall == null || !modeBall.isPopped()) {
+        for (EnemyEntity enemy : level.getEntity(EnemyEntity.class)) {
+            ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
+            if (modeEnemy == null || !modeEnemy.isPopped()) {
                 alive++;
             }
         }
@@ -215,7 +217,7 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
 
     @Override
     public boolean cleared() {
-        return settleFrames == 0 && ballsAlive() == 0 && (mode.waveCount() == 0 || wavesFinished);
+        return settleFrames == 0 && enemiesAlive() == 0 && (mode.waveCount() == 0 || wavesFinished);
     }
 
     // ------------------------------------------------------------------ ModeContext
@@ -239,31 +241,24 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     }
 
     @Override
-    public void split(BallState ball, String kind, int fragments, float launchSpeed) {
-        if (ball.size <= 1 || fragments <= 0) {
+    public void split(EnemyState enemy, String kind, int fragments, float spacing, float launchSpeed) {
+        if (enemy.size <= 1 || fragments <= 0) {
             return;
         }
+        float travel = enemy.vx < 0 ? -1f : 1f;
         for (int i = 0; i < fragments; i++) {
-            float vx = fragments == 1 ? Math.signum(ball.vx == 0 ? 1 : ball.vx) * 2f : -2f + 4f * i / (fragments - 1);
-            float offset = (i - (fragments - 1) / 2f) * 35f;
-            spawnBall(kind, ball.size - 1, ball.x + offset, ball.y + 10f, vx * launchSpeed / 5f, launchSpeed);
+            // steps of spacing away from straight up: symmetric around it, or half a step forward for one fragment
+            float step = fragments == 1 ? -travel / 2f : i - (fragments - 1) / 2f;
+            double angle = Math.toRadians(90 + step * spacing);
+            float cos = (float) Math.cos(angle);
+            float sin = (float) Math.sin(angle);
+            spawnEnemy(kind, enemy.size - 1, enemy.x + cos * FRAGMENT_SPREAD, enemy.y + 10f + sin * FRAGMENT_SPREAD,
+                cos * launchSpeed, sin * launchSpeed);
         }
     }
 
     @Override
-    public void burst(BallState ball, String kind, int fragments, float launchSpeed) {
-        if (ball.size <= 1 || fragments <= 0) {
-            return;
-        }
-        for (int i = 0; i < fragments; i++) {
-            double angle = 2 * Math.PI * i / fragments;
-            spawnBall(kind, ball.size - 1, ball.x, ball.y + 10f,
-                (float) Math.cos(angle) * launchSpeed, (float) Math.sin(angle) * launchSpeed);
-        }
-    }
-
-    @Override
-    public void dropPowerUp(String powerUp, BallState from) {
+    public void dropPowerUp(String powerUp, EnemyState from) {
         EntityData data = new EntityData();
         data.name = "Powerup " + powerUp;
         data.typeInfo = new TypeInfo();
@@ -408,15 +403,15 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
         for (int i = 0; i < count; i++) {
             float offset = (i - (count - 1) / 2f) * 8f;
             float spreadX = Math.max(3f, Math.min(97f, x + offset));
-            spawnBall(kind, size, ArenaGeometry.x(spreadX), ArenaGeometry.y(y), direction * 2f, 0f);
+            spawnEnemy(kind, size, ArenaGeometry.x(spreadX), ArenaGeometry.y(y), direction * 2f, 0f);
         }
     }
 
-    private void spawnBall(String kind, int size, float x, float y, float vx, float vy) {
+    private void spawnEnemy(String kind, int size, float x, float y, float vx, float vy) {
         EntityData data = new EntityData();
-        data.name = "Ball " + kind;
+        data.name = "Enemy " + kind;
         data.typeInfo = new TypeInfo();
-        data.typeInfo.type = "Ball";
+        data.typeInfo.type = "Enemy";
         data.typeInfo.subType = kind;
         data.typeInfo.size = size;
         data.dimension = new Dimension();
@@ -429,8 +424,8 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     // ------------------------------------------------------------------ ArenaBuilder
 
     @Override
-    public void jumpPad(String name, float x, float y, final float launch, boolean balls, boolean player) {
-        TriggerComponent trigger = new TriggerComponent(balls, player, entity -> {
+    public void jumpPad(String name, float x, float y, final float launch, boolean enemies, boolean player) {
+        TriggerComponent trigger = new TriggerComponent(enemies, player, entity -> {
             Body body = bodyOf(entity);
             if (body != null) {
                 body.setLinearVelocity(body.getLinearVelocity().x, launch);
@@ -441,11 +436,11 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     }
 
     @Override
-    public void teleporter(String name, float x, float y, final String target, boolean balls, boolean player) {
+    public void teleporter(String name, float x, float y, final String target, boolean enemies, boolean player) {
         float px = ArenaGeometry.x(x);
         float py = ArenaGeometry.y(y);
         teleporters.put(name, new Vector2(px, py));
-        TriggerComponent trigger = new TriggerComponent(balls, player, entity -> requestTeleport(entity, target));
+        TriggerComponent trigger = new TriggerComponent(enemies, player, entity -> requestTeleport(entity, target));
         LevelController.getInstance().addEntity(
             TriggerFactory.create(px, py, 64f, 96f, "Obstacles/Teleporter.png", trigger));
     }
@@ -463,9 +458,9 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     private void performTeleports(float delta) {
         GameLevel level = LevelController.getInstance().getLevel();
         for (Teleport teleport : teleports) {
-            ModeBallComponent modeBall = (ModeBallComponent) teleport.entity.getComponent(ModeBallComponent.class);
+            ModeEnemyComponent modeEnemy = (ModeEnemyComponent) teleport.entity.getComponent(ModeEnemyComponent.class);
             boolean gone = level == null || !level.getEntities().contains(teleport.entity)
-                || (modeBall != null && modeBall.isPopped());
+                || (modeEnemy != null && modeEnemy.isPopped());
             Body body = bodyOf(teleport.entity);
             if (!gone && body != null) {
                 body.setTransform(teleport.destination.x / Constants.PPM, teleport.destination.y / Constants.PPM,

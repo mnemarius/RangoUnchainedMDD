@@ -25,13 +25,13 @@ abstract class Positioned {
 class Edition {
   title : String [0..1]
 }
-class BallType {
+class EnemyType {
   sprite : String
   scale : Float [0..1]
   bounce : Float [0..1]
   speed : Float [0..1]
   points : Int [0..1]
-  /producedTypes : BallType [*]
+  /producedTypes : EnemyType [*]
   --
   <<positiveScale>>
   <<positiveBounce>>
@@ -43,19 +43,15 @@ abstract class SplitRule {
 }
 class Vanish {
 }
-abstract class Fragmenting {
+class Split {
   fragments : Int
   launchSpeed : Float [0..1]
-  /resultType : BallType
+  /resultType : EnemyType
+  /spacing : Float
   --
   <<atLeastOneFragment>>
+  <<atMostSixteenFragments>>
   <<positiveLaunchSpeed>>
-}
-class Split {
-}
-class Burst {
-  --
-  <<enoughFragmentsToBurst>>
 }
 abstract class PlayerEffect {
 }
@@ -118,7 +114,7 @@ class GameMode {
   title : String
   description : String [0..1]
   gravity : Float [0..1]
-  /ballTypes : BallType [*]
+  /enemyTypes : EnemyType [*]
   /popsToClear : Int [0..1]
   /maxScore : Int [0..1]
   /powerUps : PowerUp [*]
@@ -129,7 +125,7 @@ class GameMode {
   <<winnable>>
   <<endsSomehow>>
   <<healthDepletedWhenHarmful>>
-  <<everyBallDrops>>
+  <<everyEnemyDrops>>
 }
 class SpeedBonus {
   maxFactor : Float [0..1]
@@ -167,7 +163,7 @@ class Teleporter {
 }
 enum Target {
   ALL
-  BALLS
+  ENEMIES
   PLAYER
 }
 abstract class SpawnStrategy {
@@ -189,7 +185,7 @@ class Wave {
   --
   <<nonNegativeDelay>>
 }
-class BallSpawn {
+class EnemySpawn {
   size : Int [0..1]
   count : Int [0..1]
   direction : Direction [0..1]
@@ -208,7 +204,7 @@ class DropTable {
   --
   <<chanceIsPercentage>>
   <<distinctPowerUps>>
-  <<oneTablePerBall>>
+  <<oneTablePerEnemy>>
 }
 class Drop {
   weight : Int [0..1]
@@ -234,7 +230,7 @@ class ScoreReached {
   --
   <<positivePoints>>
 }
-class BallsPopped {
+class EnemiesPopped {
   count : Int
   --
   <<positiveCount>>
@@ -246,26 +242,24 @@ class WavesSurvived {
 }
 class HealthDepleted {
 }
-class BallsAlive {
+class EnemiesAlive {
   count : Int
   --
   <<positiveCount>>
 }
-Edition *--> "ballTypes *" BallType
+Edition *--> "enemyTypes *" EnemyType
 Edition *--> "powerUps *" PowerUp
 Edition *--> "materials *" Material
 Edition *--> "players 1..*" PlayerProfile
 Edition *--> "modes 1..*" GameMode
 Edition *--> "drops *" DropTable
 NamedElement <|-- Edition
-BallType *--> "splitRule 1" SplitRule
-BallType *--> "contactEffects 1..*" PlayerEffect
-NamedElement <|-- BallType
+EnemyType *--> "splitRule 1" SplitRule
+EnemyType *--> "contactEffects 1..*" PlayerEffect
+NamedElement <|-- EnemyType
 SplitRule <|-- Vanish
-Fragmenting --> "fragmentType 0..1" BallType
-SplitRule <|-- Fragmenting
-Fragmenting <|-- Split
-Fragmenting <|-- Burst
+Split --> "fragmentType 0..1" EnemyType
+SplitRule <|-- Split
 PlayerEffect <|-- Damage
 PlayerEffect <|-- Heal
 PlayerEffect <|-- TimedEffect
@@ -295,21 +289,21 @@ Obstacle <|-- Trigger
 Trigger <|-- JumpPad
 Teleporter --> "target 1" Teleporter
 Trigger <|-- Teleporter
-FixedLayout *--> "spawns 1..*" BallSpawn
+FixedLayout *--> "spawns 1..*" EnemySpawn
 SpawnStrategy <|-- FixedLayout
 WaveSchedule *--> "waves 1..*" Wave
 SpawnStrategy <|-- WaveSchedule
-Wave *--> "spawns 1..*" BallSpawn
-BallSpawn --> "type 1" BallType
-Positioned <|-- BallSpawn
+Wave *--> "spawns 1..*" EnemySpawn
+EnemySpawn --> "type 1" EnemyType
+Positioned <|-- EnemySpawn
 DropTable *--> "entries 1..*" Drop
-DropTable --> "ballType 1" BallType
+DropTable --> "enemyType 1" EnemyType
 Drop --> "powerUp 1" PowerUp
 EndCondition <|-- Cleared
 EndCondition <|-- TimeReached
 EndCondition <|-- ScoreReached
-EndCondition <|-- BallsPopped
+EndCondition <|-- EnemiesPopped
 EndCondition <|-- WavesSurvived
 EndCondition <|-- HealthDepleted
-EndCondition <|-- BallsAlive
+EndCondition <|-- EnemiesAlive
 @enduml

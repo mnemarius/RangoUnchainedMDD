@@ -85,10 +85,10 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GamemodePackage.BALL_TYPE: {
-				BallType ballType = (BallType)theEObject;
-				T result = caseBallType(ballType);
-				if (result == null) result = caseNamedElement(ballType);
+			case GamemodePackage.ENEMY_TYPE: {
+				EnemyType enemyType = (EnemyType)theEObject;
+				T result = caseEnemyType(enemyType);
+				if (result == null) result = caseNamedElement(enemyType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -105,26 +105,10 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GamemodePackage.FRAGMENTING: {
-				Fragmenting fragmenting = (Fragmenting)theEObject;
-				T result = caseFragmenting(fragmenting);
-				if (result == null) result = caseSplitRule(fragmenting);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GamemodePackage.SPLIT: {
 				Split split = (Split)theEObject;
 				T result = caseSplit(split);
-				if (result == null) result = caseFragmenting(split);
 				if (result == null) result = caseSplitRule(split);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GamemodePackage.BURST: {
-				Burst burst = (Burst)theEObject;
-				T result = caseBurst(burst);
-				if (result == null) result = caseFragmenting(burst);
-				if (result == null) result = caseSplitRule(burst);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -291,10 +275,10 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GamemodePackage.BALL_SPAWN: {
-				BallSpawn ballSpawn = (BallSpawn)theEObject;
-				T result = caseBallSpawn(ballSpawn);
-				if (result == null) result = casePositioned(ballSpawn);
+			case GamemodePackage.ENEMY_SPAWN: {
+				EnemySpawn enemySpawn = (EnemySpawn)theEObject;
+				T result = caseEnemySpawn(enemySpawn);
+				if (result == null) result = casePositioned(enemySpawn);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -337,10 +321,10 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GamemodePackage.BALLS_POPPED: {
-				BallsPopped ballsPopped = (BallsPopped)theEObject;
-				T result = caseBallsPopped(ballsPopped);
-				if (result == null) result = caseEndCondition(ballsPopped);
+			case GamemodePackage.ENEMIES_POPPED: {
+				EnemiesPopped enemiesPopped = (EnemiesPopped)theEObject;
+				T result = caseEnemiesPopped(enemiesPopped);
+				if (result == null) result = caseEndCondition(enemiesPopped);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -358,10 +342,10 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GamemodePackage.BALLS_ALIVE: {
-				BallsAlive ballsAlive = (BallsAlive)theEObject;
-				T result = caseBallsAlive(ballsAlive);
-				if (result == null) result = caseEndCondition(ballsAlive);
+			case GamemodePackage.ENEMIES_ALIVE: {
+				EnemiesAlive enemiesAlive = (EnemiesAlive)theEObject;
+				T result = caseEnemiesAlive(enemiesAlive);
+				if (result == null) result = caseEndCondition(enemiesAlive);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -415,17 +399,17 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Ball Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Enemy Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Ball Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Enemy Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBallType(BallType object) {
+	public T caseEnemyType(EnemyType object) {
 		return null;
 	}
 
@@ -460,21 +444,6 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Fragmenting</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Fragmenting</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFragmenting(Fragmenting object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Split</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -486,21 +455,6 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSplit(Split object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Burst</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Burst</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseBurst(Burst object) {
 		return null;
 	}
 
@@ -835,17 +789,17 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Ball Spawn</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Enemy Spawn</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Ball Spawn</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Enemy Spawn</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBallSpawn(BallSpawn object) {
+	public T caseEnemySpawn(EnemySpawn object) {
 		return null;
 	}
 
@@ -940,17 +894,17 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Balls Popped</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Enemies Popped</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Balls Popped</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Enemies Popped</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBallsPopped(BallsPopped object) {
+	public T caseEnemiesPopped(EnemiesPopped object) {
 		return null;
 	}
 
@@ -985,17 +939,17 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Balls Alive</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Enemies Alive</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Balls Alive</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Enemies Alive</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBallsAlive(BallsAlive object) {
+	public T caseEnemiesAlive(EnemiesAlive object) {
 		return null;
 	}
 

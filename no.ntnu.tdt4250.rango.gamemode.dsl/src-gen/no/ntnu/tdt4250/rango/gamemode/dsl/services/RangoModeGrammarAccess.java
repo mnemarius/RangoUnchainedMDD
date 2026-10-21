@@ -36,8 +36,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Assignment cTitleAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cTitleSTRINGTerminalRuleCall_2_0 = (RuleCall)cTitleAssignment_2.eContents().get(0);
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Assignment cBallTypesAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
-		private final RuleCall cBallTypesBallTypeParserRuleCall_3_0_0 = (RuleCall)cBallTypesAssignment_3_0.eContents().get(0);
+		private final Assignment cEnemyTypesAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final RuleCall cEnemyTypesEnemyTypeParserRuleCall_3_0_0 = (RuleCall)cEnemyTypesAssignment_3_0.eContents().get(0);
 		private final Assignment cPowerUpsAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
 		private final RuleCall cPowerUpsPowerUpParserRuleCall_3_1_0 = (RuleCall)cPowerUpsAssignment_3_1.eContents().get(0);
 		private final Assignment cMaterialsAssignment_3_2 = (Assignment)cAlternatives_3.eContents().get(2);
@@ -53,7 +53,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//// any order.
 		//Edition returns Edition:
 		//    'edition' name=ID (title=STRING)?
-		//    (    ballTypes+=BallType
+		//    (    enemyTypes+=EnemyType
 		//    |    powerUps+=PowerUp
 		//    |    materials+=Material
 		//    |    players+=PlayerProfile
@@ -63,7 +63,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'edition' name=ID (title=STRING)?
-		//(    ballTypes+=BallType
+		//(    enemyTypes+=EnemyType
 		//|    powerUps+=PowerUp
 		//|    materials+=Material
 		//|    players+=PlayerProfile
@@ -87,7 +87,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_0() { return cTitleSTRINGTerminalRuleCall_2_0; }
 		
-		//(    ballTypes+=BallType
+		//(    enemyTypes+=EnemyType
 		//|    powerUps+=PowerUp
 		//|    materials+=Material
 		//|    players+=PlayerProfile
@@ -96,11 +96,11 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//)*
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 		
-		//ballTypes+=BallType
-		public Assignment getBallTypesAssignment_3_0() { return cBallTypesAssignment_3_0; }
+		//enemyTypes+=EnemyType
+		public Assignment getEnemyTypesAssignment_3_0() { return cEnemyTypesAssignment_3_0; }
 		
-		//BallType
-		public RuleCall getBallTypesBallTypeParserRuleCall_3_0_0() { return cBallTypesBallTypeParserRuleCall_3_0_0; }
+		//EnemyType
+		public RuleCall getEnemyTypesEnemyTypeParserRuleCall_3_0_0() { return cEnemyTypesEnemyTypeParserRuleCall_3_0_0; }
 		
 		//powerUps+=PowerUp
 		public Assignment getPowerUpsAssignment_3_1() { return cPowerUpsAssignment_3_1; }
@@ -129,10 +129,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//GameMode
 		public RuleCall getModesGameModeParserRuleCall_3_5_0() { return cModesGameModeParserRuleCall_3_5_0; }
 	}
-	public class BallTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallType");
+	public class EnemyTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cBallKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cEnemyKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
@@ -174,15 +174,15 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cRightCurlyBracketKeyword_13 = (Keyword)cGroup.eContents().get(13);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// Ball types: tuning in any order, then what happens on a pop and on contact with the player.
+		//// Enemy types: tuning in any order, then what happens on a pop and on contact with the player.
 		////
-		////   ball Cactus {
-		////       sprite "Ball/Cactus.png" scale 1.2 points 15
+		////   enemy Cactus {
+		////       sprite "Enemy/Cactus.png" scale 1.2 points 15
 		////       on pop: split into 1
 		////       on contact: damage 1, poison 1 every 2 s for 6 s
 		////   }
-		//BallType returns BallType:
-		//    'ball' name=ID '{'
+		//EnemyType returns EnemyType:
+		//    'enemy' name=ID '{'
 		//    (    ('sprite' sprite=STRING)
 		//    &    ('scale' scale=Decimal)?
 		//    &    ('bounce' bounce=Decimal)?
@@ -194,7 +194,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//    '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'ball' name=ID '{'
+		//'enemy' name=ID '{'
 		//(    ('sprite' sprite=STRING)
 		//&    ('scale' scale=Decimal)?
 		//&    ('bounce' bounce=Decimal)?
@@ -206,8 +206,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'}'
 		public Group getGroup() { return cGroup; }
 		
-		//'ball'
-		public Keyword getBallKeyword_0() { return cBallKeyword_0; }
+		//'enemy'
+		public Keyword getEnemyKeyword_0() { return cEnemyKeyword_0; }
 		
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
@@ -336,13 +336,12 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cVanishParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cSplitParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cBurstParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//SplitRule returns SplitRule:
-		//    Vanish | Split | Burst;
+		//    Vanish | Split;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Vanish | Split | Burst
+		//Vanish | Split
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Vanish
@@ -350,9 +349,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		
 		//Split
 		public RuleCall getSplitParserRuleCall_1() { return cSplitParserRuleCall_1; }
-		
-		//Burst
-		public RuleCall getBurstParserRuleCall_2() { return cBurstParserRuleCall_2; }
 	}
 	public class VanishElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Vanish");
@@ -381,19 +377,21 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Assignment cFragmentsAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cFragmentsINTTerminalRuleCall_2_0 = (RuleCall)cFragmentsAssignment_2.eContents().get(0);
 		private final Assignment cFragmentTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cFragmentTypeBallTypeCrossReference_3_0 = (CrossReference)cFragmentTypeAssignment_3.eContents().get(0);
-		private final RuleCall cFragmentTypeBallTypeIDTerminalRuleCall_3_0_1 = (RuleCall)cFragmentTypeBallTypeCrossReference_3_0.eContents().get(1);
+		private final CrossReference cFragmentTypeEnemyTypeCrossReference_3_0 = (CrossReference)cFragmentTypeAssignment_3.eContents().get(0);
+		private final RuleCall cFragmentTypeEnemyTypeIDTerminalRuleCall_3_0_1 = (RuleCall)cFragmentTypeEnemyTypeCrossReference_3_0.eContents().get(1);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cLaunchedKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Keyword cAtKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
 		private final Assignment cLaunchSpeedAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
 		private final RuleCall cLaunchSpeedDecimalParserRuleCall_4_2_0 = (RuleCall)cLaunchSpeedAssignment_4_2.eContents().get(0);
 		
+		//// The number of fragments decides the pattern: two fan out as in the original game, eight or more
+		//// fly off all around the popped enemy.
 		//Split returns Split:
-		//    'split' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
+		//    'split' 'into' fragments=INT (fragmentType=[EnemyType])? ('launched' 'at' launchSpeed=Decimal)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'split' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?
+		//'split' 'into' fragments=INT (fragmentType=[EnemyType])? ('launched' 'at' launchSpeed=Decimal)?
 		public Group getGroup() { return cGroup; }
 		
 		//'split'
@@ -408,73 +406,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//INT
 		public RuleCall getFragmentsINTTerminalRuleCall_2_0() { return cFragmentsINTTerminalRuleCall_2_0; }
 		
-		//(fragmentType=[BallType])?
+		//(fragmentType=[EnemyType])?
 		public Assignment getFragmentTypeAssignment_3() { return cFragmentTypeAssignment_3; }
 		
-		//[BallType]
-		public CrossReference getFragmentTypeBallTypeCrossReference_3_0() { return cFragmentTypeBallTypeCrossReference_3_0; }
+		//[EnemyType]
+		public CrossReference getFragmentTypeEnemyTypeCrossReference_3_0() { return cFragmentTypeEnemyTypeCrossReference_3_0; }
 		
 		//ID
-		public RuleCall getFragmentTypeBallTypeIDTerminalRuleCall_3_0_1() { return cFragmentTypeBallTypeIDTerminalRuleCall_3_0_1; }
-		
-		//('launched' 'at' launchSpeed=Decimal)?
-		public Group getGroup_4() { return cGroup_4; }
-		
-		//'launched'
-		public Keyword getLaunchedKeyword_4_0() { return cLaunchedKeyword_4_0; }
-		
-		//'at'
-		public Keyword getAtKeyword_4_1() { return cAtKeyword_4_1; }
-		
-		//launchSpeed=Decimal
-		public Assignment getLaunchSpeedAssignment_4_2() { return cLaunchSpeedAssignment_4_2; }
-		
-		//Decimal
-		public RuleCall getLaunchSpeedDecimalParserRuleCall_4_2_0() { return cLaunchSpeedDecimalParserRuleCall_4_2_0; }
-	}
-	public class BurstElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Burst");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cBurstKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cIntoKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cFragmentsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cFragmentsINTTerminalRuleCall_2_0 = (RuleCall)cFragmentsAssignment_2.eContents().get(0);
-		private final Assignment cFragmentTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cFragmentTypeBallTypeCrossReference_3_0 = (CrossReference)cFragmentTypeAssignment_3.eContents().get(0);
-		private final RuleCall cFragmentTypeBallTypeIDTerminalRuleCall_3_0_1 = (RuleCall)cFragmentTypeBallTypeCrossReference_3_0.eContents().get(1);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cLaunchedKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Keyword cAtKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Assignment cLaunchSpeedAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
-		private final RuleCall cLaunchSpeedDecimalParserRuleCall_4_2_0 = (RuleCall)cLaunchSpeedAssignment_4_2.eContents().get(0);
-		
-		//Burst returns Burst:
-		//    'burst' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'burst' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?
-		public Group getGroup() { return cGroup; }
-		
-		//'burst'
-		public Keyword getBurstKeyword_0() { return cBurstKeyword_0; }
-		
-		//'into'
-		public Keyword getIntoKeyword_1() { return cIntoKeyword_1; }
-		
-		//fragments=INT
-		public Assignment getFragmentsAssignment_2() { return cFragmentsAssignment_2; }
-		
-		//INT
-		public RuleCall getFragmentsINTTerminalRuleCall_2_0() { return cFragmentsINTTerminalRuleCall_2_0; }
-		
-		//(fragmentType=[BallType])?
-		public Assignment getFragmentTypeAssignment_3() { return cFragmentTypeAssignment_3; }
-		
-		//[BallType]
-		public CrossReference getFragmentTypeBallTypeCrossReference_3_0() { return cFragmentTypeBallTypeCrossReference_3_0; }
-		
-		//ID
-		public RuleCall getFragmentTypeBallTypeIDTerminalRuleCall_3_0_1() { return cFragmentTypeBallTypeIDTerminalRuleCall_3_0_1; }
+		public RuleCall getFragmentTypeEnemyTypeIDTerminalRuleCall_3_0_1() { return cFragmentTypeEnemyTypeIDTerminalRuleCall_3_0_1; }
 		
 		//('launched' 'at' launchSpeed=Decimal)?
 		public Group getGroup_4() { return cGroup_4; }
@@ -501,7 +440,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cPoisonParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// Effects on the player, shared by ball contacts and power-ups.
+		//// Effects on the player, shared by enemy contacts and power-ups.
 		//PlayerEffect returns PlayerEffect:
 		//    Damage | Heal | Shield | SpeedChange | Poison;
 		@Override public ParserRule getRule() { return rule; }
@@ -1272,7 +1211,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cSKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
 		//// Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
-		//// the points of its ball type.
+		//// the points of its enemy type.
 		//SpeedBonus returns SpeedBonus:
 		//    {SpeedBonus} 'speed' 'bonus' ('up' 'to' maxFactor=Decimal 'times')? ('over' duration=Decimal 's')?;
 		@Override public ParserRule getRule() { return rule; }
@@ -1747,14 +1686,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cLayoutKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cSpawnsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cSpawnsBallSpawnParserRuleCall_2_0 = (RuleCall)cSpawnsAssignment_2.eContents().get(0);
+		private final RuleCall cSpawnsEnemySpawnParserRuleCall_2_0 = (RuleCall)cSpawnsAssignment_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//FixedLayout returns FixedLayout:
-		//    'layout' '{' (spawns+=BallSpawn)+ '}';
+		//    'layout' '{' (spawns+=EnemySpawn)+ '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'layout' '{' (spawns+=BallSpawn)+ '}'
+		//'layout' '{' (spawns+=EnemySpawn)+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'layout'
@@ -1763,11 +1702,11 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 		
-		//(spawns+=BallSpawn)+
+		//(spawns+=EnemySpawn)+
 		public Assignment getSpawnsAssignment_2() { return cSpawnsAssignment_2; }
 		
-		//BallSpawn
-		public RuleCall getSpawnsBallSpawnParserRuleCall_2_0() { return cSpawnsBallSpawnParserRuleCall_2_0; }
+		//EnemySpawn
+		public RuleCall getSpawnsEnemySpawnParserRuleCall_2_0() { return cSpawnsEnemySpawnParserRuleCall_2_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
@@ -1846,14 +1785,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cSKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cSpawnsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cSpawnsBallSpawnParserRuleCall_3_0 = (RuleCall)cSpawnsAssignment_3.eContents().get(0);
+		private final RuleCall cSpawnsEnemySpawnParserRuleCall_3_0 = (RuleCall)cSpawnsAssignment_3.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Wave returns Wave:
-		//    'wave' ('after' delay=Decimal 's')? '{' (spawns+=BallSpawn)+ '}';
+		//    'wave' ('after' delay=Decimal 's')? '{' (spawns+=EnemySpawn)+ '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'wave' ('after' delay=Decimal 's')? '{' (spawns+=BallSpawn)+ '}'
+		//'wave' ('after' delay=Decimal 's')? '{' (spawns+=EnemySpawn)+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'wave'
@@ -1877,25 +1816,25 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//(spawns+=BallSpawn)+
+		//(spawns+=EnemySpawn)+
 		public Assignment getSpawnsAssignment_3() { return cSpawnsAssignment_3; }
 		
-		//BallSpawn
-		public RuleCall getSpawnsBallSpawnParserRuleCall_3_0() { return cSpawnsBallSpawnParserRuleCall_3_0; }
+		//EnemySpawn
+		public RuleCall getSpawnsEnemySpawnParserRuleCall_3_0() { return cSpawnsEnemySpawnParserRuleCall_3_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
-	public class BallSpawnElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallSpawn");
+	public class EnemySpawnElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemySpawn");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
 		private final Assignment cCountAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
 		private final RuleCall cCountINTTerminalRuleCall_0_0_0 = (RuleCall)cCountAssignment_0_0.eContents().get(0);
 		private final Keyword cAsteriskKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cTypeBallTypeCrossReference_1_0 = (CrossReference)cTypeAssignment_1.eContents().get(0);
-		private final RuleCall cTypeBallTypeIDTerminalRuleCall_1_0_1 = (RuleCall)cTypeBallTypeCrossReference_1_0.eContents().get(1);
+		private final CrossReference cTypeEnemyTypeCrossReference_1_0 = (CrossReference)cTypeAssignment_1.eContents().get(0);
+		private final RuleCall cTypeEnemyTypeIDTerminalRuleCall_1_0_1 = (RuleCall)cTypeEnemyTypeCrossReference_1_0.eContents().get(1);
 		private final Keyword cSizeKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cSizeAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cSizeINTTerminalRuleCall_3_0 = (RuleCall)cSizeAssignment_3.eContents().get(0);
@@ -1905,11 +1844,11 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Assignment cDirectionAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
 		private final RuleCall cDirectionDirectionEnumRuleCall_5_1_0 = (RuleCall)cDirectionAssignment_5_1.eContents().get(0);
 		
-		//BallSpawn returns BallSpawn:
-		//    (count=INT '*')? type=[BallType] 'size' size=INT At ('moving' direction=Direction)?;
+		//EnemySpawn returns EnemySpawn:
+		//    (count=INT '*')? type=[EnemyType] 'size' size=INT At ('moving' direction=Direction)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//(count=INT '*')? type=[BallType] 'size' size=INT At ('moving' direction=Direction)?
+		//(count=INT '*')? type=[EnemyType] 'size' size=INT At ('moving' direction=Direction)?
 		public Group getGroup() { return cGroup; }
 		
 		//(count=INT '*')?
@@ -1924,14 +1863,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'*'
 		public Keyword getAsteriskKeyword_0_1() { return cAsteriskKeyword_0_1; }
 		
-		//type=[BallType]
+		//type=[EnemyType]
 		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
 		
-		//[BallType]
-		public CrossReference getTypeBallTypeCrossReference_1_0() { return cTypeBallTypeCrossReference_1_0; }
+		//[EnemyType]
+		public CrossReference getTypeEnemyTypeCrossReference_1_0() { return cTypeEnemyTypeCrossReference_1_0; }
 		
 		//ID
-		public RuleCall getTypeBallTypeIDTerminalRuleCall_1_0_1() { return cTypeBallTypeIDTerminalRuleCall_1_0_1; }
+		public RuleCall getTypeEnemyTypeIDTerminalRuleCall_1_0_1() { return cTypeEnemyTypeIDTerminalRuleCall_1_0_1; }
 		
 		//'size'
 		public Keyword getSizeKeyword_2() { return cSizeKeyword_2; }
@@ -1967,7 +1906,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// Drops and end conditions. Each ball type has its own drop table: the chance that popping it drops
+		//// Drops and end conditions. Each enemy type has its own drop table: the chance that popping it drops
 		//// a power-up, and which power-up, by weight. The tables of a mode replace those of the edition.
 		////
 		////   drops {
@@ -1999,9 +1938,9 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	public class DropTableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cBallTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cBallTypeBallTypeCrossReference_0_0 = (CrossReference)cBallTypeAssignment_0.eContents().get(0);
-		private final RuleCall cBallTypeBallTypeIDTerminalRuleCall_0_0_1 = (RuleCall)cBallTypeBallTypeCrossReference_0_0.eContents().get(1);
+		private final Assignment cEnemyTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cEnemyTypeEnemyTypeCrossReference_0_0 = (CrossReference)cEnemyTypeAssignment_0.eContents().get(0);
+		private final RuleCall cEnemyTypeEnemyTypeIDTerminalRuleCall_0_0_1 = (RuleCall)cEnemyTypeEnemyTypeCrossReference_0_0.eContents().get(1);
 		private final Assignment cChanceAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cChanceDecimalParserRuleCall_1_0 = (RuleCall)cChanceAssignment_1.eContents().get(0);
 		private final Keyword cPercentSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
@@ -2015,20 +1954,20 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//DropTable returns DropTable:
-		//    ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
+		//    enemyType=[EnemyType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}'
+		//enemyType=[EnemyType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}'
 		public Group getGroup() { return cGroup; }
 		
-		//ballType=[BallType]
-		public Assignment getBallTypeAssignment_0() { return cBallTypeAssignment_0; }
+		//enemyType=[EnemyType]
+		public Assignment getEnemyTypeAssignment_0() { return cEnemyTypeAssignment_0; }
 		
-		//[BallType]
-		public CrossReference getBallTypeBallTypeCrossReference_0_0() { return cBallTypeBallTypeCrossReference_0_0; }
+		//[EnemyType]
+		public CrossReference getEnemyTypeEnemyTypeCrossReference_0_0() { return cEnemyTypeEnemyTypeCrossReference_0_0; }
 		
 		//ID
-		public RuleCall getBallTypeBallTypeIDTerminalRuleCall_0_0_1() { return cBallTypeBallTypeIDTerminalRuleCall_0_0_1; }
+		public RuleCall getEnemyTypeEnemyTypeIDTerminalRuleCall_0_0_1() { return cEnemyTypeEnemyTypeIDTerminalRuleCall_0_0_1; }
 		
 		//chance=Decimal
 		public Assignment getChanceAssignment_1() { return cChanceAssignment_1; }
@@ -2108,16 +2047,16 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cClearedParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cTimeReachedParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cScoreReachedParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cBallsPoppedParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cEnemiesPoppedParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cWavesSurvivedParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cHealthDepletedParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cBallsAliveParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cEnemiesAliveParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//EndCondition returns EndCondition:
-		//    Cleared | TimeReached | ScoreReached | BallsPopped | WavesSurvived | HealthDepleted | BallsAlive;
+		//    Cleared | TimeReached | ScoreReached | EnemiesPopped | WavesSurvived | HealthDepleted | EnemiesAlive;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Cleared | TimeReached | ScoreReached | BallsPopped | WavesSurvived | HealthDepleted | BallsAlive
+		//Cleared | TimeReached | ScoreReached | EnemiesPopped | WavesSurvived | HealthDepleted | EnemiesAlive
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Cleared
@@ -2129,8 +2068,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//ScoreReached
 		public RuleCall getScoreReachedParserRuleCall_2() { return cScoreReachedParserRuleCall_2; }
 		
-		//BallsPopped
-		public RuleCall getBallsPoppedParserRuleCall_3() { return cBallsPoppedParserRuleCall_3; }
+		//EnemiesPopped
+		public RuleCall getEnemiesPoppedParserRuleCall_3() { return cEnemiesPoppedParserRuleCall_3; }
 		
 		//WavesSurvived
 		public RuleCall getWavesSurvivedParserRuleCall_4() { return cWavesSurvivedParserRuleCall_4; }
@@ -2138,22 +2077,22 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//HealthDepleted
 		public RuleCall getHealthDepletedParserRuleCall_5() { return cHealthDepletedParserRuleCall_5; }
 		
-		//BallsAlive
-		public RuleCall getBallsAliveParserRuleCall_6() { return cBallsAliveParserRuleCall_6; }
+		//EnemiesAlive
+		public RuleCall getEnemiesAliveParserRuleCall_6() { return cEnemiesAliveParserRuleCall_6; }
 	}
 	public class ClearedElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Cleared");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cClearedAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cAllKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cBallsKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cEnemiesKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cClearedKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Cleared returns Cleared:
-		//    {Cleared} 'all' 'balls' 'cleared';
+		//    {Cleared} 'all' 'enemies' 'cleared';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Cleared} 'all' 'balls' 'cleared'
+		//{Cleared} 'all' 'enemies' 'cleared'
 		public Group getGroup() { return cGroup; }
 		
 		//{Cleared}
@@ -2162,8 +2101,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'all'
 		public Keyword getAllKeyword_1() { return cAllKeyword_1; }
 		
-		//'balls'
-		public Keyword getBallsKeyword_2() { return cBallsKeyword_2; }
+		//'enemies'
+		public Keyword getEnemiesKeyword_2() { return cEnemiesKeyword_2; }
 		
 		//'cleared'
 		public Keyword getClearedKeyword_3() { return cClearedKeyword_3; }
@@ -2226,19 +2165,19 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//INT
 		public RuleCall getPointsINTTerminalRuleCall_2_0() { return cPointsINTTerminalRuleCall_2_0; }
 	}
-	public class BallsPoppedElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallsPopped");
+	public class EnemiesPoppedElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemiesPopped");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cCountAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cCountINTTerminalRuleCall_0_0 = (RuleCall)cCountAssignment_0.eContents().get(0);
-		private final Keyword cBallsKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cEnemiesKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cPoppedKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//BallsPopped returns BallsPopped:
-		//    count=INT 'balls' 'popped';
+		//EnemiesPopped returns EnemiesPopped:
+		//    count=INT 'enemies' 'popped';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//count=INT 'balls' 'popped'
+		//count=INT 'enemies' 'popped'
 		public Group getGroup() { return cGroup; }
 		
 		//count=INT
@@ -2247,8 +2186,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//INT
 		public RuleCall getCountINTTerminalRuleCall_0_0() { return cCountINTTerminalRuleCall_0_0; }
 		
-		//'balls'
-		public Keyword getBallsKeyword_1() { return cBallsKeyword_1; }
+		//'enemies'
+		public Keyword getEnemiesKeyword_1() { return cEnemiesKeyword_1; }
 		
 		//'popped'
 		public Keyword getPoppedKeyword_2() { return cPoppedKeyword_2; }
@@ -2303,19 +2242,19 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'depleted'
 		public Keyword getDepletedKeyword_2() { return cDepletedKeyword_2; }
 	}
-	public class BallsAliveElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallsAlive");
+	public class EnemiesAliveElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemiesAlive");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cCountAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cCountINTTerminalRuleCall_0_0 = (RuleCall)cCountAssignment_0.eContents().get(0);
-		private final Keyword cBallsKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cEnemiesKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cAliveKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//BallsAlive returns BallsAlive:
-		//    count=INT 'balls' 'alive';
+		//EnemiesAlive returns EnemiesAlive:
+		//    count=INT 'enemies' 'alive';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//count=INT 'balls' 'alive'
+		//count=INT 'enemies' 'alive'
 		public Group getGroup() { return cGroup; }
 		
 		//count=INT
@@ -2324,8 +2263,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//INT
 		public RuleCall getCountINTTerminalRuleCall_0_0() { return cCountINTTerminalRuleCall_0_0; }
 		
-		//'balls'
-		public Keyword getBallsKeyword_1() { return cBallsKeyword_1; }
+		//'enemies'
+		public Keyword getEnemiesKeyword_1() { return cEnemiesKeyword_1; }
 		
 		//'alive'
 		public Keyword getAliveKeyword_2() { return cAliveKeyword_2; }
@@ -2364,16 +2303,16 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cALLEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cALLEverythingKeyword_0_0 = (Keyword)cALLEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cBALLSEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cBALLSBallsKeyword_1_0 = (Keyword)cBALLSEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cENEMIESEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cENEMIESEnemiesKeyword_1_0 = (Keyword)cENEMIESEnumLiteralDeclaration_1.eContents().get(0);
 		private final EnumLiteralDeclaration cPLAYEREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
 		private final Keyword cPLAYERPlayerKeyword_2_0 = (Keyword)cPLAYEREnumLiteralDeclaration_2.eContents().get(0);
 		
 		//enum Target returns Target:
-		//    ALL='everything' | BALLS='balls' | PLAYER='player';
+		//    ALL='everything' | ENEMIES='enemies' | PLAYER='player';
 		public EnumRule getRule() { return rule; }
 		
-		//ALL='everything' | BALLS='balls' | PLAYER='player'
+		//ALL='everything' | ENEMIES='enemies' | PLAYER='player'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//ALL='everything'
@@ -2382,11 +2321,11 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'everything'
 		public Keyword getALLEverythingKeyword_0_0() { return cALLEverythingKeyword_0_0; }
 		
-		//BALLS='balls'
-		public EnumLiteralDeclaration getBALLSEnumLiteralDeclaration_1() { return cBALLSEnumLiteralDeclaration_1; }
+		//ENEMIES='enemies'
+		public EnumLiteralDeclaration getENEMIESEnumLiteralDeclaration_1() { return cENEMIESEnumLiteralDeclaration_1; }
 		
-		//'balls'
-		public Keyword getBALLSBallsKeyword_1_0() { return cBALLSBallsKeyword_1_0; }
+		//'enemies'
+		public Keyword getENEMIESEnemiesKeyword_1_0() { return cENEMIESEnemiesKeyword_1_0; }
 		
 		//PLAYER='player'
 		public EnumLiteralDeclaration getPLAYEREnumLiteralDeclaration_2() { return cPLAYEREnumLiteralDeclaration_2; }
@@ -2423,11 +2362,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	private final EditionElements pEdition;
-	private final BallTypeElements pBallType;
+	private final EnemyTypeElements pEnemyType;
 	private final SplitRuleElements pSplitRule;
 	private final VanishElements pVanish;
 	private final SplitElements pSplit;
-	private final BurstElements pBurst;
 	private final PlayerEffectElements pPlayerEffect;
 	private final DamageElements pDamage;
 	private final HealElements pHeal;
@@ -2450,7 +2388,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	private final FixedLayoutElements pFixedLayout;
 	private final WaveScheduleElements pWaveSchedule;
 	private final WaveElements pWave;
-	private final BallSpawnElements pBallSpawn;
+	private final EnemySpawnElements pEnemySpawn;
 	private final DirectionElements eDirection;
 	private final DropsElements pDrops;
 	private final DropTableElements pDropTable;
@@ -2459,10 +2397,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	private final ClearedElements pCleared;
 	private final TimeReachedElements pTimeReached;
 	private final ScoreReachedElements pScoreReached;
-	private final BallsPoppedElements pBallsPopped;
+	private final EnemiesPoppedElements pEnemiesPopped;
 	private final WavesSurvivedElements pWavesSurvived;
 	private final HealthDepletedElements pHealthDepleted;
-	private final BallsAliveElements pBallsAlive;
+	private final EnemiesAliveElements pEnemiesAlive;
 	private final DecimalElements pDecimal;
 	
 	private final Grammar grammar;
@@ -2475,11 +2413,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
 		this.pEdition = new EditionElements();
-		this.pBallType = new BallTypeElements();
+		this.pEnemyType = new EnemyTypeElements();
 		this.pSplitRule = new SplitRuleElements();
 		this.pVanish = new VanishElements();
 		this.pSplit = new SplitElements();
-		this.pBurst = new BurstElements();
 		this.pPlayerEffect = new PlayerEffectElements();
 		this.pDamage = new DamageElements();
 		this.pHeal = new HealElements();
@@ -2502,7 +2439,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.pFixedLayout = new FixedLayoutElements();
 		this.pWaveSchedule = new WaveScheduleElements();
 		this.pWave = new WaveElements();
-		this.pBallSpawn = new BallSpawnElements();
+		this.pEnemySpawn = new EnemySpawnElements();
 		this.eDirection = new DirectionElements();
 		this.pDrops = new DropsElements();
 		this.pDropTable = new DropTableElements();
@@ -2511,10 +2448,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.pCleared = new ClearedElements();
 		this.pTimeReached = new TimeReachedElements();
 		this.pScoreReached = new ScoreReachedElements();
-		this.pBallsPopped = new BallsPoppedElements();
+		this.pEnemiesPopped = new EnemiesPoppedElements();
 		this.pWavesSurvived = new WavesSurvivedElements();
 		this.pHealthDepleted = new HealthDepletedElements();
-		this.pBallsAlive = new BallsAliveElements();
+		this.pEnemiesAlive = new EnemiesAliveElements();
 		this.pDecimal = new DecimalElements();
 	}
 	
@@ -2550,7 +2487,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//// any order.
 	//Edition returns Edition:
 	//    'edition' name=ID (title=STRING)?
-	//    (    ballTypes+=BallType
+	//    (    enemyTypes+=EnemyType
 	//    |    powerUps+=PowerUp
 	//    |    materials+=Material
 	//    |    players+=PlayerProfile
@@ -2566,15 +2503,15 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// Ball types: tuning in any order, then what happens on a pop and on contact with the player.
+	//// Enemy types: tuning in any order, then what happens on a pop and on contact with the player.
 	////
-	////   ball Cactus {
-	////       sprite "Ball/Cactus.png" scale 1.2 points 15
+	////   enemy Cactus {
+	////       sprite "Enemy/Cactus.png" scale 1.2 points 15
 	////       on pop: split into 1
 	////       on contact: damage 1, poison 1 every 2 s for 6 s
 	////   }
-	//BallType returns BallType:
-	//    'ball' name=ID '{'
+	//EnemyType returns EnemyType:
+	//    'enemy' name=ID '{'
 	//    (    ('sprite' sprite=STRING)
 	//    &    ('scale' scale=Decimal)?
 	//    &    ('bounce' bounce=Decimal)?
@@ -2584,16 +2521,16 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    'on' 'pop' ':' splitRule=SplitRule
 	//    'on' 'contact' ':' contactEffects+=PlayerEffect (',' contactEffects+=PlayerEffect)*
 	//    '}';
-	public BallTypeElements getBallTypeAccess() {
-		return pBallType;
+	public EnemyTypeElements getEnemyTypeAccess() {
+		return pEnemyType;
 	}
 	
-	public ParserRule getBallTypeRule() {
-		return getBallTypeAccess().getRule();
+	public ParserRule getEnemyTypeRule() {
+		return getEnemyTypeAccess().getRule();
 	}
 	
 	//SplitRule returns SplitRule:
-	//    Vanish | Split | Burst;
+	//    Vanish | Split;
 	public SplitRuleElements getSplitRuleAccess() {
 		return pSplitRule;
 	}
@@ -2612,8 +2549,10 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getVanishAccess().getRule();
 	}
 	
+	//// The number of fragments decides the pattern: two fan out as in the original game, eight or more
+	//// fly off all around the popped enemy.
 	//Split returns Split:
-	//    'split' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
+	//    'split' 'into' fragments=INT (fragmentType=[EnemyType])? ('launched' 'at' launchSpeed=Decimal)?;
 	public SplitElements getSplitAccess() {
 		return pSplit;
 	}
@@ -2622,18 +2561,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getSplitAccess().getRule();
 	}
 	
-	//Burst returns Burst:
-	//    'burst' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
-	public BurstElements getBurstAccess() {
-		return pBurst;
-	}
-	
-	public ParserRule getBurstRule() {
-		return getBurstAccess().getRule();
-	}
-	
 	//// ---------------------------------------------------------------------------------------------
-	//// Effects on the player, shared by ball contacts and power-ups.
+	//// Effects on the player, shared by enemy contacts and power-ups.
 	//PlayerEffect returns PlayerEffect:
 	//    Damage | Heal | Shield | SpeedChange | Poison;
 	public PlayerEffectElements getPlayerEffectAccess() {
@@ -2765,7 +2694,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
-	//// the points of its ball type.
+	//// the points of its enemy type.
 	//SpeedBonus returns SpeedBonus:
 	//    {SpeedBonus} 'speed' 'bonus' ('up' 'to' maxFactor=Decimal 'times')? ('over' duration=Decimal 's')?;
 	public SpeedBonusElements getSpeedBonusAccess() {
@@ -2846,7 +2775,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//enum Target returns Target:
-	//    ALL='everything' | BALLS='balls' | PLAYER='player';
+	//    ALL='everything' | ENEMIES='enemies' | PLAYER='player';
 	public TargetElements getTargetAccess() {
 		return eTarget;
 	}
@@ -2873,7 +2802,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//FixedLayout returns FixedLayout:
-	//    'layout' '{' (spawns+=BallSpawn)+ '}';
+	//    'layout' '{' (spawns+=EnemySpawn)+ '}';
 	public FixedLayoutElements getFixedLayoutAccess() {
 		return pFixedLayout;
 	}
@@ -2893,7 +2822,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//Wave returns Wave:
-	//    'wave' ('after' delay=Decimal 's')? '{' (spawns+=BallSpawn)+ '}';
+	//    'wave' ('after' delay=Decimal 's')? '{' (spawns+=EnemySpawn)+ '}';
 	public WaveElements getWaveAccess() {
 		return pWave;
 	}
@@ -2902,14 +2831,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getWaveAccess().getRule();
 	}
 	
-	//BallSpawn returns BallSpawn:
-	//    (count=INT '*')? type=[BallType] 'size' size=INT At ('moving' direction=Direction)?;
-	public BallSpawnElements getBallSpawnAccess() {
-		return pBallSpawn;
+	//EnemySpawn returns EnemySpawn:
+	//    (count=INT '*')? type=[EnemyType] 'size' size=INT At ('moving' direction=Direction)?;
+	public EnemySpawnElements getEnemySpawnAccess() {
+		return pEnemySpawn;
 	}
 	
-	public ParserRule getBallSpawnRule() {
-		return getBallSpawnAccess().getRule();
+	public ParserRule getEnemySpawnRule() {
+		return getEnemySpawnAccess().getRule();
 	}
 	
 	//enum Direction returns Direction:
@@ -2923,7 +2852,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// Drops and end conditions. Each ball type has its own drop table: the chance that popping it drops
+	//// Drops and end conditions. Each enemy type has its own drop table: the chance that popping it drops
 	//// a power-up, and which power-up, by weight. The tables of a mode replace those of the edition.
 	////
 	////   drops {
@@ -2941,7 +2870,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//DropTable returns DropTable:
-	//    ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
+	//    enemyType=[EnemyType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
 	public DropTableElements getDropTableAccess() {
 		return pDropTable;
 	}
@@ -2961,7 +2890,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//EndCondition returns EndCondition:
-	//    Cleared | TimeReached | ScoreReached | BallsPopped | WavesSurvived | HealthDepleted | BallsAlive;
+	//    Cleared | TimeReached | ScoreReached | EnemiesPopped | WavesSurvived | HealthDepleted | EnemiesAlive;
 	public EndConditionElements getEndConditionAccess() {
 		return pEndCondition;
 	}
@@ -2971,7 +2900,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//Cleared returns Cleared:
-	//    {Cleared} 'all' 'balls' 'cleared';
+	//    {Cleared} 'all' 'enemies' 'cleared';
 	public ClearedElements getClearedAccess() {
 		return pCleared;
 	}
@@ -3000,14 +2929,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getScoreReachedAccess().getRule();
 	}
 	
-	//BallsPopped returns BallsPopped:
-	//    count=INT 'balls' 'popped';
-	public BallsPoppedElements getBallsPoppedAccess() {
-		return pBallsPopped;
+	//EnemiesPopped returns EnemiesPopped:
+	//    count=INT 'enemies' 'popped';
+	public EnemiesPoppedElements getEnemiesPoppedAccess() {
+		return pEnemiesPopped;
 	}
 	
-	public ParserRule getBallsPoppedRule() {
-		return getBallsPoppedAccess().getRule();
+	public ParserRule getEnemiesPoppedRule() {
+		return getEnemiesPoppedAccess().getRule();
 	}
 	
 	//WavesSurvived returns WavesSurvived:
@@ -3030,14 +2959,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getHealthDepletedAccess().getRule();
 	}
 	
-	//BallsAlive returns BallsAlive:
-	//    count=INT 'balls' 'alive';
-	public BallsAliveElements getBallsAliveAccess() {
-		return pBallsAlive;
+	//EnemiesAlive returns EnemiesAlive:
+	//    count=INT 'enemies' 'alive';
+	public EnemiesAliveElements getEnemiesAliveAccess() {
+		return pEnemiesAlive;
 	}
 	
-	public ParserRule getBallsAliveRule() {
-		return getBallsAliveAccess().getRule();
+	public ParserRule getEnemiesAliveRule() {
+		return getEnemiesAliveAccess().getRule();
 	}
 	
 	//// ---------------------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Components.SpriteComponent;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.ProjectileEntity;
 import io.github.RangoUnchained.Model.Systems.ContactSystem;
 import io.github.RangoUnchained.Model.Systems.ContactSystem.CollisionEvent;
@@ -19,23 +19,23 @@ public class SpawnPowerup implements ContactStrategy{
     public void setContactStrategies() {
         ContactSystem centralContactListener = LevelController.getInstance().getSystem(ContactSystem.class);
         centralContactListener.subscribe(
-        BallEntity.class, ProjectileEntity.class,
-        this::ProjectileBallContact, // For beginContact
+        EnemyEntity.class, ProjectileEntity.class,
+        this::ProjectileEnemyContact, // For beginContact
         null);
     }
 
-    public void ProjectileBallContact(CollisionEvent collisionEvent){
+    public void ProjectileEnemyContact(CollisionEvent collisionEvent){
         Gdx.app.log("Projectile","fjfj");
 
-        BallEntity ball;
+        EnemyEntity enemy;
 
-        if (collisionEvent.entityA instanceof BallEntity) {
-            ball = (BallEntity) collisionEvent.entityA;;
+        if (collisionEvent.entityA instanceof EnemyEntity) {
+            enemy = (EnemyEntity) collisionEvent.entityA;;
         } else {
-            ball = (BallEntity) collisionEvent.entityB;
+            enemy = (EnemyEntity) collisionEvent.entityB;
         }
 
-        SpriteComponent spriteComponent = (SpriteComponent) ball.getComponent(SpriteComponent.class);
+        SpriteComponent spriteComponent = (SpriteComponent) enemy.getComponent(SpriteComponent.class);
 
 
         if (Math.random() < 0.20) { // 20% chance to spawn a powerup

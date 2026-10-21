@@ -4,7 +4,7 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.formatting2
 
 import no.ntnu.tdt4250.rango.gamemode.Arena
-import no.ntnu.tdt4250.rango.gamemode.BallType
+import no.ntnu.tdt4250.rango.gamemode.EnemyType
 import no.ntnu.tdt4250.rango.gamemode.DropTable
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout
@@ -37,7 +37,7 @@ class RangoModeFormatter extends AbstractFormatter2 {
 		edition.drops(document)
 	}
 
-	def dispatch void format(BallType type, extension IFormattableDocument document) {
+	def dispatch void format(EnemyType type, extension IFormattableDocument document) {
 		type.block(document)
 		type.lines(document, 'sprite', 'scale', 'bounce', 'speed', 'points', 'on')
 		type.lists(document)

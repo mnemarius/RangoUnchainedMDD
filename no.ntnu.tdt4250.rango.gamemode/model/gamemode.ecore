@@ -8,7 +8,7 @@
     <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG"/>
   </eAnnotations>
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-    <details key="documentation" value="Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the ball types, power-ups, surface materials and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every ball behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost."/>
+    <details key="documentation" value="Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the enemy types, power-ups, surface materials and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every enemy behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost."/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -46,17 +46,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Edition" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="One product of the line. It declares the building blocks it ships (ball types, power-ups, materials, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game."/>
+      <details key="documentation" value="One product of the line. It declares the building blocks it ships (enemy types, power-ups, materials, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The product name shown to players, in the window title and the main menu. Defaults to the name."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ballTypes" upperBound="-1"
-        eType="#//BallType" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enemyTypes" upperBound="-1"
+        eType="#//EnemyType" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The kinds of balls (enemies) that exist in this edition."/>
+        <details key="documentation" value="The kinds of enemies that exist in this edition."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="powerUps" upperBound="-1"
@@ -86,13 +86,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="drops" upperBound="-1"
         eType="#//DropTable" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What popping each ball type can drop, one table per ball type, in every mode that has no drop tables of its own."/>
+        <details key="documentation" value="What popping each enemy type can drop, one table per enemy type, in every mode that has no drop tables of its own."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BallType" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="EnemyType" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A kind of ball. Its kind is given by its tuning and by the behaviour it owns: what happens when it is popped and what it does to the player on contact. Balls come in three sizes (3 is the largest)."/>
+      <details key="documentation" value="A kind of enemy. Its kind is given by its tuning and by the behaviour it owns: what happens when it is popped and what it does to the player on contact. Enemies come in three sizes (3 is the largest)."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="positiveScale positiveBounce positiveSpeed nonNegativePoints distinctEffectKinds"/>
@@ -106,19 +106,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sprite" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The image of the ball, as a path in the game's assets folder."/>
+        <details key="documentation" value="The image of the enemy, as a path in the game's assets folder."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         defaultValueLiteral="1.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Size relative to a standard ball of the same size class."/>
+        <details key="documentation" value="Size relative to a standard enemy of the same size class."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bounce" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         defaultValueLiteral="1.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Bounce height relative to a standard ball of the same size class."/>
+        <details key="documentation" value="Bounce height relative to a standard enemy of the same size class."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
@@ -130,92 +130,84 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="points" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="10">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Score awarded for each pop of a ball of this type."/>
+        <details key="documentation" value="Score awarded for each pop of a enemy of this type."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="splitRule" lowerBound="1"
         eType="#//SplitRule" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What happens when a ball of this type is hit by the tongue."/>
+        <details key="documentation" value="What happens when a enemy of this type is hit by the tongue."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contactEffects" lowerBound="1"
         upperBound="-1" eType="#//PlayerEffect" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What a ball of this type does to the player when they touch."/>
+        <details key="documentation" value="What a enemy of this type does to the player when they touch."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="producedTypes" upperBound="-1"
-        eType="#//BallType" changeable="false" volatile="true" transient="true" derived="true">
+        eType="#//EnemyType" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The ball types that popping a ball of this type can create: none if it vanishes, otherwise the type of its fragments."/>
+        <details key="documentation" value="The enemy types that popping a enemy of this type can create: none if it vanishes, otherwise the type of its fragments."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SplitRule" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The behaviour of a ball when it is popped."/>
+      <details key="documentation" value="The behaviour of a enemy when it is popped."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Vanish" eSuperTypes="#//SplitRule">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The ball disappears at once, whatever its size."/>
+      <details key="documentation" value="The enemy disappears at once, whatever its size."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Fragmenting" abstract="true" eSuperTypes="#//SplitRule">
+  <eClassifiers xsi:type="ecore:EClass" name="Split" eSuperTypes="#//SplitRule">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The ball breaks into fragments one size smaller. A ball of the smallest size disappears instead."/>
+      <details key="documentation" value="The enemy breaks into fragments one size smaller, launched in evenly spaced directions centred on straight up. The number of fragments decides the pattern: one fragment means the enemy shrinks and carries on in its direction of travel, two fan out to the left and the right and hop upwards as in the original game, and eight or more fly off all around the popped enemy like an exploding bomb. A enemy of the smallest size disappears instead."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="atLeastOneFragment positiveLaunchSpeed"/>
+      <details key="constraints" value="atLeastOneFragment atMostSixteenFragments positiveLaunchSpeed"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="atLeastOneFragment" value="fragments >= 1"/>
+      <details key="atMostSixteenFragments" value="fragments &lt;= 16"/>
       <details key="positiveLaunchSpeed" value="launchSpeed > 0"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fragments" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="How many fragments the ball breaks into. One fragment means the ball shrinks."/>
+        <details key="documentation" value="How many fragments the enemy breaks into. One fragment means the enemy shrinks; more fragments spread wider, closing into a full ring at eight."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fragmentType" eType="#//BallType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fragmentType" eType="#//EnemyType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The type of the fragments. When it is not set, the fragments are of the same type as the popped ball."/>
+        <details key="documentation" value="The type of the fragments. When it is not set, the fragments are of the same type as the popped enemy."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="launchSpeed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         defaultValueLiteral="5.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The speed the fragments are launched with, in metres per second."/>
+        <details key="documentation" value="The speed each fragment is launched with, in metres per second."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resultType" lowerBound="1"
-        eType="#//BallType" changeable="false" volatile="true" transient="true" derived="true">
+        eType="#//EnemyType" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The type the fragments actually get: the fragment type if set, otherwise the type that owns this rule."/>
       </eAnnotations>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Split" eSuperTypes="#//Fragmenting">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The fragments fan out to the left and the right and hop upwards, as in the original game."/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Burst" eSuperTypes="#//Fragmenting">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The fragments fly off in evenly spaced directions all around the popped ball, like an exploding bomb."/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="enoughFragmentsToBurst"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
-      <details key="enoughFragmentsToBurst" value="fragments >= 3"/>
-    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="spacing" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The angle between the directions of neighbouring fragments, in degrees: 45, or 360 divided by the number of fragments when more than eight are needed to go all the way round."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PlayerEffect" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Something that happens to the player: when a ball touches them or when they pick up a power-up."/>
+      <details key="documentation" value="Something that happens to the player: when a enemy touches them or when they pick up a power-up."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Damage" eSuperTypes="#//PlayerEffect">
@@ -317,7 +309,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PowerUp" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A pick-up that popped balls can drop. Its kind is given by the effects it has on the player who catches it."/>
+      <details key="documentation" value="A pick-up that popped enemies can drop. Its kind is given by the effects it has on the player who catches it."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="distinctEffectKinds"/>
@@ -337,7 +329,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Material" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A surface. It changes how fast balls rebound from floors, walls and blocks made of it."/>
+      <details key="documentation" value="A surface. It changes how fast enemies rebound from floors, walls and blocks made of it."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="bounceInRange"/>
@@ -348,7 +340,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bounce" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         defaultValueLiteral="1.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What the speed of a rebounding ball is multiplied by: below 1 dampens (ice), above 1 springs (grass)."/>
+        <details key="documentation" value="What the speed of a rebounding enemy is multiplied by: below 1 dampens (ice), above 1 springs (grass)."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sprite" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -419,7 +411,7 @@
       <details key="documentation" value="A way to play the game: the rules of one round, from what spawns to when the round ends."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyBallDrops"/>
+      <details key="constraints" value="positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyEnemyDrops"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="positiveGravity" value="gravity > 0"/>
@@ -440,10 +432,10 @@
         <details key="documentation" value="The profile the player plays with in this mode."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ballTypes" upperBound="-1"
-        eType="#//BallType" changeable="false" volatile="true" transient="true" derived="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enemyTypes" upperBound="-1"
+        eType="#//EnemyType" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The ball types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them."/>
+        <details key="documentation" value="The enemy types that can appear in this mode: those it spawns, and everything popping them can produce, in the order the edition declares them."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gravity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
@@ -455,7 +447,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="speedBonus" eType="#//SpeedBonus"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Makes early pops worth more. Without a speed bonus, each pop is worth the points of its ball type."/>
+        <details key="documentation" value="Makes early pops worth more. Without a speed bonus, each pop is worth the points of its enemy type."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arena" lowerBound="1" eType="#//Arena"
@@ -467,13 +459,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="spawning" lowerBound="1"
         eType="#//SpawnStrategy" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Which balls enter the arena, where and when."/>
+        <details key="documentation" value="Which enemies enter the arena, where and when."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="drops" upperBound="-1"
         eType="#//DropTable" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What popping each ball type of this mode can drop, one table per ball type. If the mode has drop tables, they replace those of the edition."/>
+        <details key="documentation" value="What popping each enemy type of this mode can drop, one table per enemy type. If the mode has drop tables, they replace those of the edition."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="winConditions" upperBound="-1"
@@ -497,7 +489,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="popsToClear" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The tongue hits needed to pop every ball the mode spawns, counting all fragments. -1 if the waves loop, since the mode then never runs out of balls."/>
+        <details key="documentation" value="The tongue hits needed to pop every enemy the mode spawns, counting all fragments. -1 if the waves loop, since the mode then never runs out of enemies."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxScore" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -515,7 +507,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpeedBonus">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Early pops are worth more: each pop is worth the points of the ball type times a bonus, which starts at the maximum factor and falls evenly to 1 over the duration of the bonus."/>
+      <details key="documentation" value="Early pops are worth more: each pop is worth the points of the enemy type times a bonus, which starts at the maximum factor and falls evenly to 1 over the duration of the bonus."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="bonusAboveOne positiveDuration"/>
@@ -527,7 +519,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxFactor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         defaultValueLiteral="2.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What a pop is worth at the start of the round, as a multiple of the points of its ball type."/>
+        <details key="documentation" value="What a pop is worth at the start of the round, as a multiple of the points of its enemy type."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="duration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
@@ -583,7 +575,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//Obstacle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A solid rectangle that balls bounce off and the player cannot walk through."/>
+      <details key="documentation" value="A solid rectangle that enemies bounce off and the player cannot walk through."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="positiveSize"/>
@@ -654,30 +646,30 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Target">
     <eLiterals name="ALL" literal="everything"/>
-    <eLiterals name="BALLS" value="1" literal="balls"/>
+    <eLiterals name="ENEMIES" value="1" literal="enemies"/>
     <eLiterals name="PLAYER" value="2" literal="player"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpawnStrategy" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="How the balls of a mode enter the arena."/>
+      <details key="documentation" value="How the enemies of a mode enter the arena."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="popsToClear" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The tongue hits needed to pop every ball spawned, counting all fragments. -1 if the strategy never runs out of balls."/>
+        <details key="documentation" value="The tongue hits needed to pop every enemy spawned, counting all fragments. -1 if the strategy never runs out of enemies."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FixedLayout" eSuperTypes="#//SpawnStrategy">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="All balls are in place when the round starts, as in the campaign levels."/>
+      <details key="documentation" value="All enemies are in place when the round starts, as in the campaign levels."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="spawns" lowerBound="1"
-        upperBound="-1" eType="#//BallSpawn" containment="true"/>
+        upperBound="-1" eType="#//EnemySpawn" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WaveSchedule" eSuperTypes="#//SpawnStrategy">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Balls arrive in waves. A wave starts once the previous one has been cleared and its delay has passed."/>
+      <details key="documentation" value="Enemies arrive in waves. A wave starts once the previous one has been cleared and its delay has passed."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="nonNegativeEscalation escalationNeedsLoop"/>
@@ -693,7 +685,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="escalation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Extra balls added to every spawn of a wave each time the waves start over."/>
+        <details key="documentation" value="Extra enemies added to every spawn of a wave each time the waves start over."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="waves" lowerBound="1" upperBound="-1"
@@ -701,7 +693,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Wave">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A group of balls that enter the arena together."/>
+      <details key="documentation" value="A group of enemies that enter the arena together."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="nonNegativeDelay"/>
@@ -716,7 +708,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="spawns" lowerBound="1"
-        upperBound="-1" eType="#//BallSpawn" containment="true"/>
+        upperBound="-1" eType="#//EnemySpawn" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -730,9 +722,9 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BallSpawn" eSuperTypes="#//Positioned">
+  <eClassifiers xsi:type="ecore:EClass" name="EnemySpawn" eSuperTypes="#//Positioned">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="One or more balls of the same type and size that enter the arena at a position. Several balls are spread out sideways."/>
+      <details key="documentation" value="One or more enemies of the same type and size that enter the arena at a position. Several enemies are spread out sideways."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="sizeInRange positiveCount"/>
@@ -741,33 +733,33 @@
       <details key="sizeInRange" value="size >= 1 and size &lt;= 3"/>
       <details key="positiveCount" value="count >= 1"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//BallType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//EnemyType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The type of the balls."/>
+        <details key="documentation" value="The type of the enemies."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="3">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The size class of the balls, from 1 (small) to 3 (large)."/>
+        <details key="documentation" value="The size class of the enemies, from 1 (small) to 3 (large)."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="How many balls are spawned."/>
+        <details key="documentation" value="How many enemies are spawned."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//Direction"
         defaultValueLiteral="right">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Which way the balls start moving."/>
+        <details key="documentation" value="Which way the enemies start moving."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="popsToClear" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The tongue hits needed to pop these balls and everything they break into."/>
+        <details key="documentation" value="The tongue hits needed to pop these enemies and everything they break into."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -777,10 +769,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DropTable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="What popping one ball type can drop. Each pop drops at most one power-up: with the table's chance, one of its entries, picked by weight."/>
+      <details key="documentation" value="What popping one enemy type can drop. Each pop drops at most one power-up: with the table's chance, one of its entries, picked by weight."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="chanceIsPercentage distinctPowerUps oneTablePerBall"/>
+      <details key="constraints" value="chanceIsPercentage distinctPowerUps oneTablePerEnemy"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="chanceIsPercentage" value="chance > 0 and chance &lt;= 100"/>
@@ -800,10 +792,10 @@
         <details key="documentation" value="The sum of the weights of the entries."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ballType" lowerBound="1"
-        eType="#//BallType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enemyType" lowerBound="1"
+        eType="#//EnemyType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The ball type whose pops roll on this table."/>
+        <details key="documentation" value="The enemy type whose pops roll on this table."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -830,7 +822,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="probability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The chance, in percent, that a single pop of the table's ball type drops this power-up."/>
+        <details key="documentation" value="The chance, in percent, that a single pop of the table's enemy type drops this power-up."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="share" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
@@ -856,7 +848,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cleared" eSuperTypes="#//EndCondition">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="No ball is left and none is still to come."/>
+      <details key="documentation" value="No enemy is left and none is still to come."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimeReached" eSuperTypes="#//EndCondition">
@@ -885,9 +877,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="points" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BallsPopped" eSuperTypes="#//EndCondition">
+  <eClassifiers xsi:type="ecore:EClass" name="EnemiesPopped" eSuperTypes="#//EndCondition">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The player has popped a number of balls."/>
+      <details key="documentation" value="The player has popped a number of enemies."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="positiveCount"/>
@@ -914,9 +906,9 @@
       <details key="documentation" value="The player has no hearts left."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BallsAlive" eSuperTypes="#//EndCondition">
+  <eClassifiers xsi:type="ecore:EClass" name="EnemiesAlive" eSuperTypes="#//EndCondition">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A number of balls are in the arena at the same time: the player is overrun."/>
+      <details key="documentation" value="A number of enemies are in the arena at the same time: the player is overrun."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="positiveCount"/>

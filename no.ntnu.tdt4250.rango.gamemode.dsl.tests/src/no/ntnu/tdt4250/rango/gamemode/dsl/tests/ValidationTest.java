@@ -40,14 +40,14 @@ public class ValidationTest {
 	private Edition edition(String extra, String modeBody) throws Exception {
 		Edition edition = parser.parse("""
 				edition Test
-				ball Tumbleweed {
-					sprite "Ball/Tumbleweed.png"
+				enemy Tumbleweed {
+					sprite "Enemy/Tumbleweed.png"
 					on pop: split into 2
 					on contact: damage 1
 				}
-				ball Bomb {
-					sprite "Ball/Bomb.png"
-					on pop: burst into 4 Tumbleweed
+				enemy Bomb {
+					sprite "Enemy/Bomb.png"
+					on pop: split into 4 Tumbleweed
 					on contact: damage 2
 				}
 				powerup Health {
@@ -79,7 +79,7 @@ public class ValidationTest {
 			layout {
 				Bomb size 3 at (50%, 70%)
 			}
-			win when all balls cleared
+			win when all enemies cleared
 			lose when health depleted
 			""";
 
@@ -91,7 +91,7 @@ public class ValidationTest {
 	@Test
 	public void oclConstraintReachesTheEditor() throws Exception {
 		Edition edition = edition("", VALID_BODY.replace("(50%, 70%)", "(50%, 140%)"));
-		validation.assertError(edition, GamemodePackage.Literals.BALL_SPAWN, GamemodeConstraints.SOURCE + ".0", "insideArena");
+		validation.assertError(edition, GamemodePackage.Literals.ENEMY_SPAWN, GamemodeConstraints.SOURCE + ".0", "insideArena");
 	}
 
 	@Test
@@ -123,18 +123,18 @@ public class ValidationTest {
 
 	@Test
 	public void modeMustEnd() throws Exception {
-		Edition edition = edition("", VALID_BODY.replace("win when all balls cleared", ""));
+		Edition edition = edition("", VALID_BODY.replace("win when all enemies cleared", ""));
 		validation.assertError(edition, GamemodePackage.Literals.GAME_MODE, GamemodeConstraints.ISSUE_NEVER_ENDS);
 	}
 
 	@Test
 	public void conditionsHaveRoles() throws Exception {
-		Edition edition = edition("", VALID_BODY.replace("win when all balls cleared", "win when health depleted"));
+		Edition edition = edition("", VALID_BODY.replace("win when all enemies cleared", "win when health depleted"));
 		validation.assertError(edition, GamemodePackage.Literals.HEALTH_DEPLETED, GamemodeConstraints.ISSUE_WRONG_ROLE);
 	}
 
 	@Test
-	public void everyBallOfAModeNeedsADropTable() throws Exception {
+	public void everyEnemyOfAModeNeedsADropTable() throws Exception {
 		// the mode's own drop tables replace the edition's, and forget the Tumbleweeds the Bomb bursts into
 		Edition edition = edition("", VALID_BODY.replace("win when", "drops { Bomb 30% { Health } } win when"));
 		validation.assertError(edition, GamemodePackage.Literals.GAME_MODE, GamemodeConstraints.ISSUE_NO_DROP_TABLE,
@@ -153,10 +153,10 @@ public class ValidationTest {
 	}
 
 	@Test
-	public void dropTablesForBallsOutsideTheModeHaveNoEffect() throws Exception {
+	public void dropTablesForEnemiesOutsideTheModeHaveNoEffect() throws Exception {
 		Edition edition = edition("""
-				ball Cactus {
-					sprite "Ball/Cactus.png"
+				enemy Cactus {
+					sprite "Enemy/Cactus.png"
 					on pop: vanish
 					on contact: damage 1
 				}
@@ -181,13 +181,13 @@ public class ValidationTest {
 	public void spritesMustBeImages() throws Exception {
 		Edition edition = parser.parse("""
 				edition Test
-				ball Tumbleweed {
-					sprite "Ball/Tumbleweed"
+				enemy Tumbleweed {
+					sprite "Enemy/Tumbleweed"
 					on pop: vanish
 					on contact: damage 1
 				}
 				""");
-		validation.assertWarning(edition, GamemodePackage.Literals.BALL_TYPE, RangoModeValidator.NOT_AN_IMAGE);
+		validation.assertWarning(edition, GamemodePackage.Literals.ENEMY_TYPE, RangoModeValidator.NOT_AN_IMAGE);
 	}
 
 	@Test
@@ -210,8 +210,8 @@ public class ValidationTest {
 
 	@Test
 	public void syntaxErrorsAreReported() throws Exception {
-		Edition edition = parser.parse("edition Broken ball { }");
+		Edition edition = parser.parse("edition Broken enemy { }");
 		assertTrue(!edition.eResource().getErrors().isEmpty());
-		assertNull(edition.getBallTypes().isEmpty() ? null : edition.getBallTypes().get(0).getSprite());
+		assertNull(edition.getEnemyTypes().isEmpty() ? null : edition.getEnemyTypes().get(0).getSprite());
 	}
 }

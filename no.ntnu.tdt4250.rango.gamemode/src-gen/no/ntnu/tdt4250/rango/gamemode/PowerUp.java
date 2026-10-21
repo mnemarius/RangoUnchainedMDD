@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A pick-up that popped balls can drop. Its kind is given by the effects it has on the player who catches it.
+ * A pick-up that popped enemies can drop. Its kind is given by the effects it has on the player who catches it.
  * <!-- end-model-doc -->
  *
  * <p>

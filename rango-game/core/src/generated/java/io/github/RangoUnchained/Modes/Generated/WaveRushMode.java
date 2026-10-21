@@ -5,8 +5,8 @@
 package io.github.RangoUnchained.Modes.Generated;
 
 import io.github.RangoUnchained.Modes.ArenaBuilder;
-import io.github.RangoUnchained.Modes.BallKind;
-import io.github.RangoUnchained.Modes.BallState;
+import io.github.RangoUnchained.Modes.EnemyKind;
+import io.github.RangoUnchained.Modes.EnemyState;
 import io.github.RangoUnchained.Modes.GameModeDefinition;
 import io.github.RangoUnchained.Modes.ModeContext;
 import io.github.RangoUnchained.Modes.ModeStats;
@@ -23,9 +23,9 @@ public final class WaveRushMode extends GameModeDefinition {
     private static final PlayerSpec PLAYER = new PlayerSpec("Rango", 5, 8,
         5.0f, 0.8f, 1.0f, 1.0f);
 
-    private static final BallKind BALL_TUMBLEWEED = new BallKind("Tumbleweed", "Ball/Tumbleweed.png",
+    private static final EnemyKind ENEMY_TUMBLEWEED = new EnemyKind("Tumbleweed", "Enemy/Tumbleweed.png",
         1.0f, 1.0f, 5.0f);
-    private static final BallKind BALL_ARMADILLO = new BallKind("Armadillo", "Ball/Armedillo.png",
+    private static final EnemyKind ENEMY_ARMADILLO = new EnemyKind("Armadillo", "Enemy/Armedillo.png",
         1.2f, 1.15f, 4.0f);
 
     @Override
@@ -59,15 +59,15 @@ public final class WaveRushMode extends GameModeDefinition {
     }
 
     @Override
-    public BallKind ballKind(String name) {
+    public EnemyKind enemyKind(String name) {
         if (name == null) {
             return null;
         }
         switch (name) {
             case "Tumbleweed":
-                return BALL_TUMBLEWEED;
+                return ENEMY_TUMBLEWEED;
             case "Armadillo":
-                return BALL_ARMADILLO;
+                return ENEMY_ARMADILLO;
             default:
                 return null;
         }
@@ -158,24 +158,24 @@ public final class WaveRushMode extends GameModeDefinition {
     }
 
     @Override
-    public void onBallPopped(BallState ball, ModeContext context) {
-        switch (ball.kind) {
+    public void onEnemyPopped(EnemyState enemy, ModeContext context) {
+        switch (enemy.kind) {
             case "Tumbleweed":
                 context.addScore(10);
-                context.split(ball, "Tumbleweed", 2, 5.0f);
+                context.split(enemy, "Tumbleweed", 2, 45.0f, 5.0f);
                 if (context.random() * 100f < 5.0f) { // 5 % of Tumbleweed pops drop something
-                    context.dropPowerUp("Health", ball);
+                    context.dropPowerUp("Health", enemy);
                 }
                 break;
             case "Armadillo":
                 context.addScore(20);
-                context.split(ball, "Armadillo", 3, 6.0f);
+                context.split(enemy, "Armadillo", 3, 45.0f, 6.0f);
                 if (context.random() * 100f < 20.0f) { // 20 % of Armadillo pops drop something
                     float roll = context.random() * 4;
                     if (roll < 3) {
-                        context.dropPowerUp("Health", ball); // 75 % of drops, 15 % of pops
+                        context.dropPowerUp("Health", enemy); // 75 % of drops, 15 % of pops
                     } else {
-                        context.dropPowerUp("Shield", ball); // 25 % of drops, 5 % of pops
+                        context.dropPowerUp("Shield", enemy); // 25 % of drops, 5 % of pops
                     }
                 }
                 break;
@@ -185,8 +185,8 @@ public final class WaveRushMode extends GameModeDefinition {
     }
 
     @Override
-    public void onBallTouchesPlayer(BallState ball, ModeContext context) {
-        switch (ball.kind) {
+    public void onEnemyTouchesPlayer(EnemyState enemy, ModeContext context) {
+        switch (enemy.kind) {
             case "Tumbleweed":
                 context.damage(1);
                 break;

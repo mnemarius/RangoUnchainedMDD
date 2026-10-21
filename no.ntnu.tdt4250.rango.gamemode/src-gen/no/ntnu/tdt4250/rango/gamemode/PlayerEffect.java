@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Something that happens to the player: when a ball touches them or when they pick up a power-up.
+ * Something that happens to the player: when a enemy touches them or when they pick up a power-up.
  * <!-- end-model-doc -->
  *
  *

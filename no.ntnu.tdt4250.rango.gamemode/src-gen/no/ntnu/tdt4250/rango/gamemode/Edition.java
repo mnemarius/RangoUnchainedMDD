@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * One product of the line. It declares the building blocks it ships (ball types, power-ups, materials, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game.
+ * One product of the line. It declares the building blocks it ships (enemy types, power-ups, materials, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getTitle <em>Title</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getBallTypes <em>Ball Types</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPowerUps <em>Power Ups</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getMaterials <em>Materials</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPlayers <em>Players</em>}</li>
@@ -57,19 +57,19 @@ public interface Edition extends NamedElement {
 	void setTitle(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Ball Types</b></em>' containment reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.BallType}.
+	 * Returns the value of the '<em><b>Enemy Types</b></em>' containment reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.EnemyType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The kinds of balls (enemies) that exist in this edition.
+	 * The kinds of enemies that exist in this edition.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Ball Types</em>' containment reference list.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition_BallTypes()
+	 * @return the value of the '<em>Enemy Types</em>' containment reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition_EnemyTypes()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<BallType> getBallTypes();
+	EList<EnemyType> getEnemyTypes();
 
 	/**
 	 * Returns the value of the '<em><b>Power Ups</b></em>' containment reference list.
@@ -137,7 +137,7 @@ public interface Edition extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What popping each ball type can drop, one table per ball type, in every mode that has no drop tables of its own.
+	 * What popping each enemy type can drop, one table per enemy type, in every mode that has no drop tables of its own.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Drops</em>' containment reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition_Drops()

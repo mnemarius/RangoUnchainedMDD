@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
 
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
@@ -47,9 +47,9 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 	private List<String> facts(EObject object) {
 		List<String> facts = new ArrayList<>();
 		if (object instanceof GameMode mode) {
-			facts.add("Ball types (spawned, or produced by popping): " + names(mode.getBallTypes()));
+			facts.add("Enemy types (spawned, or produced by popping): " + names(mode.getEnemyTypes()));
 			if (mode.getPopsToClear() == GamemodeDerivations.UNBOUNDED) {
-				facts.add("The waves loop: the balls never run out.");
+				facts.add("The waves loop: the enemies never run out.");
 			} else {
 				facts.add("Pops to clear everything: " + mode.getPopsToClear());
 				facts.add("Points for clearing everything: " + mode.getMaxScore()
@@ -64,22 +64,22 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			if (mode.getWinConditions().isEmpty()) {
 				facts.add("Endless: a round only ends when it is lost.");
 			}
-		} else if (object instanceof BallType type) {
-			facts.add("Pops to get rid of a large, medium, small ball: " + GamemodeDerivations.popsFor(type, 3) + ", "
+		} else if (object instanceof EnemyType type) {
+			facts.add("Pops to get rid of a large, medium, small enemy: " + GamemodeDerivations.popsFor(type, 3) + ", "
 					+ GamemodeDerivations.popsFor(type, 2) + ", " + GamemodeDerivations.popsFor(type, 1));
-			facts.add("Points for a large ball and all it breaks into: " + GamemodeDerivations.pointsFor(type, 3));
+			facts.add("Points for a large enemy and all it breaks into: " + GamemodeDerivations.pointsFor(type, 3));
 			if (!type.getProducedTypes().isEmpty()) {
 				facts.add("Breaks into: " + names(type.getProducedTypes()));
 			}
-		} else if (object instanceof BallSpawn spawn) {
+		} else if (object instanceof EnemySpawn spawn) {
 			facts.add("Pops to clear: " + spawn.getPopsToClear());
 		} else if (object instanceof Wave wave) {
 			facts.add("Wave " + wave.getNumber() + ", pops to clear: " + wave.getPopsToClear());
 		} else if (object instanceof SpawnStrategy spawning && spawning.getPopsToClear() != GamemodeDerivations.UNBOUNDED) {
 			facts.add("Pops to clear: " + spawning.getPopsToClear());
 		} else if (object instanceof DropTable table) {
-			String ball = table.getBallType() == null ? "this ball" : table.getBallType().getName();
-			facts.add(factor(table.getChance()) + "% of " + ball + " pops drop a power-up");
+			String enemy = table.getEnemyType() == null ? "this enemy" : table.getEnemyType().getName();
+			facts.add(factor(table.getChance()) + "% of " + enemy + " pops drop a power-up");
 			for (Drop drop : table.getEntries()) {
 				if (drop.getPowerUp() != null) {
 					facts.add(drop.getPowerUp().getName() + ": " + percent(drop.getShare()) + "% of drops, "
@@ -88,7 +88,7 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			}
 		} else if (object instanceof Drop drop) {
 			facts.add(percent(drop.getShare()) + "% of the drops of this table, " + percent(drop.getProbability())
-					+ "% of all pops of its ball type");
+					+ "% of all pops of its enemy type");
 		} else if (object instanceof EndCondition condition) {
 			facts.add(condition.isWin() ? "Wins the round." : "Loses the round.");
 		} else if (object instanceof Teleporter teleporter && teleporter.getTarget() != null) {

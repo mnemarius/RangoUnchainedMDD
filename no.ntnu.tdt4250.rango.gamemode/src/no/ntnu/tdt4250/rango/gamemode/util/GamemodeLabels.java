@@ -7,8 +7,8 @@ import org.eclipse.emf.ecore.EValidator;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 
 /**
- * Names model elements in diagnostic messages the way designers refer to them: "BallType Cactus",
- * or "BallSpawn in GameMode Survival" for elements without a name of their own.
+ * Names model elements in diagnostic messages the way designers refer to them: "EnemyType Cactus",
+ * or "EnemySpawn in GameMode Survival" for elements without a name of their own.
  */
 public class GamemodeLabels implements EValidator.SubstitutionLabelProvider {
 

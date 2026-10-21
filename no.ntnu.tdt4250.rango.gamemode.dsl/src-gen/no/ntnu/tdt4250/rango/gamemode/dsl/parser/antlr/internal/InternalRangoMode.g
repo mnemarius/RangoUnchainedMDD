@@ -121,18 +121,18 @@ ruleEdition returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEditionAccess().getBallTypesBallTypeParserRuleCall_3_0_0());
+						newCompositeNode(grammarAccess.getEditionAccess().getEnemyTypesEnemyTypeParserRuleCall_3_0_0());
 					}
-					lv_ballTypes_3_0=ruleBallType
+					lv_enemyTypes_3_0=ruleEnemyType
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEditionRule());
 						}
 						add(
 							$current,
-							"ballTypes",
-							lv_ballTypes_3_0,
-							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallType");
+							"enemyTypes",
+							lv_enemyTypes_3_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -233,15 +233,15 @@ ruleEdition returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleBallType
-entryRuleBallType returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getBallTypeRule()); }
-	iv_ruleBallType=ruleBallType
-	{ $current=$iv_ruleBallType.current; }
+// Entry rule entryRuleEnemyType
+entryRuleEnemyType returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getEnemyTypeRule()); }
+	iv_ruleEnemyType=ruleEnemyType
+	{ $current=$iv_ruleEnemyType.current; }
 	EOF;
 
-// Rule BallType
-ruleBallType returns [EObject current=null]
+// Rule EnemyType
+ruleEnemyType returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -249,19 +249,19 @@ ruleBallType returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='ball'
+		otherlv_0='enemy'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getBallTypeAccess().getBallKeyword_0());
+			newLeafNode(otherlv_0, grammarAccess.getEnemyTypeAccess().getEnemyKeyword_0());
 		}
 		(
 			(
 				lv_name_1_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getBallTypeAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getEnemyTypeAccess().getNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBallTypeRule());
+						$current = createModelElement(grammarAccess.getEnemyTypeRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -273,33 +273,33 @@ ruleBallType returns [EObject current=null]
 		)
 		otherlv_2='{'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getBallTypeAccess().getLeftCurlyBracketKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getEnemyTypeAccess().getLeftCurlyBracketKeyword_2());
 		}
 		(
 			(
 				{ 
-				  getUnorderedGroupHelper().enter(grammarAccess.getBallTypeAccess().getUnorderedGroup_3());
+				  getUnorderedGroupHelper().enter(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
 				}
 				(
 					(
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 0)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 0);
+						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 0);
 					}
 								({true}?=>(otherlv_4='sprite'
 								{
-									newLeafNode(otherlv_4, grammarAccess.getBallTypeAccess().getSpriteKeyword_3_0_0());
+									newLeafNode(otherlv_4, grammarAccess.getEnemyTypeAccess().getSpriteKeyword_3_0_0());
 								}
 								(
 									(
 										lv_sprite_5_0=RULE_STRING
 										{
-											newLeafNode(lv_sprite_5_0, grammarAccess.getBallTypeAccess().getSpriteSTRINGTerminalRuleCall_3_0_1_0());
+											newLeafNode(lv_sprite_5_0, grammarAccess.getEnemyTypeAccess().getSpriteSTRINGTerminalRuleCall_3_0_1_0());
 										}
 										{
 											if ($current==null) {
-												$current = createModelElement(grammarAccess.getBallTypeRule());
+												$current = createModelElement(grammarAccess.getEnemyTypeRule());
 											}
 											setWithLastConsumed(
 												$current,
@@ -311,28 +311,28 @@ ruleBallType returns [EObject current=null]
 								)
 								))
 					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getBallTypeAccess().getUnorderedGroup_3());
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
 					}
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 1)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 1);
+						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 1);
 					}
 								({true}?=>(otherlv_6='scale'
 								{
-									newLeafNode(otherlv_6, grammarAccess.getBallTypeAccess().getScaleKeyword_3_1_0());
+									newLeafNode(otherlv_6, grammarAccess.getEnemyTypeAccess().getScaleKeyword_3_1_0());
 								}
 								(
 									(
 										{
-											newCompositeNode(grammarAccess.getBallTypeAccess().getScaleDecimalParserRuleCall_3_1_1_0());
+											newCompositeNode(grammarAccess.getEnemyTypeAccess().getScaleDecimalParserRuleCall_3_1_1_0());
 										}
 										lv_scale_7_0=ruleDecimal
 										{
 											if ($current==null) {
-												$current = createModelElementForParent(grammarAccess.getBallTypeRule());
+												$current = createModelElementForParent(grammarAccess.getEnemyTypeRule());
 											}
 											set(
 												$current,
@@ -345,28 +345,28 @@ ruleBallType returns [EObject current=null]
 								)
 								))
 					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getBallTypeAccess().getUnorderedGroup_3());
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
 					}
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 2)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 2)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 2);
+						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 2);
 					}
 								({true}?=>(otherlv_8='bounce'
 								{
-									newLeafNode(otherlv_8, grammarAccess.getBallTypeAccess().getBounceKeyword_3_2_0());
+									newLeafNode(otherlv_8, grammarAccess.getEnemyTypeAccess().getBounceKeyword_3_2_0());
 								}
 								(
 									(
 										{
-											newCompositeNode(grammarAccess.getBallTypeAccess().getBounceDecimalParserRuleCall_3_2_1_0());
+											newCompositeNode(grammarAccess.getEnemyTypeAccess().getBounceDecimalParserRuleCall_3_2_1_0());
 										}
 										lv_bounce_9_0=ruleDecimal
 										{
 											if ($current==null) {
-												$current = createModelElementForParent(grammarAccess.getBallTypeRule());
+												$current = createModelElementForParent(grammarAccess.getEnemyTypeRule());
 											}
 											set(
 												$current,
@@ -379,28 +379,28 @@ ruleBallType returns [EObject current=null]
 								)
 								))
 					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getBallTypeAccess().getUnorderedGroup_3());
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
 					}
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 3)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 3)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 3);
+						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 3);
 					}
 								({true}?=>(otherlv_10='speed'
 								{
-									newLeafNode(otherlv_10, grammarAccess.getBallTypeAccess().getSpeedKeyword_3_3_0());
+									newLeafNode(otherlv_10, grammarAccess.getEnemyTypeAccess().getSpeedKeyword_3_3_0());
 								}
 								(
 									(
 										{
-											newCompositeNode(grammarAccess.getBallTypeAccess().getSpeedDecimalParserRuleCall_3_3_1_0());
+											newCompositeNode(grammarAccess.getEnemyTypeAccess().getSpeedDecimalParserRuleCall_3_3_1_0());
 										}
 										lv_speed_11_0=ruleDecimal
 										{
 											if ($current==null) {
-												$current = createModelElementForParent(grammarAccess.getBallTypeRule());
+												$current = createModelElementForParent(grammarAccess.getEnemyTypeRule());
 											}
 											set(
 												$current,
@@ -413,28 +413,28 @@ ruleBallType returns [EObject current=null]
 								)
 								))
 					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getBallTypeAccess().getUnorderedGroup_3());
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
 					}
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 4)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 4)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getBallTypeAccess().getUnorderedGroup_3(), 4);
+						getUnorderedGroupHelper().select(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3(), 4);
 					}
 								({true}?=>(otherlv_12='points'
 								{
-									newLeafNode(otherlv_12, grammarAccess.getBallTypeAccess().getPointsKeyword_3_4_0());
+									newLeafNode(otherlv_12, grammarAccess.getEnemyTypeAccess().getPointsKeyword_3_4_0());
 								}
 								(
 									(
 										lv_points_13_0=RULE_INT
 										{
-											newLeafNode(lv_points_13_0, grammarAccess.getBallTypeAccess().getPointsINTTerminalRuleCall_3_4_1_0());
+											newLeafNode(lv_points_13_0, grammarAccess.getEnemyTypeAccess().getPointsINTTerminalRuleCall_3_4_1_0());
 										}
 										{
 											if ($current==null) {
-												$current = createModelElement(grammarAccess.getBallTypeRule());
+												$current = createModelElement(grammarAccess.getEnemyTypeRule());
 											}
 											setWithLastConsumed(
 												$current,
@@ -446,39 +446,39 @@ ruleBallType returns [EObject current=null]
 								)
 								))
 					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getBallTypeAccess().getUnorderedGroup_3());
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
 					}
 				)
 			)
 					)+
-					{getUnorderedGroupHelper().canLeave(grammarAccess.getBallTypeAccess().getUnorderedGroup_3())}?
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3())}?
 				)
 			)
 				{ 
-				  getUnorderedGroupHelper().leave(grammarAccess.getBallTypeAccess().getUnorderedGroup_3());
+				  getUnorderedGroupHelper().leave(grammarAccess.getEnemyTypeAccess().getUnorderedGroup_3());
 				}
 		)
 		otherlv_14='on'
 		{
-			newLeafNode(otherlv_14, grammarAccess.getBallTypeAccess().getOnKeyword_4());
+			newLeafNode(otherlv_14, grammarAccess.getEnemyTypeAccess().getOnKeyword_4());
 		}
 		otherlv_15='pop'
 		{
-			newLeafNode(otherlv_15, grammarAccess.getBallTypeAccess().getPopKeyword_5());
+			newLeafNode(otherlv_15, grammarAccess.getEnemyTypeAccess().getPopKeyword_5());
 		}
 		otherlv_16=':'
 		{
-			newLeafNode(otherlv_16, grammarAccess.getBallTypeAccess().getColonKeyword_6());
+			newLeafNode(otherlv_16, grammarAccess.getEnemyTypeAccess().getColonKeyword_6());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getBallTypeAccess().getSplitRuleSplitRuleParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getEnemyTypeAccess().getSplitRuleSplitRuleParserRuleCall_7_0());
 				}
 				lv_splitRule_17_0=ruleSplitRule
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getBallTypeRule());
+						$current = createModelElementForParent(grammarAccess.getEnemyTypeRule());
 					}
 					set(
 						$current,
@@ -491,25 +491,25 @@ ruleBallType returns [EObject current=null]
 		)
 		otherlv_18='on'
 		{
-			newLeafNode(otherlv_18, grammarAccess.getBallTypeAccess().getOnKeyword_8());
+			newLeafNode(otherlv_18, grammarAccess.getEnemyTypeAccess().getOnKeyword_8());
 		}
 		otherlv_19='contact'
 		{
-			newLeafNode(otherlv_19, grammarAccess.getBallTypeAccess().getContactKeyword_9());
+			newLeafNode(otherlv_19, grammarAccess.getEnemyTypeAccess().getContactKeyword_9());
 		}
 		otherlv_20=':'
 		{
-			newLeafNode(otherlv_20, grammarAccess.getBallTypeAccess().getColonKeyword_10());
+			newLeafNode(otherlv_20, grammarAccess.getEnemyTypeAccess().getColonKeyword_10());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getBallTypeAccess().getContactEffectsPlayerEffectParserRuleCall_11_0());
+					newCompositeNode(grammarAccess.getEnemyTypeAccess().getContactEffectsPlayerEffectParserRuleCall_11_0());
 				}
 				lv_contactEffects_21_0=rulePlayerEffect
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getBallTypeRule());
+						$current = createModelElementForParent(grammarAccess.getEnemyTypeRule());
 					}
 					add(
 						$current,
@@ -523,17 +523,17 @@ ruleBallType returns [EObject current=null]
 		(
 			otherlv_22=','
 			{
-				newLeafNode(otherlv_22, grammarAccess.getBallTypeAccess().getCommaKeyword_12_0());
+				newLeafNode(otherlv_22, grammarAccess.getEnemyTypeAccess().getCommaKeyword_12_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getBallTypeAccess().getContactEffectsPlayerEffectParserRuleCall_12_1_0());
+						newCompositeNode(grammarAccess.getEnemyTypeAccess().getContactEffectsPlayerEffectParserRuleCall_12_1_0());
 					}
 					lv_contactEffects_23_0=rulePlayerEffect
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getBallTypeRule());
+							$current = createModelElementForParent(grammarAccess.getEnemyTypeRule());
 						}
 						add(
 							$current,
@@ -547,7 +547,7 @@ ruleBallType returns [EObject current=null]
 		)*
 		otherlv_24='}'
 		{
-			newLeafNode(otherlv_24, grammarAccess.getBallTypeAccess().getRightCurlyBracketKeyword_13());
+			newLeafNode(otherlv_24, grammarAccess.getEnemyTypeAccess().getRightCurlyBracketKeyword_13());
 		}
 	)
 ;
@@ -583,15 +583,6 @@ ruleSplitRule returns [EObject current=null]
 		this_Split_1=ruleSplit
 		{
 			$current = $this_Split_1.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getSplitRuleAccess().getBurstParserRuleCall_2());
-		}
-		this_Burst_2=ruleBurst
-		{
-			$current = $this_Burst_2.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -678,7 +669,7 @@ ruleSplit returns [EObject current=null]
 				}
 				otherlv_3=RULE_ID
 				{
-					newLeafNode(otherlv_3, grammarAccess.getSplitAccess().getFragmentTypeBallTypeCrossReference_3_0());
+					newLeafNode(otherlv_3, grammarAccess.getSplitAccess().getFragmentTypeEnemyTypeCrossReference_3_0());
 				}
 			)
 		)?
@@ -700,93 +691,6 @@ ruleSplit returns [EObject current=null]
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getSplitRule());
-						}
-						set(
-							$current,
-							"launchSpeed",
-							lv_launchSpeed_6_0,
-							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-		)?
-	)
-;
-
-// Entry rule entryRuleBurst
-entryRuleBurst returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getBurstRule()); }
-	iv_ruleBurst=ruleBurst
-	{ $current=$iv_ruleBurst.current; }
-	EOF;
-
-// Rule Burst
-ruleBurst returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='burst'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getBurstAccess().getBurstKeyword_0());
-		}
-		otherlv_1='into'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getBurstAccess().getIntoKeyword_1());
-		}
-		(
-			(
-				lv_fragments_2_0=RULE_INT
-				{
-					newLeafNode(lv_fragments_2_0, grammarAccess.getBurstAccess().getFragmentsINTTerminalRuleCall_2_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBurstRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"fragments",
-						lv_fragments_2_0,
-						"org.eclipse.xtext.common.Terminals.INT");
-				}
-			)
-		)
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBurstRule());
-					}
-				}
-				otherlv_3=RULE_ID
-				{
-					newLeafNode(otherlv_3, grammarAccess.getBurstAccess().getFragmentTypeBallTypeCrossReference_3_0());
-				}
-			)
-		)?
-		(
-			otherlv_4='launched'
-			{
-				newLeafNode(otherlv_4, grammarAccess.getBurstAccess().getLaunchedKeyword_4_0());
-			}
-			otherlv_5='at'
-			{
-				newLeafNode(otherlv_5, grammarAccess.getBurstAccess().getAtKeyword_4_1());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getBurstAccess().getLaunchSpeedDecimalParserRuleCall_4_2_0());
-					}
-					lv_launchSpeed_6_0=ruleDecimal
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getBurstRule());
 						}
 						set(
 							$current,
@@ -2836,9 +2740,9 @@ ruleFixedLayout returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getFixedLayoutAccess().getSpawnsBallSpawnParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getFixedLayoutAccess().getSpawnsEnemySpawnParserRuleCall_2_0());
 				}
-				lv_spawns_2_0=ruleBallSpawn
+				lv_spawns_2_0=ruleEnemySpawn
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getFixedLayoutRule());
@@ -2847,7 +2751,7 @@ ruleFixedLayout returns [EObject current=null]
 						$current,
 						"spawns",
 						lv_spawns_2_0,
-						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallSpawn");
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemySpawn");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -3009,9 +2913,9 @@ ruleWave returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getWaveAccess().getSpawnsBallSpawnParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getWaveAccess().getSpawnsEnemySpawnParserRuleCall_3_0());
 				}
-				lv_spawns_5_0=ruleBallSpawn
+				lv_spawns_5_0=ruleEnemySpawn
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getWaveRule());
@@ -3020,7 +2924,7 @@ ruleWave returns [EObject current=null]
 						$current,
 						"spawns",
 						lv_spawns_5_0,
-						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.BallSpawn");
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemySpawn");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -3032,15 +2936,15 @@ ruleWave returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleBallSpawn
-entryRuleBallSpawn returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getBallSpawnRule()); }
-	iv_ruleBallSpawn=ruleBallSpawn
-	{ $current=$iv_ruleBallSpawn.current; }
+// Entry rule entryRuleEnemySpawn
+entryRuleEnemySpawn returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getEnemySpawnRule()); }
+	iv_ruleEnemySpawn=ruleEnemySpawn
+	{ $current=$iv_ruleEnemySpawn.current; }
 	EOF;
 
-// Rule BallSpawn
-ruleBallSpawn returns [EObject current=null]
+// Rule EnemySpawn
+ruleEnemySpawn returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -3053,11 +2957,11 @@ ruleBallSpawn returns [EObject current=null]
 				(
 					lv_count_0_0=RULE_INT
 					{
-						newLeafNode(lv_count_0_0, grammarAccess.getBallSpawnAccess().getCountINTTerminalRuleCall_0_0_0());
+						newLeafNode(lv_count_0_0, grammarAccess.getEnemySpawnAccess().getCountINTTerminalRuleCall_0_0_0());
 					}
 					{
 						if ($current==null) {
-							$current = createModelElement(grammarAccess.getBallSpawnRule());
+							$current = createModelElement(grammarAccess.getEnemySpawnRule());
 						}
 						setWithLastConsumed(
 							$current,
@@ -3069,35 +2973,35 @@ ruleBallSpawn returns [EObject current=null]
 			)
 			otherlv_1='*'
 			{
-				newLeafNode(otherlv_1, grammarAccess.getBallSpawnAccess().getAsteriskKeyword_0_1());
+				newLeafNode(otherlv_1, grammarAccess.getEnemySpawnAccess().getAsteriskKeyword_0_1());
 			}
 		)?
 		(
 			(
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBallSpawnRule());
+						$current = createModelElement(grammarAccess.getEnemySpawnRule());
 					}
 				}
 				otherlv_2=RULE_ID
 				{
-					newLeafNode(otherlv_2, grammarAccess.getBallSpawnAccess().getTypeBallTypeCrossReference_1_0());
+					newLeafNode(otherlv_2, grammarAccess.getEnemySpawnAccess().getTypeEnemyTypeCrossReference_1_0());
 				}
 			)
 		)
 		otherlv_3='size'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getBallSpawnAccess().getSizeKeyword_2());
+			newLeafNode(otherlv_3, grammarAccess.getEnemySpawnAccess().getSizeKeyword_2());
 		}
 		(
 			(
 				lv_size_4_0=RULE_INT
 				{
-					newLeafNode(lv_size_4_0, grammarAccess.getBallSpawnAccess().getSizeINTTerminalRuleCall_3_0());
+					newLeafNode(lv_size_4_0, grammarAccess.getEnemySpawnAccess().getSizeINTTerminalRuleCall_3_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBallSpawnRule());
+						$current = createModelElement(grammarAccess.getEnemySpawnRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -3109,9 +3013,9 @@ ruleBallSpawn returns [EObject current=null]
 		)
 		{
 			if ($current==null) {
-				$current = createModelElement(grammarAccess.getBallSpawnRule());
+				$current = createModelElement(grammarAccess.getEnemySpawnRule());
 			}
-			newCompositeNode(grammarAccess.getBallSpawnAccess().getAtParserRuleCall_4());
+			newCompositeNode(grammarAccess.getEnemySpawnAccess().getAtParserRuleCall_4());
 		}
 		this_At_5=ruleAt[$current]
 		{
@@ -3121,17 +3025,17 @@ ruleBallSpawn returns [EObject current=null]
 		(
 			otherlv_6='moving'
 			{
-				newLeafNode(otherlv_6, grammarAccess.getBallSpawnAccess().getMovingKeyword_5_0());
+				newLeafNode(otherlv_6, grammarAccess.getEnemySpawnAccess().getMovingKeyword_5_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getBallSpawnAccess().getDirectionDirectionEnumRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getEnemySpawnAccess().getDirectionDirectionEnumRuleCall_5_1_0());
 					}
 					lv_direction_7_0=ruleDirection
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getBallSpawnRule());
+							$current = createModelElementForParent(grammarAccess.getEnemySpawnRule());
 						}
 						set(
 							$current,
@@ -3215,7 +3119,7 @@ ruleDropTable returns [EObject current=null]
 				}
 				otherlv_0=RULE_ID
 				{
-					newLeafNode(otherlv_0, grammarAccess.getDropTableAccess().getBallTypeBallTypeCrossReference_0_0());
+					newLeafNode(otherlv_0, grammarAccess.getDropTableAccess().getEnemyTypeEnemyTypeCrossReference_0_0());
 				}
 			)
 		)
@@ -3397,11 +3301,11 @@ ruleEndCondition returns [EObject current=null]
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getBallsPoppedParserRuleCall_3());
+			newCompositeNode(grammarAccess.getEndConditionAccess().getEnemiesPoppedParserRuleCall_3());
 		}
-		this_BallsPopped_3=ruleBallsPopped
+		this_EnemiesPopped_3=ruleEnemiesPopped
 		{
-			$current = $this_BallsPopped_3.current;
+			$current = $this_EnemiesPopped_3.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -3424,11 +3328,11 @@ ruleEndCondition returns [EObject current=null]
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getBallsAliveParserRuleCall_6());
+			newCompositeNode(grammarAccess.getEndConditionAccess().getEnemiesAliveParserRuleCall_6());
 		}
-		this_BallsAlive_6=ruleBallsAlive
+		this_EnemiesAlive_6=ruleEnemiesAlive
 		{
-			$current = $this_BallsAlive_6.current;
+			$current = $this_EnemiesAlive_6.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -3461,9 +3365,9 @@ ruleCleared returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getClearedAccess().getAllKeyword_1());
 		}
-		otherlv_2='balls'
+		otherlv_2='enemies'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getClearedAccess().getBallsKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getClearedAccess().getEnemiesKeyword_2());
 		}
 		otherlv_3='cleared'
 		{
@@ -3567,15 +3471,15 @@ ruleScoreReached returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleBallsPopped
-entryRuleBallsPopped returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getBallsPoppedRule()); }
-	iv_ruleBallsPopped=ruleBallsPopped
-	{ $current=$iv_ruleBallsPopped.current; }
+// Entry rule entryRuleEnemiesPopped
+entryRuleEnemiesPopped returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getEnemiesPoppedRule()); }
+	iv_ruleEnemiesPopped=ruleEnemiesPopped
+	{ $current=$iv_ruleEnemiesPopped.current; }
 	EOF;
 
-// Rule BallsPopped
-ruleBallsPopped returns [EObject current=null]
+// Rule EnemiesPopped
+ruleEnemiesPopped returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -3587,11 +3491,11 @@ ruleBallsPopped returns [EObject current=null]
 			(
 				lv_count_0_0=RULE_INT
 				{
-					newLeafNode(lv_count_0_0, grammarAccess.getBallsPoppedAccess().getCountINTTerminalRuleCall_0_0());
+					newLeafNode(lv_count_0_0, grammarAccess.getEnemiesPoppedAccess().getCountINTTerminalRuleCall_0_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBallsPoppedRule());
+						$current = createModelElement(grammarAccess.getEnemiesPoppedRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -3601,13 +3505,13 @@ ruleBallsPopped returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_1='balls'
+		otherlv_1='enemies'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getBallsPoppedAccess().getBallsKeyword_1());
+			newLeafNode(otherlv_1, grammarAccess.getEnemiesPoppedAccess().getEnemiesKeyword_1());
 		}
 		otherlv_2='popped'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getBallsPoppedAccess().getPoppedKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getEnemiesPoppedAccess().getPoppedKeyword_2());
 		}
 	)
 ;
@@ -3691,15 +3595,15 @@ ruleHealthDepleted returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleBallsAlive
-entryRuleBallsAlive returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getBallsAliveRule()); }
-	iv_ruleBallsAlive=ruleBallsAlive
-	{ $current=$iv_ruleBallsAlive.current; }
+// Entry rule entryRuleEnemiesAlive
+entryRuleEnemiesAlive returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getEnemiesAliveRule()); }
+	iv_ruleEnemiesAlive=ruleEnemiesAlive
+	{ $current=$iv_ruleEnemiesAlive.current; }
 	EOF;
 
-// Rule BallsAlive
-ruleBallsAlive returns [EObject current=null]
+// Rule EnemiesAlive
+ruleEnemiesAlive returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -3711,11 +3615,11 @@ ruleBallsAlive returns [EObject current=null]
 			(
 				lv_count_0_0=RULE_INT
 				{
-					newLeafNode(lv_count_0_0, grammarAccess.getBallsAliveAccess().getCountINTTerminalRuleCall_0_0());
+					newLeafNode(lv_count_0_0, grammarAccess.getEnemiesAliveAccess().getCountINTTerminalRuleCall_0_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getBallsAliveRule());
+						$current = createModelElement(grammarAccess.getEnemiesAliveRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -3725,13 +3629,13 @@ ruleBallsAlive returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_1='balls'
+		otherlv_1='enemies'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getBallsAliveAccess().getBallsKeyword_1());
+			newLeafNode(otherlv_1, grammarAccess.getEnemiesAliveAccess().getEnemiesKeyword_1());
 		}
 		otherlv_2='alive'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getBallsAliveAccess().getAliveKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getEnemiesAliveAccess().getAliveKeyword_2());
 		}
 	)
 ;
@@ -3794,10 +3698,10 @@ ruleTarget returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_1='balls'
+			enumLiteral_1='enemies'
 			{
-				$current = grammarAccess.getTargetAccess().getBALLSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_1, grammarAccess.getTargetAccess().getBALLSEnumLiteralDeclaration_1());
+				$current = grammarAccess.getTargetAccess().getENEMIESEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getTargetAccess().getENEMIESEnumLiteralDeclaration_1());
 			}
 		)
 		    |

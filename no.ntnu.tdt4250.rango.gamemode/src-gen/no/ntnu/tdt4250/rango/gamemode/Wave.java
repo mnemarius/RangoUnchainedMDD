@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A group of balls that enter the arena together.
+ * A group of enemies that enter the arena together.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -59,7 +59,7 @@ public interface Wave extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Spawns</b></em>' containment reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.BallSpawn}.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Spawns</em>' containment reference list.
@@ -67,7 +67,7 @@ public interface Wave extends EObject {
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EList<BallSpawn> getSpawns();
+	EList<EnemySpawn> getSpawns();
 
 	/**
 	 * Returns the value of the '<em><b>Number</b></em>' attribute.

@@ -12,12 +12,12 @@ public class TriggerComponent implements Component {
         void enter(Entity entity);
     }
 
-    public final boolean balls;
+    public final boolean enemies;
     public final boolean player;
     public final Action action;
 
-    public TriggerComponent(boolean balls, boolean player, Action action) {
-        this.balls = balls;
+    public TriggerComponent(boolean enemies, boolean player, Action action) {
+        this.enemies = enemies;
         this.player = player;
         this.action = action;
     }

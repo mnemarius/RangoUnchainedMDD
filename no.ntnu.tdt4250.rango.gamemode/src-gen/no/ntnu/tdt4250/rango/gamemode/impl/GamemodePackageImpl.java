@@ -3,12 +3,11 @@
 package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
-import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Block;
-import no.ntnu.tdt4250.rango.gamemode.Burst;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Direction;
@@ -17,7 +16,6 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
-import no.ntnu.tdt4250.rango.gamemode.Fragmenting;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -93,7 +91,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ballTypeEClass = null;
+	private EClass enemyTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -114,21 +112,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass fragmentingEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass splitEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass burstEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -289,7 +273,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ballSpawnEClass = null;
+	private EClass enemySpawnEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -338,7 +322,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ballsPoppedEClass = null;
+	private EClass enemiesPoppedEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -359,7 +343,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ballsAliveEClass = null;
+	private EClass enemiesAliveEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -521,7 +505,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getEdition_BallTypes() {
+	public EReference getEdition_EnemyTypes() {
 		return (EReference)editionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -581,8 +565,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getBallType() {
-		return ballTypeEClass;
+	public EClass getEnemyType() {
+		return enemyTypeEClass;
 	}
 
 	/**
@@ -591,8 +575,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallType_Sprite() {
-		return (EAttribute)ballTypeEClass.getEStructuralFeatures().get(0);
+	public EAttribute getEnemyType_Sprite() {
+		return (EAttribute)enemyTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -601,8 +585,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallType_Scale() {
-		return (EAttribute)ballTypeEClass.getEStructuralFeatures().get(1);
+	public EAttribute getEnemyType_Scale() {
+		return (EAttribute)enemyTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -611,8 +595,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallType_Bounce() {
-		return (EAttribute)ballTypeEClass.getEStructuralFeatures().get(2);
+	public EAttribute getEnemyType_Bounce() {
+		return (EAttribute)enemyTypeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -621,8 +605,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallType_Speed() {
-		return (EAttribute)ballTypeEClass.getEStructuralFeatures().get(3);
+	public EAttribute getEnemyType_Speed() {
+		return (EAttribute)enemyTypeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -631,8 +615,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallType_Points() {
-		return (EAttribute)ballTypeEClass.getEStructuralFeatures().get(4);
+	public EAttribute getEnemyType_Points() {
+		return (EAttribute)enemyTypeEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -641,8 +625,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getBallType_SplitRule() {
-		return (EReference)ballTypeEClass.getEStructuralFeatures().get(5);
+	public EReference getEnemyType_SplitRule() {
+		return (EReference)enemyTypeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -651,8 +635,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getBallType_ContactEffects() {
-		return (EReference)ballTypeEClass.getEStructuralFeatures().get(6);
+	public EReference getEnemyType_ContactEffects() {
+		return (EReference)enemyTypeEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -661,8 +645,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getBallType_ProducedTypes() {
-		return (EReference)ballTypeEClass.getEStructuralFeatures().get(7);
+	public EReference getEnemyType_ProducedTypes() {
+		return (EReference)enemyTypeEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -691,56 +675,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getFragmenting() {
-		return fragmentingEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getFragmenting_Fragments() {
-		return (EAttribute)fragmentingEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getFragmenting_FragmentType() {
-		return (EReference)fragmentingEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getFragmenting_LaunchSpeed() {
-		return (EAttribute)fragmentingEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getFragmenting_ResultType() {
-		return (EReference)fragmentingEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getSplit() {
 		return splitEClass;
 	}
@@ -751,8 +685,48 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getBurst() {
-		return burstEClass;
+	public EAttribute getSplit_Fragments() {
+		return (EAttribute)splitEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getSplit_FragmentType() {
+		return (EReference)splitEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSplit_LaunchSpeed() {
+		return (EAttribute)splitEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getSplit_ResultType() {
+		return (EReference)splitEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSplit_Spacing() {
+		return (EAttribute)splitEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1071,7 +1045,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_BallTypes() {
+	public EReference getGameMode_EnemyTypes() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1521,8 +1495,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getBallSpawn() {
-		return ballSpawnEClass;
+	public EClass getEnemySpawn() {
+		return enemySpawnEClass;
 	}
 
 	/**
@@ -1531,8 +1505,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getBallSpawn_Type() {
-		return (EReference)ballSpawnEClass.getEStructuralFeatures().get(0);
+	public EReference getEnemySpawn_Type() {
+		return (EReference)enemySpawnEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1541,8 +1515,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallSpawn_Size() {
-		return (EAttribute)ballSpawnEClass.getEStructuralFeatures().get(1);
+	public EAttribute getEnemySpawn_Size() {
+		return (EAttribute)enemySpawnEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1551,8 +1525,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallSpawn_Count() {
-		return (EAttribute)ballSpawnEClass.getEStructuralFeatures().get(2);
+	public EAttribute getEnemySpawn_Count() {
+		return (EAttribute)enemySpawnEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1561,8 +1535,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallSpawn_Direction() {
-		return (EAttribute)ballSpawnEClass.getEStructuralFeatures().get(3);
+	public EAttribute getEnemySpawn_Direction() {
+		return (EAttribute)enemySpawnEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1571,8 +1545,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallSpawn_PopsToClear() {
-		return (EAttribute)ballSpawnEClass.getEStructuralFeatures().get(4);
+	public EAttribute getEnemySpawn_PopsToClear() {
+		return (EAttribute)enemySpawnEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1621,7 +1595,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getDropTable_BallType() {
+	public EReference getDropTable_EnemyType() {
 		return (EReference)dropTableEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1761,8 +1735,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getBallsPopped() {
-		return ballsPoppedEClass;
+	public EClass getEnemiesPopped() {
+		return enemiesPoppedEClass;
 	}
 
 	/**
@@ -1771,8 +1745,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallsPopped_Count() {
-		return (EAttribute)ballsPoppedEClass.getEStructuralFeatures().get(0);
+	public EAttribute getEnemiesPopped_Count() {
+		return (EAttribute)enemiesPoppedEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1811,8 +1785,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getBallsAlive() {
-		return ballsAliveEClass;
+	public EClass getEnemiesAlive() {
+		return enemiesAliveEClass;
 	}
 
 	/**
@@ -1821,8 +1795,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBallsAlive_Count() {
-		return (EAttribute)ballsAliveEClass.getEStructuralFeatures().get(0);
+	public EAttribute getEnemiesAlive_Count() {
+		return (EAttribute)enemiesAliveEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1883,36 +1857,33 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		editionEClass = createEClass(EDITION);
 		createEAttribute(editionEClass, EDITION__TITLE);
-		createEReference(editionEClass, EDITION__BALL_TYPES);
+		createEReference(editionEClass, EDITION__ENEMY_TYPES);
 		createEReference(editionEClass, EDITION__POWER_UPS);
 		createEReference(editionEClass, EDITION__MATERIALS);
 		createEReference(editionEClass, EDITION__PLAYERS);
 		createEReference(editionEClass, EDITION__MODES);
 		createEReference(editionEClass, EDITION__DROPS);
 
-		ballTypeEClass = createEClass(BALL_TYPE);
-		createEAttribute(ballTypeEClass, BALL_TYPE__SPRITE);
-		createEAttribute(ballTypeEClass, BALL_TYPE__SCALE);
-		createEAttribute(ballTypeEClass, BALL_TYPE__BOUNCE);
-		createEAttribute(ballTypeEClass, BALL_TYPE__SPEED);
-		createEAttribute(ballTypeEClass, BALL_TYPE__POINTS);
-		createEReference(ballTypeEClass, BALL_TYPE__SPLIT_RULE);
-		createEReference(ballTypeEClass, BALL_TYPE__CONTACT_EFFECTS);
-		createEReference(ballTypeEClass, BALL_TYPE__PRODUCED_TYPES);
+		enemyTypeEClass = createEClass(ENEMY_TYPE);
+		createEAttribute(enemyTypeEClass, ENEMY_TYPE__SPRITE);
+		createEAttribute(enemyTypeEClass, ENEMY_TYPE__SCALE);
+		createEAttribute(enemyTypeEClass, ENEMY_TYPE__BOUNCE);
+		createEAttribute(enemyTypeEClass, ENEMY_TYPE__SPEED);
+		createEAttribute(enemyTypeEClass, ENEMY_TYPE__POINTS);
+		createEReference(enemyTypeEClass, ENEMY_TYPE__SPLIT_RULE);
+		createEReference(enemyTypeEClass, ENEMY_TYPE__CONTACT_EFFECTS);
+		createEReference(enemyTypeEClass, ENEMY_TYPE__PRODUCED_TYPES);
 
 		splitRuleEClass = createEClass(SPLIT_RULE);
 
 		vanishEClass = createEClass(VANISH);
 
-		fragmentingEClass = createEClass(FRAGMENTING);
-		createEAttribute(fragmentingEClass, FRAGMENTING__FRAGMENTS);
-		createEReference(fragmentingEClass, FRAGMENTING__FRAGMENT_TYPE);
-		createEAttribute(fragmentingEClass, FRAGMENTING__LAUNCH_SPEED);
-		createEReference(fragmentingEClass, FRAGMENTING__RESULT_TYPE);
-
 		splitEClass = createEClass(SPLIT);
-
-		burstEClass = createEClass(BURST);
+		createEAttribute(splitEClass, SPLIT__FRAGMENTS);
+		createEReference(splitEClass, SPLIT__FRAGMENT_TYPE);
+		createEAttribute(splitEClass, SPLIT__LAUNCH_SPEED);
+		createEReference(splitEClass, SPLIT__RESULT_TYPE);
+		createEAttribute(splitEClass, SPLIT__SPACING);
 
 		playerEffectEClass = createEClass(PLAYER_EFFECT);
 
@@ -1955,7 +1926,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(gameModeEClass, GAME_MODE__TITLE);
 		createEAttribute(gameModeEClass, GAME_MODE__DESCRIPTION);
 		createEReference(gameModeEClass, GAME_MODE__PLAYER);
-		createEReference(gameModeEClass, GAME_MODE__BALL_TYPES);
+		createEReference(gameModeEClass, GAME_MODE__ENEMY_TYPES);
 		createEAttribute(gameModeEClass, GAME_MODE__GRAVITY);
 		createEReference(gameModeEClass, GAME_MODE__SPEED_BONUS);
 		createEReference(gameModeEClass, GAME_MODE__ARENA);
@@ -2012,18 +1983,18 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(waveEClass, WAVE__NUMBER);
 		createEAttribute(waveEClass, WAVE__POPS_TO_CLEAR);
 
-		ballSpawnEClass = createEClass(BALL_SPAWN);
-		createEReference(ballSpawnEClass, BALL_SPAWN__TYPE);
-		createEAttribute(ballSpawnEClass, BALL_SPAWN__SIZE);
-		createEAttribute(ballSpawnEClass, BALL_SPAWN__COUNT);
-		createEAttribute(ballSpawnEClass, BALL_SPAWN__DIRECTION);
-		createEAttribute(ballSpawnEClass, BALL_SPAWN__POPS_TO_CLEAR);
+		enemySpawnEClass = createEClass(ENEMY_SPAWN);
+		createEReference(enemySpawnEClass, ENEMY_SPAWN__TYPE);
+		createEAttribute(enemySpawnEClass, ENEMY_SPAWN__SIZE);
+		createEAttribute(enemySpawnEClass, ENEMY_SPAWN__COUNT);
+		createEAttribute(enemySpawnEClass, ENEMY_SPAWN__DIRECTION);
+		createEAttribute(enemySpawnEClass, ENEMY_SPAWN__POPS_TO_CLEAR);
 
 		dropTableEClass = createEClass(DROP_TABLE);
 		createEAttribute(dropTableEClass, DROP_TABLE__CHANCE);
 		createEReference(dropTableEClass, DROP_TABLE__ENTRIES);
 		createEAttribute(dropTableEClass, DROP_TABLE__TOTAL_WEIGHT);
-		createEReference(dropTableEClass, DROP_TABLE__BALL_TYPE);
+		createEReference(dropTableEClass, DROP_TABLE__ENEMY_TYPE);
 
 		dropEClass = createEClass(DROP);
 		createEReference(dropEClass, DROP__TABLE);
@@ -2043,16 +2014,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		scoreReachedEClass = createEClass(SCORE_REACHED);
 		createEAttribute(scoreReachedEClass, SCORE_REACHED__POINTS);
 
-		ballsPoppedEClass = createEClass(BALLS_POPPED);
-		createEAttribute(ballsPoppedEClass, BALLS_POPPED__COUNT);
+		enemiesPoppedEClass = createEClass(ENEMIES_POPPED);
+		createEAttribute(enemiesPoppedEClass, ENEMIES_POPPED__COUNT);
 
 		wavesSurvivedEClass = createEClass(WAVES_SURVIVED);
 		createEAttribute(wavesSurvivedEClass, WAVES_SURVIVED__COUNT);
 
 		healthDepletedEClass = createEClass(HEALTH_DEPLETED);
 
-		ballsAliveEClass = createEClass(BALLS_ALIVE);
-		createEAttribute(ballsAliveEClass, BALLS_ALIVE__COUNT);
+		enemiesAliveEClass = createEClass(ENEMIES_ALIVE);
+		createEAttribute(enemiesAliveEClass, ENEMIES_ALIVE__COUNT);
 
 		// Create enums
 		targetEEnum = createEEnum(TARGET);
@@ -2088,11 +2059,9 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		// Add supertypes to classes
 		editionEClass.getESuperTypes().add(this.getNamedElement());
-		ballTypeEClass.getESuperTypes().add(this.getNamedElement());
+		enemyTypeEClass.getESuperTypes().add(this.getNamedElement());
 		vanishEClass.getESuperTypes().add(this.getSplitRule());
-		fragmentingEClass.getESuperTypes().add(this.getSplitRule());
-		splitEClass.getESuperTypes().add(this.getFragmenting());
-		burstEClass.getESuperTypes().add(this.getFragmenting());
+		splitEClass.getESuperTypes().add(this.getSplitRule());
 		damageEClass.getESuperTypes().add(this.getPlayerEffect());
 		healEClass.getESuperTypes().add(this.getPlayerEffect());
 		timedEffectEClass.getESuperTypes().add(this.getPlayerEffect());
@@ -2111,14 +2080,14 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		teleporterEClass.getESuperTypes().add(this.getTrigger());
 		fixedLayoutEClass.getESuperTypes().add(this.getSpawnStrategy());
 		waveScheduleEClass.getESuperTypes().add(this.getSpawnStrategy());
-		ballSpawnEClass.getESuperTypes().add(this.getPositioned());
+		enemySpawnEClass.getESuperTypes().add(this.getPositioned());
 		clearedEClass.getESuperTypes().add(this.getEndCondition());
 		timeReachedEClass.getESuperTypes().add(this.getEndCondition());
 		scoreReachedEClass.getESuperTypes().add(this.getEndCondition());
-		ballsPoppedEClass.getESuperTypes().add(this.getEndCondition());
+		enemiesPoppedEClass.getESuperTypes().add(this.getEndCondition());
 		wavesSurvivedEClass.getESuperTypes().add(this.getEndCondition());
 		healthDepletedEClass.getESuperTypes().add(this.getEndCondition());
-		ballsAliveEClass.getESuperTypes().add(this.getEndCondition());
+		enemiesAliveEClass.getESuperTypes().add(this.getEndCondition());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2130,36 +2099,33 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		initEClass(editionEClass, Edition.class, "Edition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEdition_Title(), ecorePackage.getEString(), "title", null, 0, 1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEdition_BallTypes(), this.getBallType(), null, "ballTypes", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEdition_EnemyTypes(), this.getEnemyType(), null, "enemyTypes", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_PowerUps(), this.getPowerUp(), null, "powerUps", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Materials(), this.getMaterial(), null, "materials", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Players(), this.getPlayerProfile(), null, "players", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Modes(), this.getGameMode(), null, "modes", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Drops(), this.getDropTable(), null, "drops", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ballTypeEClass, BallType.class, "BallType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBallType_Sprite(), ecorePackage.getEString(), "sprite", null, 1, 1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallType_Scale(), ecorePackage.getEFloat(), "scale", "1.0", 0, 1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallType_Bounce(), ecorePackage.getEFloat(), "bounce", "1.0", 0, 1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallType_Speed(), ecorePackage.getEFloat(), "speed", "5.0", 0, 1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallType_Points(), ecorePackage.getEInt(), "points", "10", 0, 1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBallType_SplitRule(), this.getSplitRule(), null, "splitRule", null, 1, 1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBallType_ContactEffects(), this.getPlayerEffect(), null, "contactEffects", null, 1, -1, BallType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBallType_ProducedTypes(), this.getBallType(), null, "producedTypes", null, 0, -1, BallType.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEClass(enemyTypeEClass, EnemyType.class, "EnemyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEnemyType_Sprite(), ecorePackage.getEString(), "sprite", null, 1, 1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemyType_Scale(), ecorePackage.getEFloat(), "scale", "1.0", 0, 1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemyType_Bounce(), ecorePackage.getEFloat(), "bounce", "1.0", 0, 1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemyType_Speed(), ecorePackage.getEFloat(), "speed", "5.0", 0, 1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemyType_Points(), ecorePackage.getEInt(), "points", "10", 0, 1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnemyType_SplitRule(), this.getSplitRule(), null, "splitRule", null, 1, 1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnemyType_ContactEffects(), this.getPlayerEffect(), null, "contactEffects", null, 1, -1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnemyType_ProducedTypes(), this.getEnemyType(), null, "producedTypes", null, 0, -1, EnemyType.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(splitRuleEClass, SplitRule.class, "SplitRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(vanishEClass, Vanish.class, "Vanish", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(fragmentingEClass, Fragmenting.class, "Fragmenting", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFragmenting_Fragments(), ecorePackage.getEInt(), "fragments", null, 1, 1, Fragmenting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFragmenting_FragmentType(), this.getBallType(), null, "fragmentType", null, 0, 1, Fragmenting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFragmenting_LaunchSpeed(), ecorePackage.getEFloat(), "launchSpeed", "5.0", 0, 1, Fragmenting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFragmenting_ResultType(), this.getBallType(), null, "resultType", null, 1, 1, Fragmenting.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
 		initEClass(splitEClass, Split.class, "Split", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(burstEClass, Burst.class, "Burst", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSplit_Fragments(), ecorePackage.getEInt(), "fragments", null, 1, 1, Split.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSplit_FragmentType(), this.getEnemyType(), null, "fragmentType", null, 0, 1, Split.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSplit_LaunchSpeed(), ecorePackage.getEFloat(), "launchSpeed", "5.0", 0, 1, Split.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSplit_ResultType(), this.getEnemyType(), null, "resultType", null, 1, 1, Split.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSplit_Spacing(), ecorePackage.getEFloat(), "spacing", null, 1, 1, Split.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(playerEffectEClass, PlayerEffect.class, "PlayerEffect", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2202,7 +2168,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getGameMode_Title(), ecorePackage.getEString(), "title", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_Description(), ecorePackage.getEString(), "description", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Player(), this.getPlayerProfile(), null, "player", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGameMode_BallTypes(), this.getBallType(), null, "ballTypes", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_EnemyTypes(), this.getEnemyType(), null, "enemyTypes", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_Gravity(), ecorePackage.getEFloat(), "gravity", "10.0", 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_SpeedBonus(), this.getSpeedBonus(), null, "speedBonus", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Arena(), this.getArena(), null, "arena", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2246,7 +2212,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getSpawnStrategy_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, SpawnStrategy.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(fixedLayoutEClass, FixedLayout.class, "FixedLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFixedLayout_Spawns(), this.getBallSpawn(), null, "spawns", null, 1, -1, FixedLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFixedLayout_Spawns(), this.getEnemySpawn(), null, "spawns", null, 1, -1, FixedLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(waveScheduleEClass, WaveSchedule.class, "WaveSchedule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWaveSchedule_Loop(), ecorePackage.getEBoolean(), "loop", null, 0, 1, WaveSchedule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2255,22 +2221,22 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		initEClass(waveEClass, Wave.class, "Wave", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWave_Delay(), ecorePackage.getEFloat(), "delay", "0.0", 0, 1, Wave.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getWave_Spawns(), this.getBallSpawn(), null, "spawns", null, 1, -1, Wave.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWave_Spawns(), this.getEnemySpawn(), null, "spawns", null, 1, -1, Wave.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWave_Number(), ecorePackage.getEInt(), "number", null, 0, 1, Wave.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWave_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, Wave.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
-		initEClass(ballSpawnEClass, BallSpawn.class, "BallSpawn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBallSpawn_Type(), this.getBallType(), null, "type", null, 1, 1, BallSpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallSpawn_Size(), ecorePackage.getEInt(), "size", "3", 0, 1, BallSpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallSpawn_Count(), ecorePackage.getEInt(), "count", "1", 0, 1, BallSpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallSpawn_Direction(), this.getDirection(), "direction", "right", 0, 1, BallSpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBallSpawn_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, BallSpawn.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEClass(enemySpawnEClass, EnemySpawn.class, "EnemySpawn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnemySpawn_Type(), this.getEnemyType(), null, "type", null, 1, 1, EnemySpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemySpawn_Size(), ecorePackage.getEInt(), "size", "3", 0, 1, EnemySpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemySpawn_Count(), ecorePackage.getEInt(), "count", "1", 0, 1, EnemySpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemySpawn_Direction(), this.getDirection(), "direction", "right", 0, 1, EnemySpawn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnemySpawn_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, EnemySpawn.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(dropTableEClass, DropTable.class, "DropTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDropTable_Chance(), ecorePackage.getEFloat(), "chance", null, 1, 1, DropTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDropTable_Entries(), this.getDrop(), this.getDrop_Table(), "entries", null, 1, -1, DropTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDropTable_TotalWeight(), ecorePackage.getEInt(), "totalWeight", null, 0, 1, DropTable.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getDropTable_BallType(), this.getBallType(), null, "ballType", null, 1, 1, DropTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDropTable_EnemyType(), this.getEnemyType(), null, "enemyType", null, 1, 1, DropTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dropEClass, Drop.class, "Drop", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDrop_Table(), this.getDropTable(), this.getDropTable_Entries(), "table", null, 1, 1, Drop.class, IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2290,21 +2256,21 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEClass(scoreReachedEClass, ScoreReached.class, "ScoreReached", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getScoreReached_Points(), ecorePackage.getEInt(), "points", null, 1, 1, ScoreReached.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ballsPoppedEClass, BallsPopped.class, "BallsPopped", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBallsPopped_Count(), ecorePackage.getEInt(), "count", null, 1, 1, BallsPopped.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(enemiesPoppedEClass, EnemiesPopped.class, "EnemiesPopped", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEnemiesPopped_Count(), ecorePackage.getEInt(), "count", null, 1, 1, EnemiesPopped.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wavesSurvivedEClass, WavesSurvived.class, "WavesSurvived", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWavesSurvived_Count(), ecorePackage.getEInt(), "count", null, 1, 1, WavesSurvived.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(healthDepletedEClass, HealthDepleted.class, "HealthDepleted", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(ballsAliveEClass, BallsAlive.class, "BallsAlive", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBallsAlive_Count(), ecorePackage.getEInt(), "count", null, 1, 1, BallsAlive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(enemiesAliveEClass, EnemiesAlive.class, "EnemiesAlive", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEnemiesAlive_Count(), ecorePackage.getEInt(), "count", null, 1, 1, EnemiesAlive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(targetEEnum, Target.class, "Target");
 		addEEnumLiteral(targetEEnum, Target.ALL);
-		addEEnumLiteral(targetEEnum, Target.BALLS);
+		addEEnumLiteral(targetEEnum, Target.ENEMIES);
 		addEEnumLiteral(targetEEnum, Target.PLAYER);
 
 		initEEnum(directionEEnum, Direction.class, "Direction");
@@ -2350,22 +2316,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "constraints", "insideArena"
 		   });
 		addAnnotation
-		  (ballTypeEClass,
+		  (enemyTypeEClass,
 		   source,
 		   new String[] {
 			   "constraints", "positiveScale positiveBounce positiveSpeed nonNegativePoints distinctEffectKinds"
 		   });
 		addAnnotation
-		  (fragmentingEClass,
+		  (splitEClass,
 		   source,
 		   new String[] {
-			   "constraints", "atLeastOneFragment positiveLaunchSpeed"
-		   });
-		addAnnotation
-		  (burstEClass,
-		   source,
-		   new String[] {
-			   "constraints", "enoughFragmentsToBurst"
+			   "constraints", "atLeastOneFragment atMostSixteenFragments positiveLaunchSpeed"
 		   });
 		addAnnotation
 		  (damageEClass,
@@ -2419,7 +2379,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (gameModeEClass,
 		   source,
 		   new String[] {
-			   "constraints", "positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyBallDrops"
+			   "constraints", "positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyEnemyDrops"
 		   });
 		addAnnotation
 		  (speedBonusEClass,
@@ -2464,7 +2424,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "constraints", "nonNegativeDelay"
 		   });
 		addAnnotation
-		  (ballSpawnEClass,
+		  (enemySpawnEClass,
 		   source,
 		   new String[] {
 			   "constraints", "sizeInRange positiveCount"
@@ -2473,7 +2433,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (dropTableEClass,
 		   source,
 		   new String[] {
-			   "constraints", "chanceIsPercentage distinctPowerUps oneTablePerBall"
+			   "constraints", "chanceIsPercentage distinctPowerUps oneTablePerEnemy"
 		   });
 		addAnnotation
 		  (dropEClass,
@@ -2500,7 +2460,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "constraints", "positivePoints"
 		   });
 		addAnnotation
-		  (ballsPoppedEClass,
+		  (enemiesPoppedEClass,
 		   source,
 		   new String[] {
 			   "constraints", "positiveCount"
@@ -2512,7 +2472,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "constraints", "positiveCount"
 		   });
 		addAnnotation
-		  (ballsAliveEClass,
+		  (enemiesAliveEClass,
 		   source,
 		   new String[] {
 			   "constraints", "positiveCount"
@@ -2534,7 +2494,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "insideArena", "x >= 0 and x <= 100 and y >= 0 and y <= 100"
 		   });
 		addAnnotation
-		  (ballTypeEClass,
+		  (enemyTypeEClass,
 		   source,
 		   new String[] {
 			   "positiveScale", "scale > 0",
@@ -2543,17 +2503,12 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "nonNegativePoints", "points >= 0"
 		   });
 		addAnnotation
-		  (fragmentingEClass,
+		  (splitEClass,
 		   source,
 		   new String[] {
 			   "atLeastOneFragment", "fragments >= 1",
+			   "atMostSixteenFragments", "fragments <= 16",
 			   "positiveLaunchSpeed", "launchSpeed > 0"
-		   });
-		addAnnotation
-		  (burstEClass,
-		   source,
-		   new String[] {
-			   "enoughFragmentsToBurst", "fragments >= 3"
 		   });
 		addAnnotation
 		  (damageEClass,
@@ -2653,7 +2608,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "nonNegativeDelay", "delay >= 0"
 		   });
 		addAnnotation
-		  (ballSpawnEClass,
+		  (enemySpawnEClass,
 		   source,
 		   new String[] {
 			   "sizeInRange", "size >= 1 and size <= 3",
@@ -2685,7 +2640,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "positivePoints", "points > 0"
 		   });
 		addAnnotation
-		  (ballsPoppedEClass,
+		  (enemiesPoppedEClass,
 		   source,
 		   new String[] {
 			   "positiveCount", "count > 0"
@@ -2697,7 +2652,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "positiveCount", "count > 0"
 		   });
 		addAnnotation
-		  (ballsAliveEClass,
+		  (enemiesAliveEClass,
 		   source,
 		   new String[] {
 			   "positiveCount", "count > 0"

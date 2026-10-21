@@ -9,7 +9,7 @@ package no.ntnu.tdt4250.rango.gamemode;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A solid rectangle that balls bounce off and the player cannot walk through.
+ * A solid rectangle that enemies bounce off and the player cannot walk through.
  * <!-- end-model-doc -->
  *
  * <p>

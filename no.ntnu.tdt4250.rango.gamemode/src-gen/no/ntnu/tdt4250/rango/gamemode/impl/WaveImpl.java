@@ -5,7 +5,7 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 import java.util.Collection;
 
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 
@@ -68,7 +68,7 @@ public class WaveImpl extends EObjectImpl implements Wave {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<BallSpawn> spawns;
+	protected EList<EnemySpawn> spawns;
 
 	/**
 	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
@@ -138,9 +138,9 @@ public class WaveImpl extends EObjectImpl implements Wave {
 	 * @generated
 	 */
 	@Override
-	public EList<BallSpawn> getSpawns() {
+	public EList<EnemySpawn> getSpawns() {
 		if (spawns == null) {
-			spawns = new EObjectContainmentEList<BallSpawn>(BallSpawn.class, this, GamemodePackage.WAVE__SPAWNS);
+			spawns = new EObjectContainmentEList<EnemySpawn>(EnemySpawn.class, this, GamemodePackage.WAVE__SPAWNS);
 		}
 		return spawns;
 	}
@@ -213,7 +213,7 @@ public class WaveImpl extends EObjectImpl implements Wave {
 				return;
 			case GamemodePackage.WAVE__SPAWNS:
 				getSpawns().clear();
-				getSpawns().addAll((Collection<? extends BallSpawn>)newValue);
+				getSpawns().addAll((Collection<? extends EnemySpawn>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

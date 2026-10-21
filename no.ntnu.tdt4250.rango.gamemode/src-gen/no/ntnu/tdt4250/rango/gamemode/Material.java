@@ -9,7 +9,7 @@ package no.ntnu.tdt4250.rango.gamemode;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A surface. It changes how fast balls rebound from floors, walls and blocks made of it.
+ * A surface. It changes how fast enemies rebound from floors, walls and blocks made of it.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -32,7 +32,7 @@ public interface Material extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What the speed of a rebounding ball is multiplied by: below 1 dampens (ice), above 1 springs (grass).
+	 * What the speed of a rebounding enemy is multiplied by: below 1 dampens (ice), above 1 springs (grass).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bounce</em>' attribute.
 	 * @see #setBounce(float)

@@ -12,7 +12,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 Edition returns Edition:
 	'edition' name=ID (title=STRING)?
-	(	ballTypes+=BallType
+	(	enemyTypes+=EnemyType
 	|	powerUps+=PowerUp
 	|	materials+=Material
 	|	players+=PlayerProfile
@@ -21,16 +21,16 @@ Edition returns Edition:
 	)*;
 
 // ---------------------------------------------------------------------------------------------
-// Ball types: tuning in any order, then what happens on a pop and on contact with the player.
+// Enemy types: tuning in any order, then what happens on a pop and on contact with the player.
 //
-//   ball Cactus {
-//       sprite "Ball/Cactus.png" scale 1.2 points 15
+//   enemy Cactus {
+//       sprite "Enemy/Cactus.png" scale 1.2 points 15
 //       on pop: split into 1
 //       on contact: damage 1, poison 1 every 2 s for 6 s
 //   }
 
-BallType returns BallType:
-	'ball' name=ID '{'
+EnemyType returns EnemyType:
+	'enemy' name=ID '{'
 	(	('sprite' sprite=STRING)
 	&	('scale' scale=Decimal)?
 	&	('bounce' bounce=Decimal)?
@@ -42,19 +42,18 @@ BallType returns BallType:
 	'}';
 
 SplitRule returns SplitRule:
-	Vanish | Split | Burst;
+	Vanish | Split;
 
 Vanish returns Vanish:
 	{Vanish} 'vanish';
 
+// The number of fragments decides the pattern: two fan out as in the original game, eight or more
+// fly off all around the popped enemy.
 Split returns Split:
-	'split' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
-
-Burst returns Burst:
-	'burst' 'into' fragments=INT (fragmentType=[BallType])? ('launched' 'at' launchSpeed=Decimal)?;
+	'split' 'into' fragments=INT (fragmentType=[EnemyType])? ('launched' 'at' launchSpeed=Decimal)?;
 
 // ---------------------------------------------------------------------------------------------
-// Effects on the player, shared by ball contacts and power-ups.
+// Effects on the player, shared by enemy contacts and power-ups.
 
 PlayerEffect returns PlayerEffect:
 	Damage | Heal | Shield | SpeedChange | Poison;
@@ -119,7 +118,7 @@ GameMode returns GameMode:
 	'}';
 
 // Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
-// the points of its ball type.
+// the points of its enemy type.
 
 SpeedBonus returns SpeedBonus:
 	{SpeedBonus} 'speed' 'bonus' ('up' 'to' maxFactor=Decimal 'times')? ('over' duration=Decimal 's')?;
@@ -153,7 +152,7 @@ Teleporter returns Teleporter:
 	'teleporter' name=ID At 'to' target=[Teleporter] ('affects' affects=Target)?;
 
 enum Target returns Target:
-	ALL='everything' | BALLS='balls' | PLAYER='player';
+	ALL='everything' | ENEMIES='enemies' | PLAYER='player';
 
 // ---------------------------------------------------------------------------------------------
 // Spawning: a fixed layout, or waves.
@@ -167,22 +166,22 @@ SpawnStrategy returns SpawnStrategy:
 	FixedLayout | WaveSchedule;
 
 FixedLayout returns FixedLayout:
-	'layout' '{' (spawns+=BallSpawn)+ '}';
+	'layout' '{' (spawns+=EnemySpawn)+ '}';
 
 WaveSchedule returns WaveSchedule:
 	'waves' (loop?='looping' ('escalate' 'by' escalation=INT)?)? '{' (waves+=Wave)+ '}';
 
 Wave returns Wave:
-	'wave' ('after' delay=Decimal 's')? '{' (spawns+=BallSpawn)+ '}';
+	'wave' ('after' delay=Decimal 's')? '{' (spawns+=EnemySpawn)+ '}';
 
-BallSpawn returns BallSpawn:
-	(count=INT '*')? type=[BallType] 'size' size=INT At ('moving' direction=Direction)?;
+EnemySpawn returns EnemySpawn:
+	(count=INT '*')? type=[EnemyType] 'size' size=INT At ('moving' direction=Direction)?;
 
 enum Direction returns Direction:
 	LEFT='left' | RIGHT='right';
 
 // ---------------------------------------------------------------------------------------------
-// Drops and end conditions. Each ball type has its own drop table: the chance that popping it drops
+// Drops and end conditions. Each enemy type has its own drop table: the chance that popping it drops
 // a power-up, and which power-up, by weight. The tables of a mode replace those of the edition.
 //
 //   drops {
@@ -194,16 +193,16 @@ fragment Drops*:
 	'drops' '{' drops+=DropTable+ '}';
 
 DropTable returns DropTable:
-	ballType=[BallType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
+	enemyType=[EnemyType] chance=Decimal '%' '{' entries+=Drop (',' entries+=Drop)* '}';
 
 Drop returns Drop:
 	powerUp=[PowerUp] ('weight' weight=INT)?;
 
 EndCondition returns EndCondition:
-	Cleared | TimeReached | ScoreReached | BallsPopped | WavesSurvived | HealthDepleted | BallsAlive;
+	Cleared | TimeReached | ScoreReached | EnemiesPopped | WavesSurvived | HealthDepleted | EnemiesAlive;
 
 Cleared returns Cleared:
-	{Cleared} 'all' 'balls' 'cleared';
+	{Cleared} 'all' 'enemies' 'cleared';
 
 TimeReached returns TimeReached:
 	'time' 'reaches' seconds=Decimal 's';
@@ -211,8 +210,8 @@ TimeReached returns TimeReached:
 ScoreReached returns ScoreReached:
 	'score' 'reaches' points=INT;
 
-BallsPopped returns BallsPopped:
-	count=INT 'balls' 'popped';
+EnemiesPopped returns EnemiesPopped:
+	count=INT 'enemies' 'popped';
 
 WavesSurvived returns WavesSurvived:
 	count=INT 'waves' 'survived';
@@ -220,8 +219,8 @@ WavesSurvived returns WavesSurvived:
 HealthDepleted returns HealthDepleted:
 	{HealthDepleted} 'health' 'depleted';
 
-BallsAlive returns BallsAlive:
-	count=INT 'balls' 'alive';
+EnemiesAlive returns EnemiesAlive:
+	count=INT 'enemies' 'alive';
 
 // ---------------------------------------------------------------------------------------------
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import no.ntnu.tdt4250.rango.gamemode.Fragmenting;
+import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 
 /** The derived features of the metamodel, on the fixture edition. */
@@ -19,27 +19,42 @@ public class DerivedFeaturesTest {
 
 	@Test
 	public void resultTypeDefaultsToTheOwningType() {
-		assertSame(f.tumbleweed, ((Fragmenting) f.tumbleweed.getSplitRule()).getResultType());
-		assertSame(f.tumbleweed, ((Fragmenting) f.bomb.getSplitRule()).getResultType());
+		assertSame(f.tumbleweed, ((Split) f.tumbleweed.getSplitRule()).getResultType());
+		assertSame(f.tumbleweed, ((Split) f.bomb.getSplitRule()).getResultType());
 		assertEquals(List.of(f.tumbleweed), f.bomb.getProducedTypes());
 	}
 
 	@Test
-	public void ballTypesAreTheSpawnedTypesAndWhatTheyProduce() {
-		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getBallTypes());
-		// only a Bomb is spawned, but it bursts into Tumbleweeds; the edition's order is kept
-		f.layout.getSpawns().remove(0);
-		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getBallTypes());
-		// a Tumbleweed only splits into Tumbleweeds
-		f.layout.getSpawns().set(0, ModelFixture.spawn(f.tumbleweed, 3, 1));
-		assertEquals(List.of(f.tumbleweed), f.clear.getBallTypes());
+	public void spacingClosesIntoARingAtEight() {
+		Split rule = (Split) f.bomb.getSplitRule();
+		// up to a full ring, fragments leave 45 degrees apart: two fan out, eight go all the way round
+		for (int fragments : new int[] { 1, 2, 4, 8 }) {
+			rule.setFragments(fragments);
+			assertEquals(45f, rule.getSpacing(), 1e-4f);
+		}
+		// more fragments close the gaps evenly
+		rule.setFragments(9);
+		assertEquals(40f, rule.getSpacing(), 1e-4f);
+		rule.setFragments(12);
+		assertEquals(30f, rule.getSpacing(), 1e-4f);
 	}
 
 	@Test
-	public void ballTypesFollowCyclesOnce() {
-		((Fragmenting) f.tumbleweed.getSplitRule()).setFragmentType(f.bomb);
+	public void enemyTypesAreTheSpawnedTypesAndWhatTheyProduce() {
+		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getEnemyTypes());
+		// only a Bomb is spawned, but it splits into Tumbleweeds; the edition's order is kept
+		f.layout.getSpawns().remove(0);
+		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getEnemyTypes());
+		// a Tumbleweed only splits into Tumbleweeds
+		f.layout.getSpawns().set(0, ModelFixture.spawn(f.tumbleweed, 3, 1));
+		assertEquals(List.of(f.tumbleweed), f.clear.getEnemyTypes());
+	}
+
+	@Test
+	public void enemyTypesFollowCyclesOnce() {
+		((Split) f.tumbleweed.getSplitRule()).setFragmentType(f.bomb);
 		f.layout.getSpawns().remove(1);
-		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getBallTypes());
+		assertEquals(List.of(f.tumbleweed, f.bomb), f.clear.getEnemyTypes());
 	}
 
 	@Test

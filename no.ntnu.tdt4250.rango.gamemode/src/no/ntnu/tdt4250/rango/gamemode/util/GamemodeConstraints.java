@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import no.ntnu.tdt4250.rango.gamemode.BallType;
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
-import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
@@ -87,7 +87,7 @@ public final class GamemodeConstraints {
 		return violations;
 	}
 
-	/** A ball type or power-up has at most one effect of each kind: two shields would just overlap. */
+	/** A enemy type or power-up has at most one effect of each kind: two shields would just overlap. */
 	public static List<Violation> distinctEffectKinds(EObject owner, List<PlayerEffect> effects) {
 		List<Violation> violations = new ArrayList<>();
 		Set<EClass> seen = new HashSet<>();
@@ -118,13 +118,13 @@ public final class GamemodeConstraints {
 				}
 			}
 		}
-		int initialBalls = GamemodeDerivations.initialBalls(mode.getSpawning());
+		int initialEnemies = GamemodeDerivations.initialEnemies(mode.getSpawning());
 		for (EndCondition lose : mode.getLoseConditions()) {
-			if (lose instanceof BallsAlive overrun && overrun.getCount() <= initialBalls) {
+			if (lose instanceof EnemiesAlive overrun && overrun.getCount() <= initialEnemies) {
 				violations.add(new Violation(LOST_AT_START,
-						"The round starts with " + initialBalls + " balls, so it would be lost at once by having "
-								+ overrun.getCount() + " balls alive",
-						overrun, GamemodePackage.Literals.BALLS_ALIVE__COUNT));
+						"The round starts with " + initialEnemies + " enemies, so it would be lost at once by having "
+								+ overrun.getCount() + " enemies alive",
+						overrun, GamemodePackage.Literals.ENEMIES_ALIVE__COUNT));
 			}
 		}
 		return violations;
@@ -148,12 +148,12 @@ public final class GamemodeConstraints {
 							"The mode only has " + schedule.getWaves().size() + " waves, and they do not loop",
 							win, GamemodePackage.Literals.WAVES_SURVIVED__COUNT));
 				}
-			} else if (win instanceof BallsPopped popped) {
+			} else if (win instanceof EnemiesPopped popped) {
 				int available = mode.getPopsToClear();
 				if (available != GamemodeDerivations.UNBOUNDED && popped.getCount() > available) {
 					violations.add(new Violation(CONDITION_UNREACHABLE,
 							"Only " + available + " pops are possible in this mode",
-							win, GamemodePackage.Literals.BALLS_POPPED__COUNT));
+							win, GamemodePackage.Literals.ENEMIES_POPPED__COUNT));
 				}
 			} else if (win instanceof ScoreReached score) {
 				int maxScore = mode.getMaxScore();
@@ -170,7 +170,7 @@ public final class GamemodeConstraints {
 	}
 
 	/**
-	 * A mode without win conditions keeps sending balls (its waves loop); otherwise the round would
+	 * A mode without win conditions keeps sending enemies (its waves loop); otherwise the round would
 	 * never end once everything has been popped.
 	 */
 	public static List<Violation> endsSomehow(GameMode mode) {
@@ -178,7 +178,7 @@ public final class GamemodeConstraints {
 		boolean looping = mode.getSpawning() instanceof WaveSchedule schedule && schedule.isLoop();
 		if (mode.getWinConditions().isEmpty() && !looping) {
 			violations.add(new Violation(NEVER_ENDS,
-					"Mode " + mode.getName() + " has no win condition and its balls run out, so a round could never end",
+					"Mode " + mode.getName() + " has no win condition and its enemies run out, so a round could never end",
 					mode, GamemodePackage.Literals.GAME_MODE__WIN_CONDITIONS));
 		}
 		return violations;
@@ -195,7 +195,7 @@ public final class GamemodeConstraints {
 			return violations;
 		}
 		List<PlayerEffect> effects = new ArrayList<>();
-		for (BallType type : mode.getBallTypes()) {
+		for (EnemyType type : mode.getEnemyTypes()) {
 			effects.addAll(type.getContactEffects());
 		}
 		for (PowerUp powerUp : mode.getPowerUps()) {
@@ -215,9 +215,9 @@ public final class GamemodeConstraints {
 		if (condition.eContainer() == null) {
 			return violations;
 		}
-		boolean loseOnly = condition instanceof HealthDepleted || condition instanceof BallsAlive;
+		boolean loseOnly = condition instanceof HealthDepleted || condition instanceof EnemiesAlive;
 		boolean winOnly = condition instanceof Cleared || condition instanceof ScoreReached
-				|| condition instanceof BallsPopped || condition instanceof WavesSurvived;
+				|| condition instanceof EnemiesPopped || condition instanceof WavesSurvived;
 		if (condition.isWin() && loseOnly) {
 			violations.add(new Violation(WRONG_ROLE,
 					"A " + condition.eClass().getName() + " condition can only lose a round", condition, null));
@@ -241,12 +241,12 @@ public final class GamemodeConstraints {
 	}
 
 	/**
-	 * Every ball type that can appear in a mode has a drop table there, so that popping any ball has a
+	 * Every enemy type that can appear in a mode has a drop table there, so that popping any enemy has a
 	 * chance to drop a power-up. The table is the mode's own or, if the mode has none, the edition's.
 	 */
-	public static List<Violation> everyBallDrops(GameMode mode) {
+	public static List<Violation> everyEnemyDrops(GameMode mode) {
 		List<Violation> violations = new ArrayList<>();
-		for (BallType type : mode.getBallTypes()) {
+		for (EnemyType type : mode.getEnemyTypes()) {
 			if (GamemodeDerivations.dropTableFor(mode, type) == null) {
 				violations.add(new Violation(NO_DROP_TABLE,
 						type.getName() + " can appear in mode " + mode.getName() + " but has no drop table ("
@@ -257,22 +257,22 @@ public final class GamemodeConstraints {
 		return violations;
 	}
 
-	/** A list of drop tables, of a mode or of the edition, has at most one table per ball type. */
-	public static List<Violation> oneTablePerBall(DropTable table) {
+	/** A list of drop tables, of a mode or of the edition, has at most one table per enemy type. */
+	public static List<Violation> oneTablePerEnemy(DropTable table) {
 		List<Violation> violations = new ArrayList<>();
 		EObject container = table.eContainer();
 		EStructuralFeature feature = table.eContainingFeature();
-		if (container == null || table.getBallType() == null || !feature.isMany()) {
+		if (container == null || table.getEnemyType() == null || !feature.isMany()) {
 			return violations;
 		}
 		for (Object sibling : (List<?>) container.eGet(feature)) {
 			if (sibling == table) {
 				break;
 			}
-			if (sibling instanceof DropTable other && other.getBallType() == table.getBallType()) {
+			if (sibling instanceof DropTable other && other.getEnemyType() == table.getEnemyType()) {
 				violations.add(new Violation(DUPLICATE_DROP_TABLE,
-						"There is already a drop table for " + table.getBallType().getName(),
-						table, GamemodePackage.Literals.DROP_TABLE__BALL_TYPE));
+						"There is already a drop table for " + table.getEnemyType().getName(),
+						table, GamemodePackage.Literals.DROP_TABLE__ENEMY_TYPE));
 				break;
 			}
 		}

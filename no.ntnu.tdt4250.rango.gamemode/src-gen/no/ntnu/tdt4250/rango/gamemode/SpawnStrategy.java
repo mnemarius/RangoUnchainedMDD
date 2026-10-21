@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * How the balls of a mode enter the arena.
+ * How the enemies of a mode enter the arena.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -30,7 +30,7 @@ public interface SpawnStrategy extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The tongue hits needed to pop every ball spawned, counting all fragments. -1 if the strategy never runs out of balls.
+	 * The tongue hits needed to pop every enemy spawned, counting all fragments. -1 if the strategy never runs out of enemies.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Pops To Clear</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getSpawnStrategy_PopsToClear()

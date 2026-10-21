@@ -43,7 +43,7 @@ public class TutorialSystem implements Systems {
         data.dimension.x = 300;
         data.dimension.y = 300;
         data.typeInfo = new TypeInfo();
-        data.typeInfo.type = "Ball";
+        data.typeInfo.type = "Enemy";
         data.typeInfo.subType = "Tumbleweed";
         data.typeInfo.size = 2;
         data.velocity = new Vector2(2,2);
@@ -53,7 +53,7 @@ public class TutorialSystem implements Systems {
         data2.dimension.x = 300;
         data2.dimension.y = 300;
         data2.typeInfo = new TypeInfo();
-        data2.typeInfo.type = "Ball";
+        data2.typeInfo.type = "Enemy";
         data2.typeInfo.subType = "Armedillo";
         data2.typeInfo.size = 2;
         data2.velocity = new Vector2(2,2);
@@ -66,7 +66,7 @@ public class TutorialSystem implements Systems {
             new ShootStrategy(),
 
             new KillEnemyStrategy(data,1, "shoot the armedillo to split it",15),
-            new KillCountStep(2, 15,"when the armedillo splits, shoot the small balls"),
+            new KillCountStep(2, 15,"when the armedillo splits, shoot the small enemies"),
             new NoteStrategy(2,"if enemies hit you, you lose a heart"),
             new KillEnemyStrategy(data2,2, "there are different types of enemies",15),
             new NoteStrategy(5,"smaller enemies bounce lower!"),
@@ -108,8 +108,8 @@ public class TutorialSystem implements Systems {
         tutorialManager.getCurrentContext().right = input.isRight()|| tutorialManager.getCurrentContext().right;
     }
 
-    public void flagBallKilled() {
-        tutorialManager.getCurrentContext().amountBallsKilled ++;
+    public void flagEnemyKilled() {
+        tutorialManager.getCurrentContext().amountEnemiesKilled ++;
     }
 
     public String getTutorialMessage(){

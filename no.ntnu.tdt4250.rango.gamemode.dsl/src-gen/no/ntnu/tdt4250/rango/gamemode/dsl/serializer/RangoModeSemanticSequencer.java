@@ -6,17 +6,16 @@ package no.ntnu.tdt4250.rango.gamemode.dsl.serializer;
 import com.google.inject.Inject;
 import java.util.Set;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
-import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
 import no.ntnu.tdt4250.rango.gamemode.Block;
-import no.ntnu.tdt4250.rango.gamemode.Burst;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -66,23 +65,8 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case GamemodePackage.ARENA:
 				sequence_Arena(context, (Arena) semanticObject); 
 				return; 
-			case GamemodePackage.BALL_SPAWN:
-				sequence_At_BallSpawn(context, (BallSpawn) semanticObject); 
-				return; 
-			case GamemodePackage.BALL_TYPE:
-				sequence_BallType(context, (BallType) semanticObject); 
-				return; 
-			case GamemodePackage.BALLS_ALIVE:
-				sequence_BallsAlive(context, (BallsAlive) semanticObject); 
-				return; 
-			case GamemodePackage.BALLS_POPPED:
-				sequence_BallsPopped(context, (BallsPopped) semanticObject); 
-				return; 
 			case GamemodePackage.BLOCK:
 				sequence_At_Block(context, (Block) semanticObject); 
-				return; 
-			case GamemodePackage.BURST:
-				sequence_Burst(context, (Burst) semanticObject); 
 				return; 
 			case GamemodePackage.CLEARED:
 				sequence_Cleared(context, (Cleared) semanticObject); 
@@ -98,6 +82,18 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 				return; 
 			case GamemodePackage.EDITION:
 				sequence_Drops_Edition(context, (Edition) semanticObject); 
+				return; 
+			case GamemodePackage.ENEMIES_ALIVE:
+				sequence_EnemiesAlive(context, (EnemiesAlive) semanticObject); 
+				return; 
+			case GamemodePackage.ENEMIES_POPPED:
+				sequence_EnemiesPopped(context, (EnemiesPopped) semanticObject); 
+				return; 
+			case GamemodePackage.ENEMY_SPAWN:
+				sequence_At_EnemySpawn(context, (EnemySpawn) semanticObject); 
+				return; 
+			case GamemodePackage.ENEMY_TYPE:
+				sequence_EnemyType(context, (EnemyType) semanticObject); 
 				return; 
 			case GamemodePackage.FIXED_LAYOUT:
 				sequence_FixedLayout(context, (FixedLayout) semanticObject); 
@@ -181,27 +177,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     BallSpawn returns BallSpawn
-	 *
-	 * Constraint:
-	 *     (
-	 *         count=INT? 
-	 *         type=[BallType|ID] 
-	 *         size=INT 
-	 *         x=Decimal 
-	 *         y=Decimal 
-	 *         direction=Direction?
-	 *     )
-	 * </pre>
-	 */
-	protected void sequence_At_BallSpawn(ISerializationContext context, BallSpawn semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
 	 *     Obstacle returns Block
 	 *     Block returns Block
 	 *
@@ -217,6 +192,27 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 * </pre>
 	 */
 	protected void sequence_At_Block(ISerializationContext context, Block semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     EnemySpawn returns EnemySpawn
+	 *
+	 * Constraint:
+	 *     (
+	 *         count=INT? 
+	 *         type=[EnemyType|ID] 
+	 *         size=INT 
+	 *         x=Decimal 
+	 *         y=Decimal 
+	 *         direction=Direction?
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_At_EnemySpawn(ISerializationContext context, EnemySpawn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -247,83 +243,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 * </pre>
 	 */
 	protected void sequence_At_Teleporter(ISerializationContext context, Teleporter semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     BallType returns BallType
-	 *
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (sprite=STRING | scale=Decimal | bounce=Decimal | speed=Decimal | points=INT)* 
-	 *         splitRule=SplitRule 
-	 *         contactEffects+=PlayerEffect 
-	 *         contactEffects+=PlayerEffect*
-	 *     )
-	 * </pre>
-	 */
-	protected void sequence_BallType(ISerializationContext context, BallType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     EndCondition returns BallsAlive
-	 *     BallsAlive returns BallsAlive
-	 *
-	 * Constraint:
-	 *     count=INT
-	 * </pre>
-	 */
-	protected void sequence_BallsAlive(ISerializationContext context, BallsAlive semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.BALLS_ALIVE__COUNT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.BALLS_ALIVE__COUNT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getBallsAliveAccess().getCountINTTerminalRuleCall_0_0(), semanticObject.getCount());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     EndCondition returns BallsPopped
-	 *     BallsPopped returns BallsPopped
-	 *
-	 * Constraint:
-	 *     count=INT
-	 * </pre>
-	 */
-	protected void sequence_BallsPopped(ISerializationContext context, BallsPopped semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.BALLS_POPPED__COUNT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.BALLS_POPPED__COUNT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getBallsPoppedAccess().getCountINTTerminalRuleCall_0_0(), semanticObject.getCount());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     SplitRule returns Burst
-	 *     Burst returns Burst
-	 *
-	 * Constraint:
-	 *     (fragments=INT fragmentType=[BallType|ID]? launchSpeed=Decimal?)
-	 * </pre>
-	 */
-	protected void sequence_Burst(ISerializationContext context, Burst semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -370,7 +289,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     DropTable returns DropTable
 	 *
 	 * Constraint:
-	 *     (ballType=[BallType|ID] chance=Decimal entries+=Drop entries+=Drop*)
+	 *     (enemyType=[EnemyType|ID] chance=Decimal entries+=Drop entries+=Drop*)
 	 * </pre>
 	 */
 	protected void sequence_DropTable(ISerializationContext context, DropTable semanticObject) {
@@ -402,7 +321,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (
-	 *             ballTypes+=BallType | 
+	 *             enemyTypes+=EnemyType | 
 	 *             powerUps+=PowerUp | 
 	 *             materials+=Material | 
 	 *             players+=PlayerProfile | 
@@ -446,11 +365,73 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     EndCondition returns EnemiesAlive
+	 *     EnemiesAlive returns EnemiesAlive
+	 *
+	 * Constraint:
+	 *     count=INT
+	 * </pre>
+	 */
+	protected void sequence_EnemiesAlive(ISerializationContext context, EnemiesAlive semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.ENEMIES_ALIVE__COUNT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.ENEMIES_ALIVE__COUNT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getEnemiesAliveAccess().getCountINTTerminalRuleCall_0_0(), semanticObject.getCount());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     EndCondition returns EnemiesPopped
+	 *     EnemiesPopped returns EnemiesPopped
+	 *
+	 * Constraint:
+	 *     count=INT
+	 * </pre>
+	 */
+	protected void sequence_EnemiesPopped(ISerializationContext context, EnemiesPopped semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.ENEMIES_POPPED__COUNT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.ENEMIES_POPPED__COUNT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getEnemiesPoppedAccess().getCountINTTerminalRuleCall_0_0(), semanticObject.getCount());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     EnemyType returns EnemyType
+	 *
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (sprite=STRING | scale=Decimal | bounce=Decimal | speed=Decimal | points=INT)* 
+	 *         splitRule=SplitRule 
+	 *         contactEffects+=PlayerEffect 
+	 *         contactEffects+=PlayerEffect*
+	 *     )
+	 * </pre>
+	 */
+	protected void sequence_EnemyType(ISerializationContext context, EnemyType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     SpawnStrategy returns FixedLayout
 	 *     FixedLayout returns FixedLayout
 	 *
 	 * Constraint:
-	 *     spawns+=BallSpawn+
+	 *     spawns+=EnemySpawn+
 	 * </pre>
 	 */
 	protected void sequence_FixedLayout(ISerializationContext context, FixedLayout semanticObject) {
@@ -650,7 +631,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Split returns Split
 	 *
 	 * Constraint:
-	 *     (fragments=INT fragmentType=[BallType|ID]? launchSpeed=Decimal?)
+	 *     (fragments=INT fragmentType=[EnemyType|ID]? launchSpeed=Decimal?)
 	 * </pre>
 	 */
 	protected void sequence_Split(ISerializationContext context, Split semanticObject) {
@@ -715,7 +696,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Wave returns Wave
 	 *
 	 * Constraint:
-	 *     (delay=Decimal? spawns+=BallSpawn+)
+	 *     (delay=Decimal? spawns+=EnemySpawn+)
 	 * </pre>
 	 */
 	protected void sequence_Wave(ISerializationContext context, Wave semanticObject) {

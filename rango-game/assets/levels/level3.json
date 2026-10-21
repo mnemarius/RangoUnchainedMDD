@@ -74,13 +74,13 @@
 
 
 	  {
-      "name": "ball1",
+      "name": "enemy1",
       "dimension": {
         "x": 500,
         "y": 500
       },
       "typeInfo": {
-        "type": "Ball",
+        "type": "Enemy",
         "size":2,
         "subType": "Armedillo"
       },
@@ -89,13 +89,13 @@
       }
       },
       {
-      "name": "ball2",
+      "name": "enemy2",
       "dimension": {
         "x": 1000,
         "y": 500
       },
       "typeInfo": {
-        "type": "Ball",
+        "type": "Enemy",
         "size":2,
         "subType": "Armedillo"
       },
@@ -144,13 +144,13 @@
         }
       },
       {
-        "name": "ball3",
+        "name": "enemy3",
         "dimension": {
           "x": 1000,
           "y": 500
         },
         "typeInfo": {
-          "type": "Ball",
+          "type": "Enemy",
           "size": 3,
           "subType": "Armedillo"
         },

@@ -58,10 +58,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case GamemodePackage.EDITION: return createEdition();
-			case GamemodePackage.BALL_TYPE: return createBallType();
+			case GamemodePackage.ENEMY_TYPE: return createEnemyType();
 			case GamemodePackage.VANISH: return createVanish();
 			case GamemodePackage.SPLIT: return createSplit();
-			case GamemodePackage.BURST: return createBurst();
 			case GamemodePackage.DAMAGE: return createDamage();
 			case GamemodePackage.HEAL: return createHeal();
 			case GamemodePackage.SHIELD: return createShield();
@@ -79,16 +78,16 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 			case GamemodePackage.FIXED_LAYOUT: return createFixedLayout();
 			case GamemodePackage.WAVE_SCHEDULE: return createWaveSchedule();
 			case GamemodePackage.WAVE: return createWave();
-			case GamemodePackage.BALL_SPAWN: return createBallSpawn();
+			case GamemodePackage.ENEMY_SPAWN: return createEnemySpawn();
 			case GamemodePackage.DROP_TABLE: return createDropTable();
 			case GamemodePackage.DROP: return createDrop();
 			case GamemodePackage.CLEARED: return createCleared();
 			case GamemodePackage.TIME_REACHED: return createTimeReached();
 			case GamemodePackage.SCORE_REACHED: return createScoreReached();
-			case GamemodePackage.BALLS_POPPED: return createBallsPopped();
+			case GamemodePackage.ENEMIES_POPPED: return createEnemiesPopped();
 			case GamemodePackage.WAVES_SURVIVED: return createWavesSurvived();
 			case GamemodePackage.HEALTH_DEPLETED: return createHealthDepleted();
-			case GamemodePackage.BALLS_ALIVE: return createBallsAlive();
+			case GamemodePackage.ENEMIES_ALIVE: return createEnemiesAlive();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -145,9 +144,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public BallType createBallType() {
-		BallTypeImpl ballType = new BallTypeImpl();
-		return ballType;
+	public EnemyType createEnemyType() {
+		EnemyTypeImpl enemyType = new EnemyTypeImpl();
+		return enemyType;
 	}
 
 	/**
@@ -170,17 +169,6 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	public Split createSplit() {
 		SplitImpl split = new SplitImpl();
 		return split;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Burst createBurst() {
-		BurstImpl burst = new BurstImpl();
-		return burst;
 	}
 
 	/**
@@ -376,9 +364,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public BallSpawn createBallSpawn() {
-		BallSpawnImpl ballSpawn = new BallSpawnImpl();
-		return ballSpawn;
+	public EnemySpawn createEnemySpawn() {
+		EnemySpawnImpl enemySpawn = new EnemySpawnImpl();
+		return enemySpawn;
 	}
 
 	/**
@@ -442,9 +430,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public BallsPopped createBallsPopped() {
-		BallsPoppedImpl ballsPopped = new BallsPoppedImpl();
-		return ballsPopped;
+	public EnemiesPopped createEnemiesPopped() {
+		EnemiesPoppedImpl enemiesPopped = new EnemiesPoppedImpl();
+		return enemiesPopped;
 	}
 
 	/**
@@ -475,9 +463,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public BallsAlive createBallsAlive() {
-		BallsAliveImpl ballsAlive = new BallsAliveImpl();
-		return ballsAlive;
+	public EnemiesAlive createEnemiesAlive() {
+		EnemiesAliveImpl enemiesAlive = new EnemiesAliveImpl();
+		return enemiesAlive;
 	}
 
 	/**

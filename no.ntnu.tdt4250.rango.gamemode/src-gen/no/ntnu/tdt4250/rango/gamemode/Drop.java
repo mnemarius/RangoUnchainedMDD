@@ -96,7 +96,7 @@ public interface Drop extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The chance, in percent, that a single pop of the table's ball type drops this power-up.
+	 * The chance, in percent, that a single pop of the table's enemy type drops this power-up.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Probability</em>' attribute.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getDrop_Probability()

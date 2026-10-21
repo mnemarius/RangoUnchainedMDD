@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import io.github.RangoUnchained.Model.Components.HealthComponent;
 import io.github.RangoUnchained.Model.Components.PowerUpComponent;
 import io.github.RangoUnchained.Model.ContactStrategies.ContactStrategies;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Entities.PlayerEntity;
 import io.github.RangoUnchained.Model.Systems.AudioSystem;
@@ -181,7 +181,7 @@ public class LevelController {
         if (levelNumber == 0 &&! completed){
             return false;
         }
-        return (level.getEntity(BallEntity.class).size() == 0);
+        return (level.getEntity(EnemyEntity.class).size() == 0);
     }
 
     public void step(float f, int i, int j) {

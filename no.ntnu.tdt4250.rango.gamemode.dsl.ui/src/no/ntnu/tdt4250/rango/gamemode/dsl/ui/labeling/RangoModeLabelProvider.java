@@ -9,12 +9,11 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import com.google.inject.Inject;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
-import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Block;
-import no.ntnu.tdt4250.rango.gamemode.Burst;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
@@ -22,7 +21,6 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
-import no.ntnu.tdt4250.rango.gamemode.Fragmenting;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
@@ -43,6 +41,7 @@ import no.ntnu.tdt4250.rango.gamemode.Vanish;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
 import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
+import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 
 /**
  * Labels and icons of game mode elements in the outline, hovers and content assist. Labels sum up
@@ -63,12 +62,12 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 		return "edition.png";
 	}
 
-	String text(BallType type) {
+	String text(EnemyType type) {
 		return type.getName() + ": " + describe(type.getSplitRule());
 	}
 
-	String image(BallType type) {
-		return "ball.png";
+	String image(EnemyType type) {
+		return "enemy.png";
 	}
 
 	String text(SplitRule rule) {
@@ -178,17 +177,17 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 		return "waves.png";
 	}
 
-	String text(BallSpawn spawn) {
+	String text(EnemySpawn spawn) {
 		String type = spawn.getType() == null ? "?" : spawn.getType().getName();
 		return (spawn.getCount() > 1 ? spawn.getCount() + " × " : "") + type + " size " + spawn.getSize();
 	}
 
-	String image(BallSpawn spawn) {
+	String image(EnemySpawn spawn) {
 		return "spawn.png";
 	}
 
 	String text(DropTable table) {
-		return (table.getBallType() == null ? "?" : table.getBallType().getName()) + ": drops " + number(table.getChance()) + "%";
+		return (table.getEnemyType() == null ? "?" : table.getEnemyType().getName()) + ": drops " + number(table.getChance()) + "%";
 	}
 
 	String image(DropTable table) {
@@ -219,9 +218,10 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 		if (rule instanceof Split split && split.getFragments() == 1) {
 			return "shrinks";
 		}
-		if (rule instanceof Fragmenting fragmenting) {
-			String type = fragmenting.getFragmentType() == null ? "" : " " + fragmenting.getFragmentType().getName();
-			return (rule instanceof Burst ? "bursts" : "splits") + " into " + fragmenting.getFragments() + type;
+		if (rule instanceof Split split) {
+			String type = split.getFragmentType() == null ? "" : " " + split.getFragmentType().getName();
+			String around = split.getFragments() >= GamemodeDerivations.FULL_RING ? " all around" : "";
+			return "splits into " + split.getFragments() + type + around;
 		}
 		return "";
 	}
@@ -244,19 +244,19 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 
 	static String describe(EndCondition condition) {
 		if (condition instanceof Cleared) {
-			return "all balls cleared";
+			return "all enemies cleared";
 		} else if (condition instanceof TimeReached time) {
 			return "time reaches " + number(time.getSeconds()) + " s";
 		} else if (condition instanceof ScoreReached score) {
 			return "score reaches " + score.getPoints();
-		} else if (condition instanceof BallsPopped popped) {
-			return popped.getCount() + " balls popped";
+		} else if (condition instanceof EnemiesPopped popped) {
+			return popped.getCount() + " enemies popped";
 		} else if (condition instanceof WavesSurvived waves) {
 			return waves.getCount() + " waves survived";
 		} else if (condition instanceof HealthDepleted) {
 			return "health depleted";
-		} else if (condition instanceof BallsAlive alive) {
-			return alive.getCount() + " balls alive";
+		} else if (condition instanceof EnemiesAlive alive) {
+			return alive.getCount() + " enemies alive";
 		}
 		return "";
 	}

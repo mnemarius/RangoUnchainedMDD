@@ -16,13 +16,14 @@ public interface ModeContext {
     /** A random number in [0, 1). */
     float random();
 
-    /** Breaks a popped ball into fragments one size smaller that fan out sideways. */
-    void split(BallState ball, String kind, int fragments, float launchSpeed);
+    /**
+     * Breaks a popped enemy into fragments one size smaller, launched at launchSpeed in directions
+     * spacing degrees apart and centred on straight up. A single fragment leans the way the enemy was
+     * moving.
+     */
+    void split(EnemyState enemy, String kind, int fragments, float spacing, float launchSpeed);
 
-    /** Breaks a popped ball into fragments one size smaller that fly off in all directions. */
-    void burst(BallState ball, String kind, int fragments, float launchSpeed);
-
-    void dropPowerUp(String powerUp, BallState from);
+    void dropPowerUp(String powerUp, EnemyState from);
 
     void damage(int amount);
 

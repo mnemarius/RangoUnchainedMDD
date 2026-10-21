@@ -2,13 +2,13 @@ package io.github.RangoUnchained.Model.level;
 
 import java.util.ArrayList;
 
-import io.github.RangoUnchained.Model.Components.BallComponent;
+import io.github.RangoUnchained.Model.Components.EnemyComponent;
 import io.github.RangoUnchained.Model.Components.BodyComponent;
 import io.github.RangoUnchained.Model.Components.HealthComponent;
 import io.github.RangoUnchained.Model.Components.PowerUpComponent;
 import io.github.RangoUnchained.Model.Components.SpriteComponent;
 import io.github.RangoUnchained.Model.Components.StatComponent;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Entities.PlayerEntity;
 import io.github.RangoUnchained.Model.Entities.PowerUpEntity;
@@ -38,7 +38,7 @@ public class CheckpointHandler {
 
         ArrayList<LevelData.EntityData> entitiesDataCheckPoint = new ArrayList<>();
 
-        // Add every entity that is not a player of ball
+        // Add every entity that is not a player of enemy
         for (EntityData entityData : entitiesData) {
             if (entityData.typeInfo != null && (entityData.typeInfo.type.equals("Obsticle") || entityData.typeInfo.type.equals("Background"))){
                 entitiesDataCheckPoint.add(entityData);
@@ -46,10 +46,10 @@ public class CheckpointHandler {
         }
 
 
-        // Add every ball and player entity
+        // Add every enemy and player entity
         for (Entity entity : entities) {
-            if (entity instanceof BallEntity) {
-                entitiesDataCheckPoint.add(makeBallEntity(entity));
+            if (entity instanceof EnemyEntity) {
+                entitiesDataCheckPoint.add(makeEnemyEntity(entity));
             }
             if (entity instanceof PlayerEntity) {
                 entitiesDataCheckPoint.add(makePlayerEntity(entity));
@@ -86,7 +86,7 @@ public class CheckpointHandler {
         StatComponent stat = (StatComponent) entity.getComponent(StatComponent.class);
         SpriteComponent sprite = (SpriteComponent) entity.getComponent(SpriteComponent.class);
 
-        BallComponent ballComp = (BallComponent) entity.getComponent(BallComponent.class);
+        EnemyComponent enemyComp = (EnemyComponent) entity.getComponent(EnemyComponent.class);
         PowerUpComponent powerUpComp = (PowerUpComponent) entity.getComponent(PowerUpComponent.class);
 
         // Set the position property
@@ -130,14 +130,14 @@ public class CheckpointHandler {
      * @param entity Current entity being mapped
      * @return EntityData object of the corresponding entity argument
      */
-    public static EntityData makeBallEntity(Entity entity) {
+    public static EntityData makeEnemyEntity(Entity entity) {
         EntityData entityData = new EntityData();
         // Fetch needed components
         BodyComponent body = (BodyComponent) entity.getComponent(BodyComponent.class);
         StatComponent stat = (StatComponent) entity.getComponent(StatComponent.class);
         SpriteComponent sprite = (SpriteComponent) entity.getComponent(SpriteComponent.class);
 
-        BallComponent ballComp = (BallComponent) entity.getComponent(BallComponent.class);
+        EnemyComponent enemyComp = (EnemyComponent) entity.getComponent(EnemyComponent.class);
 
 
         // Set the position property
@@ -148,9 +148,9 @@ public class CheckpointHandler {
 
         //set type info
         entityData.typeInfo = new EntityData.TypeInfo();
-        entityData.typeInfo.type = "Ball";
+        entityData.typeInfo.type = "Enemy";
         entityData.typeInfo.size = 3-stat.getTimesPopped();
-        entityData.typeInfo.subType = ballComp.getTypeName();
+        entityData.typeInfo.subType = enemyComp.getTypeName();
 
         // Set the velocity property
         entityData.velocity = body.getBody().getLinearVelocity();

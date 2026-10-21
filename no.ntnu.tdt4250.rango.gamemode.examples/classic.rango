@@ -1,12 +1,12 @@
-// The smallest valid product: the round the original game plays. One ball type that splits in two,
-// a player with three hearts, a neutral arena, and the one power-up every ball must be able to drop.
+// The smallest valid product: the round the original game plays. One enemy type that splits in two,
+// a player with three hearts, a neutral arena, and the one power-up every enemy must be able to drop.
 // Won by popping everything, lost when the hearts run out. Only the mandatory parts of the metamodel
 // are configured.
 
 edition Classic "Rango Unchained"
 
-ball Tumbleweed {
-	sprite "Ball/Tumbleweed.png"
+enemy Tumbleweed {
+	sprite "Enemy/Tumbleweed.png"
 	on pop: split into 2
 	on contact: damage 1
 }
@@ -33,6 +33,6 @@ mode ClassicRound "Classic Round" {
 	layout {
 		Tumbleweed size 3 at (70%, 60%) moving left
 	}
-	win when all balls cleared
+	win when all enemies cleared
 	lose when health depleted
 }

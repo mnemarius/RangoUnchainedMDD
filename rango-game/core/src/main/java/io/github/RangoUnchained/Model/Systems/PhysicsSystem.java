@@ -1,6 +1,7 @@
 package io.github.RangoUnchained.Model.Systems;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -9,10 +10,10 @@ import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Components.BodyComponent;
 import io.github.RangoUnchained.Model.Components.BounceComponent;
 import io.github.RangoUnchained.Model.Components.MaterialComponent;
-import io.github.RangoUnchained.Model.Components.ModeBallComponent;
+import io.github.RangoUnchained.Model.Components.ModeEnemyComponent;
 import io.github.RangoUnchained.Model.Components.SpriteComponent;
 import io.github.RangoUnchained.Model.ContactStrategies.*;
-import io.github.RangoUnchained.Model.Entities.BallEntity;
+import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Entities.FloorEntity;
 import io.github.RangoUnchained.Model.Systems.ContactSystem.CollisionEvent;
@@ -37,9 +38,9 @@ public class PhysicsSystem implements Systems, ContactStrategy {
     public void setContactStrategies(){
         ContactSystem centralContactListener = LevelController.getInstance().getSystem(ContactSystem.class);
         centralContactListener.subscribe(
-        BallEntity.class, FloorEntity.class,
+        EnemyEntity.class, FloorEntity.class,
         null, // For beginContact
-        this::handleBallFloorCollision);
+        this::handleEnemyFloorCollision);
 
     }
 
@@ -55,32 +56,32 @@ public class PhysicsSystem implements Systems, ContactStrategy {
         sprite.setPosition(screenX, screenY);
     }
 
-    private void handleBallFloorCollision(CollisionEvent collisionEvent) {
-        BallEntity ball;
+    private void handleEnemyFloorCollision(CollisionEvent collisionEvent) {
+        EnemyEntity enemy;
 
-        if (collisionEvent.entityA instanceof BallEntity) {
-            ball = (BallEntity) collisionEvent.entityA;
+        if (collisionEvent.entityA instanceof EnemyEntity) {
+            enemy = (EnemyEntity) collisionEvent.entityA;
         } else {
-            ball = (BallEntity) collisionEvent.entityB;
+            enemy = (EnemyEntity) collisionEvent.entityB;
         }
 
-        BodyComponent ballBodyComponent = (BodyComponent) ball.getComponent(BodyComponent.class);
-        Body ballBody = ballBodyComponent.getBody();
+        BodyComponent enemyBodyComponent = (BodyComponent) enemy.getComponent(BodyComponent.class);
+        Body enemyBody = enemyBodyComponent.getBody();
 
-        Vector2 currentVelocity = ballBody.getLinearVelocity();
+        Vector2 currentVelocity = enemyBody.getLinearVelocity();
 
-        // in game modes, the ball type and the floor material tune the bounce
+        // in game modes, the enemy type and the floor material tune the bounce
         float bounceScale = 1f;
         float horizontalSpeed = 5f;
-        ModeBallComponent modeBall = (ModeBallComponent) ball.getComponent(ModeBallComponent.class);
-        if (modeBall != null) {
-            Entity floor = collisionEvent.entityA == ball ? collisionEvent.entityB : collisionEvent.entityA;
+        ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
+        if (modeEnemy != null) {
+            Entity floor = collisionEvent.entityA == enemy ? collisionEvent.entityB : collisionEvent.entityA;
             MaterialComponent material = (MaterialComponent) floor.getComponent(MaterialComponent.class);
-            bounceScale = modeBall.kind.bounce * (material == null ? 1f : material.getBounce());
-            horizontalSpeed = modeBall.kind.speed;
+            bounceScale = modeEnemy.kind.bounce * (material == null ? 1f : material.getBounce());
+            horizontalSpeed = modeEnemy.kind.speed;
         }
 
-        final float  STANDARDYVELOCITY = (float)((BounceComponent) ball.getComponent(BounceComponent.class)).getType() * bounceScale;
+        final float  STANDARDYVELOCITY = (float)((BounceComponent) enemy.getComponent(BounceComponent.class)).getType() * bounceScale;
         final float  STANDARDXVELOCITY = horizontalSpeed;
 
         final float YTRESHOLD = -10;
@@ -88,24 +89,26 @@ public class PhysicsSystem implements Systems, ContactStrategy {
         final float MINIMUMXTRESHOLD = 1;
 
         if (currentVelocity.y > YTRESHOLD) {
-            ballBody.setLinearVelocity(new Vector2(currentVelocity.x,STANDARDYVELOCITY));
+            enemyBody.setLinearVelocity(new Vector2(currentVelocity.x,STANDARDYVELOCITY));
         }
 
-        currentVelocity = ballBody.getLinearVelocity();
+        currentVelocity = enemyBody.getLinearVelocity();
 
-        //if ball bounces too much to the sides
+        //if enemy bounces too much to the sides
         if (Math.abs(currentVelocity.x) > MAXIMUMXTRESHOLD) {
             // if to the left
             if (currentVelocity.x<0){
-                ballBody.setLinearVelocity(new Vector2(-STANDARDXVELOCITY,currentVelocity.y));
+                enemyBody.setLinearVelocity(new Vector2(-STANDARDXVELOCITY,currentVelocity.y));
 
             // if to the right
             } else {
-                ballBody.setLinearVelocity(new Vector2(STANDARDXVELOCITY,currentVelocity.y));
+                enemyBody.setLinearVelocity(new Vector2(STANDARDXVELOCITY,currentVelocity.y));
 
             }
         } else if (Math.abs(currentVelocity.x) < MINIMUMXTRESHOLD){
-            ballBody.setLinearVelocity(new Vector2(STANDARDXVELOCITY/2,currentVelocity.y));
+            // keep drifting the way the enemy leans; a enemy going straight up picks a side at random
+            float side = currentVelocity.x < 0 ? -1 : currentVelocity.x > 0 ? 1 : MathUtils.randomSign();
+            enemyBody.setLinearVelocity(new Vector2(side * STANDARDXVELOCITY/2,currentVelocity.y));
 
         }
     }

@@ -24,7 +24,7 @@ public class TriggerFactory {
         TriggerEntity entity = new TriggerEntity();
 
         FixtureDef fixture = BodyFactory.createBoxFixture(width / Constants.PPM, height / Constants.PPM,
-            EntityFactory.CATEGORY_OBSTACLE, (short) (EntityFactory.CATEGORY_PLAYER | EntityFactory.CATEGORY_BALL));
+            EntityFactory.CATEGORY_OBSTACLE, (short) (EntityFactory.CATEGORY_PLAYER | EntityFactory.CATEGORY_ENEMY));
         fixture.isSensor = true;
         BodyComponent body = BodyFactory.createBody(LevelController.getInstance().getWorld(), x, y,
             BodyDef.BodyType.StaticBody, fixture, true);

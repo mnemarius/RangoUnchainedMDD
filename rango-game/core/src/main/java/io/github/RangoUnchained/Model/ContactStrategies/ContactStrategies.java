@@ -4,8 +4,8 @@ public class ContactStrategies {
 
     public ContactStrategies(){
         
-        BallSplitting ballSplitting = new BallSplitting();
-        ballSplitting.setContactStrategies();
+        EnemySplitting enemySplitting = new EnemySplitting();
+        enemySplitting.setContactStrategies();
         SpawnPowerup spawnPowerup = new SpawnPowerup();
         spawnPowerup.setContactStrategies();
 

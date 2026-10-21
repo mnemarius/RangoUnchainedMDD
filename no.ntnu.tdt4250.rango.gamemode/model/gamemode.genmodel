@@ -8,7 +8,7 @@
       ecorePackage="gamemode.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="gamemode.ecore#//Target">
       <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//Target/ALL"/>
-      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//Target/BALLS"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//Target/ENEMIES"/>
       <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//Target/PLAYER"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="gamemode.ecore#//Direction">
@@ -24,33 +24,32 @@
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//Edition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Edition/title"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/ballTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/enemyTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/powerUps"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/materials"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/players"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/modes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/drops"/>
     </genClasses>
-    <genClasses ecoreClass="gamemode.ecore#//BallType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallType/sprite"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallType/scale"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallType/bounce"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallType/speed"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallType/points"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//BallType/splitRule"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//BallType/contactEffects"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//BallType/producedTypes"/>
+    <genClasses ecoreClass="gamemode.ecore#//EnemyType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemyType/sprite"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemyType/scale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemyType/bounce"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemyType/speed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemyType/points"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//EnemyType/splitRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//EnemyType/contactEffects"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//EnemyType/producedTypes"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gamemode.ecore#//SplitRule"/>
     <genClasses ecoreClass="gamemode.ecore#//Vanish"/>
-    <genClasses image="false" ecoreClass="gamemode.ecore#//Fragmenting">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Fragmenting/fragments"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//Fragmenting/fragmentType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Fragmenting/launchSpeed"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//Fragmenting/resultType"/>
+    <genClasses ecoreClass="gamemode.ecore#//Split">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Split/fragments"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//Split/fragmentType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Split/launchSpeed"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//Split/resultType"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Split/spacing"/>
     </genClasses>
-    <genClasses ecoreClass="gamemode.ecore#//Split"/>
-    <genClasses ecoreClass="gamemode.ecore#//Burst"/>
     <genClasses image="false" ecoreClass="gamemode.ecore#//PlayerEffect"/>
     <genClasses ecoreClass="gamemode.ecore#//Damage">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Damage/amount"/>
@@ -90,7 +89,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/player"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/ballTypes"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/enemyTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/gravity"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/speedBonus"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/arena"/>
@@ -146,18 +145,18 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Wave/number"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Wave/popsToClear"/>
     </genClasses>
-    <genClasses ecoreClass="gamemode.ecore#//BallSpawn">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//BallSpawn/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallSpawn/size"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallSpawn/count"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallSpawn/direction"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallSpawn/popsToClear"/>
+    <genClasses ecoreClass="gamemode.ecore#//EnemySpawn">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//EnemySpawn/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemySpawn/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemySpawn/count"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemySpawn/direction"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemySpawn/popsToClear"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//DropTable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//DropTable/chance"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//DropTable/entries"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//DropTable/totalWeight"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//DropTable/ballType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//DropTable/enemyType"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//Drop">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//Drop/table"/>
@@ -176,15 +175,15 @@
     <genClasses ecoreClass="gamemode.ecore#//ScoreReached">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//ScoreReached/points"/>
     </genClasses>
-    <genClasses ecoreClass="gamemode.ecore#//BallsPopped">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallsPopped/count"/>
+    <genClasses ecoreClass="gamemode.ecore#//EnemiesPopped">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemiesPopped/count"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//WavesSurvived">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//WavesSurvived/count"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//HealthDepleted"/>
-    <genClasses ecoreClass="gamemode.ecore#//BallsAlive">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//BallsAlive/count"/>
+    <genClasses ecoreClass="gamemode.ecore#//EnemiesAlive">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemiesAlive/count"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

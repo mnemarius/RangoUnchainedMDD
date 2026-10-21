@@ -5,16 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import no.ntnu.tdt4250.rango.gamemode.BallSpawn;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive;
-import no.ntnu.tdt4250.rango.gamemode.BallsPopped;
-import no.ntnu.tdt4250.rango.gamemode.Burst;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
@@ -75,9 +74,9 @@ public class ModeClassTemplate {
     _builder.newLine();
     _builder.append("import io.github.RangoUnchained.Modes.ArenaBuilder;");
     _builder.newLine();
-    _builder.append("import io.github.RangoUnchained.Modes.BallKind;");
+    _builder.append("import io.github.RangoUnchained.Modes.EnemyKind;");
     _builder.newLine();
-    _builder.append("import io.github.RangoUnchained.Modes.BallState;");
+    _builder.append("import io.github.RangoUnchained.Modes.EnemyState;");
     _builder.newLine();
     _builder.append("import io.github.RangoUnchained.Modes.GameModeDefinition;");
     _builder.newLine();
@@ -161,13 +160,13 @@ public class ModeClassTemplate {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     {
-      EList<BallType> _ballTypes = mode.getBallTypes();
-      for(final BallType type : _ballTypes) {
+      EList<EnemyType> _enemyTypes = mode.getEnemyTypes();
+      for(final EnemyType type : _enemyTypes) {
         _builder.append("    ");
-        _builder.append("private static final BallKind ");
+        _builder.append("private static final EnemyKind ");
         String _constant = GeneratorNames.constant(type);
         _builder.append(_constant, "    ");
-        _builder.append(" = new BallKind(");
+        _builder.append(" = new EnemyKind(");
         String _javaString_1 = GeneratorNames.javaString(type.getName());
         _builder.append(_javaString_1, "    ");
         _builder.append(", ");
@@ -287,7 +286,7 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public BallKind ballKind(String name) {");
+    _builder.append("public EnemyKind enemyKind(String name) {");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("if (name == null) {");
@@ -302,8 +301,8 @@ public class ModeClassTemplate {
     _builder.append("switch (name) {");
     _builder.newLine();
     {
-      EList<BallType> _ballTypes_1 = mode.getBallTypes();
-      for(final BallType type_1 : _ballTypes_1) {
+      EList<EnemyType> _enemyTypes_1 = mode.getEnemyTypes();
+      for(final EnemyType type_1 : _enemyTypes_1) {
         _builder.append("            ");
         _builder.append("case ");
         String _javaString_7 = GeneratorNames.javaString(type_1.getName());
@@ -481,8 +480,8 @@ public class ModeClassTemplate {
         String _javaFloat_11 = GeneratorNames.javaFloat(pad.getLaunch());
         _builder.append(_javaFloat_11, "        ");
         _builder.append(", ");
-        boolean _balls = GeneratorNames.balls(pad.getAffects());
-        _builder.append(_balls, "        ");
+        boolean _enemies = GeneratorNames.enemies(pad.getAffects());
+        _builder.append(_enemies, "        ");
         _builder.append(", ");
         boolean _player = GeneratorNames.player(pad.getAffects());
         _builder.append(_player, "        ");
@@ -507,8 +506,8 @@ public class ModeClassTemplate {
         String _javaString_13 = GeneratorNames.javaString(teleporter.getTarget().getName());
         _builder.append(_javaString_13, "        ");
         _builder.append(", ");
-        boolean _balls_1 = GeneratorNames.balls(teleporter.getAffects());
-        _builder.append(_balls_1, "        ");
+        boolean _enemies_1 = GeneratorNames.enemies(teleporter.getAffects());
+        _builder.append(_enemies_1, "        ");
         _builder.append(", ");
         boolean _player_1 = GeneratorNames.player(teleporter.getAffects());
         _builder.append(_player_1, "        ");
@@ -623,14 +622,14 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public void onBallPopped(BallState ball, ModeContext context) {");
+    _builder.append("public void onEnemyPopped(EnemyState enemy, ModeContext context) {");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("switch (ball.kind) {");
+    _builder.append("switch (enemy.kind) {");
     _builder.newLine();
     {
-      EList<BallType> _ballTypes_2 = mode.getBallTypes();
-      for(final BallType type_2 : _ballTypes_2) {
+      EList<EnemyType> _enemyTypes_2 = mode.getEnemyTypes();
+      for(final EnemyType type_2 : _enemyTypes_2) {
         _builder.append("            ");
         _builder.append("case ");
         String _javaString_14 = GeneratorNames.javaString(type_2.getName());
@@ -659,8 +658,8 @@ public class ModeClassTemplate {
         _builder.newLineIfNotEmpty();
         {
           final Function1<DropTable, Boolean> _function = (DropTable it) -> {
-            BallType _ballType = it.getBallType();
-            return Boolean.valueOf(Objects.equals(_ballType, type_2));
+            EnemyType _enemyType = it.getEnemyType();
+            return Boolean.valueOf(Objects.equals(_enemyType, type_2));
           };
           Iterable<DropTable> _filter_2 = IterableExtensions.<DropTable>filter(mode.getEffectiveDrops(), _function);
           for(final DropTable table : _filter_2) {
@@ -694,14 +693,14 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public void onBallTouchesPlayer(BallState ball, ModeContext context) {");
+    _builder.append("public void onEnemyTouchesPlayer(EnemyState enemy, ModeContext context) {");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("switch (ball.kind) {");
+    _builder.append("switch (enemy.kind) {");
     _builder.newLine();
     {
-      EList<BallType> _ballTypes_3 = mode.getBallTypes();
-      for(final BallType type_3 : _ballTypes_3) {
+      EList<EnemyType> _enemyTypes_3 = mode.getEnemyTypes();
+      for(final EnemyType type_3 : _enemyTypes_3) {
         _builder.append("            ");
         _builder.append("case ");
         String _javaString_15 = GeneratorNames.javaString(type_3.getName());
@@ -867,7 +866,7 @@ public class ModeClassTemplate {
 
   protected CharSequence _spawnWaves(final FixedLayout layout, final GameMode mode) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("// all balls are placed at the start by the arena resource ");
+    _builder.append("// all enemies are placed at the start by the arena resource ");
     String _arenaResource = GeneratorNames.arenaResource(mode);
     _builder.append(_arenaResource);
     _builder.newLineIfNotEmpty();
@@ -900,8 +899,8 @@ public class ModeClassTemplate {
         _builder.append(":");
         _builder.newLineIfNotEmpty();
         {
-          EList<BallSpawn> _spawns = wave.getSpawns();
-          for(final BallSpawn spawn : _spawns) {
+          EList<EnemySpawn> _spawns = wave.getSpawns();
+          for(final EnemySpawn spawn : _spawns) {
             _builder.append("    ");
             _builder.append("    ");
             _builder.append("spawner.spawn(");
@@ -959,31 +958,18 @@ public class ModeClassTemplate {
 
   protected CharSequence _pop(final Split rule) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("context.split(ball, ");
+    _builder.append("context.split(enemy, ");
     String _javaString = GeneratorNames.javaString(rule.getResultType().getName());
     _builder.append(_javaString);
     _builder.append(", ");
     int _fragments = rule.getFragments();
     _builder.append(_fragments);
     _builder.append(", ");
-    String _javaFloat = GeneratorNames.javaFloat(rule.getLaunchSpeed());
+    String _javaFloat = GeneratorNames.javaFloat(rule.getSpacing());
     _builder.append(_javaFloat);
-    _builder.append(");");
-    _builder.newLineIfNotEmpty();
-    return _builder;
-  }
-
-  protected CharSequence _pop(final Burst rule) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("context.burst(ball, ");
-    String _javaString = GeneratorNames.javaString(rule.getResultType().getName());
-    _builder.append(_javaString);
     _builder.append(", ");
-    int _fragments = rule.getFragments();
-    _builder.append(_fragments);
-    _builder.append(", ");
-    String _javaFloat = GeneratorNames.javaFloat(rule.getLaunchSpeed());
-    _builder.append(_javaFloat);
+    String _javaFloat_1 = GeneratorNames.javaFloat(rule.getLaunchSpeed());
+    _builder.append(_javaFloat_1);
     _builder.append(");");
     _builder.newLineIfNotEmpty();
     return _builder;
@@ -1012,7 +998,7 @@ public class ModeClassTemplate {
   }
 
   /**
-   * The roll of a ball type's drop table: whether the pop drops anything, then which power-up.
+   * The roll of a enemy type's drop table: whether the pop drops anything, then which power-up.
    */
   public CharSequence drop(final DropTable table) {
     StringConcatenation _builder = new StringConcatenation();
@@ -1023,7 +1009,7 @@ public class ModeClassTemplate {
     String _percent = GeneratorNames.percent(table.getChance());
     _builder.append(_percent);
     _builder.append(" % of ");
-    String _name = table.getBallType().getName();
+    String _name = table.getEnemyType().getName();
     _builder.append(_name);
     _builder.append(" pops drop something");
     _builder.newLineIfNotEmpty();
@@ -1035,7 +1021,7 @@ public class ModeClassTemplate {
         _builder.append("context.dropPowerUp(");
         String _javaString = GeneratorNames.javaString(IterableExtensions.<Drop>head(table.getEntries()).getPowerUp().getName());
         _builder.append(_javaString, "    ");
-        _builder.append(", ball);");
+        _builder.append(", enemy);");
         _builder.newLineIfNotEmpty();
       } else {
         _builder.append("    ");
@@ -1075,7 +1061,7 @@ public class ModeClassTemplate {
             _builder.append("context.dropPowerUp(");
             String _javaString_1 = GeneratorNames.javaString(table.getEntries().get((i).intValue()).getPowerUp().getName());
             _builder.append(_javaString_1, "        ");
-            _builder.append(", ball); // ");
+            _builder.append(", enemy); // ");
             String _percent_1 = GeneratorNames.percent(table.getEntries().get((i).intValue()).getShare());
             _builder.append(_percent_1, "        ");
             _builder.append(" % of drops, ");
@@ -1185,7 +1171,7 @@ public class ModeClassTemplate {
     return _builder;
   }
 
-  protected CharSequence _check(final BallsPopped condition) {
+  protected CharSequence _check(final EnemiesPopped condition) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("stats.popped() >= ");
     int _count = condition.getCount();
@@ -1207,9 +1193,9 @@ public class ModeClassTemplate {
     return _builder;
   }
 
-  protected CharSequence _check(final BallsAlive condition) {
+  protected CharSequence _check(final EnemiesAlive condition) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.ballsAlive() >= ");
+    _builder.append("stats.enemiesAlive() >= ");
     int _count = condition.getCount();
     _builder.append(_count);
     return _builder;
@@ -1229,9 +1215,7 @@ public class ModeClassTemplate {
 
   @XbaseGenerated
   public CharSequence pop(final SplitRule rule) {
-    if (rule instanceof Burst) {
-      return _pop((Burst)rule);
-    } else if (rule instanceof Split) {
+    if (rule instanceof Split) {
       return _pop((Split)rule);
     } else if (rule instanceof Vanish) {
       return _pop((Vanish)rule);
@@ -1261,12 +1245,12 @@ public class ModeClassTemplate {
 
   @XbaseGenerated
   public CharSequence check(final EndCondition condition) {
-    if (condition instanceof BallsAlive) {
-      return _check((BallsAlive)condition);
-    } else if (condition instanceof BallsPopped) {
-      return _check((BallsPopped)condition);
-    } else if (condition instanceof Cleared) {
+    if (condition instanceof Cleared) {
       return _check((Cleared)condition);
+    } else if (condition instanceof EnemiesAlive) {
+      return _check((EnemiesAlive)condition);
+    } else if (condition instanceof EnemiesPopped) {
+      return _check((EnemiesPopped)condition);
     } else if (condition instanceof HealthDepleted) {
       return _check((HealthDepleted)condition);
     } else if (condition instanceof ScoreReached) {

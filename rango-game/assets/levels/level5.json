@@ -69,13 +69,13 @@
       }
     },
     {
-      "name": "ball1",
+      "name": "enemy1",
       "dimension": {
         "x": 1000,
         "y": 500
       },
       "typeInfo": {
-        "type": "Ball",
+        "type": "Enemy",
         "size":2,
         "subType": "Bomb"
       },

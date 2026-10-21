@@ -5,7 +5,7 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 import java.util.Collection;
 
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
@@ -25,25 +25,25 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ball Type</b></em>'.
+ * An implementation of the model object '<em><b>Enemy Type</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getSprite <em>Sprite</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getScale <em>Scale</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getBounce <em>Bounce</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getSpeed <em>Speed</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getPoints <em>Points</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getSplitRule <em>Split Rule</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getContactEffects <em>Contact Effects</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl#getProducedTypes <em>Produced Types</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getSprite <em>Sprite</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getScale <em>Scale</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getBounce <em>Bounce</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getSpeed <em>Speed</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getPoints <em>Points</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getSplitRule <em>Split Rule</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getContactEffects <em>Contact Effects</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl#getProducedTypes <em>Produced Types</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class BallTypeImpl extends NamedElementImpl implements BallType {
+public class EnemyTypeImpl extends NamedElementImpl implements EnemyType {
 	/**
 	 * The default value of the '{@link #getSprite() <em>Sprite</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -169,7 +169,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BallTypeImpl() {
+	protected EnemyTypeImpl() {
 		super();
 	}
 
@@ -180,7 +180,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GamemodePackage.Literals.BALL_TYPE;
+		return GamemodePackage.Literals.ENEMY_TYPE;
 	}
 
 	/**
@@ -203,7 +203,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		String oldSprite = sprite;
 		sprite = newSprite;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_TYPE__SPRITE, oldSprite, sprite));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_TYPE__SPRITE, oldSprite, sprite));
 	}
 
 	/**
@@ -226,7 +226,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		float oldScale = scale;
 		scale = newScale;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_TYPE__SCALE, oldScale, scale));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_TYPE__SCALE, oldScale, scale));
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		float oldBounce = bounce;
 		bounce = newBounce;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_TYPE__BOUNCE, oldBounce, bounce));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_TYPE__BOUNCE, oldBounce, bounce));
 	}
 
 	/**
@@ -272,7 +272,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		float oldSpeed = speed;
 		speed = newSpeed;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_TYPE__SPEED, oldSpeed, speed));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_TYPE__SPEED, oldSpeed, speed));
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		int oldPoints = points;
 		points = newPoints;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_TYPE__POINTS, oldPoints, points));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_TYPE__POINTS, oldPoints, points));
 	}
 
 	/**
@@ -317,7 +317,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		SplitRule oldSplitRule = splitRule;
 		splitRule = newSplitRule;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_TYPE__SPLIT_RULE, oldSplitRule, newSplitRule);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_TYPE__SPLIT_RULE, oldSplitRule, newSplitRule);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -333,14 +333,14 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		if (newSplitRule != splitRule) {
 			NotificationChain msgs = null;
 			if (splitRule != null)
-				msgs = ((InternalEObject)splitRule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.BALL_TYPE__SPLIT_RULE, null, msgs);
+				msgs = ((InternalEObject)splitRule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.ENEMY_TYPE__SPLIT_RULE, null, msgs);
 			if (newSplitRule != null)
-				msgs = ((InternalEObject)newSplitRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.BALL_TYPE__SPLIT_RULE, null, msgs);
+				msgs = ((InternalEObject)newSplitRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.ENEMY_TYPE__SPLIT_RULE, null, msgs);
 			msgs = basicSetSplitRule(newSplitRule, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BALL_TYPE__SPLIT_RULE, newSplitRule, newSplitRule));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.ENEMY_TYPE__SPLIT_RULE, newSplitRule, newSplitRule));
 	}
 
 	/**
@@ -351,7 +351,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	@Override
 	public EList<PlayerEffect> getContactEffects() {
 		if (contactEffects == null) {
-			contactEffects = new EObjectContainmentEList<PlayerEffect>(PlayerEffect.class, this, GamemodePackage.BALL_TYPE__CONTACT_EFFECTS);
+			contactEffects = new EObjectContainmentEList<PlayerEffect>(PlayerEffect.class, this, GamemodePackage.ENEMY_TYPE__CONTACT_EFFECTS);
 		}
 		return contactEffects;
 	}
@@ -362,7 +362,7 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	 * @generated NOT
 	 */
 	@Override
-	public EList<BallType> getProducedTypes() {
+	public EList<EnemyType> getProducedTypes() {
 		return GamemodeDerivations.producedTypes(this);
 	}
 
@@ -374,9 +374,9 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GamemodePackage.BALL_TYPE__SPLIT_RULE:
+			case GamemodePackage.ENEMY_TYPE__SPLIT_RULE:
 				return basicSetSplitRule(null, msgs);
-			case GamemodePackage.BALL_TYPE__CONTACT_EFFECTS:
+			case GamemodePackage.ENEMY_TYPE__CONTACT_EFFECTS:
 				return ((InternalEList<?>)getContactEffects()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -390,21 +390,21 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GamemodePackage.BALL_TYPE__SPRITE:
+			case GamemodePackage.ENEMY_TYPE__SPRITE:
 				return getSprite();
-			case GamemodePackage.BALL_TYPE__SCALE:
+			case GamemodePackage.ENEMY_TYPE__SCALE:
 				return getScale();
-			case GamemodePackage.BALL_TYPE__BOUNCE:
+			case GamemodePackage.ENEMY_TYPE__BOUNCE:
 				return getBounce();
-			case GamemodePackage.BALL_TYPE__SPEED:
+			case GamemodePackage.ENEMY_TYPE__SPEED:
 				return getSpeed();
-			case GamemodePackage.BALL_TYPE__POINTS:
+			case GamemodePackage.ENEMY_TYPE__POINTS:
 				return getPoints();
-			case GamemodePackage.BALL_TYPE__SPLIT_RULE:
+			case GamemodePackage.ENEMY_TYPE__SPLIT_RULE:
 				return getSplitRule();
-			case GamemodePackage.BALL_TYPE__CONTACT_EFFECTS:
+			case GamemodePackage.ENEMY_TYPE__CONTACT_EFFECTS:
 				return getContactEffects();
-			case GamemodePackage.BALL_TYPE__PRODUCED_TYPES:
+			case GamemodePackage.ENEMY_TYPE__PRODUCED_TYPES:
 				return getProducedTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -419,25 +419,25 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GamemodePackage.BALL_TYPE__SPRITE:
+			case GamemodePackage.ENEMY_TYPE__SPRITE:
 				setSprite((String)newValue);
 				return;
-			case GamemodePackage.BALL_TYPE__SCALE:
+			case GamemodePackage.ENEMY_TYPE__SCALE:
 				setScale((Float)newValue);
 				return;
-			case GamemodePackage.BALL_TYPE__BOUNCE:
+			case GamemodePackage.ENEMY_TYPE__BOUNCE:
 				setBounce((Float)newValue);
 				return;
-			case GamemodePackage.BALL_TYPE__SPEED:
+			case GamemodePackage.ENEMY_TYPE__SPEED:
 				setSpeed((Float)newValue);
 				return;
-			case GamemodePackage.BALL_TYPE__POINTS:
+			case GamemodePackage.ENEMY_TYPE__POINTS:
 				setPoints((Integer)newValue);
 				return;
-			case GamemodePackage.BALL_TYPE__SPLIT_RULE:
+			case GamemodePackage.ENEMY_TYPE__SPLIT_RULE:
 				setSplitRule((SplitRule)newValue);
 				return;
-			case GamemodePackage.BALL_TYPE__CONTACT_EFFECTS:
+			case GamemodePackage.ENEMY_TYPE__CONTACT_EFFECTS:
 				getContactEffects().clear();
 				getContactEffects().addAll((Collection<? extends PlayerEffect>)newValue);
 				return;
@@ -453,25 +453,25 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.BALL_TYPE__SPRITE:
+			case GamemodePackage.ENEMY_TYPE__SPRITE:
 				setSprite(SPRITE_EDEFAULT);
 				return;
-			case GamemodePackage.BALL_TYPE__SCALE:
+			case GamemodePackage.ENEMY_TYPE__SCALE:
 				setScale(SCALE_EDEFAULT);
 				return;
-			case GamemodePackage.BALL_TYPE__BOUNCE:
+			case GamemodePackage.ENEMY_TYPE__BOUNCE:
 				setBounce(BOUNCE_EDEFAULT);
 				return;
-			case GamemodePackage.BALL_TYPE__SPEED:
+			case GamemodePackage.ENEMY_TYPE__SPEED:
 				setSpeed(SPEED_EDEFAULT);
 				return;
-			case GamemodePackage.BALL_TYPE__POINTS:
+			case GamemodePackage.ENEMY_TYPE__POINTS:
 				setPoints(POINTS_EDEFAULT);
 				return;
-			case GamemodePackage.BALL_TYPE__SPLIT_RULE:
+			case GamemodePackage.ENEMY_TYPE__SPLIT_RULE:
 				setSplitRule((SplitRule)null);
 				return;
-			case GamemodePackage.BALL_TYPE__CONTACT_EFFECTS:
+			case GamemodePackage.ENEMY_TYPE__CONTACT_EFFECTS:
 				getContactEffects().clear();
 				return;
 		}
@@ -486,21 +486,21 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.BALL_TYPE__SPRITE:
+			case GamemodePackage.ENEMY_TYPE__SPRITE:
 				return SPRITE_EDEFAULT == null ? sprite != null : !SPRITE_EDEFAULT.equals(sprite);
-			case GamemodePackage.BALL_TYPE__SCALE:
+			case GamemodePackage.ENEMY_TYPE__SCALE:
 				return scale != SCALE_EDEFAULT;
-			case GamemodePackage.BALL_TYPE__BOUNCE:
+			case GamemodePackage.ENEMY_TYPE__BOUNCE:
 				return bounce != BOUNCE_EDEFAULT;
-			case GamemodePackage.BALL_TYPE__SPEED:
+			case GamemodePackage.ENEMY_TYPE__SPEED:
 				return speed != SPEED_EDEFAULT;
-			case GamemodePackage.BALL_TYPE__POINTS:
+			case GamemodePackage.ENEMY_TYPE__POINTS:
 				return points != POINTS_EDEFAULT;
-			case GamemodePackage.BALL_TYPE__SPLIT_RULE:
+			case GamemodePackage.ENEMY_TYPE__SPLIT_RULE:
 				return splitRule != null;
-			case GamemodePackage.BALL_TYPE__CONTACT_EFFECTS:
+			case GamemodePackage.ENEMY_TYPE__CONTACT_EFFECTS:
 				return contactEffects != null && !contactEffects.isEmpty();
-			case GamemodePackage.BALL_TYPE__PRODUCED_TYPES:
+			case GamemodePackage.ENEMY_TYPE__PRODUCED_TYPES:
 				return !getProducedTypes().isEmpty();
 		}
 		return super.eIsSet(featureID);
@@ -530,4 +530,4 @@ public class BallTypeImpl extends NamedElementImpl implements BallType {
 		return result.toString();
 	}
 
-} //BallTypeImpl
+} //EnemyTypeImpl

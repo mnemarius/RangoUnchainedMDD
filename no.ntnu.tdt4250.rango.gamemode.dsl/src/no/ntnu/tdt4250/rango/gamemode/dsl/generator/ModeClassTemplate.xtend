@@ -1,8 +1,7 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator
 
-import no.ntnu.tdt4250.rango.gamemode.BallsAlive
-import no.ntnu.tdt4250.rango.gamemode.BallsPopped
-import no.ntnu.tdt4250.rango.gamemode.Burst
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped
 import no.ntnu.tdt4250.rango.gamemode.Cleared
 import no.ntnu.tdt4250.rango.gamemode.Damage
 import no.ntnu.tdt4250.rango.gamemode.DropTable
@@ -42,8 +41,8 @@ class ModeClassTemplate {
 		package «PACKAGE»;
 
 		import io.github.RangoUnchained.Modes.ArenaBuilder;
-		import io.github.RangoUnchained.Modes.BallKind;
-		import io.github.RangoUnchained.Modes.BallState;
+		import io.github.RangoUnchained.Modes.EnemyKind;
+		import io.github.RangoUnchained.Modes.EnemyState;
 		import io.github.RangoUnchained.Modes.GameModeDefinition;
 		import io.github.RangoUnchained.Modes.ModeContext;
 		import io.github.RangoUnchained.Modes.ModeStats;
@@ -62,8 +61,8 @@ class ModeClassTemplate {
 		    private static final PlayerSpec PLAYER = new PlayerSpec(«mode.player.character.javaString», «mode.player.health», «mode.player.maxHealth»,
 		        «mode.player.speed.javaFloat», «mode.player.tongueTime.javaFloat», «mode.player.cooldown.javaFloat», «mode.player.graceTime.javaFloat»);
 
-		    «FOR type : mode.ballTypes»
-		    private static final BallKind «type.constant» = new BallKind(«type.name.javaString», «type.sprite.javaString»,
+		    «FOR type : mode.enemyTypes»
+		    private static final EnemyKind «type.constant» = new EnemyKind(«type.name.javaString», «type.sprite.javaString»,
 		        «type.scale.javaFloat», «type.bounce.javaFloat», «type.speed.javaFloat»);
 		    «ENDFOR»
 
@@ -98,12 +97,12 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
-		    public BallKind ballKind(String name) {
+		    public EnemyKind enemyKind(String name) {
 		        if (name == null) {
 		            return null;
 		        }
 		        switch (name) {
-		            «FOR type : mode.ballTypes»
+		            «FOR type : mode.enemyTypes»
 		            case «type.name.javaString»:
 		                return «type.constant»;
 		            «ENDFOR»
@@ -153,10 +152,10 @@ class ModeClassTemplate {
 		    @Override
 		    public void buildArena(ArenaBuilder arena) {
 		        «FOR pad : mode.arena.obstacles.filter(JumpPad)»
-		        arena.jumpPad(«pad.name.javaString», «pad.x.javaFloat», «pad.y.javaFloat», «pad.launch.javaFloat», «pad.affects.balls», «pad.affects.player»);
+		        arena.jumpPad(«pad.name.javaString», «pad.x.javaFloat», «pad.y.javaFloat», «pad.launch.javaFloat», «pad.affects.enemies», «pad.affects.player»);
 		        «ENDFOR»
 		        «FOR teleporter : mode.arena.obstacles.filter(Teleporter)»
-		        arena.teleporter(«teleporter.name.javaString», «teleporter.x.javaFloat», «teleporter.y.javaFloat», «teleporter.target.name.javaString», «teleporter.affects.balls», «teleporter.affects.player»);
+		        arena.teleporter(«teleporter.name.javaString», «teleporter.x.javaFloat», «teleporter.y.javaFloat», «teleporter.target.name.javaString», «teleporter.affects.enemies», «teleporter.affects.player»);
 		        «ENDFOR»
 		    }
 
@@ -192,15 +191,15 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
-		    public void onBallPopped(BallState ball, ModeContext context) {
-		        switch (ball.kind) {
-		            «FOR type : mode.ballTypes»
+		    public void onEnemyPopped(EnemyState enemy, ModeContext context) {
+		        switch (enemy.kind) {
+		            «FOR type : mode.enemyTypes»
 		            case «type.name.javaString»:
 		                «IF type.points > 0»
 		                context.addScore(«type.points»«mode.speedBonus.factor»);
 		                «ENDIF»
 		                «pop(type.splitRule)»
-		                «FOR table : mode.effectiveDrops.filter[ballType == type]»
+		                «FOR table : mode.effectiveDrops.filter[enemyType == type]»
 		                «drop(table)»
 		                «ENDFOR»
 		                break;
@@ -211,9 +210,9 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
-		    public void onBallTouchesPlayer(BallState ball, ModeContext context) {
-		        switch (ball.kind) {
-		            «FOR type : mode.ballTypes»
+		    public void onEnemyTouchesPlayer(EnemyState enemy, ModeContext context) {
+		        switch (enemy.kind) {
+		            «FOR type : mode.enemyTypes»
 		            case «type.name.javaString»:
 		                «FOR effect : type.contactEffects»
 		                «effect(effect, type.sprite)»
@@ -261,7 +260,7 @@ class ModeClassTemplate {
 	'''
 
 	def dispatch spawnWaves(FixedLayout layout, GameMode mode) '''
-		// all balls are placed at the start by the arena resource «mode.arenaResource»
+		// all enemies are placed at the start by the arena resource «mode.arenaResource»
 	'''
 
 	def dispatch spawnWaves(WaveSchedule schedule, GameMode mode) '''
@@ -286,11 +285,7 @@ class ModeClassTemplate {
 	'''
 
 	def dispatch pop(Split rule) '''
-		context.split(ball, «rule.resultType.name.javaString», «rule.fragments», «rule.launchSpeed.javaFloat»);
-	'''
-
-	def dispatch pop(Burst rule) '''
-		context.burst(ball, «rule.resultType.name.javaString», «rule.fragments», «rule.launchSpeed.javaFloat»);
+		context.split(enemy, «rule.resultType.name.javaString», «rule.fragments», «rule.spacing.javaFloat», «rule.launchSpeed.javaFloat»);
 	'''
 
 	/** The factor a pop's points are multiplied by: the shrinking speed bonus, if the mode has one. */
@@ -298,16 +293,16 @@ class ModeClassTemplate {
 		if (bonus === null) '' else ''' * context.speedBonus(«bonus.maxFactor.javaFloat», «bonus.duration.javaFloat»)'''
 	}
 
-	/** The roll of a ball type's drop table: whether the pop drops anything, then which power-up. */
+	/** The roll of a enemy type's drop table: whether the pop drops anything, then which power-up. */
 	def drop(DropTable table) '''
-		if (context.random() * 100f < «table.chance.javaFloat») { // «table.chance.percent» % of «table.ballType.name» pops drop something
+		if (context.random() * 100f < «table.chance.javaFloat») { // «table.chance.percent» % of «table.enemyType.name» pops drop something
 		    «IF table.entries.size == 1»
-		    context.dropPowerUp(«table.entries.head.powerUp.name.javaString», ball);
+		    context.dropPowerUp(«table.entries.head.powerUp.name.javaString», enemy);
 		    «ELSE»
 		    float roll = context.random() * «table.totalWeight»;
 		    «FOR i : 0 ..< table.entries.size»
 		    «IF i == 0»if (roll < «table.threshold(i)») {«ELSEIF i < table.entries.size - 1»} else if (roll < «table.threshold(i)») {«ELSE»} else {«ENDIF»
-		        context.dropPowerUp(«table.entries.get(i).powerUp.name.javaString», ball); // «table.entries.get(i).share.percent» % of drops, «table.entries.get(i).probability.percent» % of pops
+		        context.dropPowerUp(«table.entries.get(i).powerUp.name.javaString», enemy); // «table.entries.get(i).share.percent» % of drops, «table.entries.get(i).probability.percent» % of pops
 		    «ENDFOR»
 		    }
 		    «ENDIF»
@@ -340,11 +335,11 @@ class ModeClassTemplate {
 
 	def dispatch check(ScoreReached condition) '''stats.score() >= «condition.points»'''
 
-	def dispatch check(BallsPopped condition) '''stats.popped() >= «condition.count»'''
+	def dispatch check(EnemiesPopped condition) '''stats.popped() >= «condition.count»'''
 
 	def dispatch check(WavesSurvived condition) '''stats.wavesCleared() >= «condition.count»'''
 
 	def dispatch check(HealthDepleted condition) '''stats.playerHealth() <= 0'''
 
-	def dispatch check(BallsAlive condition) '''stats.ballsAlive() >= «condition.count»'''
+	def dispatch check(EnemiesAlive condition) '''stats.enemiesAlive() >= «condition.count»'''
 }

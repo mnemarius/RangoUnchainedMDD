@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Early pops are worth more: each pop is worth the points of the ball type times a bonus, which starts at the maximum factor and falls evenly to 1 over the duration of the bonus.
+ * Early pops are worth more: each pop is worth the points of the enemy type times a bonus, which starts at the maximum factor and falls evenly to 1 over the duration of the bonus.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -33,7 +33,7 @@ public interface SpeedBonus extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What a pop is worth at the start of the round, as a multiple of the points of its ball type.
+	 * What a pop is worth at the start of the round, as a multiple of the points of its enemy type.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Max Factor</em>' attribute.
 	 * @see #setMaxFactor(float)

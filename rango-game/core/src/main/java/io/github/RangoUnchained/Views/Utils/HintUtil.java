@@ -20,15 +20,15 @@ public class HintUtil {
 
         // Scenario 1: Early death with low score
         ArrayList<String> earlyDeathHints = new ArrayList<>();
-        earlyDeathHints.add("HINT: Click shoot to shoot the balls.\nHitting them will make them smaller and eventually destroy them.");
+        earlyDeathHints.add("HINT: Click shoot to shoot the enemies.\nHitting them will make them smaller and eventually destroy them.");
         earlyDeathHints.add("HINT: Try moving side to side early on to avoid getting trapped.");
-        earlyDeathHints.add("HINT: Don’t rush into the middle, observe the ball patterns first!");
+        earlyDeathHints.add("HINT: Don’t rush into the middle, observe the enemy patterns first!");
         hints.put(1, earlyDeathHints);
 
         // Scenario 2: Decent score but sudden death
         ArrayList<String> decentScoreHints = new ArrayList<>();
-        decentScoreHints.add("HINT: Watch your corners, don’t get trapped when balls split.");
-        decentScoreHints.add("HINT: You're getting the hang of it! Now focus on dodging after ball splits.");
+        decentScoreHints.add("HINT: Watch your corners, don’t get trapped when enemies split.");
+        decentScoreHints.add("HINT: You're getting the hang of it! Now focus on dodging after enemy splits.");
         decentScoreHints.add("HINT: Try clearing one side before engaging the other to avoid being overwhelmed.");
         hints.put(2, decentScoreHints);
 
@@ -47,7 +47,7 @@ public class HintUtil {
         // Scenario 6: Long survival but chaotic death
         ArrayList<String> longSurvivalHints = new ArrayList<>();
         longSurvivalHints.add("HINT: Great endurance! Try to keep the screen clear before grabbing items.");
-        longSurvivalHints.add("HINT: Too many balls? Split them slowly to stay in control. Patience is key.");
+        longSurvivalHints.add("HINT: Too many enemies? Split them slowly to stay in control. Patience is key.");
         longSurvivalHints.add("HINT: The longer you last, the more careful you need to be with spacing and power, up timing.");
         hints.put(5, longSurvivalHints);
 
@@ -55,9 +55,9 @@ public class HintUtil {
         ArrayList<String> generalTips = new ArrayList<>();
         generalTips.add("HINT: Every run teaches you something, keep practicing!");
         generalTips.add("HINT: Getting better? Try improving your split timing.");
-        generalTips.add("HINT: Watch for patterns in the way balls bounce and split.");
-        generalTips.add("HINT: Split balls when there's enough space to react to the new ones.");
-        generalTips.add("HINT: The smallest balls bounce low and fast, stay sharp!");
+        generalTips.add("HINT: Watch for patterns in the way enemies bounce and split.");
+        generalTips.add("HINT: Split enemies when there's enough space to react to the new ones.");
+        generalTips.add("HINT: The smallest enemies bounce low and fast, stay sharp!");
         hints.put(6, generalTips);
     }
 

@@ -16,7 +16,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.BallType;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
@@ -48,8 +48,8 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 		Set<EObject> used = new HashSet<>();
 		for (GameMode mode : edition.getModes()) {
 			used.add(mode.getPlayer());
-			used.addAll(mode.getBallTypes());
-			for (BallType type : mode.getBallTypes()) {
+			used.addAll(mode.getEnemyTypes());
+			for (EnemyType type : mode.getEnemyTypes()) {
 				used.addAll(type.getProducedTypes());
 			}
 			used.addAll(mode.getPowerUps());
@@ -63,7 +63,7 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 			}
 		}
 		List<NamedElement> blocks = new ArrayList<>();
-		blocks.addAll(edition.getBallTypes());
+		blocks.addAll(edition.getEnemyTypes());
 		blocks.addAll(edition.getPowerUps());
 		blocks.addAll(edition.getMaterials());
 		blocks.addAll(edition.getPlayers());
@@ -76,8 +76,8 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	}
 
 	@Check
-	public void checkSprite(BallType type) {
-		checkImage(type, type.getSprite(), GamemodePackage.Literals.BALL_TYPE__SPRITE);
+	public void checkSprite(EnemyType type) {
+		checkImage(type, type.getSprite(), GamemodePackage.Literals.ENEMY_TYPE__SPRITE);
 	}
 
 	@Check
@@ -92,7 +92,7 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 
 	private void checkImage(EObject owner, String sprite, EStructuralFeature feature) {
 		if (sprite != null && !sprite.toLowerCase().endsWith(".png")) {
-			warning("Sprites are PNG images in the game's assets folder, such as \"Ball/Cactus.png\"", owner,
+			warning("Sprites are PNG images in the game's assets folder, such as \"Enemy/Cactus.png\"", owner,
 					feature, NOT_AN_IMAGE, sprite);
 		}
 	}
@@ -121,26 +121,26 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	}
 
 	/**
-	 * A drop table for a ball type that never appears where the table applies has no effect: in a mode,
-	 * the ball type is not one of the mode's; in the edition, no mode that uses the edition's tables has it.
+	 * A drop table for a enemy type that never appears where the table applies has no effect: in a mode,
+	 * the enemy type is not one of the mode's; in the edition, no mode that uses the edition's tables has it.
 	 */
 	@Check
 	public void checkUselessDropTable(DropTable table) {
-		BallType type = table.getBallType();
+		EnemyType type = table.getEnemyType();
 		if (type == null || type.eIsProxy()) {
 			return;
 		}
 		if (table.eContainer() instanceof GameMode mode) {
-			if (!mode.getBallTypes().contains(type)) {
+			if (!mode.getEnemyTypes().contains(type)) {
 				warning(type.getName() + " never appears in mode " + mode.getName() + ", so this drop table has no effect",
-						table, GamemodePackage.Literals.DROP_TABLE__BALL_TYPE, USELESS_DROP_TABLE);
+						table, GamemodePackage.Literals.DROP_TABLE__ENEMY_TYPE, USELESS_DROP_TABLE);
 			}
 		} else if (table.eContainer() instanceof Edition edition) {
 			boolean applies = edition.getModes().stream()
-					.anyMatch(mode -> mode.getDrops().isEmpty() && mode.getBallTypes().contains(type));
+					.anyMatch(mode -> mode.getDrops().isEmpty() && mode.getEnemyTypes().contains(type));
 			if (!applies) {
 				warning(type.getName() + " never appears in a mode that uses the edition's drop tables, so this drop table has no effect",
-						table, GamemodePackage.Literals.DROP_TABLE__BALL_TYPE, USELESS_DROP_TABLE);
+						table, GamemodePackage.Literals.DROP_TABLE__ENEMY_TYPE, USELESS_DROP_TABLE);
 			}
 		}
 	}
@@ -155,8 +155,8 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	}
 
 	private static String kind(NamedElement element) {
-		if (element instanceof BallType) {
-			return "Ball type";
+		if (element instanceof EnemyType) {
+			return "Enemy type";
 		} else if (element instanceof PowerUp) {
 			return "Power-up";
 		} else if (element instanceof Material) {

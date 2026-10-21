@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the ball types, power-ups, surface materials and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every ball behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost.
+ * Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the enemy types, power-ups, surface materials and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every enemy behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost.
  * <!-- end-model-doc -->
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodeFactory
  * @model kind="package"
@@ -173,13 +173,13 @@ public interface GamemodePackage extends EPackage {
 	int EDITION__TITLE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Ball Types</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Enemy Types</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EDITION__BALL_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int EDITION__ENEMY_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Power Ups</b></em>' containment reference list.
@@ -245,14 +245,14 @@ public interface GamemodePackage extends EPackage {
 	int EDITION_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl <em>Ball Type</em>}' class.
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl <em>Enemy Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemyType()
 	 * @generated
 	 */
-	int BALL_TYPE = 3;
+	int ENEMY_TYPE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -261,7 +261,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__NAME = NAMED_ELEMENT__NAME;
+	int ENEMY_TYPE__NAME = NAMED_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Sprite</b></em>' attribute.
@@ -270,7 +270,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__SPRITE = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int ENEMY_TYPE__SPRITE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Scale</b></em>' attribute.
@@ -279,7 +279,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__SCALE = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int ENEMY_TYPE__SCALE = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Bounce</b></em>' attribute.
@@ -288,7 +288,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__BOUNCE = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int ENEMY_TYPE__BOUNCE = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Speed</b></em>' attribute.
@@ -297,7 +297,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__SPEED = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int ENEMY_TYPE__SPEED = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Points</b></em>' attribute.
@@ -306,7 +306,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__POINTS = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int ENEMY_TYPE__POINTS = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Split Rule</b></em>' containment reference.
@@ -315,7 +315,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__SPLIT_RULE = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int ENEMY_TYPE__SPLIT_RULE = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Contact Effects</b></em>' containment reference list.
@@ -324,7 +324,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__CONTACT_EFFECTS = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int ENEMY_TYPE__CONTACT_EFFECTS = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Produced Types</b></em>' reference list.
@@ -333,25 +333,25 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE__PRODUCED_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 7;
+	int ENEMY_TYPE__PRODUCED_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
-	 * The number of structural features of the '<em>Ball Type</em>' class.
+	 * The number of structural features of the '<em>Enemy Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
+	int ENEMY_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
-	 * The number of operations of the '<em>Ball Type</em>' class.
+	 * The number of operations of the '<em>Enemy Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_TYPE_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
+	int ENEMY_TYPE_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SplitRuleImpl <em>Split Rule</em>}' class.
@@ -410,70 +410,6 @@ public interface GamemodePackage extends EPackage {
 	int VANISH_OPERATION_COUNT = SPLIT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.FragmentingImpl <em>Fragmenting</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.FragmentingImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getFragmenting()
-	 * @generated
-	 */
-	int FRAGMENTING = 6;
-
-	/**
-	 * The feature id for the '<em><b>Fragments</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FRAGMENTING__FRAGMENTS = SPLIT_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Fragment Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FRAGMENTING__FRAGMENT_TYPE = SPLIT_RULE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Launch Speed</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FRAGMENTING__LAUNCH_SPEED = SPLIT_RULE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Result Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FRAGMENTING__RESULT_TYPE = SPLIT_RULE_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Fragmenting</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FRAGMENTING_FEATURE_COUNT = SPLIT_RULE_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of operations of the '<em>Fragmenting</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FRAGMENTING_OPERATION_COUNT = SPLIT_RULE_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SplitImpl <em>Split</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -481,7 +417,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSplit()
 	 * @generated
 	 */
-	int SPLIT = 7;
+	int SPLIT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Fragments</b></em>' attribute.
@@ -490,7 +426,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SPLIT__FRAGMENTS = FRAGMENTING__FRAGMENTS;
+	int SPLIT__FRAGMENTS = SPLIT_RULE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Fragment Type</b></em>' reference.
@@ -499,7 +435,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SPLIT__FRAGMENT_TYPE = FRAGMENTING__FRAGMENT_TYPE;
+	int SPLIT__FRAGMENT_TYPE = SPLIT_RULE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Launch Speed</b></em>' attribute.
@@ -508,7 +444,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SPLIT__LAUNCH_SPEED = FRAGMENTING__LAUNCH_SPEED;
+	int SPLIT__LAUNCH_SPEED = SPLIT_RULE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Result Type</b></em>' reference.
@@ -517,7 +453,16 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SPLIT__RESULT_TYPE = FRAGMENTING__RESULT_TYPE;
+	int SPLIT__RESULT_TYPE = SPLIT_RULE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Spacing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPLIT__SPACING = SPLIT_RULE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Split</em>' class.
@@ -526,7 +471,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SPLIT_FEATURE_COUNT = FRAGMENTING_FEATURE_COUNT + 0;
+	int SPLIT_FEATURE_COUNT = SPLIT_RULE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Split</em>' class.
@@ -535,71 +480,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SPLIT_OPERATION_COUNT = FRAGMENTING_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BurstImpl <em>Burst</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BurstImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBurst()
-	 * @generated
-	 */
-	int BURST = 8;
-
-	/**
-	 * The feature id for the '<em><b>Fragments</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BURST__FRAGMENTS = FRAGMENTING__FRAGMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Fragment Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BURST__FRAGMENT_TYPE = FRAGMENTING__FRAGMENT_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Launch Speed</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BURST__LAUNCH_SPEED = FRAGMENTING__LAUNCH_SPEED;
-
-	/**
-	 * The feature id for the '<em><b>Result Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BURST__RESULT_TYPE = FRAGMENTING__RESULT_TYPE;
-
-	/**
-	 * The number of structural features of the '<em>Burst</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BURST_FEATURE_COUNT = FRAGMENTING_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Burst</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BURST_OPERATION_COUNT = FRAGMENTING_OPERATION_COUNT + 0;
+	int SPLIT_OPERATION_COUNT = SPLIT_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.PlayerEffectImpl <em>Player Effect</em>}' class.
@@ -609,7 +490,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getPlayerEffect()
 	 * @generated
 	 */
-	int PLAYER_EFFECT = 9;
+	int PLAYER_EFFECT = 7;
 
 	/**
 	 * The number of structural features of the '<em>Player Effect</em>' class.
@@ -637,7 +518,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDamage()
 	 * @generated
 	 */
-	int DAMAGE = 10;
+	int DAMAGE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Amount</b></em>' attribute.
@@ -674,7 +555,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHeal()
 	 * @generated
 	 */
-	int HEAL = 11;
+	int HEAL = 9;
 
 	/**
 	 * The feature id for the '<em><b>Amount</b></em>' attribute.
@@ -711,7 +592,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimedEffect()
 	 * @generated
 	 */
-	int TIMED_EFFECT = 12;
+	int TIMED_EFFECT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Duration</b></em>' attribute.
@@ -748,7 +629,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getShield()
 	 * @generated
 	 */
-	int SHIELD = 13;
+	int SHIELD = 11;
 
 	/**
 	 * The feature id for the '<em><b>Duration</b></em>' attribute.
@@ -785,7 +666,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpeedChange()
 	 * @generated
 	 */
-	int SPEED_CHANGE = 14;
+	int SPEED_CHANGE = 12;
 
 	/**
 	 * The feature id for the '<em><b>Duration</b></em>' attribute.
@@ -831,7 +712,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getPoison()
 	 * @generated
 	 */
-	int POISON = 15;
+	int POISON = 13;
 
 	/**
 	 * The feature id for the '<em><b>Duration</b></em>' attribute.
@@ -886,7 +767,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getPowerUp()
 	 * @generated
 	 */
-	int POWER_UP = 16;
+	int POWER_UP = 14;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -941,7 +822,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getMaterial()
 	 * @generated
 	 */
-	int MATERIAL = 17;
+	int MATERIAL = 15;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -996,7 +877,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getPlayerProfile()
 	 * @generated
 	 */
-	int PLAYER_PROFILE = 18;
+	int PLAYER_PROFILE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1096,7 +977,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getGameMode()
 	 * @generated
 	 */
-	int GAME_MODE = 19;
+	int GAME_MODE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1135,13 +1016,13 @@ public interface GamemodePackage extends EPackage {
 	int GAME_MODE__PLAYER = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Ball Types</b></em>' reference list.
+	 * The feature id for the '<em><b>Enemy Types</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE__BALL_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int GAME_MODE__ENEMY_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Gravity</b></em>' attribute.
@@ -1180,7 +1061,7 @@ public interface GamemodePackage extends EPackage {
 	int GAME_MODE__SPAWNING = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Drops</b></em>' containment reference.
+	 * The feature id for the '<em><b>Drops</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1268,7 +1149,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpeedBonus()
 	 * @generated
 	 */
-	int SPEED_BONUS = 20;
+	int SPEED_BONUS = 18;
 
 	/**
 	 * The feature id for the '<em><b>Max Factor</b></em>' attribute.
@@ -1314,7 +1195,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getArena()
 	 * @generated
 	 */
-	int ARENA = 21;
+	int ARENA = 19;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl <em>Obstacle</em>}' class.
@@ -1324,7 +1205,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getObstacle()
 	 * @generated
 	 */
-	int OBSTACLE = 22;
+	int OBSTACLE = 20;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl <em>Block</em>}' class.
@@ -1334,7 +1215,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBlock()
 	 * @generated
 	 */
-	int BLOCK = 23;
+	int BLOCK = 21;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl <em>Trigger</em>}' class.
@@ -1344,7 +1225,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTrigger()
 	 * @generated
 	 */
-	int TRIGGER = 24;
+	int TRIGGER = 22;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl <em>Jump Pad</em>}' class.
@@ -1354,7 +1235,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getJumpPad()
 	 * @generated
 	 */
-	int JUMP_PAD = 25;
+	int JUMP_PAD = 23;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl <em>Teleporter</em>}' class.
@@ -1364,7 +1245,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTeleporter()
 	 * @generated
 	 */
-	int TELEPORTER = 26;
+	int TELEPORTER = 24;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl <em>Spawn Strategy</em>}' class.
@@ -1374,7 +1255,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpawnStrategy()
 	 * @generated
 	 */
-	int SPAWN_STRATEGY = 27;
+	int SPAWN_STRATEGY = 25;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl <em>Fixed Layout</em>}' class.
@@ -1384,7 +1265,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getFixedLayout()
 	 * @generated
 	 */
-	int FIXED_LAYOUT = 28;
+	int FIXED_LAYOUT = 26;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl <em>Wave Schedule</em>}' class.
@@ -1394,7 +1275,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWaveSchedule()
 	 * @generated
 	 */
-	int WAVE_SCHEDULE = 29;
+	int WAVE_SCHEDULE = 27;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl <em>Wave</em>}' class.
@@ -1404,17 +1285,17 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWave()
 	 * @generated
 	 */
-	int WAVE = 30;
+	int WAVE = 28;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl <em>Ball Spawn</em>}' class.
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl <em>Enemy Spawn</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallSpawn()
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemySpawn()
 	 * @generated
 	 */
-	int BALL_SPAWN = 31;
+	int ENEMY_SPAWN = 29;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl <em>Drop Table</em>}' class.
@@ -1424,7 +1305,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDropTable()
 	 * @generated
 	 */
-	int DROP_TABLE = 32;
+	int DROP_TABLE = 30;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl <em>Drop</em>}' class.
@@ -1434,7 +1315,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDrop()
 	 * @generated
 	 */
-	int DROP = 33;
+	int DROP = 31;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl <em>End Condition</em>}' class.
@@ -1444,7 +1325,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEndCondition()
 	 * @generated
 	 */
-	int END_CONDITION = 34;
+	int END_CONDITION = 32;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl <em>Cleared</em>}' class.
@@ -1454,7 +1335,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getCleared()
 	 * @generated
 	 */
-	int CLEARED = 35;
+	int CLEARED = 33;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl <em>Time Reached</em>}' class.
@@ -1464,7 +1345,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeReached()
 	 * @generated
 	 */
-	int TIME_REACHED = 36;
+	int TIME_REACHED = 34;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl <em>Score Reached</em>}' class.
@@ -1474,17 +1355,17 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getScoreReached()
 	 * @generated
 	 */
-	int SCORE_REACHED = 37;
+	int SCORE_REACHED = 35;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl <em>Balls Popped</em>}' class.
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl <em>Enemies Popped</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsPopped()
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesPopped()
 	 * @generated
 	 */
-	int BALLS_POPPED = 38;
+	int ENEMIES_POPPED = 36;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
@@ -1494,7 +1375,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWavesSurvived()
 	 * @generated
 	 */
-	int WAVES_SURVIVED = 39;
+	int WAVES_SURVIVED = 37;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl <em>Health Depleted</em>}' class.
@@ -1504,17 +1385,17 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHealthDepleted()
 	 * @generated
 	 */
-	int HEALTH_DEPLETED = 40;
+	int HEALTH_DEPLETED = 38;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl <em>Balls Alive</em>}' class.
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl <em>Enemies Alive</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsAlive()
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesAlive()
 	 * @generated
 	 */
-	int BALLS_ALIVE = 41;
+	int ENEMIES_ALIVE = 39;
 
 	/**
 	 * The feature id for the '<em><b>Background</b></em>' attribute.
@@ -2054,7 +1935,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN__X = POSITIONED__X;
+	int ENEMY_SPAWN__X = POSITIONED__X;
 
 	/**
 	 * The feature id for the '<em><b>Y</b></em>' attribute.
@@ -2063,7 +1944,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN__Y = POSITIONED__Y;
+	int ENEMY_SPAWN__Y = POSITIONED__Y;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2072,7 +1953,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN__TYPE = POSITIONED_FEATURE_COUNT + 0;
+	int ENEMY_SPAWN__TYPE = POSITIONED_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' attribute.
@@ -2081,7 +1962,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN__SIZE = POSITIONED_FEATURE_COUNT + 1;
+	int ENEMY_SPAWN__SIZE = POSITIONED_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -2090,7 +1971,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN__COUNT = POSITIONED_FEATURE_COUNT + 2;
+	int ENEMY_SPAWN__COUNT = POSITIONED_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
@@ -2099,7 +1980,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN__DIRECTION = POSITIONED_FEATURE_COUNT + 3;
+	int ENEMY_SPAWN__DIRECTION = POSITIONED_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
@@ -2108,25 +1989,25 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN__POPS_TO_CLEAR = POSITIONED_FEATURE_COUNT + 4;
+	int ENEMY_SPAWN__POPS_TO_CLEAR = POSITIONED_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the '<em>Ball Spawn</em>' class.
+	 * The number of structural features of the '<em>Enemy Spawn</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN_FEATURE_COUNT = POSITIONED_FEATURE_COUNT + 5;
+	int ENEMY_SPAWN_FEATURE_COUNT = POSITIONED_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of operations of the '<em>Ball Spawn</em>' class.
+	 * The number of operations of the '<em>Enemy Spawn</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALL_SPAWN_OPERATION_COUNT = POSITIONED_OPERATION_COUNT + 0;
+	int ENEMY_SPAWN_OPERATION_COUNT = POSITIONED_OPERATION_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Chance</b></em>' attribute.
@@ -2156,13 +2037,13 @@ public interface GamemodePackage extends EPackage {
 	int DROP_TABLE__TOTAL_WEIGHT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Ball Type</b></em>' reference.
+	 * The feature id for the '<em><b>Enemy Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DROP_TABLE__BALL_TYPE = 3;
+	int DROP_TABLE__ENEMY_TYPE = 3;
 
 	/**
 	 * The number of structural features of the '<em>Drop Table</em>' class.
@@ -2378,7 +2259,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_POPPED__WIN = END_CONDITION__WIN;
+	int ENEMIES_POPPED__WIN = END_CONDITION__WIN;
 
 	/**
 	 * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -2387,25 +2268,25 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_POPPED__COUNT = END_CONDITION_FEATURE_COUNT + 0;
+	int ENEMIES_POPPED__COUNT = END_CONDITION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Balls Popped</em>' class.
+	 * The number of structural features of the '<em>Enemies Popped</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_POPPED_FEATURE_COUNT = END_CONDITION_FEATURE_COUNT + 1;
+	int ENEMIES_POPPED_FEATURE_COUNT = END_CONDITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>Balls Popped</em>' class.
+	 * The number of operations of the '<em>Enemies Popped</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_POPPED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
+	int ENEMIES_POPPED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
@@ -2477,7 +2358,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_ALIVE__WIN = END_CONDITION__WIN;
+	int ENEMIES_ALIVE__WIN = END_CONDITION__WIN;
 
 	/**
 	 * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -2486,25 +2367,25 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_ALIVE__COUNT = END_CONDITION_FEATURE_COUNT + 0;
+	int ENEMIES_ALIVE__COUNT = END_CONDITION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Balls Alive</em>' class.
+	 * The number of structural features of the '<em>Enemies Alive</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_ALIVE_FEATURE_COUNT = END_CONDITION_FEATURE_COUNT + 1;
+	int ENEMIES_ALIVE_FEATURE_COUNT = END_CONDITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>Balls Alive</em>' class.
+	 * The number of operations of the '<em>Enemies Alive</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BALLS_ALIVE_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
+	int ENEMIES_ALIVE_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}' enum.
@@ -2514,7 +2395,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTarget()
 	 * @generated
 	 */
-	int TARGET = 42;
+	int TARGET = 40;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Direction <em>Direction</em>}' enum.
@@ -2524,7 +2405,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 43;
+	int DIRECTION = 41;
 
 
 	/**
@@ -2602,15 +2483,15 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getEdition_Title();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Edition#getBallTypes <em>Ball Types</em>}'.
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Edition#getEnemyTypes <em>Enemy Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Ball Types</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Edition#getBallTypes()
+	 * @return the meta object for the containment reference list '<em>Enemy Types</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Edition#getEnemyTypes()
 	 * @see #getEdition()
 	 * @generated
 	 */
-	EReference getEdition_BallTypes();
+	EReference getEdition_EnemyTypes();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPowerUps <em>Power Ups</em>}'.
@@ -2668,102 +2549,102 @@ public interface GamemodePackage extends EPackage {
 	EReference getEdition_Drops();
 
 	/**
-	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.BallType <em>Ball Type</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType <em>Enemy Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Ball Type</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType
+	 * @return the meta object for class '<em>Enemy Type</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType
 	 * @generated
 	 */
-	EClass getBallType();
+	EClass getEnemyType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSprite <em>Sprite</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSprite <em>Sprite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Sprite</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getSprite()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getSprite()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EAttribute getBallType_Sprite();
+	EAttribute getEnemyType_Sprite();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getScale <em>Scale</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getScale <em>Scale</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Scale</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getScale()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getScale()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EAttribute getBallType_Scale();
+	EAttribute getEnemyType_Scale();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getBounce <em>Bounce</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getBounce <em>Bounce</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Bounce</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getBounce()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getBounce()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EAttribute getBallType_Bounce();
+	EAttribute getEnemyType_Bounce();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSpeed <em>Speed</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSpeed <em>Speed</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Speed</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getSpeed()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getSpeed()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EAttribute getBallType_Speed();
+	EAttribute getEnemyType_Speed();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getPoints <em>Points</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getPoints <em>Points</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Points</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getPoints()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getPoints()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EAttribute getBallType_Points();
+	EAttribute getEnemyType_Points();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getSplitRule <em>Split Rule</em>}'.
+	 * Returns the meta object for the containment reference '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getSplitRule <em>Split Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Split Rule</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getSplitRule()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getSplitRule()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EReference getBallType_SplitRule();
+	EReference getEnemyType_SplitRule();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getContactEffects <em>Contact Effects</em>}'.
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getContactEffects <em>Contact Effects</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Contact Effects</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getContactEffects()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getContactEffects()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EReference getBallType_ContactEffects();
+	EReference getEnemyType_ContactEffects();
 
 	/**
-	 * Returns the meta object for the reference list '{@link no.ntnu.tdt4250.rango.gamemode.BallType#getProducedTypes <em>Produced Types</em>}'.
+	 * Returns the meta object for the reference list '{@link no.ntnu.tdt4250.rango.gamemode.EnemyType#getProducedTypes <em>Produced Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Produced Types</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallType#getProducedTypes()
-	 * @see #getBallType()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemyType#getProducedTypes()
+	 * @see #getEnemyType()
 	 * @generated
 	 */
-	EReference getBallType_ProducedTypes();
+	EReference getEnemyType_ProducedTypes();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.SplitRule <em>Split Rule</em>}'.
@@ -2786,60 +2667,6 @@ public interface GamemodePackage extends EPackage {
 	EClass getVanish();
 
 	/**
-	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Fragmenting <em>Fragmenting</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Fragmenting</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Fragmenting
-	 * @generated
-	 */
-	EClass getFragmenting();
-
-	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Fragmenting#getFragments <em>Fragments</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Fragments</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Fragmenting#getFragments()
-	 * @see #getFragmenting()
-	 * @generated
-	 */
-	EAttribute getFragmenting_Fragments();
-
-	/**
-	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.Fragmenting#getFragmentType <em>Fragment Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Fragment Type</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Fragmenting#getFragmentType()
-	 * @see #getFragmenting()
-	 * @generated
-	 */
-	EReference getFragmenting_FragmentType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Fragmenting#getLaunchSpeed <em>Launch Speed</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Launch Speed</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Fragmenting#getLaunchSpeed()
-	 * @see #getFragmenting()
-	 * @generated
-	 */
-	EAttribute getFragmenting_LaunchSpeed();
-
-	/**
-	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.Fragmenting#getResultType <em>Result Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Result Type</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Fragmenting#getResultType()
-	 * @see #getFragmenting()
-	 * @generated
-	 */
-	EReference getFragmenting_ResultType();
-
-	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Split <em>Split</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2850,14 +2677,59 @@ public interface GamemodePackage extends EPackage {
 	EClass getSplit();
 
 	/**
-	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Burst <em>Burst</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Split#getFragments <em>Fragments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Burst</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Burst
+	 * @return the meta object for the attribute '<em>Fragments</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Split#getFragments()
+	 * @see #getSplit()
 	 * @generated
 	 */
-	EClass getBurst();
+	EAttribute getSplit_Fragments();
+
+	/**
+	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.Split#getFragmentType <em>Fragment Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Fragment Type</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Split#getFragmentType()
+	 * @see #getSplit()
+	 * @generated
+	 */
+	EReference getSplit_FragmentType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Split#getLaunchSpeed <em>Launch Speed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Launch Speed</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Split#getLaunchSpeed()
+	 * @see #getSplit()
+	 * @generated
+	 */
+	EAttribute getSplit_LaunchSpeed();
+
+	/**
+	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.Split#getResultType <em>Result Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Result Type</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Split#getResultType()
+	 * @see #getSplit()
+	 * @generated
+	 */
+	EReference getSplit_ResultType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Split#getSpacing <em>Spacing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Spacing</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Split#getSpacing()
+	 * @see #getSplit()
+	 * @generated
+	 */
+	EAttribute getSplit_Spacing();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.PlayerEffect <em>Player Effect</em>}'.
@@ -3190,15 +3062,15 @@ public interface GamemodePackage extends EPackage {
 	EReference getGameMode_Player();
 
 	/**
-	 * Returns the meta object for the reference list '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getBallTypes <em>Ball Types</em>}'.
+	 * Returns the meta object for the reference list '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getEnemyTypes <em>Enemy Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Ball Types</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getBallTypes()
+	 * @return the meta object for the reference list '<em>Enemy Types</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getEnemyTypes()
 	 * @see #getGameMode()
 	 * @generated
 	 */
-	EReference getGameMode_BallTypes();
+	EReference getGameMode_EnemyTypes();
 
 	/**
 	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getGravity <em>Gravity</em>}'.
@@ -3245,10 +3117,10 @@ public interface GamemodePackage extends EPackage {
 	EReference getGameMode_Spawning();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops <em>Drops</em>}'.
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops <em>Drops</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Drops</em>'.
+	 * @return the meta object for the containment reference list '<em>Drops</em>'.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops()
 	 * @see #getGameMode()
 	 * @generated
@@ -3674,69 +3546,69 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getWave_PopsToClear();
 
 	/**
-	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn <em>Ball Spawn</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn <em>Enemy Spawn</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Ball Spawn</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallSpawn
+	 * @return the meta object for class '<em>Enemy Spawn</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemySpawn
 	 * @generated
 	 */
-	EClass getBallSpawn();
+	EClass getEnemySpawn();
 
 	/**
-	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getType <em>Type</em>}'.
+	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Type</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallSpawn#getType()
-	 * @see #getBallSpawn()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getType()
+	 * @see #getEnemySpawn()
 	 * @generated
 	 */
-	EReference getBallSpawn_Type();
+	EReference getEnemySpawn_Type();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getSize <em>Size</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getSize <em>Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Size</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallSpawn#getSize()
-	 * @see #getBallSpawn()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getSize()
+	 * @see #getEnemySpawn()
 	 * @generated
 	 */
-	EAttribute getBallSpawn_Size();
+	EAttribute getEnemySpawn_Size();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getCount <em>Count</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getCount <em>Count</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Count</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallSpawn#getCount()
-	 * @see #getBallSpawn()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getCount()
+	 * @see #getEnemySpawn()
 	 * @generated
 	 */
-	EAttribute getBallSpawn_Count();
+	EAttribute getEnemySpawn_Count();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getDirection <em>Direction</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getDirection <em>Direction</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Direction</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallSpawn#getDirection()
-	 * @see #getBallSpawn()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getDirection()
+	 * @see #getEnemySpawn()
 	 * @generated
 	 */
-	EAttribute getBallSpawn_Direction();
+	EAttribute getEnemySpawn_Direction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallSpawn#getPopsToClear <em>Pops To Clear</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getPopsToClear <em>Pops To Clear</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Pops To Clear</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallSpawn#getPopsToClear()
-	 * @see #getBallSpawn()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemySpawn#getPopsToClear()
+	 * @see #getEnemySpawn()
 	 * @generated
 	 */
-	EAttribute getBallSpawn_PopsToClear();
+	EAttribute getEnemySpawn_PopsToClear();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.DropTable <em>Drop Table</em>}'.
@@ -3782,15 +3654,15 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getDropTable_TotalWeight();
 
 	/**
-	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getBallType <em>Ball Type</em>}'.
+	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.DropTable#getEnemyType <em>Enemy Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Ball Type</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.DropTable#getBallType()
+	 * @return the meta object for the reference '<em>Enemy Type</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.DropTable#getEnemyType()
 	 * @see #getDropTable()
 	 * @generated
 	 */
-	EReference getDropTable_BallType();
+	EReference getDropTable_EnemyType();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Drop <em>Drop</em>}'.
@@ -3931,25 +3803,25 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getScoreReached_Points();
 
 	/**
-	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.BallsPopped <em>Balls Popped</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.EnemiesPopped <em>Enemies Popped</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Balls Popped</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallsPopped
+	 * @return the meta object for class '<em>Enemies Popped</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemiesPopped
 	 * @generated
 	 */
-	EClass getBallsPopped();
+	EClass getEnemiesPopped();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallsPopped#getCount <em>Count</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemiesPopped#getCount <em>Count</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Count</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallsPopped#getCount()
-	 * @see #getBallsPopped()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemiesPopped#getCount()
+	 * @see #getEnemiesPopped()
 	 * @generated
 	 */
-	EAttribute getBallsPopped_Count();
+	EAttribute getEnemiesPopped_Count();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.WavesSurvived <em>Waves Survived</em>}'.
@@ -3983,25 +3855,25 @@ public interface GamemodePackage extends EPackage {
 	EClass getHealthDepleted();
 
 	/**
-	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.BallsAlive <em>Balls Alive</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.EnemiesAlive <em>Enemies Alive</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Balls Alive</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallsAlive
+	 * @return the meta object for class '<em>Enemies Alive</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemiesAlive
 	 * @generated
 	 */
-	EClass getBallsAlive();
+	EClass getEnemiesAlive();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.BallsAlive#getCount <em>Count</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.EnemiesAlive#getCount <em>Count</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Count</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.BallsAlive#getCount()
-	 * @see #getBallsAlive()
+	 * @see no.ntnu.tdt4250.rango.gamemode.EnemiesAlive#getCount()
+	 * @see #getEnemiesAlive()
 	 * @generated
 	 */
-	EAttribute getBallsAlive_Count();
+	EAttribute getEnemiesAlive_Count();
 
 	/**
 	 * Returns the meta object for enum '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}'.
@@ -4109,12 +3981,12 @@ public interface GamemodePackage extends EPackage {
 		EAttribute EDITION__TITLE = eINSTANCE.getEdition_Title();
 
 		/**
-		 * The meta object literal for the '<em><b>Ball Types</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Enemy Types</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EDITION__BALL_TYPES = eINSTANCE.getEdition_BallTypes();
+		EReference EDITION__ENEMY_TYPES = eINSTANCE.getEdition_EnemyTypes();
 
 		/**
 		 * The meta object literal for the '<em><b>Power Ups</b></em>' containment reference list feature.
@@ -4157,14 +4029,14 @@ public interface GamemodePackage extends EPackage {
 		EReference EDITION__DROPS = eINSTANCE.getEdition_Drops();
 
 		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl <em>Ball Type</em>}' class.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl <em>Enemy Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallTypeImpl
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallType()
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemyTypeImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemyType()
 		 * @generated
 		 */
-		EClass BALL_TYPE = eINSTANCE.getBallType();
+		EClass ENEMY_TYPE = eINSTANCE.getEnemyType();
 
 		/**
 		 * The meta object literal for the '<em><b>Sprite</b></em>' attribute feature.
@@ -4172,7 +4044,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_TYPE__SPRITE = eINSTANCE.getBallType_Sprite();
+		EAttribute ENEMY_TYPE__SPRITE = eINSTANCE.getEnemyType_Sprite();
 
 		/**
 		 * The meta object literal for the '<em><b>Scale</b></em>' attribute feature.
@@ -4180,7 +4052,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_TYPE__SCALE = eINSTANCE.getBallType_Scale();
+		EAttribute ENEMY_TYPE__SCALE = eINSTANCE.getEnemyType_Scale();
 
 		/**
 		 * The meta object literal for the '<em><b>Bounce</b></em>' attribute feature.
@@ -4188,7 +4060,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_TYPE__BOUNCE = eINSTANCE.getBallType_Bounce();
+		EAttribute ENEMY_TYPE__BOUNCE = eINSTANCE.getEnemyType_Bounce();
 
 		/**
 		 * The meta object literal for the '<em><b>Speed</b></em>' attribute feature.
@@ -4196,7 +4068,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_TYPE__SPEED = eINSTANCE.getBallType_Speed();
+		EAttribute ENEMY_TYPE__SPEED = eINSTANCE.getEnemyType_Speed();
 
 		/**
 		 * The meta object literal for the '<em><b>Points</b></em>' attribute feature.
@@ -4204,7 +4076,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_TYPE__POINTS = eINSTANCE.getBallType_Points();
+		EAttribute ENEMY_TYPE__POINTS = eINSTANCE.getEnemyType_Points();
 
 		/**
 		 * The meta object literal for the '<em><b>Split Rule</b></em>' containment reference feature.
@@ -4212,7 +4084,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BALL_TYPE__SPLIT_RULE = eINSTANCE.getBallType_SplitRule();
+		EReference ENEMY_TYPE__SPLIT_RULE = eINSTANCE.getEnemyType_SplitRule();
 
 		/**
 		 * The meta object literal for the '<em><b>Contact Effects</b></em>' containment reference list feature.
@@ -4220,7 +4092,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BALL_TYPE__CONTACT_EFFECTS = eINSTANCE.getBallType_ContactEffects();
+		EReference ENEMY_TYPE__CONTACT_EFFECTS = eINSTANCE.getEnemyType_ContactEffects();
 
 		/**
 		 * The meta object literal for the '<em><b>Produced Types</b></em>' reference list feature.
@@ -4228,7 +4100,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BALL_TYPE__PRODUCED_TYPES = eINSTANCE.getBallType_ProducedTypes();
+		EReference ENEMY_TYPE__PRODUCED_TYPES = eINSTANCE.getEnemyType_ProducedTypes();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SplitRuleImpl <em>Split Rule</em>}' class.
@@ -4251,48 +4123,6 @@ public interface GamemodePackage extends EPackage {
 		EClass VANISH = eINSTANCE.getVanish();
 
 		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.FragmentingImpl <em>Fragmenting</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.FragmentingImpl
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getFragmenting()
-		 * @generated
-		 */
-		EClass FRAGMENTING = eINSTANCE.getFragmenting();
-
-		/**
-		 * The meta object literal for the '<em><b>Fragments</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FRAGMENTING__FRAGMENTS = eINSTANCE.getFragmenting_Fragments();
-
-		/**
-		 * The meta object literal for the '<em><b>Fragment Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FRAGMENTING__FRAGMENT_TYPE = eINSTANCE.getFragmenting_FragmentType();
-
-		/**
-		 * The meta object literal for the '<em><b>Launch Speed</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FRAGMENTING__LAUNCH_SPEED = eINSTANCE.getFragmenting_LaunchSpeed();
-
-		/**
-		 * The meta object literal for the '<em><b>Result Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FRAGMENTING__RESULT_TYPE = eINSTANCE.getFragmenting_ResultType();
-
-		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SplitImpl <em>Split</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4303,14 +4133,44 @@ public interface GamemodePackage extends EPackage {
 		EClass SPLIT = eINSTANCE.getSplit();
 
 		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BurstImpl <em>Burst</em>}' class.
+		 * The meta object literal for the '<em><b>Fragments</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.BurstImpl
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBurst()
 		 * @generated
 		 */
-		EClass BURST = eINSTANCE.getBurst();
+		EAttribute SPLIT__FRAGMENTS = eINSTANCE.getSplit_Fragments();
+
+		/**
+		 * The meta object literal for the '<em><b>Fragment Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SPLIT__FRAGMENT_TYPE = eINSTANCE.getSplit_FragmentType();
+
+		/**
+		 * The meta object literal for the '<em><b>Launch Speed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPLIT__LAUNCH_SPEED = eINSTANCE.getSplit_LaunchSpeed();
+
+		/**
+		 * The meta object literal for the '<em><b>Result Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SPLIT__RESULT_TYPE = eINSTANCE.getSplit_ResultType();
+
+		/**
+		 * The meta object literal for the '<em><b>Spacing</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPLIT__SPACING = eINSTANCE.getSplit_Spacing();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.PlayerEffectImpl <em>Player Effect</em>}' class.
@@ -4583,12 +4443,12 @@ public interface GamemodePackage extends EPackage {
 		EReference GAME_MODE__PLAYER = eINSTANCE.getGameMode_Player();
 
 		/**
-		 * The meta object literal for the '<em><b>Ball Types</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Enemy Types</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference GAME_MODE__BALL_TYPES = eINSTANCE.getGameMode_BallTypes();
+		EReference GAME_MODE__ENEMY_TYPES = eINSTANCE.getGameMode_EnemyTypes();
 
 		/**
 		 * The meta object literal for the '<em><b>Gravity</b></em>' attribute feature.
@@ -4623,7 +4483,7 @@ public interface GamemodePackage extends EPackage {
 		EReference GAME_MODE__SPAWNING = eINSTANCE.getGameMode_Spawning();
 
 		/**
-		 * The meta object literal for the '<em><b>Drops</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Drops</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -4965,14 +4825,14 @@ public interface GamemodePackage extends EPackage {
 		EAttribute WAVE__POPS_TO_CLEAR = eINSTANCE.getWave_PopsToClear();
 
 		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl <em>Ball Spawn</em>}' class.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl <em>Enemy Spawn</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallSpawnImpl
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallSpawn()
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemySpawn()
 		 * @generated
 		 */
-		EClass BALL_SPAWN = eINSTANCE.getBallSpawn();
+		EClass ENEMY_SPAWN = eINSTANCE.getEnemySpawn();
 
 		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
@@ -4980,7 +4840,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BALL_SPAWN__TYPE = eINSTANCE.getBallSpawn_Type();
+		EReference ENEMY_SPAWN__TYPE = eINSTANCE.getEnemySpawn_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
@@ -4988,7 +4848,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_SPAWN__SIZE = eINSTANCE.getBallSpawn_Size();
+		EAttribute ENEMY_SPAWN__SIZE = eINSTANCE.getEnemySpawn_Size();
 
 		/**
 		 * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
@@ -4996,7 +4856,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_SPAWN__COUNT = eINSTANCE.getBallSpawn_Count();
+		EAttribute ENEMY_SPAWN__COUNT = eINSTANCE.getEnemySpawn_Count();
 
 		/**
 		 * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
@@ -5004,7 +4864,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_SPAWN__DIRECTION = eINSTANCE.getBallSpawn_Direction();
+		EAttribute ENEMY_SPAWN__DIRECTION = eINSTANCE.getEnemySpawn_Direction();
 
 		/**
 		 * The meta object literal for the '<em><b>Pops To Clear</b></em>' attribute feature.
@@ -5012,7 +4872,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALL_SPAWN__POPS_TO_CLEAR = eINSTANCE.getBallSpawn_PopsToClear();
+		EAttribute ENEMY_SPAWN__POPS_TO_CLEAR = eINSTANCE.getEnemySpawn_PopsToClear();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl <em>Drop Table</em>}' class.
@@ -5049,12 +4909,12 @@ public interface GamemodePackage extends EPackage {
 		EAttribute DROP_TABLE__TOTAL_WEIGHT = eINSTANCE.getDropTable_TotalWeight();
 
 		/**
-		 * The meta object literal for the '<em><b>Ball Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Enemy Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DROP_TABLE__BALL_TYPE = eINSTANCE.getDropTable_BallType();
+		EReference DROP_TABLE__ENEMY_TYPE = eINSTANCE.getDropTable_EnemyType();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl <em>Drop</em>}' class.
@@ -5171,14 +5031,14 @@ public interface GamemodePackage extends EPackage {
 		EAttribute SCORE_REACHED__POINTS = eINSTANCE.getScoreReached_Points();
 
 		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl <em>Balls Popped</em>}' class.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl <em>Enemies Popped</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsPoppedImpl
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsPopped()
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesPopped()
 		 * @generated
 		 */
-		EClass BALLS_POPPED = eINSTANCE.getBallsPopped();
+		EClass ENEMIES_POPPED = eINSTANCE.getEnemiesPopped();
 
 		/**
 		 * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
@@ -5186,7 +5046,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALLS_POPPED__COUNT = eINSTANCE.getBallsPopped_Count();
+		EAttribute ENEMIES_POPPED__COUNT = eINSTANCE.getEnemiesPopped_Count();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
@@ -5217,14 +5077,14 @@ public interface GamemodePackage extends EPackage {
 		EClass HEALTH_DEPLETED = eINSTANCE.getHealthDepleted();
 
 		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl <em>Balls Alive</em>}' class.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl <em>Enemies Alive</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.BallsAliveImpl
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBallsAlive()
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesAlive()
 		 * @generated
 		 */
-		EClass BALLS_ALIVE = eINSTANCE.getBallsAlive();
+		EClass ENEMIES_ALIVE = eINSTANCE.getEnemiesAlive();
 
 		/**
 		 * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
@@ -5232,7 +5092,7 @@ public interface GamemodePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BALLS_ALIVE__COUNT = eINSTANCE.getBallsAlive_Count();
+		EAttribute ENEMIES_ALIVE__COUNT = eINSTANCE.getEnemiesAlive_Count();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.Target <em>Target</em>}' enum.
