@@ -130,7 +130,9 @@ public class ObsticleFactory {
 
         SpriteComponent sprite;
         if (entityData.typeInfo.sprite != null) {
+            // material surfaces of game mode arenas: repeat the tile rather than stretch it over the arena
             sprite = new SpriteComponent(entityData.typeInfo.sprite, spriteWidth, spriteHeight);
+            sprite.tile();
         } else if (subType.equals("Floor")) {
             sprite = new SpriteComponent("Background/Floor.png", spriteWidth, spriteHeight);
         } else if (subType.equals("Roof")) {

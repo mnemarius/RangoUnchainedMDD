@@ -27,6 +27,7 @@ import io.github.RangoUnchained.Controllers.AudioController;
 import io.github.RangoUnchained.Model.Components.BodyComponent;
 import io.github.RangoUnchained.Model.Components.PowerUpComponent;
 import io.github.RangoUnchained.Model.Components.SpriteComponent;
+import io.github.RangoUnchained.Model.level.GameLevel;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Firebase.MultiplayerManager;
 import io.github.RangoUnchained.Model.Firebase.Utils.LobbyInfo;
@@ -48,6 +49,7 @@ public class GamePlayView extends BaseScreen {
     private LobbyInfo lobby;
     private final int levelNumber;
     private boolean hasSentFinishData;
+    private boolean hasHandledGameOver;
     private boolean shouldInitialize = true;
     private boolean initialized = false;
     private Table centralTable;
@@ -442,15 +444,18 @@ public class GamePlayView extends BaseScreen {
                     }
                 }
             );
-        } else {
+        } else if (!hasHandledGameOver) {
+            // render() calls this every frame while the game is over, and the view switch disposes the
+            // controller, so handle it once and read the controller's state now rather than in the runnable.
+            hasHandledGameOver = true;
+            final GameLevel level = controller.getLevel();
+            final boolean completed = controller.isCompleted();
             Gdx.app.postRunnable(() -> {
-                HintUtil.setHint(controller.getLevel());
+                HintUtil.setHint(level);
                 if (mode != null) {
-                    game.setView(new GameOverView(mode, controller.isCompleted()));
-                } else if (controller.isCompleted()) {
-                    game.setView(new GameOverView(controller.getLevel().levelNumber, true));
+                    game.setView(new GameOverView(mode, completed));
                 } else {
-                    game.setView(new GameOverView(controller.getLevel().levelNumber, false));
+                    game.setView(new GameOverView(level.levelNumber, completed));
                 }
             });
         }
