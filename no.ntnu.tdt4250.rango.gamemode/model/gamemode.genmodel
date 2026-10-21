@@ -30,7 +30,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Edition/title"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/enemyTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/powerUps"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/materials"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/players"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/modes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/drops"/>
@@ -76,10 +75,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//PowerUp/sprite"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//PowerUp/effects"/>
     </genClasses>
-    <genClasses ecoreClass="gamemode.ecore#//Material">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Material/bounce"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Material/sprite"/>
-    </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//PlayerProfile">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//PlayerProfile/character"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//PlayerProfile/health"/>
@@ -119,8 +114,6 @@
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//Arena">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Arena/background"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//Arena/floor"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//Arena/walls"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Arena/playerStart"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Arena/obstacles"/>
     </genClasses>
@@ -128,7 +121,6 @@
     <genClasses ecoreClass="gamemode.ecore#//Block">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Block/width"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Block/height"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gamemode.ecore#//Block/material"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gamemode.ecore#//Trigger">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Trigger/affects"/>

@@ -6,9 +6,9 @@
   "entitiesData": [
     { "name": "Background", "dimension": {}, "typeInfo": { "type": "Background", "subType": "Desert" } },
     { "name": "Player-Rango", "health": 5, "dimension": { "x": 10.0, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
-    { "name": "ObsticleLeft", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Left", "material": "Stone", "sprite": "Obstacles/Stone.png" } },
-    { "name": "ObsticleRight", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Right", "material": "Stone", "sprite": "Obstacles/Stone.png" } },
-    { "name": "ObsticleRoof", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Roof", "material": "Stone", "sprite": "Obstacles/Stone.png" } },
-    { "name": "ObsticleFloor", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Floor", "material": "Stone", "sprite": "Obstacles/Stone.png" } }
+    { "name": "ObsticleLeft", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Left" } },
+    { "name": "ObsticleRight", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Right" } },
+    { "name": "ObsticleRoof", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Roof" } },
+    { "name": "ObsticleFloor", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Floor" } }
   ]
 }

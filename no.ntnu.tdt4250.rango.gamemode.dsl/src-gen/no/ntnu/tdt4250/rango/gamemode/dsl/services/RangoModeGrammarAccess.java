@@ -40,13 +40,11 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cEnemyTypesEnemyTypeParserRuleCall_3_0_0 = (RuleCall)cEnemyTypesAssignment_3_0.eContents().get(0);
 		private final Assignment cPowerUpsAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
 		private final RuleCall cPowerUpsPowerUpParserRuleCall_3_1_0 = (RuleCall)cPowerUpsAssignment_3_1.eContents().get(0);
-		private final Assignment cMaterialsAssignment_3_2 = (Assignment)cAlternatives_3.eContents().get(2);
-		private final RuleCall cMaterialsMaterialParserRuleCall_3_2_0 = (RuleCall)cMaterialsAssignment_3_2.eContents().get(0);
-		private final Assignment cPlayersAssignment_3_3 = (Assignment)cAlternatives_3.eContents().get(3);
-		private final RuleCall cPlayersPlayerProfileParserRuleCall_3_3_0 = (RuleCall)cPlayersAssignment_3_3.eContents().get(0);
-		private final RuleCall cDropsParserRuleCall_3_4 = (RuleCall)cAlternatives_3.eContents().get(4);
-		private final Assignment cModesAssignment_3_5 = (Assignment)cAlternatives_3.eContents().get(5);
-		private final RuleCall cModesGameModeParserRuleCall_3_5_0 = (RuleCall)cModesAssignment_3_5.eContents().get(0);
+		private final Assignment cPlayersAssignment_3_2 = (Assignment)cAlternatives_3.eContents().get(2);
+		private final RuleCall cPlayersPlayerProfileParserRuleCall_3_2_0 = (RuleCall)cPlayersAssignment_3_2.eContents().get(0);
+		private final RuleCall cDropsParserRuleCall_3_3 = (RuleCall)cAlternatives_3.eContents().get(3);
+		private final Assignment cModesAssignment_3_4 = (Assignment)cAlternatives_3.eContents().get(4);
+		private final RuleCall cModesGameModeParserRuleCall_3_4_0 = (RuleCall)cModesAssignment_3_4.eContents().get(0);
 		
 		//// ---------------------------------------------------------------------------------------------
 		//// The edition: the building blocks of the product, its default drop tables, and its game modes, in
@@ -55,7 +53,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//    'edition' name=ID (title=STRING)?
 		//    (    enemyTypes+=EnemyType
 		//    |    powerUps+=PowerUp
-		//    |    materials+=Material
 		//    |    players+=PlayerProfile
 		//    |    Drops
 		//    |    modes+=GameMode
@@ -65,7 +62,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//'edition' name=ID (title=STRING)?
 		//(    enemyTypes+=EnemyType
 		//|    powerUps+=PowerUp
-		//|    materials+=Material
 		//|    players+=PlayerProfile
 		//|    Drops
 		//|    modes+=GameMode
@@ -89,7 +85,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		
 		//(    enemyTypes+=EnemyType
 		//|    powerUps+=PowerUp
-		//|    materials+=Material
 		//|    players+=PlayerProfile
 		//|    Drops
 		//|    modes+=GameMode
@@ -108,26 +103,20 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//PowerUp
 		public RuleCall getPowerUpsPowerUpParserRuleCall_3_1_0() { return cPowerUpsPowerUpParserRuleCall_3_1_0; }
 		
-		//materials+=Material
-		public Assignment getMaterialsAssignment_3_2() { return cMaterialsAssignment_3_2; }
-		
-		//Material
-		public RuleCall getMaterialsMaterialParserRuleCall_3_2_0() { return cMaterialsMaterialParserRuleCall_3_2_0; }
-		
 		//players+=PlayerProfile
-		public Assignment getPlayersAssignment_3_3() { return cPlayersAssignment_3_3; }
+		public Assignment getPlayersAssignment_3_2() { return cPlayersAssignment_3_2; }
 		
 		//PlayerProfile
-		public RuleCall getPlayersPlayerProfileParserRuleCall_3_3_0() { return cPlayersPlayerProfileParserRuleCall_3_3_0; }
+		public RuleCall getPlayersPlayerProfileParserRuleCall_3_2_0() { return cPlayersPlayerProfileParserRuleCall_3_2_0; }
 		
 		//Drops
-		public RuleCall getDropsParserRuleCall_3_4() { return cDropsParserRuleCall_3_4; }
+		public RuleCall getDropsParserRuleCall_3_3() { return cDropsParserRuleCall_3_3; }
 		
 		//modes+=GameMode
-		public Assignment getModesAssignment_3_5() { return cModesAssignment_3_5; }
+		public Assignment getModesAssignment_3_4() { return cModesAssignment_3_4; }
 		
 		//GameMode
-		public RuleCall getModesGameModeParserRuleCall_3_5_0() { return cModesGameModeParserRuleCall_3_5_0; }
+		public RuleCall getModesGameModeParserRuleCall_3_4_0() { return cModesGameModeParserRuleCall_3_4_0; }
 	}
 	public class EnemyTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType");
@@ -659,7 +648,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// Power-ups, materials and player profiles.
+		//// Power-ups and player profiles.
 		//PowerUp returns PowerUp:
 		//    'powerup' name=ID '{'
 		//    'sprite' sprite=STRING
@@ -720,83 +709,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
-	}
-	public class MaterialElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Material");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cMaterialKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final UnorderedGroup cUnorderedGroup_3 = (UnorderedGroup)cGroup.eContents().get(3);
-		private final Group cGroup_3_0 = (Group)cUnorderedGroup_3.eContents().get(0);
-		private final Keyword cBounceKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
-		private final Assignment cBounceAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
-		private final RuleCall cBounceDecimalParserRuleCall_3_0_1_0 = (RuleCall)cBounceAssignment_3_0_1.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cUnorderedGroup_3.eContents().get(1);
-		private final Keyword cSpriteKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Assignment cSpriteAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final RuleCall cSpriteSTRINGTerminalRuleCall_3_1_1_0 = (RuleCall)cSpriteAssignment_3_1_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		
-		//Material returns Material:
-		//    'material' name=ID '{'
-		//    (    ('bounce' bounce=Decimal)?
-		//    &    ('sprite' sprite=STRING)?
-		//    )
-		//    '}';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'material' name=ID '{'
-		//(    ('bounce' bounce=Decimal)?
-		//&    ('sprite' sprite=STRING)?
-		//)
-		//'}'
-		public Group getGroup() { return cGroup; }
-		
-		//'material'
-		public Keyword getMaterialKeyword_0() { return cMaterialKeyword_0; }
-		
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
-		
-		//(    ('bounce' bounce=Decimal)?
-		//&    ('sprite' sprite=STRING)?
-		//)
-		public UnorderedGroup getUnorderedGroup_3() { return cUnorderedGroup_3; }
-		
-		//('bounce' bounce=Decimal)?
-		public Group getGroup_3_0() { return cGroup_3_0; }
-		
-		//'bounce'
-		public Keyword getBounceKeyword_3_0_0() { return cBounceKeyword_3_0_0; }
-		
-		//bounce=Decimal
-		public Assignment getBounceAssignment_3_0_1() { return cBounceAssignment_3_0_1; }
-		
-		//Decimal
-		public RuleCall getBounceDecimalParserRuleCall_3_0_1_0() { return cBounceDecimalParserRuleCall_3_0_1_0; }
-		
-		//('sprite' sprite=STRING)?
-		public Group getGroup_3_1() { return cGroup_3_1; }
-		
-		//'sprite'
-		public Keyword getSpriteKeyword_3_1_0() { return cSpriteKeyword_3_1_0; }
-		
-		//sprite=STRING
-		public Assignment getSpriteAssignment_3_1_1() { return cSpriteAssignment_3_1_1; }
-		
-		//STRING
-		public RuleCall getSpriteSTRINGTerminalRuleCall_3_1_1_0() { return cSpriteSTRINGTerminalRuleCall_3_1_1_0; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 	public class PlayerProfileElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.PlayerProfile");
@@ -1366,24 +1278,13 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cBackgroundKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cBackgroundAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cBackgroundSTRINGTerminalRuleCall_3_0 = (RuleCall)cBackgroundAssignment_3.eContents().get(0);
-		private final UnorderedGroup cUnorderedGroup_4 = (UnorderedGroup)cGroup.eContents().get(4);
-		private final Group cGroup_4_0 = (Group)cUnorderedGroup_4.eContents().get(0);
-		private final Keyword cFloorKeyword_4_0_0 = (Keyword)cGroup_4_0.eContents().get(0);
-		private final Assignment cFloorAssignment_4_0_1 = (Assignment)cGroup_4_0.eContents().get(1);
-		private final CrossReference cFloorMaterialCrossReference_4_0_1_0 = (CrossReference)cFloorAssignment_4_0_1.eContents().get(0);
-		private final RuleCall cFloorMaterialIDTerminalRuleCall_4_0_1_0_1 = (RuleCall)cFloorMaterialCrossReference_4_0_1_0.eContents().get(1);
-		private final Group cGroup_4_1 = (Group)cUnorderedGroup_4.eContents().get(1);
-		private final Keyword cWallsKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
-		private final Assignment cWallsAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
-		private final CrossReference cWallsMaterialCrossReference_4_1_1_0 = (CrossReference)cWallsAssignment_4_1_1.eContents().get(0);
-		private final RuleCall cWallsMaterialIDTerminalRuleCall_4_1_1_0_1 = (RuleCall)cWallsMaterialCrossReference_4_1_1_0.eContents().get(1);
-		private final Group cGroup_4_2 = (Group)cUnorderedGroup_4.eContents().get(2);
-		private final Keyword cPlayerKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
-		private final Keyword cStartsKeyword_4_2_1 = (Keyword)cGroup_4_2.eContents().get(1);
-		private final Keyword cAtKeyword_4_2_2 = (Keyword)cGroup_4_2.eContents().get(2);
-		private final Assignment cPlayerStartAssignment_4_2_3 = (Assignment)cGroup_4_2.eContents().get(3);
-		private final RuleCall cPlayerStartDecimalParserRuleCall_4_2_3_0 = (RuleCall)cPlayerStartAssignment_4_2_3.eContents().get(0);
-		private final Keyword cPercentSignKeyword_4_2_4 = (Keyword)cGroup_4_2.eContents().get(4);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cPlayerKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Keyword cStartsKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Keyword cAtKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Assignment cPlayerStartAssignment_4_3 = (Assignment)cGroup_4.eContents().get(3);
+		private final RuleCall cPlayerStartDecimalParserRuleCall_4_3_0 = (RuleCall)cPlayerStartAssignment_4_3.eContents().get(0);
+		private final Keyword cPercentSignKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
 		private final Assignment cObstaclesAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cObstaclesObstacleParserRuleCall_5_0 = (RuleCall)cObstaclesAssignment_5.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
@@ -1393,20 +1294,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//Arena returns Arena:
 		//    'arena' '{'
 		//    'background' background=STRING
-		//    (    ('floor' floor=[Material])?
-		//    &    ('walls' walls=[Material])?
-		//    &    ('player' 'starts' 'at' playerStart=Decimal '%')?
-		//    )
+		//    ('player' 'starts' 'at' playerStart=Decimal '%')?
 		//    (obstacles+=Obstacle)*
 		//    '}';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'arena' '{'
 		//'background' background=STRING
-		//(    ('floor' floor=[Material])?
-		//&    ('walls' walls=[Material])?
-		//&    ('player' 'starts' 'at' playerStart=Decimal '%')?
-		//)
+		//('player' 'starts' 'at' playerStart=Decimal '%')?
 		//(obstacles+=Obstacle)*
 		//'}'
 		public Group getGroup() { return cGroup; }
@@ -1426,62 +1321,26 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//STRING
 		public RuleCall getBackgroundSTRINGTerminalRuleCall_3_0() { return cBackgroundSTRINGTerminalRuleCall_3_0; }
 		
-		//(    ('floor' floor=[Material])?
-		//&    ('walls' walls=[Material])?
-		//&    ('player' 'starts' 'at' playerStart=Decimal '%')?
-		//)
-		public UnorderedGroup getUnorderedGroup_4() { return cUnorderedGroup_4; }
-		
-		//('floor' floor=[Material])?
-		public Group getGroup_4_0() { return cGroup_4_0; }
-		
-		//'floor'
-		public Keyword getFloorKeyword_4_0_0() { return cFloorKeyword_4_0_0; }
-		
-		//floor=[Material]
-		public Assignment getFloorAssignment_4_0_1() { return cFloorAssignment_4_0_1; }
-		
-		//[Material]
-		public CrossReference getFloorMaterialCrossReference_4_0_1_0() { return cFloorMaterialCrossReference_4_0_1_0; }
-		
-		//ID
-		public RuleCall getFloorMaterialIDTerminalRuleCall_4_0_1_0_1() { return cFloorMaterialIDTerminalRuleCall_4_0_1_0_1; }
-		
-		//('walls' walls=[Material])?
-		public Group getGroup_4_1() { return cGroup_4_1; }
-		
-		//'walls'
-		public Keyword getWallsKeyword_4_1_0() { return cWallsKeyword_4_1_0; }
-		
-		//walls=[Material]
-		public Assignment getWallsAssignment_4_1_1() { return cWallsAssignment_4_1_1; }
-		
-		//[Material]
-		public CrossReference getWallsMaterialCrossReference_4_1_1_0() { return cWallsMaterialCrossReference_4_1_1_0; }
-		
-		//ID
-		public RuleCall getWallsMaterialIDTerminalRuleCall_4_1_1_0_1() { return cWallsMaterialIDTerminalRuleCall_4_1_1_0_1; }
-		
 		//('player' 'starts' 'at' playerStart=Decimal '%')?
-		public Group getGroup_4_2() { return cGroup_4_2; }
+		public Group getGroup_4() { return cGroup_4; }
 		
 		//'player'
-		public Keyword getPlayerKeyword_4_2_0() { return cPlayerKeyword_4_2_0; }
+		public Keyword getPlayerKeyword_4_0() { return cPlayerKeyword_4_0; }
 		
 		//'starts'
-		public Keyword getStartsKeyword_4_2_1() { return cStartsKeyword_4_2_1; }
+		public Keyword getStartsKeyword_4_1() { return cStartsKeyword_4_1; }
 		
 		//'at'
-		public Keyword getAtKeyword_4_2_2() { return cAtKeyword_4_2_2; }
+		public Keyword getAtKeyword_4_2() { return cAtKeyword_4_2; }
 		
 		//playerStart=Decimal
-		public Assignment getPlayerStartAssignment_4_2_3() { return cPlayerStartAssignment_4_2_3; }
+		public Assignment getPlayerStartAssignment_4_3() { return cPlayerStartAssignment_4_3; }
 		
 		//Decimal
-		public RuleCall getPlayerStartDecimalParserRuleCall_4_2_3_0() { return cPlayerStartDecimalParserRuleCall_4_2_3_0; }
+		public RuleCall getPlayerStartDecimalParserRuleCall_4_3_0() { return cPlayerStartDecimalParserRuleCall_4_3_0; }
 		
 		//'%'
-		public Keyword getPercentSignKeyword_4_2_4() { return cPercentSignKeyword_4_2_4; }
+		public Keyword getPercentSignKeyword_4_4() { return cPercentSignKeyword_4_4; }
 		
 		//(obstacles+=Obstacle)*
 		public Assignment getObstaclesAssignment_5() { return cObstaclesAssignment_5; }
@@ -1579,17 +1438,12 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final Keyword cByKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cHeightAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cHeightINTTerminalRuleCall_6_0 = (RuleCall)cHeightAssignment_6.eContents().get(0);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cOfKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cMaterialAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final CrossReference cMaterialMaterialCrossReference_7_1_0 = (CrossReference)cMaterialAssignment_7_1.eContents().get(0);
-		private final RuleCall cMaterialMaterialIDTerminalRuleCall_7_1_0_1 = (RuleCall)cMaterialMaterialCrossReference_7_1_0.eContents().get(1);
 		
 		//Block returns Block:
-		//    'block' name=ID At 'size' width=INT 'by' height=INT ('of' material=[Material])?;
+		//    'block' name=ID At 'size' width=INT 'by' height=INT;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'block' name=ID At 'size' width=INT 'by' height=INT ('of' material=[Material])?
+		//'block' name=ID At 'size' width=INT 'by' height=INT
 		public Group getGroup() { return cGroup; }
 		
 		//'block'
@@ -1621,21 +1475,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		
 		//INT
 		public RuleCall getHeightINTTerminalRuleCall_6_0() { return cHeightINTTerminalRuleCall_6_0; }
-		
-		//('of' material=[Material])?
-		public Group getGroup_7() { return cGroup_7; }
-		
-		//'of'
-		public Keyword getOfKeyword_7_0() { return cOfKeyword_7_0; }
-		
-		//material=[Material]
-		public Assignment getMaterialAssignment_7_1() { return cMaterialAssignment_7_1; }
-		
-		//[Material]
-		public CrossReference getMaterialMaterialCrossReference_7_1_0() { return cMaterialMaterialCrossReference_7_1_0; }
-		
-		//ID
-		public RuleCall getMaterialMaterialIDTerminalRuleCall_7_1_0_1() { return cMaterialMaterialIDTerminalRuleCall_7_1_0_1; }
 	}
 	public class JumpPadElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.JumpPad");
@@ -2470,7 +2309,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	private final SpeedChangeElements pSpeedChange;
 	private final PoisonElements pPoison;
 	private final PowerUpElements pPowerUp;
-	private final MaterialElements pMaterial;
 	private final PlayerProfileElements pPlayerProfile;
 	private final GameModeElements pGameMode;
 	private final SingleLevelElements pSingleLevel;
@@ -2523,7 +2361,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.pSpeedChange = new SpeedChangeElements();
 		this.pPoison = new PoisonElements();
 		this.pPowerUp = new PowerUpElements();
-		this.pMaterial = new MaterialElements();
 		this.pPlayerProfile = new PlayerProfileElements();
 		this.pGameMode = new GameModeElements();
 		this.pSingleLevel = new SingleLevelElements();
@@ -2590,7 +2427,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    'edition' name=ID (title=STRING)?
 	//    (    enemyTypes+=EnemyType
 	//    |    powerUps+=PowerUp
-	//    |    materials+=Material
 	//    |    players+=PlayerProfile
 	//    |    Drops
 	//    |    modes+=GameMode
@@ -2725,7 +2561,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// Power-ups, materials and player profiles.
+	//// Power-ups and player profiles.
 	//PowerUp returns PowerUp:
 	//    'powerup' name=ID '{'
 	//    'sprite' sprite=STRING
@@ -2737,20 +2573,6 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	
 	public ParserRule getPowerUpRule() {
 		return getPowerUpAccess().getRule();
-	}
-	
-	//Material returns Material:
-	//    'material' name=ID '{'
-	//    (    ('bounce' bounce=Decimal)?
-	//    &    ('sprite' sprite=STRING)?
-	//    )
-	//    '}';
-	public MaterialElements getMaterialAccess() {
-		return pMaterial;
-	}
-	
-	public ParserRule getMaterialRule() {
-		return getMaterialAccess().getRule();
 	}
 	
 	//PlayerProfile returns PlayerProfile:
@@ -2847,10 +2669,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//Arena returns Arena:
 	//    'arena' '{'
 	//    'background' background=STRING
-	//    (    ('floor' floor=[Material])?
-	//    &    ('walls' walls=[Material])?
-	//    &    ('player' 'starts' 'at' playerStart=Decimal '%')?
-	//    )
+	//    ('player' 'starts' 'at' playerStart=Decimal '%')?
 	//    (obstacles+=Obstacle)*
 	//    '}';
 	public ArenaElements getArenaAccess() {
@@ -2882,7 +2701,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//Block returns Block:
-	//    'block' name=ID At 'size' width=INT 'by' height=INT ('of' material=[Material])?;
+	//    'block' name=ID At 'size' width=INT 'by' height=INT;
 	public BlockElements getBlockAccess() {
 		return pBlock;
 	}

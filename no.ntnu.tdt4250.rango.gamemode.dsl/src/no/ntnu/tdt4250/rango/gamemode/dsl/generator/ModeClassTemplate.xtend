@@ -158,25 +158,6 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
-		    public float materialBounce(String material) {
-		        «IF mode.materials.empty»
-		        return 1f; // the arena is neutral
-		        «ELSE»
-		        if (material == null) {
-		            return 1f;
-		        }
-		        switch (material) {
-		            «FOR material : mode.materials»
-		            case «material.name.javaString»:
-		                return «material.bounce.javaFloat»;
-		            «ENDFOR»
-		            default:
-		                return 1f;
-		        }
-		        «ENDIF»
-		    }
-
-		    @Override
 		    public void buildArena(int level, ArenaBuilder arena) {
 		        switch (level) {
 		            «FOR level : mode.levels.filter[!arena.obstacles.filter(JumpPad).empty || !arena.obstacles.filter(Teleporter).empty]»

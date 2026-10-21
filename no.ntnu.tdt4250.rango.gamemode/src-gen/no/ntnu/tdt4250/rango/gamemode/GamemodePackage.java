@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the enemy types, power-ups, surface materials and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every enemy behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost.
+ * Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the enemy types, power-ups and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every enemy behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost.
  * <!-- end-model-doc -->
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodeFactory
  * @model kind="package"
@@ -191,22 +191,13 @@ public interface GamemodePackage extends EPackage {
 	int EDITION__POWER_UPS = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Materials</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDITION__MATERIALS = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>Players</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EDITION__PLAYERS = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int EDITION__PLAYERS = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Modes</b></em>' containment reference list.
@@ -215,7 +206,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDITION__MODES = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int EDITION__MODES = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Drops</b></em>' containment reference list.
@@ -224,7 +215,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDITION__DROPS = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int EDITION__DROPS = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Edition</em>' class.
@@ -233,7 +224,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDITION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
+	int EDITION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Edition</em>' class.
@@ -815,61 +806,6 @@ public interface GamemodePackage extends EPackage {
 	int POWER_UP_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.MaterialImpl <em>Material</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.MaterialImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getMaterial()
-	 * @generated
-	 */
-	int MATERIAL = 15;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MATERIAL__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Bounce</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MATERIAL__BOUNCE = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Sprite</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MATERIAL__SPRITE = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Material</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MATERIAL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Material</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MATERIAL_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.PlayerProfileImpl <em>Player Profile</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -877,7 +813,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getPlayerProfile()
 	 * @generated
 	 */
-	int PLAYER_PROFILE = 16;
+	int PLAYER_PROFILE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -977,7 +913,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getGameMode()
 	 * @generated
 	 */
-	int GAME_MODE = 17;
+	int GAME_MODE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1140,7 +1076,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getLevel()
 	 * @generated
 	 */
-	int LEVEL = 18;
+	int LEVEL = 17;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -1222,7 +1158,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpeedBonus()
 	 * @generated
 	 */
-	int SPEED_BONUS = 19;
+	int SPEED_BONUS = 18;
 
 	/**
 	 * The feature id for the '<em><b>Max Factor</b></em>' attribute.
@@ -1268,207 +1204,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getArena()
 	 * @generated
 	 */
-	int ARENA = 20;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl <em>Obstacle</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getObstacle()
-	 * @generated
-	 */
-	int OBSTACLE = 21;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl <em>Block</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBlock()
-	 * @generated
-	 */
-	int BLOCK = 22;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl <em>Trigger</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTrigger()
-	 * @generated
-	 */
-	int TRIGGER = 23;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl <em>Jump Pad</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getJumpPad()
-	 * @generated
-	 */
-	int JUMP_PAD = 24;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl <em>Teleporter</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTeleporter()
-	 * @generated
-	 */
-	int TELEPORTER = 25;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl <em>Spawn Strategy</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpawnStrategy()
-	 * @generated
-	 */
-	int SPAWN_STRATEGY = 26;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl <em>Fixed Layout</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getFixedLayout()
-	 * @generated
-	 */
-	int FIXED_LAYOUT = 27;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl <em>Wave Schedule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWaveSchedule()
-	 * @generated
-	 */
-	int WAVE_SCHEDULE = 28;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl <em>Wave</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWave()
-	 * @generated
-	 */
-	int WAVE = 29;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl <em>Enemy Spawn</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemySpawn()
-	 * @generated
-	 */
-	int ENEMY_SPAWN = 30;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl <em>Drop Table</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDropTable()
-	 * @generated
-	 */
-	int DROP_TABLE = 31;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl <em>Drop</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDrop()
-	 * @generated
-	 */
-	int DROP = 32;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl <em>End Condition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEndCondition()
-	 * @generated
-	 */
-	int END_CONDITION = 33;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl <em>Cleared</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getCleared()
-	 * @generated
-	 */
-	int CLEARED = 34;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl <em>Time Reached</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeReached()
-	 * @generated
-	 */
-	int TIME_REACHED = 35;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl <em>Score Reached</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getScoreReached()
-	 * @generated
-	 */
-	int SCORE_REACHED = 36;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl <em>Enemies Popped</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesPopped()
-	 * @generated
-	 */
-	int ENEMIES_POPPED = 37;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWavesSurvived()
-	 * @generated
-	 */
-	int WAVES_SURVIVED = 38;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl <em>Health Depleted</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHealthDepleted()
-	 * @generated
-	 */
-	int HEALTH_DEPLETED = 39;
-
-	/**
-	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl <em>Enemies Alive</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl
-	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesAlive()
-	 * @generated
-	 */
-	int ENEMIES_ALIVE = 40;
+	int ARENA = 19;
 
 	/**
 	 * The feature id for the '<em><b>Background</b></em>' attribute.
@@ -1480,31 +1216,13 @@ public interface GamemodePackage extends EPackage {
 	int ARENA__BACKGROUND = 0;
 
 	/**
-	 * The feature id for the '<em><b>Floor</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARENA__FLOOR = 1;
-
-	/**
-	 * The feature id for the '<em><b>Walls</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARENA__WALLS = 2;
-
-	/**
 	 * The feature id for the '<em><b>Player Start</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARENA__PLAYER_START = 3;
+	int ARENA__PLAYER_START = 1;
 
 	/**
 	 * The feature id for the '<em><b>Obstacles</b></em>' containment reference list.
@@ -1513,7 +1231,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARENA__OBSTACLES = 4;
+	int ARENA__OBSTACLES = 2;
 
 	/**
 	 * The number of structural features of the '<em>Arena</em>' class.
@@ -1522,7 +1240,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARENA_FEATURE_COUNT = 5;
+	int ARENA_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Arena</em>' class.
@@ -1532,6 +1250,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int ARENA_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl <em>Obstacle</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ObstacleImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getObstacle()
+	 * @generated
+	 */
+	int OBSTACLE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1579,6 +1307,16 @@ public interface GamemodePackage extends EPackage {
 	int OBSTACLE_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl <em>Block</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getBlock()
+	 * @generated
+	 */
+	int BLOCK = 21;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1624,22 +1362,13 @@ public interface GamemodePackage extends EPackage {
 	int BLOCK__HEIGHT = OBSTACLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Material</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BLOCK__MATERIAL = OBSTACLE_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Block</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BLOCK_FEATURE_COUNT = OBSTACLE_FEATURE_COUNT + 3;
+	int BLOCK_FEATURE_COUNT = OBSTACLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Block</em>' class.
@@ -1649,6 +1378,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int BLOCK_OPERATION_COUNT = OBSTACLE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl <em>Trigger</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTrigger()
+	 * @generated
+	 */
+	int TRIGGER = 22;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1703,6 +1442,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int TRIGGER_OPERATION_COUNT = OBSTACLE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl <em>Jump Pad</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.JumpPadImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getJumpPad()
+	 * @generated
+	 */
+	int JUMP_PAD = 23;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1768,6 +1517,16 @@ public interface GamemodePackage extends EPackage {
 	int JUMP_PAD_OPERATION_COUNT = TRIGGER_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl <em>Teleporter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TeleporterImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTeleporter()
+	 * @generated
+	 */
+	int TELEPORTER = 24;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1831,6 +1590,16 @@ public interface GamemodePackage extends EPackage {
 	int TELEPORTER_OPERATION_COUNT = TRIGGER_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl <em>Spawn Strategy</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.SpawnStrategyImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getSpawnStrategy()
+	 * @generated
+	 */
+	int SPAWN_STRATEGY = 25;
+
+	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1856,6 +1625,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int SPAWN_STRATEGY_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl <em>Fixed Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.FixedLayoutImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getFixedLayout()
+	 * @generated
+	 */
+	int FIXED_LAYOUT = 26;
 
 	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
@@ -1892,6 +1671,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int FIXED_LAYOUT_OPERATION_COUNT = SPAWN_STRATEGY_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl <em>Wave Schedule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveScheduleImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWaveSchedule()
+	 * @generated
+	 */
+	int WAVE_SCHEDULE = 27;
 
 	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
@@ -1948,6 +1737,16 @@ public interface GamemodePackage extends EPackage {
 	int WAVE_SCHEDULE_OPERATION_COUNT = SPAWN_STRATEGY_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl <em>Wave</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WaveImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWave()
+	 * @generated
+	 */
+	int WAVE = 28;
+
+	/**
 	 * The feature id for the '<em><b>Delay</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2000,6 +1799,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int WAVE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl <em>Enemy Spawn</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemySpawnImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemySpawn()
+	 * @generated
+	 */
+	int ENEMY_SPAWN = 29;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -2083,6 +1892,16 @@ public interface GamemodePackage extends EPackage {
 	int ENEMY_SPAWN_OPERATION_COUNT = POSITIONED_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl <em>Drop Table</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropTableImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDropTable()
+	 * @generated
+	 */
+	int DROP_TABLE = 30;
+
+	/**
 	 * The feature id for the '<em><b>Chance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2135,6 +1954,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int DROP_TABLE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DropImpl <em>Drop</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.DropImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDrop()
+	 * @generated
+	 */
+	int DROP = 31;
 
 	/**
 	 * The feature id for the '<em><b>Table</b></em>' container reference.
@@ -2200,6 +2029,16 @@ public interface GamemodePackage extends EPackage {
 	int DROP_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl <em>End Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EndConditionImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEndCondition()
+	 * @generated
+	 */
+	int END_CONDITION = 32;
+
+	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2227,6 +2066,16 @@ public interface GamemodePackage extends EPackage {
 	int END_CONDITION_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl <em>Cleared</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getCleared()
+	 * @generated
+	 */
+	int CLEARED = 33;
+
+	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2252,6 +2101,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int CLEARED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl <em>Time Reached</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeReachedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeReached()
+	 * @generated
+	 */
+	int TIME_REACHED = 34;
 
 	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
@@ -2290,6 +2149,16 @@ public interface GamemodePackage extends EPackage {
 	int TIME_REACHED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl <em>Score Reached</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getScoreReached()
+	 * @generated
+	 */
+	int SCORE_REACHED = 35;
+
+	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2324,6 +2193,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int SCORE_REACHED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl <em>Enemies Popped</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesPoppedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesPopped()
+	 * @generated
+	 */
+	int ENEMIES_POPPED = 36;
 
 	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
@@ -2362,6 +2241,16 @@ public interface GamemodePackage extends EPackage {
 	int ENEMIES_POPPED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWavesSurvived()
+	 * @generated
+	 */
+	int WAVES_SURVIVED = 37;
+
+	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2398,6 +2287,16 @@ public interface GamemodePackage extends EPackage {
 	int WAVES_SURVIVED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl <em>Health Depleted</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHealthDepleted()
+	 * @generated
+	 */
+	int HEALTH_DEPLETED = 38;
+
+	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2423,6 +2322,16 @@ public interface GamemodePackage extends EPackage {
 	 * @ordered
 	 */
 	int HEALTH_DEPLETED_OPERATION_COUNT = END_CONDITION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl <em>Enemies Alive</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.EnemiesAliveImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getEnemiesAlive()
+	 * @generated
+	 */
+	int ENEMIES_ALIVE = 39;
 
 	/**
 	 * The feature id for the '<em><b>Win</b></em>' attribute.
@@ -2468,7 +2377,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTarget()
 	 * @generated
 	 */
-	int TARGET = 41;
+	int TARGET = 40;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Direction <em>Direction</em>}' enum.
@@ -2478,7 +2387,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 42;
+	int DIRECTION = 41;
 
 
 	/**
@@ -2576,17 +2485,6 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEdition_PowerUps();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Edition#getMaterials <em>Materials</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Materials</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Edition#getMaterials()
-	 * @see #getEdition()
-	 * @generated
-	 */
-	EReference getEdition_Materials();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPlayers <em>Players</em>}'.
@@ -2973,38 +2871,6 @@ public interface GamemodePackage extends EPackage {
 	EReference getPowerUp_Effects();
 
 	/**
-	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Material <em>Material</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Material</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Material
-	 * @generated
-	 */
-	EClass getMaterial();
-
-	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Material#getBounce <em>Bounce</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Bounce</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Material#getBounce()
-	 * @see #getMaterial()
-	 * @generated
-	 */
-	EAttribute getMaterial_Bounce();
-
-	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Material#getSprite <em>Sprite</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Sprite</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Material#getSprite()
-	 * @see #getMaterial()
-	 * @generated
-	 */
-	EAttribute getMaterial_Sprite();
-
-	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.PlayerProfile <em>Player Profile</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3385,28 +3251,6 @@ public interface GamemodePackage extends EPackage {
 	EAttribute getArena_Background();
 
 	/**
-	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.Arena#getFloor <em>Floor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Floor</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Arena#getFloor()
-	 * @see #getArena()
-	 * @generated
-	 */
-	EReference getArena_Floor();
-
-	/**
-	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.Arena#getWalls <em>Walls</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Walls</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Arena#getWalls()
-	 * @see #getArena()
-	 * @generated
-	 */
-	EReference getArena_Walls();
-
-	/**
 	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Arena#getPlayerStart <em>Player Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3469,17 +3313,6 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBlock_Height();
-
-	/**
-	 * Returns the meta object for the reference '{@link no.ntnu.tdt4250.rango.gamemode.Block#getMaterial <em>Material</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Material</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Block#getMaterial()
-	 * @see #getBlock()
-	 * @generated
-	 */
-	EReference getBlock_Material();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Trigger <em>Trigger</em>}'.
@@ -4135,14 +3968,6 @@ public interface GamemodePackage extends EPackage {
 		EReference EDITION__POWER_UPS = eINSTANCE.getEdition_PowerUps();
 
 		/**
-		 * The meta object literal for the '<em><b>Materials</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EDITION__MATERIALS = eINSTANCE.getEdition_Materials();
-
-		/**
 		 * The meta object literal for the '<em><b>Players</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4455,32 +4280,6 @@ public interface GamemodePackage extends EPackage {
 		EReference POWER_UP__EFFECTS = eINSTANCE.getPowerUp_Effects();
 
 		/**
-		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.MaterialImpl <em>Material</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.MaterialImpl
-		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getMaterial()
-		 * @generated
-		 */
-		EClass MATERIAL = eINSTANCE.getMaterial();
-
-		/**
-		 * The meta object literal for the '<em><b>Bounce</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MATERIAL__BOUNCE = eINSTANCE.getMaterial_Bounce();
-
-		/**
-		 * The meta object literal for the '<em><b>Sprite</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MATERIAL__SPRITE = eINSTANCE.getMaterial_Sprite();
-
-		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.PlayerProfileImpl <em>Player Profile</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4771,22 +4570,6 @@ public interface GamemodePackage extends EPackage {
 		EAttribute ARENA__BACKGROUND = eINSTANCE.getArena_Background();
 
 		/**
-		 * The meta object literal for the '<em><b>Floor</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ARENA__FLOOR = eINSTANCE.getArena_Floor();
-
-		/**
-		 * The meta object literal for the '<em><b>Walls</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ARENA__WALLS = eINSTANCE.getArena_Walls();
-
-		/**
 		 * The meta object literal for the '<em><b>Player Start</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4837,14 +4620,6 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BLOCK__HEIGHT = eINSTANCE.getBlock_Height();
-
-		/**
-		 * The meta object literal for the '<em><b>Material</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BLOCK__MATERIAL = eINSTANCE.getBlock_Material();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TriggerImpl <em>Trigger</em>}' class.

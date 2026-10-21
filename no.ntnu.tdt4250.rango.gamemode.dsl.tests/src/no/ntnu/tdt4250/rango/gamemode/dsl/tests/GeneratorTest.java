@@ -158,7 +158,7 @@ public class GeneratorTest {
 		String popFrenzy = file(files, "assets/modes/PopFrenzy-1.json");
 		// six bubbles spread out around 50 %, then the two tumbleweeds of the layout
 		assertEquals(8, popFrenzy.split("\"type\": \"Enemy\"").length - 1);
-		assertTrue(popFrenzy.contains("\"subType\": \"Floor\", \"material\": \"Rubber\""));
+		assertTrue(popFrenzy.contains("{ \"name\": \"ObsticleFloor\", \"dimension\": {}, \"typeInfo\": { \"type\": \"Obsticle\", \"subType\": \"Floor\" } }"));
 		assertTrue(popFrenzy.contains("\"health\": 6"));
 		String survivor = file(files, "assets/modes/Survivor-1.json");
 		assertTrue(survivor.contains("{ \"name\": \"Pillar\", \"dimension\": { \"x\": 50.0, \"y\": 20.0, \"width\": 40, \"height\": 160, \"relative\": true }"));

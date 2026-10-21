@@ -112,15 +112,6 @@ public interface GamemodeFactory extends EFactory {
 	PowerUp createPowerUp();
 
 	/**
-	 * Returns a new object of class '<em>Material</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Material</em>'.
-	 * @generated
-	 */
-	Material createMaterial();
-
-	/**
 	 * Returns a new object of class '<em>Player Profile</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

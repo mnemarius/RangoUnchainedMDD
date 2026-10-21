@@ -1,10 +1,9 @@
 // A survival edition: waves instead of fixed levels, four enemy types with their own behaviour
-// (a bomb explodes into a ring of tumbleweeds, a cactus poisons), surfaces of different materials, a
-// jump pad, a pair of teleporters, and power-ups dropped at random: the tougher the enemy, the likelier
-// and the better its drop. The edition's drop tables apply to Endless Survival and the Campaign; Wave
-// Rush has its own, stingier ones. Endless Survival never ends until it is lost; Wave Rush is won by
-// getting through five waves. The Campaign is the original game's five levels, each cleared to unlock
-// the next.
+// (a bomb explodes into a ring of tumbleweeds, a cactus poisons), ledges, a jump pad, a pair of
+// teleporters, and power-ups dropped at random: the tougher the enemy, the likelier and the better its
+// drop. The edition's drop tables apply to Endless Survival and the Campaign; Wave Rush has its own,
+// stingier ones. Endless Survival never ends until it is lost; Wave Rush is won by getting through five
+// waves. The Campaign is the original game's five levels, each cleared to unlock the next.
 
 edition Survival "Rango Unchained: Survival"
 
@@ -63,21 +62,6 @@ drops {
 	Bomb 40% { Shield weight 2, Speed, Health }
 }
 
-material Ice {
-	bounce 0.7
-	sprite "Obstacles/Ice.png"
-}
-
-material Grass {
-	bounce 1.3
-	sprite "Obstacles/Grass.png"
-}
-
-material Stone {
-	bounce 1.0
-	sprite "Obstacles/Stone.png"
-}
-
 player Rango {
 	health 5 max 8
 	grace 1 s
@@ -88,11 +72,9 @@ mode Endless "Endless Survival" {
 	player Rango
 	arena {
 		background "Desert"
-		floor Grass
-		walls Ice
 		player starts at 35%
-		block Ledge at (25%, 45%) size 180 by 24 of Ice
-		block Shelf at (75%, 45%) size 180 by 24 of Grass
+		block Ledge at (25%, 45%) size 180 by 24
+		block Shelf at (75%, 45%) size 180 by 24
 		jumppad Spring at (50%, 0%) launch 12 affects everything
 		teleporter West at (6%, 20%) to East affects enemies
 		teleporter East at (94%, 20%) to West affects enemies
@@ -118,8 +100,6 @@ mode WaveRush "Wave Rush" {
 	gravity 12
 	arena {
 		background "Desert"
-		floor Stone
-		walls Stone
 	}
 	waves {
 		wave {
@@ -154,9 +134,9 @@ mode Campaign "Campaign" {
 		arena {
 			background "Desert"
 			player starts at 5.5%
-			block West at (31.7%, 47.4%) size 80 by 180 of Stone
-			block Middle at (70.9%, 47.4%) size 80 by 180 of Stone
-			block East at (97%, 47.4%) size 80 by 180 of Stone
+			block West at (31.7%, 47.4%) size 80 by 180
+			block Middle at (70.9%, 47.4%) size 80 by 180
+			block East at (97%, 47.4%) size 80 by 180
 		}
 		layout {
 			Tumbleweed size 2 at (64.4%, 66.4%) moving left
@@ -166,7 +146,7 @@ mode Campaign "Campaign" {
 		arena {
 			background "Desert"
 			player starts at 5.5%
-			block Pillar at (51.3%, 47.4%) size 80 by 180 of Stone
+			block Pillar at (51.3%, 47.4%) size 80 by 180
 		}
 		layout {
 			Cactus size 2 at (31.7%, 66.4%) moving left
@@ -177,9 +157,9 @@ mode Campaign "Campaign" {
 		arena {
 			background "Desert"
 			player starts at 5.5%
-			block West at (25.1%, 47.4%) size 80 by 180 of Stone
-			block Overhang at (51.3%, 85.4%) size 160 by 300 of Stone
-			block Mesa at (77.5%, 47.4%) size 260 by 180 of Stone
+			block West at (25.1%, 47.4%) size 80 by 180
+			block Overhang at (51.3%, 85.4%) size 160 by 300
+			block Mesa at (77.5%, 47.4%) size 260 by 180
 		}
 		layout {
 			Armadillo size 2 at (31.7%, 66.4%) moving left
@@ -191,7 +171,7 @@ mode Campaign "Campaign" {
 		arena {
 			background "Desert"
 			player starts at 5.5%
-			block Overhang at (64.4%, 85.4%) size 400 by 300 of Stone
+			block Overhang at (64.4%, 85.4%) size 400 by 300
 		}
 		layout {
 			Armadillo size 3 at (31.7%, 66.4%) moving left

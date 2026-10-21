@@ -130,8 +130,8 @@ them:
     disguise. A Bomb that splits into Tumbleweeds is a cross-reference between enemy types.
 - **PlayerEffect** is shared by enemy contacts and power-ups: **Damage**, **Heal**, and the abstract
   **TimedEffect** (duration), which is **Shield**, **SpeedChange** or **Poison** (damage over time).
-- **PowerUp**: sprite and the effects it gives. **Material**: bounce factor and texture. **PlayerProfile**:
-  health, max health, speed, tongue time, shot cooldown and grace time.
+- **PowerUp**: sprite and the effects it gives. **PlayerProfile**: health, max health, speed, tongue
+  time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
 - **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
   **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
@@ -141,10 +141,9 @@ them:
     a level unlocks the next. A mode of one level can leave out the `level { ... }` block.
   - Each pop is worth the points of its enemy type. A **SpeedBonus** makes early pops worth up to
     `maxFactor` times as much, falling to plain points over `duration` seconds.
-  - The **Arena** has a background, floor and wall materials, and **Obstacle**s: a **Block** (size,
-    material) or a **Trigger**. A trigger is a **JumpPad** or a **Teleporter**, which references its
-    target teleporter. Obstacles and spawns share the abstract **Positioned** (x, y in percent of the
-    arena).
+  - The **Arena** has a background, a player start, and **Obstacle**s: a **Block** (size) or a
+    **Trigger**. A trigger is a **JumpPad** or a **Teleporter**, which references its target
+    teleporter. Obstacles and spawns share the abstract **Positioned** (x, y in percent of the arena).
   - The **SpawnStrategy** is either a **FixedLayout** of **EnemySpawn**s, or a **WaveSchedule** of
     **Wave**s (delay, spawns), which can loop and grow by `escalation` enemies per round.
   - A **DropTable** belongs to one enemy type, which it *references*. It has a chance (the share of
@@ -182,7 +181,7 @@ delegates. Standalone code registers the delegates through `GamemodeOCL.initiali
 `positiveScale`, `atMostSixteenFragments` (a split has 1 to 16 fragments), `intervalWithinDuration`
 (poison ticks within its duration), `insideArena`, `healthWithinMaximum`, `escalationNeedsLoop`,
 `chanceIsPercentage` (a drop chance is above 0 and at most 100), `distinctPowerUps`
-(`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bounceInRange`, `bonusAboveOne` (a speed bonus is worth more than plain points).
+(`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bonusAboveOne` (a speed bonus is worth more than plain points).
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes, which the quick fixes use:
@@ -221,7 +220,7 @@ The editor adds:
   probabilities, what a enemy breaks into, and shots per second.
 - **Outline** with icons and summaries ("Mine: splits into 4 Weed", "win when score reaches 1500").
 - **Content assist** for the images the game ships and for enemy sizes, and **templates** for enemy
-  types, power-ups, materials, players, modes, waves and teleporter pairs.
+  types, power-ups, players, modes, waves and teleporter pairs.
 - **Formatter** (*Source > Format*), and the **Generate Game Modes into Game...** command.
 
 ## Generation: from model to game
@@ -230,8 +229,8 @@ The editor adds:
 
 | Generated file | Content |
 | --- | --- |
-| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split` calls (with the derived spacing), effects become calls on the player, each enemy type's drop table becomes a chance roll and a weighted pick inside that enemy's case of `onEnemyPopped` (commented with the derived shares and probabilities), waves become spawn schedules with escalation, materials become bounce factors, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
-| `assets/modes/<Mode>-<n>.json` | The arena of each level in the game's existing level format: background, player (with the profile's health), walls, floor and roof with their materials and textures, blocks, and the enemies of a fixed layout. Positions are relative to the arena. |
+| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split` calls (with the derived spacing), effects become calls on the player, each enemy type's drop table becomes a chance roll and a weighted pick inside that enemy's case of `onEnemyPopped` (commented with the derived shares and probabilities), waves become spawn schedules with escalation, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
+| `assets/modes/<Mode>-<n>.json` | The arena of each level in the game's existing level format: background, player (with the profile's health), walls, floor and roof, blocks, and the enemies of a fixed layout. Positions are relative to the arena. |
 | `core/src/generated/java/.../Modes/Generated/GeneratedEdition.java` | The product name and the modes in menu order, read by the main menu and the desktop launcher's window title. |
 | `android/res/values/edition.xml` | The product name for the Android launcher label. |
 
@@ -249,8 +248,8 @@ The generated classes plug into a small runtime added to the game:
 
 Hooks in the existing code are kept small:
 
-- Factories read enemy kinds, materials, sprites, player speed, tongue time and cooldown from the mode.
-- The physics system applies enemy bounce and floor materials.
+- Factories read enemy kinds, sprites, player speed, tongue time and cooldown from the mode.
+- The physics system applies the bounce of each enemy type.
 - The level loader accepts arena-relative positions.
 - The main menu lists the modes of the edition and the tutorial. A mode of several levels opens a
   level list (`SelectModeLevelView`), and the game over screen offers the next level once one is won.
@@ -262,7 +261,7 @@ The tutorial and multiplayer are unchanged.
 | Edition | Product | What it shows |
 | --- | --- | --- |
 | `classic.rango` | *Rango Unchained*, one mode | The minimal valid configuration (the draft's baseline): one enemy type that splits in two, a fixed layout, won when cleared, lost on health, and a single edition-level drop table (the one power-up every enemy must be able to drop). Only mandatory features. |
-| `survival.rango` | *Rango Unchained: Survival*, three modes | **Endless Survival**: four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, ice and grass materials, a jump pad, teleporters for enemies, three power-ups, and lost when overrun by 25 enemies. The *edition's drop tables* apply: the tougher the enemy, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other. |
+| `survival.rango` | *Rango Unchained: Survival*, three modes | **Endless Survival**: four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, three power-ups, and lost when overrun by 25 enemies. The *edition's drop tables* apply: the tougher the enemy, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other. |
 | `arcade.rango` | *Rango Unchained: Arcade*, three modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. Every mode has *its own drop tables* (no edition defaults), and the Mine drops the best power-up. |
 
 The tests check that all three are valid and that together they use every concrete class, every

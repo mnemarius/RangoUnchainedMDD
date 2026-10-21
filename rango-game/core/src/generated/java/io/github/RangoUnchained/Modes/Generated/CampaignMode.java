@@ -139,19 +139,6 @@ public final class CampaignMode extends GameModeDefinition {
     }
 
     @Override
-    public float materialBounce(String material) {
-        if (material == null) {
-            return 1f;
-        }
-        switch (material) {
-            case "Stone":
-                return 1.0f;
-            default:
-                return 1f;
-        }
-    }
-
-    @Override
     public void buildArena(int level, ArenaBuilder arena) {
         switch (level) {
             default:

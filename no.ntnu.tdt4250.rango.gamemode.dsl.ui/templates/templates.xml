@@ -16,10 +16,6 @@
 	sprite "${Powerup/Shield.png}"
 	gives: shield for ${8} s
 }</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Material" deleted="false" description="A surface material" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.material" name="material">material ${Name} {
-	bounce ${0.7}
-	sprite "${Obstacles/Ice.png}"
-}</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.PlayerProfile" deleted="false" description="A player profile" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.player" name="player">player ${Name} {
 	health ${3} max ${5}
 	speed ${5}

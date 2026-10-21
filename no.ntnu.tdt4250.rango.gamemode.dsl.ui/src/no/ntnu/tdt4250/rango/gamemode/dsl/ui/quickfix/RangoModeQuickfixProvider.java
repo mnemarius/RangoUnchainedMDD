@@ -21,7 +21,6 @@ import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
 import no.ntnu.tdt4250.rango.gamemode.dsl.validation.RangoModeValidator;
@@ -121,8 +120,6 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 						type.setSprite(type.getSprite() + ".png");
 					} else if (element instanceof PowerUp powerUp) {
 						powerUp.setSprite(powerUp.getSprite() + ".png");
-					} else if (element instanceof Material material) {
-						material.setSprite(material.getSprite() + ".png");
 					}
 				});
 	}

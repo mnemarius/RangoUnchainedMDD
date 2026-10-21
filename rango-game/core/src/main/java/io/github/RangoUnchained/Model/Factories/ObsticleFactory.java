@@ -7,13 +7,11 @@ import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Components.BodyComponent;
 import io.github.RangoUnchained.Model.Components.Component;
 import io.github.RangoUnchained.Model.Components.ContactComponent;
-import io.github.RangoUnchained.Model.Components.MaterialComponent;
 import io.github.RangoUnchained.Model.Components.SpriteComponent;
 import io.github.RangoUnchained.Model.Entities.Entity;
 import io.github.RangoUnchained.Model.Entities.ObstacleEntity;
 import io.github.RangoUnchained.Model.Entities.FloorEntity;
 import io.github.RangoUnchained.Model.level.GameLevel.LevelData.EntityData;
-import io.github.RangoUnchained.Modes.ModeSession;
 import io.github.RangoUnchained.Views.Utils.Constants;
 
 public class ObsticleFactory {
@@ -35,11 +33,6 @@ public class ObsticleFactory {
        
         obstacle.addComponent(createSpriteComponent(entityData));
         obstacle.addComponent(createContactComponent(entityData));
-        if (entityData.typeInfo.material != null) {
-            ModeSession session = ModeSession.active();
-            float bounce = session == null ? 1f : session.getMode().materialBounce(entityData.typeInfo.material);
-            obstacle.addComponent(new MaterialComponent(bounce));
-        }
         BodyComponent body = createBodyComponent(entityData);
         body.getBody().setUserData(obstacle);
         obstacle.addComponent(body);
@@ -130,7 +123,7 @@ public class ObsticleFactory {
 
         SpriteComponent sprite;
         if (entityData.typeInfo.sprite != null) {
-            // material surfaces of game mode arenas: repeat the tile rather than stretch it over the arena
+            // blocks of game mode arenas: repeat the tile rather than stretch it over the block
             sprite = new SpriteComponent(entityData.typeInfo.sprite, spriteWidth, spriteHeight);
             sprite.tile();
         } else if (subType.equals("Floor")) {

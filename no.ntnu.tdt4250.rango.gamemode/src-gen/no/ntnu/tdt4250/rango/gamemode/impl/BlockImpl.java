@@ -4,13 +4,10 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -23,7 +20,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl#getWidth <em>Width</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl#getHeight <em>Height</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.BlockImpl#getMaterial <em>Material</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,16 +64,6 @@ public class BlockImpl extends ObstacleImpl implements Block {
 	 * @ordered
 	 */
 	protected int height = HEIGHT_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getMaterial() <em>Material</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMaterial()
-	 * @generated
-	 * @ordered
-	 */
-	protected Material material;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -150,55 +136,12 @@ public class BlockImpl extends ObstacleImpl implements Block {
 	 * @generated
 	 */
 	@Override
-	public Material getMaterial() {
-		if (material != null && material.eIsProxy()) {
-			InternalEObject oldMaterial = (InternalEObject)material;
-			material = (Material)eResolveProxy(oldMaterial);
-			if (material != oldMaterial) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GamemodePackage.BLOCK__MATERIAL, oldMaterial, material));
-			}
-		}
-		return material;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Material basicGetMaterial() {
-		return material;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setMaterial(Material newMaterial) {
-		Material oldMaterial = material;
-		material = newMaterial;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.BLOCK__MATERIAL, oldMaterial, material));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GamemodePackage.BLOCK__WIDTH:
 				return getWidth();
 			case GamemodePackage.BLOCK__HEIGHT:
 				return getHeight();
-			case GamemodePackage.BLOCK__MATERIAL:
-				if (resolve) return getMaterial();
-				return basicGetMaterial();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -216,9 +159,6 @@ public class BlockImpl extends ObstacleImpl implements Block {
 				return;
 			case GamemodePackage.BLOCK__HEIGHT:
 				setHeight((Integer)newValue);
-				return;
-			case GamemodePackage.BLOCK__MATERIAL:
-				setMaterial((Material)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -238,9 +178,6 @@ public class BlockImpl extends ObstacleImpl implements Block {
 			case GamemodePackage.BLOCK__HEIGHT:
 				setHeight(HEIGHT_EDEFAULT);
 				return;
-			case GamemodePackage.BLOCK__MATERIAL:
-				setMaterial((Material)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -257,8 +194,6 @@ public class BlockImpl extends ObstacleImpl implements Block {
 				return width != WIDTH_EDEFAULT;
 			case GamemodePackage.BLOCK__HEIGHT:
 				return height != HEIGHT_EDEFAULT;
-			case GamemodePackage.BLOCK__MATERIAL:
-				return material != null;
 		}
 		return super.eIsSet(featureID);
 	}

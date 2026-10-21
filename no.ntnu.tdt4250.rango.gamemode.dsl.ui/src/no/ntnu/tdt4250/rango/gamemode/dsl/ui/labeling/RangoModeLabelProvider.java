@@ -26,7 +26,6 @@ import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
@@ -95,14 +94,6 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 		return "powerup.png";
 	}
 
-	String text(Material material) {
-		return material.getName() + " (bounce ×" + number(material.getBounce()) + ")";
-	}
-
-	String image(Material material) {
-		return "material.png";
-	}
-
 	String text(PlayerProfile player) {
 		return player.getName() + " (" + player.getHealth() + " hearts, speed " + number(player.getSpeed()) + ")";
 	}
@@ -136,8 +127,7 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(Block block) {
-		return block.getName() + " " + block.getWidth() + "×" + block.getHeight()
-				+ (block.getMaterial() == null ? "" : " of " + block.getMaterial().getName());
+		return block.getName() + " " + block.getWidth() + "×" + block.getHeight();
 	}
 
 	String image(Block block) {

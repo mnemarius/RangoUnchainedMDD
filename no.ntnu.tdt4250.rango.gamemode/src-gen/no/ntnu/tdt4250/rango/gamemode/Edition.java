@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * One product of the line. It declares the building blocks it ships (enemy types, power-ups, materials, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game.
+ * One product of the line. It declares the building blocks it ships (enemy types, power-ups, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getTitle <em>Title</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPowerUps <em>Power Ups</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getMaterials <em>Materials</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getPlayers <em>Players</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getModes <em>Modes</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Edition#getDrops <em>Drops</em>}</li>
@@ -85,21 +84,6 @@ public interface Edition extends NamedElement {
 	 * @generated
 	 */
 	EList<PowerUp> getPowerUps();
-
-	/**
-	 * Returns the value of the '<em><b>Materials</b></em>' containment reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.Material}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The surface materials that floors, walls and blocks can be made of.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Materials</em>' containment reference list.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEdition_Materials()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Material> getMaterials();
 
 	/**
 	 * Returns the value of the '<em><b>Players</b></em>' containment reference list.

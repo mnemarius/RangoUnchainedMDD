@@ -161,29 +161,9 @@ ruleEdition returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEditionAccess().getMaterialsMaterialParserRuleCall_3_2_0());
+						newCompositeNode(grammarAccess.getEditionAccess().getPlayersPlayerProfileParserRuleCall_3_2_0());
 					}
-					lv_materials_5_0=ruleMaterial
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getEditionRule());
-						}
-						add(
-							$current,
-							"materials",
-							lv_materials_5_0,
-							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Material");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-			    |
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getEditionAccess().getPlayersPlayerProfileParserRuleCall_3_3_0());
-					}
-					lv_players_6_0=rulePlayerProfile
+					lv_players_5_0=rulePlayerProfile
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEditionRule());
@@ -191,7 +171,7 @@ ruleEdition returns [EObject current=null]
 						add(
 							$current,
 							"players",
-							lv_players_6_0,
+							lv_players_5_0,
 							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.PlayerProfile");
 						afterParserOrEnumRuleCall();
 					}
@@ -202,20 +182,20 @@ ruleEdition returns [EObject current=null]
 				if ($current==null) {
 					$current = createModelElement(grammarAccess.getEditionRule());
 				}
-				newCompositeNode(grammarAccess.getEditionAccess().getDropsParserRuleCall_3_4());
+				newCompositeNode(grammarAccess.getEditionAccess().getDropsParserRuleCall_3_3());
 			}
-			this_Drops_7=ruleDrops[$current]
+			this_Drops_6=ruleDrops[$current]
 			{
-				$current = $this_Drops_7.current;
+				$current = $this_Drops_6.current;
 				afterParserOrEnumRuleCall();
 			}
 			    |
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_5_0());
+						newCompositeNode(grammarAccess.getEditionAccess().getModesGameModeParserRuleCall_3_4_0());
 					}
-					lv_modes_8_0=ruleGameMode
+					lv_modes_7_0=ruleGameMode
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEditionRule());
@@ -223,7 +203,7 @@ ruleEdition returns [EObject current=null]
 						add(
 							$current,
 							"modes",
-							lv_modes_8_0,
+							lv_modes_7_0,
 							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode");
 						afterParserOrEnumRuleCall();
 					}
@@ -1191,136 +1171,6 @@ rulePowerUp returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleMaterial
-entryRuleMaterial returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getMaterialRule()); }
-	iv_ruleMaterial=ruleMaterial
-	{ $current=$iv_ruleMaterial.current; }
-	EOF;
-
-// Rule Material
-ruleMaterial returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='material'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getMaterialAccess().getMaterialKeyword_0());
-		}
-		(
-			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getMaterialAccess().getNameIDTerminalRuleCall_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getMaterialRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_2='{'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getMaterialAccess().getLeftCurlyBracketKeyword_2());
-		}
-		(
-			(
-				{ 
-				  getUnorderedGroupHelper().enter(grammarAccess.getMaterialAccess().getUnorderedGroup_3());
-				}
-				(
-					(
-			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 0)}?=>(
-					{
-						getUnorderedGroupHelper().select(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 0);
-					}
-								({true}?=>(otherlv_4='bounce'
-								{
-									newLeafNode(otherlv_4, grammarAccess.getMaterialAccess().getBounceKeyword_3_0_0());
-								}
-								(
-									(
-										{
-											newCompositeNode(grammarAccess.getMaterialAccess().getBounceDecimalParserRuleCall_3_0_1_0());
-										}
-										lv_bounce_5_0=ruleDecimal
-										{
-											if ($current==null) {
-												$current = createModelElementForParent(grammarAccess.getMaterialRule());
-											}
-											set(
-												$current,
-												"bounce",
-												lv_bounce_5_0,
-												"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
-											afterParserOrEnumRuleCall();
-										}
-									)
-								)
-								))
-					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMaterialAccess().getUnorderedGroup_3());
-					}
-				)
-			)|
-			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 1)}?=>(
-					{
-						getUnorderedGroupHelper().select(grammarAccess.getMaterialAccess().getUnorderedGroup_3(), 1);
-					}
-								({true}?=>(otherlv_6='sprite'
-								{
-									newLeafNode(otherlv_6, grammarAccess.getMaterialAccess().getSpriteKeyword_3_1_0());
-								}
-								(
-									(
-										lv_sprite_7_0=RULE_STRING
-										{
-											newLeafNode(lv_sprite_7_0, grammarAccess.getMaterialAccess().getSpriteSTRINGTerminalRuleCall_3_1_1_0());
-										}
-										{
-											if ($current==null) {
-												$current = createModelElement(grammarAccess.getMaterialRule());
-											}
-											setWithLastConsumed(
-												$current,
-												"sprite",
-												lv_sprite_7_0,
-												"org.eclipse.xtext.common.Terminals.STRING");
-										}
-									)
-								)
-								))
-					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMaterialAccess().getUnorderedGroup_3());
-					}
-				)
-			)
-					)*
-				)
-			)
-				{ 
-				  getUnorderedGroupHelper().leave(grammarAccess.getMaterialAccess().getUnorderedGroup_3());
-				}
-		)
-		otherlv_8='}'
-		{
-			newLeafNode(otherlv_8, grammarAccess.getMaterialAccess().getRightCurlyBracketKeyword_4());
-		}
-	)
-;
-
 // Entry rule entryRulePlayerProfile
 entryRulePlayerProfile returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getPlayerProfileRule()); }
@@ -2254,127 +2104,48 @@ ruleArena returns [EObject current=null]
 			)
 		)
 		(
+			otherlv_4='player'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getArenaAccess().getPlayerKeyword_4_0());
+			}
+			otherlv_5='starts'
+			{
+				newLeafNode(otherlv_5, grammarAccess.getArenaAccess().getStartsKeyword_4_1());
+			}
+			otherlv_6='at'
+			{
+				newLeafNode(otherlv_6, grammarAccess.getArenaAccess().getAtKeyword_4_2());
+			}
 			(
-				{ 
-				  getUnorderedGroupHelper().enter(grammarAccess.getArenaAccess().getUnorderedGroup_4());
-				}
 				(
-					(
-			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 0)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 0);
+						newCompositeNode(grammarAccess.getArenaAccess().getPlayerStartDecimalParserRuleCall_4_3_0());
 					}
-								({true}?=>(otherlv_5='floor'
-								{
-									newLeafNode(otherlv_5, grammarAccess.getArenaAccess().getFloorKeyword_4_0_0());
-								}
-								(
-									(
-										{
-											if ($current==null) {
-												$current = createModelElement(grammarAccess.getArenaRule());
-											}
-										}
-										otherlv_6=RULE_ID
-										{
-											newLeafNode(otherlv_6, grammarAccess.getArenaAccess().getFloorMaterialCrossReference_4_0_1_0());
-										}
-									)
-								)
-								))
-					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getArenaAccess().getUnorderedGroup_4());
-					}
-				)
-			)|
-			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 1)}?=>(
+					lv_playerStart_7_0=ruleDecimal
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 1);
-					}
-								({true}?=>(otherlv_7='walls'
-								{
-									newLeafNode(otherlv_7, grammarAccess.getArenaAccess().getWallsKeyword_4_1_0());
-								}
-								(
-									(
-										{
-											if ($current==null) {
-												$current = createModelElement(grammarAccess.getArenaRule());
-											}
-										}
-										otherlv_8=RULE_ID
-										{
-											newLeafNode(otherlv_8, grammarAccess.getArenaAccess().getWallsMaterialCrossReference_4_1_1_0());
-										}
-									)
-								)
-								))
-					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getArenaAccess().getUnorderedGroup_4());
-					}
-				)
-			)|
-			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 2)}?=>(
-					{
-						getUnorderedGroupHelper().select(grammarAccess.getArenaAccess().getUnorderedGroup_4(), 2);
-					}
-								({true}?=>(otherlv_9='player'
-								{
-									newLeafNode(otherlv_9, grammarAccess.getArenaAccess().getPlayerKeyword_4_2_0());
-								}
-								otherlv_10='starts'
-								{
-									newLeafNode(otherlv_10, grammarAccess.getArenaAccess().getStartsKeyword_4_2_1());
-								}
-								otherlv_11='at'
-								{
-									newLeafNode(otherlv_11, grammarAccess.getArenaAccess().getAtKeyword_4_2_2());
-								}
-								(
-									(
-										{
-											newCompositeNode(grammarAccess.getArenaAccess().getPlayerStartDecimalParserRuleCall_4_2_3_0());
-										}
-										lv_playerStart_12_0=ruleDecimal
-										{
-											if ($current==null) {
-												$current = createModelElementForParent(grammarAccess.getArenaRule());
-											}
-											set(
-												$current,
-												"playerStart",
-												lv_playerStart_12_0,
-												"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
-											afterParserOrEnumRuleCall();
-										}
-									)
-								)
-								otherlv_13='%'
-								{
-									newLeafNode(otherlv_13, grammarAccess.getArenaAccess().getPercentSignKeyword_4_2_4());
-								}
-								))
-					{ 
-						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getArenaAccess().getUnorderedGroup_4());
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getArenaRule());
+						}
+						set(
+							$current,
+							"playerStart",
+							lv_playerStart_7_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
+						afterParserOrEnumRuleCall();
 					}
 				)
 			)
-					)*
-				)
-			)
-				{ 
-				  getUnorderedGroupHelper().leave(grammarAccess.getArenaAccess().getUnorderedGroup_4());
-				}
-		)
+			otherlv_8='%'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getArenaAccess().getPercentSignKeyword_4_4());
+			}
+		)?
 		(
 			(
 				{
 					newCompositeNode(grammarAccess.getArenaAccess().getObstaclesObstacleParserRuleCall_5_0());
 				}
-				lv_obstacles_14_0=ruleObstacle
+				lv_obstacles_9_0=ruleObstacle
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getArenaRule());
@@ -2382,15 +2153,15 @@ ruleArena returns [EObject current=null]
 					add(
 						$current,
 						"obstacles",
-						lv_obstacles_14_0,
+						lv_obstacles_9_0,
 						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Obstacle");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_15='}'
+		otherlv_10='}'
 		{
-			newLeafNode(otherlv_15, grammarAccess.getArenaAccess().getRightCurlyBracketKeyword_6());
+			newLeafNode(otherlv_10, grammarAccess.getArenaAccess().getRightCurlyBracketKeyword_6());
 		}
 	)
 ;
@@ -2608,25 +2379,6 @@ ruleBlock returns [EObject current=null]
 				}
 			)
 		)
-		(
-			otherlv_7='of'
-			{
-				newLeafNode(otherlv_7, grammarAccess.getBlockAccess().getOfKeyword_7_0());
-			}
-			(
-				(
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getBlockRule());
-						}
-					}
-					otherlv_8=RULE_ID
-					{
-						newLeafNode(otherlv_8, grammarAccess.getBlockAccess().getMaterialMaterialCrossReference_7_1_0());
-					}
-				)
-			)
-		)?
 	)
 ;
 

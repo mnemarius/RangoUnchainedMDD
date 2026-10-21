@@ -22,9 +22,6 @@ public class RangoModeProposalProvider extends AbstractRangoModeProposalProvider
 	static final List<String> POWER_UP_SPRITES = List.of("Powerup/Health.png", "Powerup/Shield.png",
 			"Powerup/Speed.png", "Powerup/WoodShield.png");
 
-	static final List<String> SURFACE_SPRITES = List.of("Obstacles/Stone.png", "Obstacles/Ice.png",
-			"Obstacles/Grass.png", "Obstacles/Obstacle_2.png");
-
 	static final List<String> BACKGROUNDS = List.of("Desert", "red");
 
 	@Override
@@ -37,12 +34,6 @@ public class RangoModeProposalProvider extends AbstractRangoModeProposalProvider
 	public void completePowerUp_Sprite(EObject model, Assignment assignment, ContentAssistContext context,
 			ICompletionProposalAcceptor acceptor) {
 		proposeStrings(POWER_UP_SPRITES, context, acceptor);
-	}
-
-	@Override
-	public void completeMaterial_Sprite(EObject model, Assignment assignment, ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		proposeStrings(SURFACE_SPRITES, context, acceptor);
 	}
 
 	@Override

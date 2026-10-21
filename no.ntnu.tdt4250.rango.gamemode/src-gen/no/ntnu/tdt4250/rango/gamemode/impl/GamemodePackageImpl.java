@@ -3,10 +3,6 @@
 package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
-import no.ntnu.tdt4250.rango.gamemode.EnemyType;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
@@ -15,6 +11,10 @@ import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
+import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
@@ -23,7 +23,6 @@ import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
@@ -170,13 +169,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	private EClass powerUpEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass materialEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -533,7 +525,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getEdition_Materials() {
+	public EReference getEdition_Players() {
 		return (EReference)editionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -543,7 +535,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getEdition_Players() {
+	public EReference getEdition_Modes() {
 		return (EReference)editionEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -553,18 +545,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getEdition_Modes() {
-		return (EReference)editionEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getEdition_Drops() {
-		return (EReference)editionEClass.getEStructuralFeatures().get(6);
+		return (EReference)editionEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -895,36 +877,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	@Override
 	public EReference getPowerUp_Effects() {
 		return (EReference)powerUpEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getMaterial() {
-		return materialEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getMaterial_Bounce() {
-		return (EAttribute)materialEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getMaterial_Sprite() {
-		return (EAttribute)materialEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1283,28 +1235,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getArena_Floor() {
-		return (EReference)arenaEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getArena_Walls() {
-		return (EReference)arenaEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EAttribute getArena_PlayerStart() {
-		return (EAttribute)arenaEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)arenaEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1314,7 +1246,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 */
 	@Override
 	public EReference getArena_Obstacles() {
-		return (EReference)arenaEClass.getEStructuralFeatures().get(4);
+		return (EReference)arenaEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1355,16 +1287,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	@Override
 	public EAttribute getBlock_Height() {
 		return (EAttribute)blockEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getBlock_Material() {
-		return (EReference)blockEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1927,7 +1849,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(editionEClass, EDITION__TITLE);
 		createEReference(editionEClass, EDITION__ENEMY_TYPES);
 		createEReference(editionEClass, EDITION__POWER_UPS);
-		createEReference(editionEClass, EDITION__MATERIALS);
 		createEReference(editionEClass, EDITION__PLAYERS);
 		createEReference(editionEClass, EDITION__MODES);
 		createEReference(editionEClass, EDITION__DROPS);
@@ -1977,10 +1898,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(powerUpEClass, POWER_UP__SPRITE);
 		createEReference(powerUpEClass, POWER_UP__EFFECTS);
 
-		materialEClass = createEClass(MATERIAL);
-		createEAttribute(materialEClass, MATERIAL__BOUNCE);
-		createEAttribute(materialEClass, MATERIAL__SPRITE);
-
 		playerProfileEClass = createEClass(PLAYER_PROFILE);
 		createEAttribute(playerProfileEClass, PLAYER_PROFILE__CHARACTER);
 		createEAttribute(playerProfileEClass, PLAYER_PROFILE__HEALTH);
@@ -2020,8 +1937,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		arenaEClass = createEClass(ARENA);
 		createEAttribute(arenaEClass, ARENA__BACKGROUND);
-		createEReference(arenaEClass, ARENA__FLOOR);
-		createEReference(arenaEClass, ARENA__WALLS);
 		createEAttribute(arenaEClass, ARENA__PLAYER_START);
 		createEReference(arenaEClass, ARENA__OBSTACLES);
 
@@ -2030,7 +1945,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		blockEClass = createEClass(BLOCK);
 		createEAttribute(blockEClass, BLOCK__WIDTH);
 		createEAttribute(blockEClass, BLOCK__HEIGHT);
-		createEReference(blockEClass, BLOCK__MATERIAL);
 
 		triggerEClass = createEClass(TRIGGER);
 		createEAttribute(triggerEClass, TRIGGER__AFFECTS);
@@ -2144,7 +2058,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		speedChangeEClass.getESuperTypes().add(this.getTimedEffect());
 		poisonEClass.getESuperTypes().add(this.getTimedEffect());
 		powerUpEClass.getESuperTypes().add(this.getNamedElement());
-		materialEClass.getESuperTypes().add(this.getNamedElement());
 		playerProfileEClass.getESuperTypes().add(this.getNamedElement());
 		gameModeEClass.getESuperTypes().add(this.getNamedElement());
 		obstacleEClass.getESuperTypes().add(this.getNamedElement());
@@ -2176,7 +2089,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getEdition_Title(), ecorePackage.getEString(), "title", null, 0, 1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_EnemyTypes(), this.getEnemyType(), null, "enemyTypes", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_PowerUps(), this.getPowerUp(), null, "powerUps", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEdition_Materials(), this.getMaterial(), null, "materials", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Players(), this.getPlayerProfile(), null, "players", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Modes(), this.getGameMode(), null, "modes", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Drops(), this.getDropTable(), null, "drops", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2226,10 +2138,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getPowerUp_Sprite(), ecorePackage.getEString(), "sprite", null, 1, 1, PowerUp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPowerUp_Effects(), this.getPlayerEffect(), null, "effects", null, 1, -1, PowerUp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(materialEClass, Material.class, "Material", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMaterial_Bounce(), ecorePackage.getEFloat(), "bounce", "1.0", 0, 1, Material.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMaterial_Sprite(), ecorePackage.getEString(), "sprite", null, 0, 1, Material.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(playerProfileEClass, PlayerProfile.class, "PlayerProfile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPlayerProfile_Character(), ecorePackage.getEString(), "character", "Rango", 0, 1, PlayerProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPlayerProfile_Health(), ecorePackage.getEInt(), "health", null, 1, 1, PlayerProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2269,8 +2177,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		initEClass(arenaEClass, Arena.class, "Arena", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getArena_Background(), ecorePackage.getEString(), "background", null, 1, 1, Arena.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getArena_Floor(), this.getMaterial(), null, "floor", null, 0, 1, Arena.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getArena_Walls(), this.getMaterial(), null, "walls", null, 0, 1, Arena.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getArena_PlayerStart(), ecorePackage.getEFloat(), "playerStart", "10.0", 0, 1, Arena.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getArena_Obstacles(), this.getObstacle(), null, "obstacles", null, 0, -1, Arena.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2279,7 +2185,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBlock_Width(), ecorePackage.getEInt(), "width", null, 1, 1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBlock_Height(), ecorePackage.getEInt(), "height", null, 1, 1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBlock_Material(), this.getMaterial(), null, "material", null, 0, 1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(triggerEClass, Trigger.class, "Trigger", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTrigger_Affects(), this.getTarget(), "affects", null, 0, 1, Trigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2444,12 +2349,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		   source,
 		   new String[] {
 			   "constraints", "distinctEffectKinds"
-		   });
-		addAnnotation
-		  (materialEClass,
-		   source,
-		   new String[] {
-			   "constraints", "bounceInRange"
 		   });
 		addAnnotation
 		  (playerProfileEClass,
@@ -2622,12 +2521,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		   new String[] {
 			   "positiveAmount", "amount > 0",
 			   "intervalWithinDuration", "interval > 0 and interval <= duration"
-		   });
-		addAnnotation
-		  (materialEClass,
-		   source,
-		   new String[] {
-			   "bounceInRange", "bounce > 0 and bounce <= 2"
 		   });
 		addAnnotation
 		  (playerProfileEClass,

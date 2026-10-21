@@ -14,7 +14,6 @@ Edition returns Edition:
 	'edition' name=ID (title=STRING)?
 	(	enemyTypes+=EnemyType
 	|	powerUps+=PowerUp
-	|	materials+=Material
 	|	players+=PlayerProfile
 	|	Drops
 	|	modes+=GameMode
@@ -74,19 +73,12 @@ Poison returns Poison:
 	'poison' amount=INT 'every' interval=Decimal 's' 'for' duration=Decimal 's';
 
 // ---------------------------------------------------------------------------------------------
-// Power-ups, materials and player profiles.
+// Power-ups and player profiles.
 
 PowerUp returns PowerUp:
 	'powerup' name=ID '{'
 	'sprite' sprite=STRING
 	'gives' ':' effects+=PlayerEffect (',' effects+=PlayerEffect)*
-	'}';
-
-Material returns Material:
-	'material' name=ID '{'
-	(	('bounce' bounce=Decimal)?
-	&	('sprite' sprite=STRING)?
-	)
 	'}';
 
 PlayerProfile returns PlayerProfile:
@@ -151,10 +143,7 @@ SpeedBonus returns SpeedBonus:
 Arena returns Arena:
 	'arena' '{'
 	'background' background=STRING
-	(	('floor' floor=[Material])?
-	&	('walls' walls=[Material])?
-	&	('player' 'starts' 'at' playerStart=Decimal '%')?
-	)
+	('player' 'starts' 'at' playerStart=Decimal '%')?
 	(obstacles+=Obstacle)*
 	'}';
 
@@ -165,7 +154,7 @@ Obstacle returns Obstacle:
 	Block | JumpPad | Teleporter;
 
 Block returns Block:
-	'block' name=ID At 'size' width=INT 'by' height=INT ('of' material=[Material])?;
+	'block' name=ID At 'size' width=INT 'by' height=INT;
 
 JumpPad returns JumpPad:
 	'jumppad' name=ID At 'launch' launch=Decimal ('affects' affects=Target)?;

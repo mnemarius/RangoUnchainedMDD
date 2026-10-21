@@ -9,7 +9,6 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 
@@ -37,7 +36,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getEnemyTypes <em>Enemy Types</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getPowerUps <em>Power Ups</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getMaterials <em>Materials</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getPlayers <em>Players</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getModes <em>Modes</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.EditionImpl#getDrops <em>Drops</em>}</li>
@@ -85,16 +83,6 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 	 * @ordered
 	 */
 	protected EList<PowerUp> powerUps;
-
-	/**
-	 * The cached value of the '{@link #getMaterials() <em>Materials</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMaterials()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Material> materials;
 
 	/**
 	 * The cached value of the '{@link #getPlayers() <em>Players</em>}' containment reference list.
@@ -200,19 +188,6 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 	 * @generated
 	 */
 	@Override
-	public EList<Material> getMaterials() {
-		if (materials == null) {
-			materials = new EObjectContainmentEList<Material>(Material.class, this, GamemodePackage.EDITION__MATERIALS);
-		}
-		return materials;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EList<PlayerProfile> getPlayers() {
 		if (players == null) {
 			players = new EObjectContainmentEList<PlayerProfile>(PlayerProfile.class, this, GamemodePackage.EDITION__PLAYERS);
@@ -258,8 +233,6 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 				return ((InternalEList<?>)getEnemyTypes()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.EDITION__POWER_UPS:
 				return ((InternalEList<?>)getPowerUps()).basicRemove(otherEnd, msgs);
-			case GamemodePackage.EDITION__MATERIALS:
-				return ((InternalEList<?>)getMaterials()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.EDITION__PLAYERS:
 				return ((InternalEList<?>)getPlayers()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.EDITION__MODES:
@@ -284,8 +257,6 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 				return getEnemyTypes();
 			case GamemodePackage.EDITION__POWER_UPS:
 				return getPowerUps();
-			case GamemodePackage.EDITION__MATERIALS:
-				return getMaterials();
 			case GamemodePackage.EDITION__PLAYERS:
 				return getPlayers();
 			case GamemodePackage.EDITION__MODES:
@@ -315,10 +286,6 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 			case GamemodePackage.EDITION__POWER_UPS:
 				getPowerUps().clear();
 				getPowerUps().addAll((Collection<? extends PowerUp>)newValue);
-				return;
-			case GamemodePackage.EDITION__MATERIALS:
-				getMaterials().clear();
-				getMaterials().addAll((Collection<? extends Material>)newValue);
 				return;
 			case GamemodePackage.EDITION__PLAYERS:
 				getPlayers().clear();
@@ -353,9 +320,6 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 			case GamemodePackage.EDITION__POWER_UPS:
 				getPowerUps().clear();
 				return;
-			case GamemodePackage.EDITION__MATERIALS:
-				getMaterials().clear();
-				return;
 			case GamemodePackage.EDITION__PLAYERS:
 				getPlayers().clear();
 				return;
@@ -383,8 +347,6 @@ public class EditionImpl extends NamedElementImpl implements Edition {
 				return enemyTypes != null && !enemyTypes.isEmpty();
 			case GamemodePackage.EDITION__POWER_UPS:
 				return powerUps != null && !powerUps.isEmpty();
-			case GamemodePackage.EDITION__MATERIALS:
-				return materials != null && !materials.isEmpty();
 			case GamemodePackage.EDITION__PLAYERS:
 				return players != null && !players.isEmpty();
 			case GamemodePackage.EDITION__MODES:

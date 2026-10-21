@@ -10,7 +10,6 @@ import no.ntnu.tdt4250.rango.gamemode.Edition
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout
 import no.ntnu.tdt4250.rango.gamemode.GameMode
 import no.ntnu.tdt4250.rango.gamemode.Level
-import no.ntnu.tdt4250.rango.gamemode.Material
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile
 import no.ntnu.tdt4250.rango.gamemode.Positioned
 import no.ntnu.tdt4250.rango.gamemode.PowerUp
@@ -50,11 +49,6 @@ class RangoModeFormatter extends AbstractFormatter2 {
 		powerUp.lists(document)
 	}
 
-	def dispatch void format(Material material, extension IFormattableDocument document) {
-		material.block(document)
-		material.lines(document, 'bounce', 'sprite')
-	}
-
 	def dispatch void format(PlayerProfile player, extension IFormattableDocument document) {
 		player.block(document)
 		player.lines(document, 'character', 'health', 'speed', 'tongue', 'cooldown', 'grace')
@@ -89,7 +83,7 @@ class RangoModeFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(Arena arena, extension IFormattableDocument document) {
 		arena.block(document)
-		arena.lines(document, 'background', 'floor', 'walls', 'player')
+		arena.lines(document, 'background', 'player')
 		for (obstacle : arena.obstacles) {
 			obstacle.prepend[newLine]
 			obstacle.format
