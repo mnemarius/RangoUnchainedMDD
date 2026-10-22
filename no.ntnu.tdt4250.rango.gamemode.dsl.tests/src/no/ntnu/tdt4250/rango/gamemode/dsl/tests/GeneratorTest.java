@@ -80,8 +80,8 @@ public class GeneratorTest {
 		assertTrue(hard.contains(".with(Difficulty.ENEMY_SPEED, 1.3f)"), hard);
 		assertTrue(hard.contains(".with(Difficulty.PLAYER_HEALTH, 0.5f)"), hard);
 		// an edition without difficulties plays its modes as modelled
-		String survival = file(generate("survival"), JAVA + "GeneratedEdition.java");
-		assertTrue(survival.contains("Arrays.<Difficulty>asList(\n        );"), survival);
+		String classic = file(generate("classic"), JAVA + "GeneratedEdition.java");
+		assertTrue(classic.contains("Arrays.<Difficulty>asList(\n        );"), classic);
 	}
 
 	@Test
