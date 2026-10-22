@@ -128,10 +128,6 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createPowerUpAdapter();
 			}
 			@Override
-			public Adapter caseMaterial(Material object) {
-				return createMaterialAdapter();
-			}
-			@Override
 			public Adapter casePlayerProfile(PlayerProfile object) {
 				return createPlayerProfileAdapter();
 			}
@@ -466,20 +462,6 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPowerUpAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Material <em>Material</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see no.ntnu.tdt4250.rango.gamemode.Material
-	 * @generated
-	 */
-	public Adapter createMaterialAdapter() {
 		return null;
 	}
 

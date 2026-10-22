@@ -24,7 +24,6 @@ import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
@@ -126,9 +125,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 					return; 
 				}
 				else break;
-			case GamemodePackage.MATERIAL:
-				sequence_Material(context, (Material) semanticObject); 
-				return; 
 			case GamemodePackage.MODIFIER:
 				sequence_Modifier(context, (Modifier) semanticObject); 
 				return; 
@@ -185,7 +181,7 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Arena returns Arena
 	 *
 	 * Constraint:
-	 *     (background=STRING (floor=[Material|ID] | walls=[Material|ID] | playerStart=Decimal)* obstacles+=Obstacle*)
+	 *     (background=STRING playerStart=Decimal? obstacles+=Obstacle*)
 	 * </pre>
 	 */
 	protected void sequence_Arena(ISerializationContext context, Arena semanticObject) {
@@ -200,18 +196,29 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Block returns Block
 	 *
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         x=Decimal 
-	 *         y=Decimal 
-	 *         width=INT 
-	 *         height=INT 
-	 *         material=[Material|ID]?
-	 *     )
+	 *     (name=ID x=Decimal y=Decimal width=INT height=INT)
 	 * </pre>
 	 */
 	protected void sequence_At_Block(ISerializationContext context, Block semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.NAMED_ELEMENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.NAMED_ELEMENT__NAME));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.POSITIONED__X) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.POSITIONED__X));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.POSITIONED__Y) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.POSITIONED__Y));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.BLOCK__WIDTH) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.BLOCK__WIDTH));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.BLOCK__HEIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.BLOCK__HEIGHT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getBlockAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getAtAccess().getXDecimalParserRuleCall_2_0(), semanticObject.getX());
+		feeder.accept(grammarAccess.getAtAccess().getYDecimalParserRuleCall_5_0(), semanticObject.getY());
+		feeder.accept(grammarAccess.getBlockAccess().getWidthINTTerminalRuleCall_4_0(), semanticObject.getWidth());
+		feeder.accept(grammarAccess.getBlockAccess().getHeightINTTerminalRuleCall_6_0(), semanticObject.getHeight());
+		feeder.finish();
 	}
 	
 	
@@ -356,7 +363,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *         (
 	 *             enemyTypes+=EnemyType | 
 	 *             powerUps+=PowerUp | 
-	 *             materials+=Material | 
 	 *             players+=PlayerProfile | 
 	 *             difficulties+=Difficulty | 
 	 *             modes+=GameMode | 
@@ -518,20 +524,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 * </pre>
 	 */
 	protected void sequence_Level(ISerializationContext context, Level semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     Material returns Material
-	 *
-	 * Constraint:
-	 *     (name=ID (bounce=Decimal | sprite=STRING)*)
-	 * </pre>
-	 */
-	protected void sequence_Material(ISerializationContext context, Material semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

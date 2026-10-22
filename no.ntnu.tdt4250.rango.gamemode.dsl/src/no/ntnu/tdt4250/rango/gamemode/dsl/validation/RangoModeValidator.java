@@ -13,19 +13,15 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
-import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
-import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
@@ -59,21 +55,10 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 				used.addAll(type.getProducedTypes());
 			}
 			used.addAll(mode.getPowerUps());
-			for (Level level : mode.getLevels()) {
-				Arena arena = level.getArena();
-				if (arena != null) {
-					used.add(arena.getFloor());
-					used.add(arena.getWalls());
-					for (Block block : EcoreUtil2.typeSelect(arena.getObstacles(), Block.class)) {
-						used.add(block.getMaterial());
-					}
-				}
-			}
 		}
 		List<NamedElement> blocks = new ArrayList<>();
 		blocks.addAll(edition.getEnemyTypes());
 		blocks.addAll(edition.getPowerUps());
-		blocks.addAll(edition.getMaterials());
 		blocks.addAll(edition.getPlayers());
 		for (NamedElement element : blocks) {
 			if (!used.contains(element)) {
@@ -91,11 +76,6 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	@Check
 	public void checkSprite(PowerUp powerUp) {
 		checkImage(powerUp, powerUp.getSprite(), GamemodePackage.Literals.POWER_UP__SPRITE);
-	}
-
-	@Check
-	public void checkSprite(Material material) {
-		checkImage(material, material.getSprite(), GamemodePackage.Literals.MATERIAL__SPRITE);
 	}
 
 	private void checkImage(EObject owner, String sprite, EStructuralFeature feature) {
@@ -222,8 +202,6 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 			return "Enemy type";
 		} else if (element instanceof PowerUp) {
 			return "Power-up";
-		} else if (element instanceof Material) {
-			return "Material";
 		}
 		return "Player profile";
 	}

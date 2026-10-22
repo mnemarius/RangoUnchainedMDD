@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import io.github.RangoUnchained.Controllers.LevelController;
 import io.github.RangoUnchained.Model.Components.BodyComponent;
 import io.github.RangoUnchained.Model.Components.BounceComponent;
-import io.github.RangoUnchained.Model.Components.MaterialComponent;
 import io.github.RangoUnchained.Model.Components.ModeEnemyComponent;
 import io.github.RangoUnchained.Model.Components.SpriteComponent;
 import io.github.RangoUnchained.Model.ContactStrategies.*;
@@ -70,14 +69,12 @@ public class PhysicsSystem implements Systems, ContactStrategy {
 
         Vector2 currentVelocity = enemyBody.getLinearVelocity();
 
-        // in game modes, the enemy type and the floor material tune the bounce
+        // in game modes, the enemy type tunes the bounce
         float bounceScale = 1f;
         float horizontalSpeed = 5f;
         ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
         if (modeEnemy != null) {
-            Entity floor = collisionEvent.entityA == enemy ? collisionEvent.entityB : collisionEvent.entityA;
-            MaterialComponent material = (MaterialComponent) floor.getComponent(MaterialComponent.class);
-            bounceScale = modeEnemy.kind.bounce * (material == null ? 1f : material.getBounce());
+            bounceScale = modeEnemy.kind.bounce;
             horizontalSpeed = modeEnemy.kind.speed;
         }
 

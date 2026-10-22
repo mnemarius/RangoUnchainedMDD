@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Arena#getBackground <em>Background</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Arena#getFloor <em>Floor</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Arena#getWalls <em>Walls</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Arena#getPlayerStart <em>Player Start</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Arena#getObstacles <em>Obstacles</em>}</li>
  * </ul>
@@ -56,56 +54,6 @@ public interface Arena extends EObject {
 	 * @generated
 	 */
 	void setBackground(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Floor</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The material of the floor. Without one, the floor is neutral.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Floor</em>' reference.
-	 * @see #setFloor(Material)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getArena_Floor()
-	 * @model
-	 * @generated
-	 */
-	Material getFloor();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.Arena#getFloor <em>Floor</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Floor</em>' reference.
-	 * @see #getFloor()
-	 * @generated
-	 */
-	void setFloor(Material value);
-
-	/**
-	 * Returns the value of the '<em><b>Walls</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The material of the side walls and the roof. Without one, they are neutral.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Walls</em>' reference.
-	 * @see #setWalls(Material)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getArena_Walls()
-	 * @model
-	 * @generated
-	 */
-	Material getWalls();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.Arena#getWalls <em>Walls</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Walls</em>' reference.
-	 * @see #getWalls()
-	 * @generated
-	 */
-	void setWalls(Material value);
 
 	/**
 	 * Returns the value of the '<em><b>Player Start</b></em>' attribute.

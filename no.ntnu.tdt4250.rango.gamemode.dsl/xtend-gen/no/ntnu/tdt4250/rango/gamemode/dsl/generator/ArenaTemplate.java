@@ -12,7 +12,6 @@ import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -20,17 +19,17 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 
 /**
  * Generates the arena resource of a level of a game mode, in the JSON level format that the game's level loader
- * already reads: the background, the player, the walls, floor and roof with their materials, the
- * blocks, and the enemies of a fixed layout. Positions are written relative to the arena and converted
+ * already reads: the background, the player, the walls, floor and roof, the blocks, and the enemies
+ * of a fixed layout. Positions are written relative to the arena and converted
  * to pixels by the game when the arena is loaded. Triggers (jump pads, teleporters) need behaviour
  * that the level format cannot express; they are built by the generated mode class instead.
  */
 @SuppressWarnings("all")
 public class ArenaTemplate {
   /**
-   * The texture of blocks whose material has none.
+   * The texture of blocks.
    */
-  public static final String DEFAULT_BLOCK_SPRITE = "Obstacles/Stone.png";
+  public static final String BLOCK_SPRITE = "Obstacles/Stone.png";
 
   public CharSequence generate(final Level level) {
     StringConcatenation _builder = new StringConcatenation();
@@ -103,12 +102,10 @@ public class ArenaTemplate {
       _builder_1.append(_javaString_2);
       _builder_1.append(" } }");
       entities.add(_builder_1.toString());
-      for (final String side : Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("Left", "Right", "Roof"))) {
-        CharSequence _wall = this.wall(side, arena.getWalls());
+      for (final String side : Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("Left", "Right", "Roof", "Floor"))) {
+        CharSequence _wall = this.wall(side);
         entities.add(_wall);
       }
-      CharSequence _wall_1 = this.wall("Floor", arena.getFloor());
-      entities.add(_wall_1);
       Iterable<Block> _filter = Iterables.<Block>filter(arena.getObstacles(), Block.class);
       for (final Block block : _filter) {
         CharSequence _block = this.block(block);
@@ -130,16 +127,13 @@ public class ArenaTemplate {
     return _xblockexpression;
   }
 
-  public CharSequence wall(final String side, final Material material) {
+  public CharSequence wall(final String side) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("{ \"name\": \"Obsticle");
     _builder.append(side);
     _builder.append("\", \"dimension\": {}, \"typeInfo\": { \"type\": \"Obsticle\", \"subType\": \"");
     _builder.append(side);
-    _builder.append("\"");
-    CharSequence _materialFields = this.materialFields(material);
-    _builder.append(_materialFields);
-    _builder.append(" } }");
+    _builder.append("\" } }");
     return _builder;
   }
 
@@ -160,22 +154,9 @@ public class ArenaTemplate {
     _builder.append(", \"height\": ");
     int _height = block.getHeight();
     _builder.append(_height);
-    _builder.append(", \"relative\": true }, \"typeInfo\": { \"type\": \"Obsticle\", \"subType\": \"Block\"");
-    CharSequence _materialFields = this.materialFields(block.getMaterial());
-    _builder.append(_materialFields);
-    {
-      Material _material = block.getMaterial();
-      String _sprite = null;
-      if (_material!=null) {
-        _sprite=_material.getSprite();
-      }
-      boolean _tripleEquals = (_sprite == null);
-      if (_tripleEquals) {
-        _builder.append(", \"sprite\": ");
-        String _javaString_1 = GeneratorNames.javaString(ArenaTemplate.DEFAULT_BLOCK_SPRITE);
-        _builder.append(_javaString_1);
-      }
-    }
+    _builder.append(", \"relative\": true }, \"typeInfo\": { \"type\": \"Obsticle\", \"subType\": \"Block\", \"sprite\": ");
+    String _javaString_1 = GeneratorNames.javaString(ArenaTemplate.BLOCK_SPRITE);
+    _builder.append(_javaString_1);
     _builder.append(" } }");
     return _builder;
   }
@@ -209,27 +190,6 @@ public class ArenaTemplate {
     int _size = spawn.getSize();
     _builder.append(_size);
     _builder.append(" } }");
-    return _builder;
-  }
-
-  public CharSequence materialFields(final Material material) {
-    StringConcatenation _builder = new StringConcatenation();
-    {
-      if ((material != null)) {
-        _builder.append(", \"material\": ");
-        String _javaString = GeneratorNames.javaString(material.getName());
-        _builder.append(_javaString);
-        {
-          String _sprite = material.getSprite();
-          boolean _tripleNotEquals = (_sprite != null);
-          if (_tripleNotEquals) {
-            _builder.append(", \"sprite\": ");
-            String _javaString_1 = GeneratorNames.javaString(material.getSprite());
-            _builder.append(_javaString_1);
-          }
-        }
-      }
-    }
     return _builder;
   }
 }

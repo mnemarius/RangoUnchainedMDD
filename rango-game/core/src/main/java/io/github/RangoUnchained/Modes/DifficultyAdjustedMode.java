@@ -82,11 +82,6 @@ public final class DifficultyAdjustedMode extends GameModeDefinition {
     }
 
     @Override
-    public float materialBounce(String material) {
-        return mode.materialBounce(material);
-    }
-
-    @Override
     public void buildArena(int level, ArenaBuilder arena) {
         mode.buildArena(level, arena);
     }

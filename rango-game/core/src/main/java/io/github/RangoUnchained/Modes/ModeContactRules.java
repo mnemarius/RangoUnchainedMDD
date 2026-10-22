@@ -1,18 +1,11 @@
 package io.github.RangoUnchained.Modes;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-
 import io.github.RangoUnchained.Controllers.LevelController;
-import io.github.RangoUnchained.Model.Components.BodyComponent;
-import io.github.RangoUnchained.Model.Components.MaterialComponent;
 import io.github.RangoUnchained.Model.Components.ModeEnemyComponent;
 import io.github.RangoUnchained.Model.Components.TriggerComponent;
 import io.github.RangoUnchained.Model.ContactStrategies.ContactStrategy;
 import io.github.RangoUnchained.Model.Entities.EnemyEntity;
 import io.github.RangoUnchained.Model.Entities.Entity;
-import io.github.RangoUnchained.Model.Entities.FloorEntity;
-import io.github.RangoUnchained.Model.Entities.ObstacleEntity;
 import io.github.RangoUnchained.Model.Entities.PlayerEntity;
 import io.github.RangoUnchained.Model.Entities.PowerUpEntity;
 import io.github.RangoUnchained.Model.Entities.ProjectileEntity;
@@ -25,9 +18,6 @@ import io.github.RangoUnchained.Model.Systems.ContactSystem.CollisionEvent;
  * (enemy splitting, power-up spawning, damage, pick-up and scoring) by the rules of the mode.
  */
 public class ModeContactRules implements ContactStrategy {
-
-    /** Rebounds faster than this, in metres per second, are capped so springy materials stay playable. */
-    private static final float MAX_REBOUND_SPEED = 15f;
 
     private final ModeSession session;
 
@@ -46,7 +36,6 @@ public class ModeContactRules implements ContactStrategy {
             event -> session.caught(find(event, PowerUpEntity.class)), null);
         contacts.subscribe(TriggerEntity.class, EnemyEntity.class, this::enterTrigger, null);
         contacts.subscribe(TriggerEntity.class, PlayerEntity.class, this::enterTrigger, null);
-        contacts.subscribe(EnemyEntity.class, ObstacleEntity.class, null, this::reboundFromMaterial);
     }
 
     private void enterTrigger(CollisionEvent event) {
@@ -60,22 +49,6 @@ public class ModeContactRules implements ContactStrategy {
         if ((other instanceof EnemyEntity && component.enemies) || (other instanceof PlayerEntity && component.player)) {
             component.action.enter(other);
         }
-    }
-
-    /** Walls and blocks made of a material speed up or slow down the enemies rebounding from them. */
-    private void reboundFromMaterial(CollisionEvent event) {
-        ObstacleEntity obstacle = find(event, ObstacleEntity.class);
-        if (obstacle instanceof FloorEntity || obstacle instanceof TriggerEntity) {
-            return; // the floor bounce is handled by the physics system, triggers do not block
-        }
-        MaterialComponent material = (MaterialComponent) obstacle.getComponent(MaterialComponent.class);
-        if (material == null || material.getBounce() == 1f) {
-            return;
-        }
-        BodyComponent bodyComponent = (BodyComponent) find(event, EnemyEntity.class).getComponent(BodyComponent.class);
-        Body body = bodyComponent.getBody();
-        Vector2 velocity = body.getLinearVelocity().cpy().scl(material.getBounce());
-        body.setLinearVelocity(velocity.limit(MAX_REBOUND_SPEED));
     }
 
     private static <T extends Entity> T find(CollisionEvent event, Class<T> type) {

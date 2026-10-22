@@ -1,14 +1,11 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator
 
 import java.util.List
-import java.util.Set
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn
-import no.ntnu.tdt4250.rango.gamemode.Block
 import no.ntnu.tdt4250.rango.gamemode.DropTable
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import no.ntnu.tdt4250.rango.gamemode.GameMode
 import no.ntnu.tdt4250.rango.gamemode.Level
-import no.ntnu.tdt4250.rango.gamemode.Material
 import no.ntnu.tdt4250.rango.gamemode.NamedElement
 import no.ntnu.tdt4250.rango.gamemode.Target
 import no.ntnu.tdt4250.rango.gamemode.Wave
@@ -103,12 +100,6 @@ class GeneratorNames {
 	def static List<Wave> waves(Level level) {
 		val spawning = level.spawning
 		if (spawning instanceof WaveSchedule) spawning.waves else #[]
-	}
-
-	/** The materials the arenas of a mode are built from: their floors, walls and blocks. */
-	def static Set<Material> materials(GameMode mode) {
-		val surfaces = mode.levels.map[arena].flatMap[#[floor, walls] + obstacles.filter(Block).map[material]]
-		surfaces.filterNull.toSet
 	}
 
 	/**

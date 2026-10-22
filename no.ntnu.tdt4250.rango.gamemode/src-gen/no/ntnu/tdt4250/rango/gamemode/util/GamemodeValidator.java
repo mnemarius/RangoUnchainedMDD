@@ -120,8 +120,6 @@ public class GamemodeValidator extends EObjectValidator {
 				return validatePoison((Poison)value, diagnostics, context);
 			case GamemodePackage.POWER_UP:
 				return validatePowerUp((PowerUp)value, diagnostics, context);
-			case GamemodePackage.MATERIAL:
-				return validateMaterial((Material)value, diagnostics, context);
 			case GamemodePackage.PLAYER_PROFILE:
 				return validatePlayerProfile((PlayerProfile)value, diagnostics, context);
 			case GamemodePackage.GAME_MODE:
@@ -889,55 +887,6 @@ public class GamemodeValidator extends EObjectValidator {
 	 */
 	public boolean validatePowerUp_distinctEffectKinds(PowerUp powerUp, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return report(GamemodeConstraints.distinctEffectKinds(powerUp, powerUp.getEffects()), diagnostics);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateMaterial(Material material, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(material, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validateNamedElement_nameUniqueAmongSiblings(material, diagnostics, context);
-		if (result || diagnostics != null) result &= validateMaterial_bounceInRange(material, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * The cached validation expression for the bounceInRange constraint of '<em>Material</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String MATERIAL__BOUNCE_IN_RANGE__EEXPRESSION = "bounce > 0 and bounce <= 2";
-
-	/**
-	 * Validates the bounceInRange constraint of '<em>Material</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateMaterial_bounceInRange(Material material, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.MATERIAL,
-				 material,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "bounceInRange",
-				 MATERIAL__BOUNCE_IN_RANGE__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
 	}
 
 	/**

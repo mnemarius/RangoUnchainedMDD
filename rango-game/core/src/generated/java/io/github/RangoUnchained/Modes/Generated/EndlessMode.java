@@ -117,21 +117,6 @@ public final class EndlessMode extends GameModeDefinition {
     }
 
     @Override
-    public float materialBounce(String material) {
-        if (material == null) {
-            return 1f;
-        }
-        switch (material) {
-            case "Grass":
-                return 1.3f;
-            case "Ice":
-                return 0.7f;
-            default:
-                return 1f;
-        }
-    }
-
-    @Override
     public void buildArena(int level, ArenaBuilder arena) {
         switch (level) {
             case 0:

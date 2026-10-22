@@ -50,9 +50,6 @@ public abstract class GameModeDefinition {
     /** The image of the power-up with the given name. */
     public abstract String powerUpSprite(String name);
 
-    /** What enemies rebounding from the given material are sped up by; 1 for unknown materials. */
-    public abstract float materialBounce(String material);
-
     /** Adds the obstacles that are not plain blocks (jump pads, teleporters) to the arena of the given level. */
     public abstract void buildArena(int level, ArenaBuilder arena);
 

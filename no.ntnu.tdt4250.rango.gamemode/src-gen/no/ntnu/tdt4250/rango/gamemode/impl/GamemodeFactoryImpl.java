@@ -67,7 +67,6 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 			case GamemodePackage.SPEED_CHANGE: return createSpeedChange();
 			case GamemodePackage.POISON: return createPoison();
 			case GamemodePackage.POWER_UP: return createPowerUp();
-			case GamemodePackage.MATERIAL: return createMaterial();
 			case GamemodePackage.PLAYER_PROFILE: return createPlayerProfile();
 			case GamemodePackage.GAME_MODE: return createGameMode();
 			case GamemodePackage.LEVEL: return createLevel();
@@ -246,17 +245,6 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	public PowerUp createPowerUp() {
 		PowerUpImpl powerUp = new PowerUpImpl();
 		return powerUp;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Material createMaterial() {
-		MaterialImpl material = new MaterialImpl();
-		return material;
 	}
 
 	/**

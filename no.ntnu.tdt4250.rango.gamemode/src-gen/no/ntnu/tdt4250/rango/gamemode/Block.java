@@ -18,7 +18,6 @@ package no.ntnu.tdt4250.rango.gamemode;
  * <ul>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Block#getWidth <em>Width</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Block#getHeight <em>Height</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Block#getMaterial <em>Material</em>}</li>
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBlock()
@@ -76,30 +75,5 @@ public interface Block extends Obstacle {
 	 * @generated
 	 */
 	void setHeight(int value);
-
-	/**
-	 * Returns the value of the '<em><b>Material</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * What the block is made of. Without one, it is neutral stone.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Material</em>' reference.
-	 * @see #setMaterial(Material)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getBlock_Material()
-	 * @model
-	 * @generated
-	 */
-	Material getMaterial();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.Block#getMaterial <em>Material</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Material</em>' reference.
-	 * @see #getMaterial()
-	 * @generated
-	 */
-	void setMaterial(Material value);
 
 } // Block

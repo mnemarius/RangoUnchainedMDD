@@ -1,19 +1,14 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator;
 
-import com.google.common.collect.Iterables;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.Target;
@@ -26,7 +21,6 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
@@ -198,30 +192,6 @@ public class GeneratorNames {
         _xifexpression = Collections.<Wave>unmodifiableList(CollectionLiterals.<Wave>newArrayList());
       }
       _xblockexpression = _xifexpression;
-    }
-    return _xblockexpression;
-  }
-
-  /**
-   * The materials the arenas of a mode are built from: their floors, walls and blocks.
-   */
-  public static Set<Material> materials(final GameMode mode) {
-    Set<Material> _xblockexpression = null;
-    {
-      final Function1<Level, Arena> _function = (Level it) -> {
-        return it.getArena();
-      };
-      final Function1<Arena, Iterable<Material>> _function_1 = (Arena it) -> {
-        Material _floor = it.getFloor();
-        Material _walls = it.getWalls();
-        final Function1<Block, Material> _function_2 = (Block it_1) -> {
-          return it_1.getMaterial();
-        };
-        Iterable<Material> _map = IterableExtensions.<Block, Material>map(Iterables.<Block>filter(it.getObstacles(), Block.class), _function_2);
-        return Iterables.<Material>concat(Collections.<Material>unmodifiableList(CollectionLiterals.<Material>newArrayList(_floor, _walls)), _map);
-      };
-      final Iterable<Material> surfaces = IterableExtensions.<Arena, Material>flatMap(ListExtensions.<Level, Arena>map(mode.getLevels(), _function), _function_1);
-      _xblockexpression = IterableExtensions.<Material>toSet(IterableExtensions.<Material>filterNull(surfaces));
     }
     return _xblockexpression;
   }

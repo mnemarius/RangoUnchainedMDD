@@ -89,12 +89,6 @@ class PowerUp {
   --
   <<distinctEffectKinds>>
 }
-class Material {
-  bounce : Float [0..1]
-  sprite : String [0..1]
-  --
-  <<bounceInRange>>
-}
 class PlayerProfile {
   character : String [0..1]
   health : Int
@@ -280,7 +274,6 @@ class EnemiesAlive {
 }
 Edition *--> "enemyTypes *" EnemyType
 Edition *--> "powerUps *" PowerUp
-Edition *--> "materials *" Material
 Edition *--> "players 1..*" PlayerProfile
 Edition *--> "modes 1..*" GameMode
 Edition *--> "drops *" DropTable
@@ -301,7 +294,6 @@ TimedEffect <|-- SpeedChange
 TimedEffect <|-- Poison
 PowerUp *--> "effects 1..*" PlayerEffect
 NamedElement <|-- PowerUp
-NamedElement <|-- Material
 NamedElement <|-- PlayerProfile
 GameMode --> "player 1" PlayerProfile
 GameMode *--> "levels 1..*" Level
@@ -312,12 +304,9 @@ GameMode *--> "drops *" DropTable
 GameMode *--> "winConditions *" EndCondition
 GameMode *--> "loseConditions 1..*" EndCondition
 NamedElement <|-- GameMode
-Arena --> "floor 0..1" Material
-Arena --> "walls 0..1" Material
 Arena *--> "obstacles *" Obstacle
 NamedElement <|-- Obstacle
 Positioned <|-- Obstacle
-Block --> "material 0..1" Material
 Obstacle <|-- Block
 Obstacle <|-- Trigger
 Trigger <|-- JumpPad

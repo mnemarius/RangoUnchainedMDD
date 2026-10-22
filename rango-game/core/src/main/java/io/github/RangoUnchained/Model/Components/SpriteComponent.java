@@ -65,8 +65,9 @@ public class SpriteComponent implements Component {
 
     /**
      * Repeats the texture across the sprite instead of stretching it, scaled so that one tile fits the
-     * sprite's shorter side. Used for material surfaces, whose textures are seamless tiles. Textures whose
-     * sides are not powers of two cannot repeat on OpenGL ES 2, so those are left stretched on mobile.
+     * sprite's shorter side. Used for the blocks of game mode arenas, whose textures are seamless tiles.
+     * Textures whose sides are not powers of two cannot repeat on OpenGL ES 2, so those are left
+     * stretched on mobile.
      */
     public void tile() {
         if (texture == null) return;

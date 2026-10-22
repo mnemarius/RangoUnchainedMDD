@@ -17,7 +17,6 @@ import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.Material;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
@@ -83,11 +82,6 @@ public class RangoModeFormatter extends AbstractFormatter2 {
     this.block(powerUp, document);
     this.lines(powerUp, document, "sprite", "gives");
     this.lists(powerUp, document);
-  }
-
-  protected void _format(final Material material, @Extension final IFormattableDocument document) {
-    this.block(material, document);
-    this.lines(material, document, "bounce", "sprite");
   }
 
   protected void _format(final PlayerProfile player, @Extension final IFormattableDocument document) {
@@ -180,7 +174,7 @@ public class RangoModeFormatter extends AbstractFormatter2 {
 
   protected void _format(final Arena arena, @Extension final IFormattableDocument document) {
     this.block(arena, document);
-    this.lines(arena, document, "background", "floor", "walls", "player");
+    this.lines(arena, document, "background", "player");
     EList<Obstacle> _obstacles = arena.getObstacles();
     for (final Obstacle obstacle : _obstacles) {
       {
@@ -391,9 +385,6 @@ public class RangoModeFormatter extends AbstractFormatter2 {
       return;
     } else if (edition instanceof GameMode) {
       _format((GameMode)edition, document);
-      return;
-    } else if (edition instanceof Material) {
-      _format((Material)edition, document);
       return;
     } else if (edition instanceof PlayerProfile) {
       _format((PlayerProfile)edition, document);

@@ -192,8 +192,6 @@ public class GameLevel {
                 public String type;
                 public String subType;
                 public int size;
-                /** The surface material of an obstacle (game modes only). */
-                public String material;
                 /** An image to use instead of the one derived from type and subtype (game modes only). */
                 public String sprite;
             }

@@ -17,7 +17,7 @@ public class ButtonFactory {
             ? new TextButton(text, skin, styleName)
             : new TextButton(text, skin);
     
-        if (text.startsWith("Level")) {
+        if (text.matches("Level \\d+")) {
             int level = Integer.parseInt(text.replace("Level ", ""));
             if (level > GameFileHandler.getInstance().getProgress()) {
                 Gdx.app.log("ButtonFactory", "Level " + level + " is locked." + GameFileHandler.getInstance().getProgress());

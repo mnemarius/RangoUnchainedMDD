@@ -8,7 +8,7 @@
     <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG"/>
   </eAnnotations>
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-    <details key="documentation" value="Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the enemy types, power-ups, surface materials and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every enemy behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost."/>
+    <details key="documentation" value="Game modes of the Rango Unchained product line. A model (rooted in an Edition) configures one product: the enemy types, power-ups and player profiles it ships, and the game modes built from them. A game mode decides what spawns and when, how every enemy behaves when it is popped or touches the player, what the arena contains, what can drop, and when a round is won or lost."/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -46,7 +46,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Edition" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="One product of the line. It declares the building blocks it ships (enemy types, power-ups, materials, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game."/>
+      <details key="documentation" value="One product of the line. It declares the building blocks it ships (enemy types, power-ups, player profiles) and the game modes made from them. The generator turns one edition into the game modes of one build of the game."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -63,12 +63,6 @@
         eType="#//PowerUp" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The power-ups that exist in this edition."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="materials" upperBound="-1"
-        eType="#//Material" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The surface materials that floors, walls and blocks can be made of."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="players" lowerBound="1"
@@ -333,28 +327,6 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Material" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A surface. It changes how fast enemies rebound from floors, walls and blocks made of it."/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="bounceInRange"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
-      <details key="bounceInRange" value="bounce > 0 and bounce &lt;= 2"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bounce" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
-        defaultValueLiteral="1.0">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What the speed of a rebounding enemy is multiplied by: below 1 dampens (ice), above 1 springs (grass)."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sprite" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The texture of blocks made of this material, as a path in the game's assets folder."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PlayerProfile" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="How the player character plays: their health, speed and tongue."/>
@@ -585,16 +557,6 @@
         <details key="documentation" value="The backdrop, as the name of an image in the game's Background assets folder."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="floor" eType="#//Material">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The material of the floor. Without one, the floor is neutral."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="walls" eType="#//Material">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The material of the side walls and the roof. Without one, they are neutral."/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="playerStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         defaultValueLiteral="10.0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -632,11 +594,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Height in pixels."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="material" eType="#//Material">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What the block is made of. Without one, it is neutral stone."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
