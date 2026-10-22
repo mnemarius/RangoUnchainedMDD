@@ -5,6 +5,10 @@
 mvnw text eol=lf
 rango-game/gradlew text eol=lf
 
+# The Windows wrapper scripts must keep CRLF line endings to run.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
 *.png binary
 *.jpg binary
 *.gif binary

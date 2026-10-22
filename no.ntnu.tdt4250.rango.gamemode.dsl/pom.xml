@@ -14,6 +14,8 @@
 	<properties>
 		<!-- The example edition that -Pgame generates into the game: classic, arcade or hardcore. -->
 		<edition>classic</edition>
+		<!-- Any other edition model can be given with -Dmodel=<file>. -->
+		<model>${project.basedir}/../no.ntnu.tdt4250.rango.gamemode.examples/${edition}.rango</model>
 		<game.folder>${project.basedir}/../rango-game</game.folder>
 	</properties>
 
@@ -130,7 +132,7 @@
 								<configuration>
 									<mainClass>no.ntnu.tdt4250.rango.gamemode.dsl.generator.Main</mainClass>
 									<arguments>
-										<argument>${project.basedir}/../no.ntnu.tdt4250.rango.gamemode.examples/${edition}.rango</argument>
+										<argument>${model}</argument>
 										<argument>${game.folder}</argument>
 									</arguments>
 									<classpathScope>compile</classpathScope>

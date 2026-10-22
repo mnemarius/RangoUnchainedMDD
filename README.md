@@ -3,7 +3,7 @@
 TDT4250 final project, group 6, autumn 2026.
 
 *Rango Unchained* is a 2D arcade game (a Bubble Trouble clone built with libGDX in TDT4240). This
-project turns its **game modes** into a software product line. An *edition* of the game is
+project introduces **game modes**, and makes the game into a software product line with multiple editions with different game mode configuration. An *edition* of the game is
 described in a small textual language. The DSL tools validate the description and generate the game
 modes into the game: the rules as Java code, the arenas as level resources, and the product name into
 the menus, the desktop launcher and the Android manifest.
@@ -62,49 +62,48 @@ mode TimeAttack "Time Attack" {
 
 ## Quick start
 
-You need JDK 21. The Maven wrapper downloads Maven, and the game's Gradle wrapper downloads Gradle.
-The game uses Gradle 9.8.2 and is built with the same JDK 21.
+Requires JDK 21 or newer. Run these in the repository root.
+
+macOS and Linux:
 
 ```sh
-./mvnw verify                      # build the plug-ins, regenerate the language, run all tests
-./mvnw verify -Pgame               # also generate the Classic edition into rango-game/ and build the game
-./mvnw verify -Pgame -Dedition=arcade   # derive another product (classic, arcade or hardcore)
-cd rango-game && ./gradlew lwjgl3:run   # play: pick a mode in the main menu
+./mvnw package -Pgame "-Dedition=arcade"   # or classic, hardcore
+cd rango-game
+./gradlew lwjgl3:run
+cd ..
 ```
 
-The build also produces an update site in
-`no.ntnu.tdt4250.rango.gamemode.repository/target/repository/`. You can install it into an Eclipse
-2026-06 with Xtext through *Help > Install New Software... > Add... > Local...*.
+Windows (Command Prompt or PowerShell):
+
+```bat
+.\mvnw package -Pgame "-Dedition=arcade"
+cd rango-game
+.\gradlew lwjgl3:run
+cd ..
+```
+
+The first run takes a few minutes.
+
+### Using the generator
+
+Copy `no.ntnu.tdt4250.rango.gamemode.examples/arcade.rango` to `my-edition.rango` in the repository
+root, edit it, and run the Quick start with `"-Dmodel=my-edition.rango"` instead of `"-Dedition=arcade"`.
+A model with errors is not generated; the errors are printed.
+
+`-Pgame` runs `no.ntnu.tdt4250.rango.gamemode.dsl.generator.Main <model> <game folder>` (the folder is
+`rango-game` unless you set `"-Dgame.folder=<path>"`). [Generation](#generation-from-model-to-game)
+lists the files it writes.
 
 ### In Eclipse
 
-1. Use *Eclipse IDE for Java and DSL Developers* or *Modeling Tools* 2026-06 with Xtext 2.43 and
-   Eclipse OCL.
-2. Use *File > Import > Existing Projects into Workspace* on the repository root, and select all
-   projects except `rango-game`.
-3. Optionally, open `no.ntnu.tdt4250.rango.gamemode.target/*.target` and choose *Set as Active
-   Target Platform*.
-4. Launch a runtime Eclipse: *Run As > Eclipse Application* on `no.ntnu.tdt4250.rango.gamemode.dsl.ui`.
-   Then import `no.ntnu.tdt4250.rango.gamemode.examples` into the runtime workspace and open a
-   `.rango` file.
-5. On every save, the Xtext builder writes a preview of the generated files to the `generated-game/`
-   folder next to the models. To change the game, right-click a model (or the editor) and choose
-   **Generate Game Modes into Game...**, then pick the `rango-game` folder. The command validates the
-   model and refuses to generate if it has errors.
+1. Import every project except `rango-game` into Eclipse 2026-06 with Xtext and OCL (*File > Import >
+   Existing Projects into Workspace*).
+2. Run `no.ntnu.tdt4250.rango.gamemode.dsl.ui` as an *Eclipse Application*.
+3. In the new Eclipse, import `no.ntnu.tdt4250.rango.gamemode.examples` and open a `.rango` file.
+4. Right-click it and choose **Generate Game Modes into Game...**, then select `rango-game`.
 
-To regenerate the language after changing the grammar, run `GenerateRangoMode.mwe2` (*Run As > MWE2
-Workflow*). The Maven build does this on every run. To regenerate the model code after changing the
-Ecore model, use *Generate Model Code* on `gamemode.genmodel`. The hand-written code is marked
-`@generated NOT` and is kept.
-
-### From the command line
-
-```sh
-java -cp <dsl classpath> no.ntnu.tdt4250.rango.gamemode.dsl.generator.Main <edition.rango> <game folder>
-```
-
-This validates the model, prints its issues, and exits with 1 without generating anything if there are
-errors. `-Pgame` runs the same entry point.
+To install only the editor, use the update site in
+`no.ntnu.tdt4250.rango.gamemode.repository/target/repository/`.
 
 ## The variability aspect
 

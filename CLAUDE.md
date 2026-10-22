@@ -126,7 +126,7 @@ If a step does not apply, say why. Don't silently skip it.
 
 ```sh
 ./mvnw verify                              # plug-ins, MWE2 regeneration, all tests
-./mvnw verify -Pgame -Dedition=survival    # also generate into rango-game and build the game
+./mvnw verify -Pgame -Dedition=arcade      # also generate into rango-game and build the game
 cd rango-game && ./gradlew lwjgl3:run      # play
 ```
 
