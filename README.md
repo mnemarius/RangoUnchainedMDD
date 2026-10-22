@@ -8,6 +8,10 @@ described in a small textual language. The DSL tools validate the description an
 modes into the game: the rules as Java code, the arenas as level resources, and the product name into
 the menus, the desktop launcher and the Android manifest.
 
+The motivation and the design choices are explained in the report,
+[`docs/report/report.pdf`](docs/report/report.pdf). This README is the reference: how to build and
+use the tools, and the details of the metamodel, the editor and the generated code.
+
 ```
 edition Arcade "Rango Unchained: Arcade"
 
@@ -57,7 +61,7 @@ mode TimeAttack "Time Attack" {
 | `no.ntnu.tdt4250.rango.gamemode.examples/` | **The three example editions** (`classic.rango`, `arcade.rango`, `hardcore.rango`). |
 | `no.ntnu.tdt4250.rango.gamemode.feature/`, `.repository/`, `.target/` | Eclipse feature, p2 update site and target platform of the build. |
 | `rango-game/` | **The game**, with the hand-written mode runtime and the generated game modes of one edition. `-Pgame` replaces them; the checked-in ones come from an earlier example. |
-| `docs/` | Class diagram of the metamodel (`metamodel.png`, generated from the Ecore model via `metamodel.puml`), and the project report (`report/report.tex`, IEEE format). |
+| `docs/` | Class diagram of the metamodel (`metamodel.png`, generated from the Ecore model via `metamodel.puml`), and the project report (`report/report.tex` and `report.pdf`, IEEE format). |
 | `pom.xml`, `mvnw` | Maven/Tycho build of the plug-ins. |
 
 ## Quick start
@@ -105,15 +109,6 @@ lists the files it writes.
 To install only the editor, use the update site in
 `no.ntnu.tdt4250.rango.gamemode.repository/target/repository/`.
 
-## The variability aspect
-
-In the original game, we only had the current campaign where you chose which JSON level to load. How enemies split, what they do to
-the player, what drops, and when a round is won or lost were all hard-coded. This project models
-exactly that. Following the feedback on our draft, the building blocks are *library elements with
-behaviour*, not enumerations of the enemies we happen to have. An enemy type is defined by its tuning, by
-the split rule it owns, and by the effects it has on contact. "Cactus", "Bomb" or "Bubble" are just
-instances. Everything in the model is implemented in the game.
-
 ## The metamodel
 
 ![Class diagram of the metamodel](docs/metamodel.png)
@@ -154,9 +149,8 @@ them:
     there (`everyEnemyDrops`). A Bomb that splits into Tumbleweeds rolls on the Bomb's table, and
     each Tumbleweed rolls on its own table when it is popped.
   - **EndCondition** is one of **Cleared**, **TimeReached**, **ScoreReached**, **EnemiesPopped**,
-    **WavesSurvived**, **HealthDepleted** or **EnemiesAlive**. The same class can be a win or a lose
-    condition. For example, TimeReached is "survive 60 s" as a win and a time limit as a loss. The
-    role comes from the containing list (`winConditions`, `loseConditions`).
+    **WavesSurvived**, **HealthDepleted** or **EnemiesAlive**. Its role comes from the containing
+    list (`winConditions`, `loseConditions`).
 
 
 ### Derived features (Java, in `GamemodeDerivations`)
@@ -173,8 +167,6 @@ them:
 | `GameMode.powerUps` | The power-ups of the mode's effective drop tables. |
 | `DropTable.totalWeight`, `Drop.share`, `Drop.probability` | How likely a power-up is when a pop drops something (`share`), and the chance that a single pop of the table's enemy type drops it (`probability`). |
 | `Wave.number`, `EndCondition.win` | Position of a wave; the role of a condition. |
-
-The generator, the hovers and the constraints all use these features.
 
 ### Constraints
 
@@ -205,11 +197,8 @@ codes:
 
 ## Concrete syntax and editor
 
-The grammar (`RangoMode.xtext`) imports the hand-made metamodel instead of inferring one, so all
-constraints and derived features apply to models written in the editor. It is customized to read like
-a description of the game. Tuning can be written in any order (unordered groups). The syntax has
-units (`8 s`, `25%`), positions (`at (30%, 45%)`), counts (`2 * Tumbleweed size 3`), readable end
-conditions (`win when 20 enemies popped or all enemies cleared`), and difficulties written as the
+The grammar is `RangoMode.xtext`. Tuning can be written in any order (unordered groups). End
+conditions read as `win when 20 enemies popped or all enemies cleared`, and difficulties as the
 factors they apply (`difficulty hard { enemy.speed * 1.3  player.health * 0.5 }`).
 
 The editor adds:
