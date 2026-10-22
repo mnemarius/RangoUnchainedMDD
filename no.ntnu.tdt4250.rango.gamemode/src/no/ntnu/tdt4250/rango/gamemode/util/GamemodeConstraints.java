@@ -14,7 +14,9 @@ import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
 import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
+import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -52,6 +54,7 @@ public final class GamemodeConstraints {
 	public static final int HEALTH_NOT_DECISIVE = 111;
 	public static final int NO_DROP_TABLE = 112;
 	public static final int DUPLICATE_DROP_TABLE = 113;
+	public static final int DUPLICATE_DIFFICULTY = 114;
 
 	/** Issue codes as seen by Xtext, which joins the source and the code of an EMF diagnostic. */
 	public static final String ISSUE_NEVER_ENDS = SOURCE + "." + NEVER_ENDS;
@@ -314,6 +317,26 @@ public final class GamemodeConstraints {
 				violations.add(new Violation(DUPLICATE_DROP_TABLE,
 						"There is already a drop table for " + table.getEnemyType().getName(),
 						table, GamemodePackage.Literals.DROP_TABLE__ENEMY_TYPE));
+				break;
+			}
+		}
+		return violations;
+	}
+
+	/** An edition defines each difficulty tier at most once, or the game could not tell which applies. */
+	public static List<Violation> onePerTier(Difficulty difficulty) {
+		List<Violation> violations = new ArrayList<>();
+		if (!(difficulty.eContainer() instanceof Edition edition)) {
+			return violations;
+		}
+		for (Difficulty other : edition.getDifficulties()) {
+			if (other == difficulty) {
+				break;
+			}
+			if (other.getTier() == difficulty.getTier()) {
+				violations.add(new Violation(DUPLICATE_DIFFICULTY,
+						"The edition already defines the " + difficulty.getTier().getLiteral() + " difficulty",
+						difficulty, GamemodePackage.Literals.DIFFICULTY__TIER));
 				break;
 			}
 		}

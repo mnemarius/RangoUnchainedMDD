@@ -348,6 +348,18 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GamemodePackage.DIFFICULTY: {
+				Difficulty difficulty = (Difficulty)theEObject;
+				T result = caseDifficulty(difficulty);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GamemodePackage.MODIFIER: {
+				Modifier modifier = (Modifier)theEObject;
+				T result = caseModifier(modifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -949,6 +961,36 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEnemiesAlive(EnemiesAlive object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Difficulty</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Difficulty</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDifficulty(Difficulty object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Modifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Modifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseModifier(Modifier object) {
 		return null;
 	}
 

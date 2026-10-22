@@ -133,6 +133,12 @@ them:
 - **PowerUp**: sprite and the effects it gives. **PlayerProfile**: health, max health, speed, tongue
   time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
+- **Edition** also *contains* its **Difficulty**s, at most one per **DifficultyTier** (`easy`,
+  `medium`, `hard`), which apply to every mode. A difficulty *contains* **Modifier**s, each of which
+  multiplies one kind of modelled value (**ModifierTarget**: `enemy.speed`, `enemy.points`,
+  `player.health`, `player.speed`, `drop.chance`, `wave.delay`) by a factor. The tiers are an enum,
+  since their order matters and the game can rely on the same three. What a tier does is modelled,
+  not hard-coded.
 - **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
   **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
   written down: they are derived from what its levels spawn.
@@ -181,7 +187,8 @@ delegates. Standalone code registers the delegates through `GamemodeOCL.initiali
 `positiveScale`, `atMostSixteenFragments` (a split has 1 to 16 fragments), `intervalWithinDuration`
 (poison ticks within its duration), `insideArena`, `healthWithinMaximum`, `escalationNeedsLoop`,
 `chanceIsPercentage` (a drop chance is above 0 and at most 100), `distinctPowerUps`
-(`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bonusAboveOne` (a speed bonus is worth more than plain points).
+(`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bonusAboveOne` (a speed bonus is worth more than plain points),
+`distinctTargets` (a difficulty modifies each value at most once), `positiveFactor`.
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes, which the quick fixes use:
@@ -198,6 +205,7 @@ codes, which the quick fixes use:
 | `oneTablePerEnemy` | A list of drop tables (of a mode or of the edition) has at most one table per enemy type. |
 | `fitsRole` | Health depleted and enemies alive can only lose a round; the other conditions can only win it. |
 | `targetInSameArena` | A teleporter leads to a teleporter of the same arena. |
+| `onePerTier` | An edition defines each difficulty tier at most once. |
 
 ## Concrete syntax and editor
 
@@ -211,7 +219,8 @@ The editor adds:
 
 - **Validation**: the OCL and Java constraints of the metamodel, plus warnings for unused building
   blocks, sprite paths that are not images, duplicate titles, and drop tables for enemies that never
-  appear where the table applies, and a note on endless modes.
+  appear where the table applies, a harder difficulty that makes something easier than the tier
+  below it (such as slower enemies on hard than on medium), and a note on endless modes.
 - **Scoping**: a teleporter can only target another teleporter of its own arena.
 - **Quick fixes**: make a mode end (win when cleared, or loop the waves), add "lose when health depleted", move a condition to the other
   list, add drop tables for the enemies without one, remove an unused element or a drop table without
@@ -261,7 +270,7 @@ The tutorial and multiplayer are unchanged.
 | Edition | Product | What it shows |
 | --- | --- | --- |
 | `classic.rango` | *Rango Unchained*, one mode | The minimal valid configuration (the draft's baseline): one enemy type that splits in two, a fixed layout, won when cleared, lost on health, and a single edition-level drop table (the one power-up every enemy must be able to drop). Only mandatory features. |
-| `survival.rango` | *Rango Unchained: Survival*, three modes | **Endless Survival**: four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, three power-ups, and lost when overrun by 25 enemies. The *edition's drop tables* apply: the tougher the enemy, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other. |
+| `survival.rango` | *Rango Unchained: Survival*, three modes | **Endless Survival**: four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, three power-ups, and lost when overrun by 25 enemies. The *edition's drop tables* apply: the tougher the enemy, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other. Three *difficulty tiers* apply to all modes, mostly through the calm between waves. |
 | `arcade.rango` | *Rango Unchained: Arcade*, three modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. Every mode has *its own drop tables* (no edition defaults), and the Mine drops the best power-up. |
 
 The tests check that all three are valid and that together they use every concrete class, every

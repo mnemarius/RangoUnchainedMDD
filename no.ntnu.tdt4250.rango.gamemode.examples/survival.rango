@@ -4,6 +4,8 @@
 // drop. The edition's drop tables apply to Endless Survival and the Campaign; Wave Rush has its own,
 // stingier ones. Endless Survival never ends until it is lost; Wave Rush is won by getting through five
 // waves. The Campaign is the original game's five levels, each cleared to unlock the next.
+// Three difficulty tiers apply to all modes, mostly through the calm between waves: hard gives faster
+// enemies, shorter breaks, less health and fewer drops.
 
 edition Survival "Rango Unchained: Survival"
 
@@ -65,6 +67,24 @@ drops {
 player Rango {
 	health 5 max 8
 	grace 1 s
+}
+
+difficulty easy {
+	enemy.speed * 0.85
+	player.health * 1.4
+	drop.chance * 1.25
+	wave.delay * 1.5
+}
+
+difficulty medium {
+}
+
+difficulty hard {
+	enemy.speed * 1.2
+	enemy.points * 1.25
+	player.health * 0.6
+	drop.chance * 0.75
+	wave.delay * 0.6
 }
 
 mode Endless "Endless Survival" {

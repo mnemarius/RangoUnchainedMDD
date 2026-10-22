@@ -8,7 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import io.github.RangoUnchained.Controllers.GameController;
+import io.github.RangoUnchained.Modes.DifficultyAdjustedMode;
 import io.github.RangoUnchained.Modes.GameModeDefinition;
+import io.github.RangoUnchained.Modes.Generated.GeneratedEdition;
 import io.github.RangoUnchained.Modes.ModeProgress;
 import io.github.RangoUnchained.Views.Utils.BaseScreen;
 import io.github.RangoUnchained.Views.Utils.ButtonFactory;
@@ -28,8 +30,15 @@ public class SelectModeLevelView extends BaseScreen {
         this.mode = mode;
     }
 
-    /** Opens a mode: a mode of one level starts at once, a mode of several shows its levels. */
+    /**
+     * Opens a mode: if the edition has difficulties and none is chosen yet, the player chooses one first.
+     * Then a mode of one level starts at once, a mode of several shows its levels.
+     */
     public static void open(GameController game, GameModeDefinition mode) {
+        if (!(mode instanceof DifficultyAdjustedMode) && !GeneratedEdition.difficulties().isEmpty()) {
+            game.setView(new SelectDifficultyView(mode));
+            return;
+        }
         game.setView(mode.levelCount() > 1 ? new SelectModeLevelView(mode) : new GamePlayView(mode, 0));
     }
 

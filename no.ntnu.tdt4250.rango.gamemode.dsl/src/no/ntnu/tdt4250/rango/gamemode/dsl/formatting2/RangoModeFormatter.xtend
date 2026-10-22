@@ -5,6 +5,7 @@ package no.ntnu.tdt4250.rango.gamemode.dsl.formatting2
 
 import no.ntnu.tdt4250.rango.gamemode.Arena
 import no.ntnu.tdt4250.rango.gamemode.EnemyType
+import no.ntnu.tdt4250.rango.gamemode.Difficulty
 import no.ntnu.tdt4250.rango.gamemode.DropTable
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout
@@ -52,6 +53,14 @@ class RangoModeFormatter extends AbstractFormatter2 {
 	def dispatch void format(PlayerProfile player, extension IFormattableDocument document) {
 		player.block(document)
 		player.lines(document, 'character', 'health', 'speed', 'tongue', 'cooldown', 'grace')
+	}
+
+	def dispatch void format(Difficulty difficulty, extension IFormattableDocument document) {
+		difficulty.block(document)
+		for (modifier : difficulty.modifiers) {
+			modifier.prepend[newLine]
+			modifier.regionFor.keyword('*').surround[oneSpace]
+		}
 	}
 
 	def dispatch void format(GameMode mode, extension IFormattableDocument document) {

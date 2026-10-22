@@ -228,6 +228,14 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createEnemiesAliveAdapter();
 			}
 			@Override
+			public Adapter caseDifficulty(Difficulty object) {
+				return createDifficultyAdapter();
+			}
+			@Override
+			public Adapter caseModifier(Modifier object) {
+				return createModifierAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -804,6 +812,34 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEnemiesAliveAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Difficulty <em>Difficulty</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Difficulty
+	 * @generated
+	 */
+	public Adapter createDifficultyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Modifier <em>Modifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Modifier
+	 * @generated
+	 */
+	public Adapter createModifierAdapter() {
 		return null;
 	}
 

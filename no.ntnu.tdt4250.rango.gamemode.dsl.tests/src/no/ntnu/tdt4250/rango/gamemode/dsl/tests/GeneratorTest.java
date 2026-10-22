@@ -71,6 +71,20 @@ public class GeneratorTest {
 	}
 
 	@Test
+	public void editionListsItsDifficultiesFromEasyToHard() {
+		String edition = file(generate("arcade"), JAVA + "GeneratedEdition.java");
+		assertTrue(edition.contains("DEFAULT_DIFFICULTY = 1;"), edition);
+		assertTrue(edition.indexOf("new Difficulty(\"easy\", \"Easy\")") < edition.indexOf("new Difficulty(\"medium\", \"Medium\")"));
+		assertTrue(edition.indexOf("new Difficulty(\"medium\", \"Medium\")") < edition.indexOf("new Difficulty(\"hard\", \"Hard\")"));
+		String hard = edition.substring(edition.indexOf("new Difficulty(\"hard\""));
+		assertTrue(hard.contains(".with(Difficulty.ENEMY_SPEED, 1.3f)"), hard);
+		assertTrue(hard.contains(".with(Difficulty.PLAYER_HEALTH, 0.5f)"), hard);
+		// an edition without difficulties plays its modes as modelled
+		String classic = file(generate("classic"), JAVA + "GeneratedEdition.java");
+		assertTrue(classic.contains("Arrays.<Difficulty>asList(\n        );"), classic);
+	}
+
+	@Test
 	public void splitRulesBecomeFragments() {
 		InMemoryFileSystemAccess files = generate("arcade");
 		String timeAttack = file(files, JAVA + "TimeAttackMode.java");
@@ -119,14 +133,14 @@ public class GeneratorTest {
 		String endless = file(files, JAVA + "EndlessMode.java");
 		// Endless Survival uses the edition's drop tables: a Bomb drops something at 40 %, a Shield half of the time
 		String bomb = between(endless, "case \"Bomb\":", "break;");
-		assertTrue(bomb.contains("if (context.random() * 100f < 40.0f) { // 40 % of Bomb pops drop something"), bomb);
+		assertTrue(bomb.contains("if (context.chance(40.0f)) { // 40 % of Bomb pops drop something"), bomb);
 		assertTrue(bomb.contains("context.dropPowerUp(\"Shield\", enemy); // 50 % of drops, 20 % of pops"), bomb);
 		String tumbleweed = between(endless, "case \"Tumbleweed\":", "break;");
-		assertTrue(tumbleweed.contains("if (context.random() * 100f < 10.0f) {"), tumbleweed);
+		assertTrue(tumbleweed.contains("if (context.chance(10.0f)) {"), tumbleweed);
 		assertTrue(tumbleweed.contains("context.dropPowerUp(\"Health\", enemy);"), tumbleweed);
 		// Wave Rush has drop tables of its own, which replace the edition's
 		String armadillo = between(file(files, JAVA + "WaveRushMode.java"), "case \"Armadillo\":", "break;");
-		assertTrue(armadillo.contains("if (context.random() * 100f < 20.0f) {"), armadillo);
+		assertTrue(armadillo.contains("if (context.chance(20.0f)) {"), armadillo);
 		assertTrue(armadillo.contains("context.dropPowerUp(\"Health\", enemy); // 75 % of drops, 15 % of pops"), armadillo);
 	}
 

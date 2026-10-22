@@ -199,14 +199,14 @@ public final class WaveRushMode extends GameModeDefinition {
             case "Tumbleweed":
                 context.addScore(10);
                 context.split(enemy, "Tumbleweed", 2, 45.0f, 5.0f);
-                if (context.random() * 100f < 5.0f) { // 5 % of Tumbleweed pops drop something
+                if (context.chance(5.0f)) { // 5 % of Tumbleweed pops drop something
                     context.dropPowerUp("Health", enemy);
                 }
                 break;
             case "Armadillo":
                 context.addScore(20);
                 context.split(enemy, "Armadillo", 3, 45.0f, 6.0f);
-                if (context.random() * 100f < 20.0f) { // 20 % of Armadillo pops drop something
+                if (context.chance(20.0f)) { // 20 % of Armadillo pops drop something
                     float roll = context.random() * 4;
                     if (roll < 3) {
                         context.dropPowerUp("Health", enemy); // 75 % of drops, 15 % of pops

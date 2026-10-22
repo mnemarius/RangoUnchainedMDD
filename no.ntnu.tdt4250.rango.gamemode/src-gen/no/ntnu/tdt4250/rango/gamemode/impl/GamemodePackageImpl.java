@@ -6,6 +6,8 @@ import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
+import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
 import no.ntnu.tdt4250.rango.gamemode.Direction;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
@@ -23,6 +25,8 @@ import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
+import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
@@ -350,6 +354,20 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass difficultyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass modifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum targetEEnum = null;
 
 	/**
@@ -358,6 +376,20 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	private EEnum directionEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum difficultyTierEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum modifierTargetEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -547,6 +579,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	@Override
 	public EReference getEdition_Drops() {
 		return (EReference)editionEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEdition_Difficulties() {
+		return (EReference)editionEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1795,6 +1837,66 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
+	public EClass getDifficulty() {
+		return difficultyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDifficulty_Tier() {
+		return (EAttribute)difficultyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDifficulty_Modifiers() {
+		return (EReference)difficultyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getModifier() {
+		return modifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getModifier_Target() {
+		return (EAttribute)modifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getModifier_Factor() {
+		return (EAttribute)modifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getTarget() {
 		return targetEEnum;
 	}
@@ -1807,6 +1909,26 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	@Override
 	public EEnum getDirection() {
 		return directionEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getDifficultyTier() {
+		return difficultyTierEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getModifierTarget() {
+		return modifierTargetEEnum;
 	}
 
 	/**
@@ -1852,6 +1974,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEReference(editionEClass, EDITION__PLAYERS);
 		createEReference(editionEClass, EDITION__MODES);
 		createEReference(editionEClass, EDITION__DROPS);
+		createEReference(editionEClass, EDITION__DIFFICULTIES);
 
 		enemyTypeEClass = createEClass(ENEMY_TYPE);
 		createEAttribute(enemyTypeEClass, ENEMY_TYPE__SPRITE);
@@ -2014,9 +2137,19 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		enemiesAliveEClass = createEClass(ENEMIES_ALIVE);
 		createEAttribute(enemiesAliveEClass, ENEMIES_ALIVE__COUNT);
 
+		difficultyEClass = createEClass(DIFFICULTY);
+		createEAttribute(difficultyEClass, DIFFICULTY__TIER);
+		createEReference(difficultyEClass, DIFFICULTY__MODIFIERS);
+
+		modifierEClass = createEClass(MODIFIER);
+		createEAttribute(modifierEClass, MODIFIER__TARGET);
+		createEAttribute(modifierEClass, MODIFIER__FACTOR);
+
 		// Create enums
 		targetEEnum = createEEnum(TARGET);
 		directionEEnum = createEEnum(DIRECTION);
+		difficultyTierEEnum = createEEnum(DIFFICULTY_TIER);
+		modifierTargetEEnum = createEEnum(MODIFIER_TARGET);
 	}
 
 	/**
@@ -2092,6 +2225,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEReference(getEdition_Players(), this.getPlayerProfile(), null, "players", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Modes(), this.getGameMode(), null, "modes", null, 1, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdition_Drops(), this.getDropTable(), null, "drops", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEdition_Difficulties(), this.getDifficulty(), null, "difficulties", null, 0, -1, Edition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(enemyTypeEClass, EnemyType.class, "EnemyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEnemyType_Sprite(), ecorePackage.getEString(), "sprite", null, 1, 1, EnemyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2254,6 +2388,14 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEClass(enemiesAliveEClass, EnemiesAlive.class, "EnemiesAlive", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEnemiesAlive_Count(), ecorePackage.getEInt(), "count", null, 1, 1, EnemiesAlive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(difficultyEClass, Difficulty.class, "Difficulty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDifficulty_Tier(), this.getDifficultyTier(), "tier", null, 1, 1, Difficulty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDifficulty_Modifiers(), this.getModifier(), null, "modifiers", null, 0, -1, Difficulty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modifierEClass, Modifier.class, "Modifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getModifier_Target(), this.getModifierTarget(), "target", null, 1, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModifier_Factor(), ecorePackage.getEFloat(), "factor", null, 1, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(targetEEnum, Target.class, "Target");
 		addEEnumLiteral(targetEEnum, Target.ALL);
@@ -2263,6 +2405,19 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEEnum(directionEEnum, Direction.class, "Direction");
 		addEEnumLiteral(directionEEnum, Direction.LEFT);
 		addEEnumLiteral(directionEEnum, Direction.RIGHT);
+
+		initEEnum(difficultyTierEEnum, DifficultyTier.class, "DifficultyTier");
+		addEEnumLiteral(difficultyTierEEnum, DifficultyTier.EASY);
+		addEEnumLiteral(difficultyTierEEnum, DifficultyTier.MEDIUM);
+		addEEnumLiteral(difficultyTierEEnum, DifficultyTier.HARD);
+
+		initEEnum(modifierTargetEEnum, ModifierTarget.class, "ModifierTarget");
+		addEEnumLiteral(modifierTargetEEnum, ModifierTarget.ENEMY_SPEED);
+		addEEnumLiteral(modifierTargetEEnum, ModifierTarget.ENEMY_POINTS);
+		addEEnumLiteral(modifierTargetEEnum, ModifierTarget.PLAYER_HEALTH);
+		addEEnumLiteral(modifierTargetEEnum, ModifierTarget.PLAYER_SPEED);
+		addEEnumLiteral(modifierTargetEEnum, ModifierTarget.DROP_CHANCE);
+		addEEnumLiteral(modifierTargetEEnum, ModifierTarget.WAVE_DELAY);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -2458,6 +2613,18 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		   new String[] {
 			   "constraints", "positiveCount"
 		   });
+		addAnnotation
+		  (difficultyEClass,
+		   source,
+		   new String[] {
+			   "constraints", "distinctTargets onePerTier"
+		   });
+		addAnnotation
+		  (modifierEClass,
+		   source,
+		   new String[] {
+			   "constraints", "positiveFactor"
+		   });
 	}
 
 	/**
@@ -2631,6 +2798,18 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		   source,
 		   new String[] {
 			   "positiveCount", "count > 0"
+		   });
+		addAnnotation
+		  (difficultyEClass,
+		   source,
+		   new String[] {
+			   "distinctTargets", "modifiers->isUnique(target)"
+		   });
+		addAnnotation
+		  (modifierEClass,
+		   source,
+		   new String[] {
+			   "positiveFactor", "factor > 0"
 		   });
 	}
 

@@ -7,10 +7,11 @@ package io.github.RangoUnchained.Modes.Generated;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.RangoUnchained.Modes.Difficulty;
 import io.github.RangoUnchained.Modes.GameModeDefinition;
 
 /**
- * The edition Survival: its product name and its game modes, in menu order.
+ * The edition Survival: its product name, its game modes, in menu order, and its difficulties.
  */
 public final class GeneratedEdition {
 
@@ -20,6 +21,9 @@ public final class GeneratedEdition {
     /** The model this edition was generated from. */
     public static final String SOURCE = "survival.rango";
 
+    /** The position in {@link #difficulties()} of the tier the menu starts at: medium, if there is one. */
+    public static final int DEFAULT_DIFFICULTY = 1;
+
     private GeneratedEdition() {
     }
 
@@ -28,6 +32,24 @@ public final class GeneratedEdition {
             new EndlessMode(),
             new WaveRushMode(),
             new CampaignMode()
+        );
+    }
+
+    /** The difficulties, from the easiest tier to the hardest; empty if the modes are played as modelled. */
+    public static List<Difficulty> difficulties() {
+        return Arrays.<Difficulty>asList(
+            new Difficulty("easy", "Easy")
+            .with(Difficulty.ENEMY_SPEED, 0.85f)
+            .with(Difficulty.PLAYER_HEALTH, 1.4f)
+            .with(Difficulty.DROP_CHANCE, 1.25f)
+            .with(Difficulty.WAVE_DELAY, 1.5f),
+            new Difficulty("medium", "Medium"),
+            new Difficulty("hard", "Hard")
+            .with(Difficulty.ENEMY_SPEED, 1.2f)
+            .with(Difficulty.ENEMY_POINTS, 1.25f)
+            .with(Difficulty.PLAYER_HEALTH, 0.6f)
+            .with(Difficulty.DROP_CHANCE, 0.75f)
+            .with(Difficulty.WAVE_DELAY, 0.6f)
         );
     }
 }

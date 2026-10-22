@@ -4,6 +4,7 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.validation;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,10 +17,13 @@ import org.eclipse.xtext.validation.Check;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
+import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
@@ -38,6 +42,7 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	public static final String BACKGROUND_PATH = PREFIX + "backgroundPath";
 	public static final String DUPLICATE_TITLE = PREFIX + "duplicateTitle";
 	public static final String USELESS_DROP_TABLE = PREFIX + "uselessDropTable";
+	public static final String DIFFICULTY_ORDER = PREFIX + "difficultyOrder";
 
 	/** Building blocks of an edition that no game mode uses only make the product harder to read. */
 	@Check
@@ -126,6 +131,61 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 						table, GamemodePackage.Literals.DROP_TABLE__ENEMY_TYPE, USELESS_DROP_TABLE);
 			}
 		}
+	}
+
+	/**
+	 * A harder tier does not make anything easier than the tier below it, such as a hard tier with
+	 * slower enemies than the medium one. A value without a modifier counts as a factor of 1. Points are
+	 * a reward rather than a difficulty, so they may change either way.
+	 */
+	@Check
+	public void checkDifficultyOrder(Edition edition) {
+		List<Difficulty> tiers = new ArrayList<>(edition.getDifficulties());
+		tiers.sort(Comparator.comparing(Difficulty::getTier));
+		for (int i = 1; i < tiers.size(); i++) {
+			Difficulty lower = tiers.get(i - 1);
+			Difficulty higher = tiers.get(i);
+			if (lower.getTier() == higher.getTier()) {
+				continue;
+			}
+			for (ModifierTarget target : ModifierTarget.values()) {
+				if (target == ModifierTarget.ENEMY_POINTS) {
+					continue;
+				}
+				float below = factor(lower, target);
+				float above = factor(higher, target);
+				boolean easier = harderWhenLarger(target) ? above < below : above > below;
+				if (easier) {
+					Modifier modifier = modifier(higher, target);
+					String message = "The " + higher.getTier().getLiteral() + " difficulty makes " + target.getLiteral()
+							+ " easier than the " + lower.getTier().getLiteral() + " one (" + factorText(above) + " against "
+							+ factorText(below) + ")";
+					if (modifier != null) {
+						warning(message, modifier, GamemodePackage.Literals.MODIFIER__FACTOR, DIFFICULTY_ORDER);
+					} else {
+						warning(message, higher, GamemodePackage.Literals.DIFFICULTY__TIER, DIFFICULTY_ORDER);
+					}
+				}
+			}
+		}
+	}
+
+	/** Faster enemies make a round harder; more health, speed, drops or time between waves make it easier. */
+	private static boolean harderWhenLarger(ModifierTarget target) {
+		return target == ModifierTarget.ENEMY_SPEED;
+	}
+
+	private static Modifier modifier(Difficulty difficulty, ModifierTarget target) {
+		return difficulty.getModifiers().stream().filter(modifier -> modifier.getTarget() == target).findFirst().orElse(null);
+	}
+
+	private static float factor(Difficulty difficulty, ModifierTarget target) {
+		Modifier modifier = modifier(difficulty, target);
+		return modifier != null ? modifier.getFactor() : 1f;
+	}
+
+	private static String factorText(float factor) {
+		return factor == Math.rint(factor) ? String.valueOf((int) factor) : String.valueOf(factor);
 	}
 
 	/** Tells the designer which modes are endless, which is easy to miss when reading a mode. */

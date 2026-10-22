@@ -213,6 +213,31 @@ class Drop {
   --
   <<positiveWeight>>
 }
+class Difficulty {
+  tier : DifficultyTier
+  --
+  <<distinctTargets>>
+  <<onePerTier>>
+}
+enum DifficultyTier {
+  EASY
+  MEDIUM
+  HARD
+}
+class Modifier {
+  target : ModifierTarget
+  factor : Float
+  --
+  <<positiveFactor>>
+}
+enum ModifierTarget {
+  ENEMY_SPEED
+  ENEMY_POINTS
+  PLAYER_HEALTH
+  PLAYER_SPEED
+  DROP_CHANCE
+  WAVE_DELAY
+}
 abstract class EndCondition {
   /win : Boolean [0..1]
   --
@@ -252,6 +277,8 @@ Edition *--> "powerUps *" PowerUp
 Edition *--> "players 1..*" PlayerProfile
 Edition *--> "modes 1..*" GameMode
 Edition *--> "drops *" DropTable
+Edition *--> "difficulties *" Difficulty
+Difficulty *--> "modifiers *" Modifier
 NamedElement <|-- Edition
 EnemyType *--> "splitRule 1" SplitRule
 EnemyType *--> "contactEffects 1..*" PlayerEffect

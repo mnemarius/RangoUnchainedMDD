@@ -9,6 +9,7 @@ import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
@@ -23,6 +24,7 @@ import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
@@ -74,6 +76,9 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case GamemodePackage.DAMAGE:
 				sequence_Damage(context, (Damage) semanticObject); 
 				return; 
+			case GamemodePackage.DIFFICULTY:
+				sequence_Difficulty(context, (Difficulty) semanticObject); 
+				return; 
 			case GamemodePackage.DROP:
 				sequence_Drop(context, (Drop) semanticObject); 
 				return; 
@@ -120,6 +125,9 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 					return; 
 				}
 				else break;
+			case GamemodePackage.MODIFIER:
+				sequence_Modifier(context, (Modifier) semanticObject); 
+				return; 
 			case GamemodePackage.PLAYER_PROFILE:
 				sequence_PlayerProfile(context, (PlayerProfile) semanticObject); 
 				return; 
@@ -304,6 +312,20 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     Difficulty returns Difficulty
+	 *
+	 * Constraint:
+	 *     (tier=DifficultyTier modifiers+=Modifier*)
+	 * </pre>
+	 */
+	protected void sequence_Difficulty(ISerializationContext context, Difficulty semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     DropTable returns DropTable
 	 *
 	 * Constraint:
@@ -335,7 +357,18 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Edition returns Edition
 	 *
 	 * Constraint:
-	 *     (name=ID title=STRING? (enemyTypes+=EnemyType | powerUps+=PowerUp | players+=PlayerProfile | modes+=GameMode | drops+=DropTable)*)
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         (
+	 *             enemyTypes+=EnemyType | 
+	 *             powerUps+=PowerUp | 
+	 *             players+=PlayerProfile | 
+	 *             difficulties+=Difficulty | 
+	 *             modes+=GameMode | 
+	 *             drops+=DropTable
+	 *         )*
+	 *     )
 	 * </pre>
 	 */
 	protected void sequence_Drops_Edition(ISerializationContext context, Edition semanticObject) {
@@ -492,6 +525,29 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 */
 	protected void sequence_Level(ISerializationContext context, Level semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     Modifier returns Modifier
+	 *
+	 * Constraint:
+	 *     (target=ModifierTarget factor=Decimal)
+	 * </pre>
+	 */
+	protected void sequence_Modifier(ISerializationContext context, Modifier semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.MODIFIER__TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.MODIFIER__TARGET));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.MODIFIER__FACTOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.MODIFIER__FACTOR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getModifierAccess().getTargetModifierTargetEnumRuleCall_0_0(), semanticObject.getTarget());
+		feeder.accept(grammarAccess.getModifierAccess().getFactorDecimalParserRuleCall_2_0(), semanticObject.getFactor());
+		feeder.finish();
 	}
 	
 	

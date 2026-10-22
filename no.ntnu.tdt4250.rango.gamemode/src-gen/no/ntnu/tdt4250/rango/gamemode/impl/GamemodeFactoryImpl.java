@@ -88,6 +88,8 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 			case GamemodePackage.WAVES_SURVIVED: return createWavesSurvived();
 			case GamemodePackage.HEALTH_DEPLETED: return createHealthDepleted();
 			case GamemodePackage.ENEMIES_ALIVE: return createEnemiesAlive();
+			case GamemodePackage.DIFFICULTY: return createDifficulty();
+			case GamemodePackage.MODIFIER: return createModifier();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -105,6 +107,10 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 				return createTargetFromString(eDataType, initialValue);
 			case GamemodePackage.DIRECTION:
 				return createDirectionFromString(eDataType, initialValue);
+			case GamemodePackage.DIFFICULTY_TIER:
+				return createDifficultyTierFromString(eDataType, initialValue);
+			case GamemodePackage.MODIFIER_TARGET:
+				return createModifierTargetFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -122,6 +128,10 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 				return convertTargetToString(eDataType, instanceValue);
 			case GamemodePackage.DIRECTION:
 				return convertDirectionToString(eDataType, instanceValue);
+			case GamemodePackage.DIFFICULTY_TIER:
+				return convertDifficultyTierToString(eDataType, instanceValue);
+			case GamemodePackage.MODIFIER_TARGET:
+				return convertModifierTargetToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -473,6 +483,28 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public Difficulty createDifficulty() {
+		DifficultyImpl difficulty = new DifficultyImpl();
+		return difficulty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Modifier createModifier() {
+		ModifierImpl modifier = new ModifierImpl();
+		return modifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Target createTargetFromString(EDataType eDataType, String initialValue) {
 		Target result = Target.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -505,6 +537,46 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	public String convertDirectionToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DifficultyTier createDifficultyTierFromString(EDataType eDataType, String initialValue) {
+		DifficultyTier result = DifficultyTier.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDifficultyTierToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModifierTarget createModifierTargetFromString(EDataType eDataType, String initialValue) {
+		ModifierTarget result = ModifierTarget.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertModifierTargetToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

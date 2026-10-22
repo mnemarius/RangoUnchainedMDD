@@ -342,7 +342,7 @@ class ModeClassTemplate {
 
 	/** The roll of a enemy type's drop table: whether the pop drops anything, then which power-up. */
 	def drop(DropTable table) '''
-		if (context.random() * 100f < «table.chance.javaFloat») { // «table.chance.percent» % of «table.enemyType.name» pops drop something
+		if (context.chance(«table.chance.javaFloat»)) { // «table.chance.percent» % of «table.enemyType.name» pops drop something
 		    «IF table.entries.size == 1»
 		    context.dropPowerUp(«table.entries.head.powerUp.name.javaString», enemy);
 		    «ELSE»

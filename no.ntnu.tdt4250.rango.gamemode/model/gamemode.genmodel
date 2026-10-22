@@ -19,6 +19,19 @@
       <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//Direction/LEFT"/>
       <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//Direction/RIGHT"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gamemode.ecore#//DifficultyTier">
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//DifficultyTier/EASY"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//DifficultyTier/MEDIUM"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//DifficultyTier/HARD"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gamemode.ecore#//ModifierTarget">
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//ModifierTarget/ENEMY_SPEED"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//ModifierTarget/ENEMY_POINTS"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//ModifierTarget/PLAYER_HEALTH"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//ModifierTarget/PLAYER_SPEED"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//ModifierTarget/DROP_CHANCE"/>
+      <genEnumLiterals ecoreEnumLiteral="gamemode.ecore#//ModifierTarget/WAVE_DELAY"/>
+    </genEnums>
     <genClasses image="false" ecoreClass="gamemode.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//NamedElement/name"/>
     </genClasses>
@@ -33,6 +46,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/players"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/modes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/drops"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Edition/difficulties"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//EnemyType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemyType/sprite"/>
@@ -187,6 +201,14 @@
     <genClasses ecoreClass="gamemode.ecore#//HealthDepleted"/>
     <genClasses ecoreClass="gamemode.ecore#//EnemiesAlive">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//EnemiesAlive/count"/>
+    </genClasses>
+    <genClasses ecoreClass="gamemode.ecore#//Difficulty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Difficulty/tier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Difficulty/modifiers"/>
+    </genClasses>
+    <genClasses ecoreClass="gamemode.ecore#//Modifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Modifier/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Modifier/factor"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

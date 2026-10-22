@@ -203,14 +203,14 @@ public final class EndlessMode extends GameModeDefinition {
             case "Tumbleweed":
                 context.addScore(10);
                 context.split(enemy, "Tumbleweed", 2, 45.0f, 5.0f);
-                if (context.random() * 100f < 10.0f) { // 10 % of Tumbleweed pops drop something
+                if (context.chance(10.0f)) { // 10 % of Tumbleweed pops drop something
                     context.dropPowerUp("Health", enemy);
                 }
                 break;
             case "Armadillo":
                 context.addScore(20);
                 context.split(enemy, "Armadillo", 3, 45.0f, 6.0f);
-                if (context.random() * 100f < 25.0f) { // 25 % of Armadillo pops drop something
+                if (context.chance(25.0f)) { // 25 % of Armadillo pops drop something
                     float roll = context.random() * 3;
                     if (roll < 2) {
                         context.dropPowerUp("Speed", enemy); // 66.7 % of drops, 16.7 % of pops
@@ -222,7 +222,7 @@ public final class EndlessMode extends GameModeDefinition {
             case "Cactus":
                 context.addScore(15);
                 context.split(enemy, "Cactus", 1, 45.0f, 5.0f);
-                if (context.random() * 100f < 15.0f) { // 15 % of Cactus pops drop something
+                if (context.chance(15.0f)) { // 15 % of Cactus pops drop something
                     float roll = context.random() * 3;
                     if (roll < 2) {
                         context.dropPowerUp("Health", enemy); // 66.7 % of drops, 10 % of pops
@@ -234,7 +234,7 @@ public final class EndlessMode extends GameModeDefinition {
             case "Bomb":
                 context.addScore(25);
                 context.split(enemy, "Tumbleweed", 8, 45.0f, 6.0f);
-                if (context.random() * 100f < 40.0f) { // 40 % of Bomb pops drop something
+                if (context.chance(40.0f)) { // 40 % of Bomb pops drop something
                     float roll = context.random() * 4;
                     if (roll < 2) {
                         context.dropPowerUp("Shield", enemy); // 50 % of drops, 20 % of pops
