@@ -2,10 +2,8 @@ package io.github.RangoUnchained.Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 
 import io.github.RangoUnchained.Controllers.GameController;
 import io.github.RangoUnchained.Modes.GameModeDefinition;
@@ -88,12 +86,6 @@ public class MainMenuView extends BaseScreen {
         // The game modes of the edition, generated from its model, and the hand-written tutorial
         for (final GameModeDefinition mode : GeneratedEdition.modes()) {
             ButtonFactory.createDefaultButton(mode.title(), () -> SelectModeLevelView.open(game, mode), table);
-            if (mode.description() != null) {
-                Label description = LabelFactory.createLabel(mode.description(), getSkin(), "defaultFont", Color.BLACK);
-                description.setWrap(true);
-                description.setAlignment(Align.center);
-                table.add(description).width(BUTTON_WIDTH).padBottom(BUTTON_PADDING).row();
-            }
         }
         ButtonFactory.createDefaultButton("Tutorial", () -> game.setView(new GamePlayView(0)), table);
         ButtonFactory.createDefaultButton("Scoreboard", () -> game.setView(new ScoreboardView()), table);
