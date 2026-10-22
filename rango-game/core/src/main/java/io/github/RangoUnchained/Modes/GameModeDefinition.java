@@ -24,7 +24,7 @@ public abstract class GameModeDefinition {
     /** The name shown in the menu. */
     public abstract String title();
 
-    /** A one-line explanation shown in the menu. */
+    /** A one-line explanation of the mode. */
     public abstract String description();
 
     /** The number of levels of the mode; at least 1. */

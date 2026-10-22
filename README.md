@@ -289,7 +289,7 @@ Hooks in the existing code are kept small:
 - The level loader accepts arena-relative positions. When a level starts, the level controller lets the mode build
   its triggers and place the enemies of a fixed layout through the same spawner as waves, so both are spread out the
   same way and move at their type's speed, which the difficulty's `enemy.speed` factor scales.
-- The main menu lists the modes of the edition, each with its description, and the tutorial. If the edition has difficulties, a
+- The main menu lists the modes of the edition and the tutorial. If the edition has difficulties, a
   mode first opens the difficulty menu (`SelectDifficultyView`). A mode of several levels opens a
   level list (`SelectModeLevelView`), and the game over screen offers the next level once one is won.
 - The player factory takes the player's health from the mode being played, so a difficulty can
