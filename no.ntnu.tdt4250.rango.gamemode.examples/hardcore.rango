@@ -1,0 +1,63 @@
+// A hardcore edition: one heart and no way to heal. The enemies are fast, hit hard and split into
+// more of themselves: a bomb bursts into armadillos, an armadillo into three, a cactus poisons. The
+// only thing that can drop is a short shield. There are no difficulty tiers: the game is always this
+// hard.
+
+edition Hardcore "Rango Unchained: Hardcore"
+
+enemy Armadillo {
+	sprite "Enemy/Armedillo.png"
+	scale 1.2
+	bounce 1.2
+	speed 6
+	points 20
+	on pop: split into 3 launched at 8
+	on contact: damage 1
+}
+
+enemy Cactus {
+	sprite "Enemy/Cactus.png"
+	speed 5
+	points 15
+	on pop: split into 2
+	on contact: damage 1, poison 1 every 1 s for 4 s
+}
+
+enemy Bomb {
+	sprite "Enemy/Bomb.png"
+	speed 5
+	points 40
+	on pop: split into 4 Armadillo launched at 8
+	on contact: damage 1
+}
+
+powerup Shield {
+	sprite "Powerup/Shield.png"
+	gives: shield for 3 s
+}
+
+drops {
+	Armadillo 3% { Shield }
+	Cactus 3% { Shield }
+	Bomb 10% { Shield }
+}
+
+player Rango {
+	health 1 max 1
+}
+
+mode Gauntlet "Gauntlet" {
+	description "One heart, no healing. Clear the arena."
+	player Rango
+	gravity 12
+	arena {
+		background "Desert"
+	}
+	layout {
+		Bomb size 2 at (50%, 80%) moving left
+		Cactus size 3 at (20%, 70%) moving right
+		Armadillo size 3 at (80%, 70%) moving left
+	}
+	win when all enemies cleared
+	lose when health depleted
+}

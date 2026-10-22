@@ -58,8 +58,9 @@ public class GeneratorTest {
 		Set<String> paths = new TreeSet<>();
 		generate("arcade").getTextFiles().keySet().forEach(path -> paths.add(path.substring(IFileSystemAccess.DEFAULT_OUTPUT.length())));
 		assertEquals(Set.of(JAVA + "GeneratedEdition.java", JAVA + "TimeAttackMode.java", JAVA + "PopFrenzyMode.java",
-				JAVA + "SurvivorMode.java", "assets/modes/TimeAttack-1.json", "assets/modes/PopFrenzy-1.json",
-				"assets/modes/Survivor-1.json", "android/res/values/edition.xml"), paths);
+				JAVA + "SurvivorMode.java", JAVA + "WaveRushMode.java", JAVA + "MinefieldMode.java",
+				"assets/modes/TimeAttack-1.json", "assets/modes/PopFrenzy-1.json", "assets/modes/Survivor-1.json",
+				"assets/modes/WaveRush-1.json", "assets/modes/Minefield-1.json", "android/res/values/edition.xml"), paths);
 	}
 
 	@Test
@@ -80,8 +81,8 @@ public class GeneratorTest {
 		assertTrue(hard.contains(".with(Difficulty.ENEMY_SPEED, 1.3f)"), hard);
 		assertTrue(hard.contains(".with(Difficulty.PLAYER_HEALTH, 0.5f)"), hard);
 		// an edition without difficulties plays its modes as modelled
-		String classic = file(generate("classic"), JAVA + "GeneratedEdition.java");
-		assertTrue(classic.contains("Arrays.<Difficulty>asList(\n        );"), classic);
+		String hardcore = file(generate("hardcore"), JAVA + "GeneratedEdition.java");
+		assertTrue(hardcore.contains("Arrays.<Difficulty>asList(\n        );"), hardcore);
 	}
 
 	@Test
@@ -92,7 +93,7 @@ public class GeneratorTest {
 		assertTrue(timeAttack.contains("context.split(enemy, \"Weed\", 2, 45.0f, 7.0f);"));
 		assertTrue(file(files, JAVA + "PopFrenzyMode.java").contains("// vanishes at once"));
 		// a Bomb splits into a full ring of eight
-		assertTrue(file(generate("survival"), JAVA + "EndlessMode.java")
+		assertTrue(file(generate("classic"), JAVA + "EndlessMode.java")
 				.contains("context.split(enemy, \"Tumbleweed\", 8, 45.0f, 6.0f);"));
 	}
 
@@ -115,12 +116,12 @@ public class GeneratorTest {
 		String popFrenzy = file(files, JAVA + "PopFrenzyMode.java");
 		assertTrue(popFrenzy.contains("return stats.popped() >= 20\n            || stats.cleared();"));
 		assertTrue(popFrenzy.contains("return stats.playerHealth() <= 0\n            || stats.elapsed() >= 120.0f;"));
-		assertTrue(file(generate("survival"), JAVA + "EndlessMode.java").contains("return false; // endless"));
+		assertTrue(file(generate("classic"), JAVA + "EndlessMode.java").contains("return false; // endless"));
 	}
 
 	@Test
 	public void wavesAndDropsBecomeSchedules() {
-		String endless = file(generate("survival"), JAVA + "EndlessMode.java");
+		String endless = file(generate("classic"), JAVA + "EndlessMode.java");
 		assertTrue(endless.contains("int extra = cycle * 1;"));
 		assertTrue(endless.contains("spawner.spawn(\"Tumbleweed\", 3, 2 + extra, 30.0f, 75.0f, RIGHT);"));
 		assertTrue(endless.contains("public boolean loopsWaves(int level) {\n        switch (level) {\n            case 0:\n                return true;"), endless);
@@ -129,9 +130,8 @@ public class GeneratorTest {
 
 	@Test
 	public void eachEnemyRollsOnItsOwnDropTable() {
-		InMemoryFileSystemAccess files = generate("survival");
-		String endless = file(files, JAVA + "EndlessMode.java");
-		// Endless Survival uses the edition's drop tables: a Bomb drops something at 40 %, a Shield half of the time
+		String endless = file(generate("classic"), JAVA + "EndlessMode.java");
+		// Endless uses the edition's drop tables: a Bomb drops something at 40 %, a Shield half of the time
 		String bomb = between(endless, "case \"Bomb\":", "break;");
 		assertTrue(bomb.contains("if (context.chance(40.0f)) { // 40 % of Bomb pops drop something"), bomb);
 		assertTrue(bomb.contains("context.dropPowerUp(\"Shield\", enemy); // 50 % of drops, 20 % of pops"), bomb);
@@ -139,9 +139,9 @@ public class GeneratorTest {
 		assertTrue(tumbleweed.contains("if (context.chance(10.0f)) {"), tumbleweed);
 		assertTrue(tumbleweed.contains("context.dropPowerUp(\"Health\", enemy);"), tumbleweed);
 		// Wave Rush has drop tables of its own, which replace the edition's
-		String armadillo = between(file(files, JAVA + "WaveRushMode.java"), "case \"Armadillo\":", "break;");
-		assertTrue(armadillo.contains("if (context.chance(20.0f)) {"), armadillo);
-		assertTrue(armadillo.contains("context.dropPowerUp(\"Health\", enemy); // 75 % of drops, 15 % of pops"), armadillo);
+		String weed = between(file(generate("arcade"), JAVA + "WaveRushMode.java"), "case \"Weed\":", "break;");
+		assertTrue(weed.contains("if (context.chance(20.0f)) {"), weed);
+		assertTrue(weed.contains("context.dropPowerUp(\"Heart\", enemy); // 75 % of drops, 15 % of pops"), weed);
 	}
 
 	/** The part of onEnemyPopped from the first occurrence of start to the next occurrence of end. */
@@ -153,7 +153,7 @@ public class GeneratorTest {
 
 	@Test
 	public void eachLevelGetsItsArenaAndSpawning() {
-		InMemoryFileSystemAccess files = generate("survival");
+		InMemoryFileSystemAccess files = generate("classic");
 		String campaign = file(files, JAVA + "CampaignMode.java");
 		assertTrue(campaign.contains("public int levelCount() {\n        return 5;"), campaign);
 		assertTrue(campaign.contains("case 1:\n                return \"Cactus Garden\";"), campaign);

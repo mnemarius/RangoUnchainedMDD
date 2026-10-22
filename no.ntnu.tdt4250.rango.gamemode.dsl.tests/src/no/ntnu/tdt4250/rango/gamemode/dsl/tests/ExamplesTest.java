@@ -39,7 +39,7 @@ import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 public class ExamplesTest {
 
 	static final File EXAMPLES = new File("../no.ntnu.tdt4250.rango.gamemode.examples");
-	static final List<String> EDITIONS = List.of("classic", "survival", "arcade");
+	static final List<String> EDITIONS = List.of("classic", "arcade", "hardcore");
 
 	@Inject
 	private Provider<ResourceSet> resourceSets;
@@ -55,18 +55,19 @@ public class ExamplesTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "classic", "survival", "arcade" })
+	@ValueSource(strings = { "classic", "arcade", "hardcore" })
 	public void exampleIsValid(String name) {
 		validation.assertNoErrors(load(name));
 	}
 
 	@Test
 	public void examplesDiffer() {
-		assertEquals(1, load("classic").getModes().size());
-		assertEquals(3, load("survival").getModes().size());
-		assertEquals(5, load("survival").getModes().get(2).getLevels().size());
-		assertEquals(3, load("arcade").getModes().size());
+		assertEquals(2, load("classic").getModes().size());
+		assertEquals(5, load("classic").getModes().get(0).getLevels().size());
+		assertEquals(5, load("arcade").getModes().size());
 		assertEquals(2, load("arcade").getPlayers().size());
+		assertEquals(1, load("hardcore").getModes().size());
+		assertTrue(load("hardcore").getDifficulties().isEmpty());
 	}
 
 	@Test

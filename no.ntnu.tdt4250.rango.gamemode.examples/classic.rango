@@ -1,38 +1,178 @@
-// The smallest valid product: the round the original game plays. One enemy type that splits in two,
-// a player with three hearts, a neutral arena, and the one power-up every enemy must be able to drop.
-// Won by popping everything, lost when the hearts run out. Only the mandatory parts of the metamodel
-// are configured.
+// The classic edition: the original game's campaign and an endless mode. Four enemy types with their
+// own behaviour (a bomb explodes into a ring of tumbleweeds, a cactus poisons) and power-ups dropped at
+// random: the tougher the enemy, the likelier and the better its drop. Both modes use the edition's
+// drop tables. The Campaign is the original game's five levels, each cleared to unlock the next;
+// Endless is waves that never stop until the player is overrun. Three difficulty tiers apply to both
+// modes, mostly through the calm between waves: hard gives faster enemies, shorter breaks, less health
+// and fewer drops.
 
 edition Classic "Rango Unchained"
 
 enemy Tumbleweed {
 	sprite "Enemy/Tumbleweed.png"
+	points 10
 	on pop: split into 2
 	on contact: damage 1
 }
 
+enemy Armadillo {
+	sprite "Enemy/Armedillo.png"
+	scale 1.2
+	bounce 1.15
+	speed 4
+	points 20
+	on pop: split into 3 launched at 6
+	on contact: damage 2
+}
+
+enemy Cactus {
+	sprite "Enemy/Cactus.png"
+	bounce 0.8
+	points 15
+	on pop: split into 1
+	on contact: damage 1, poison 1 every 2 s for 6 s
+}
+
+enemy Bomb {
+	sprite "Enemy/Bomb.png"
+	speed 3
+	points 25
+	on pop: split into 8 Tumbleweed launched at 6
+	on contact: damage 2
+}
+
+powerup Shield {
+	sprite "Powerup/Shield.png"
+	gives: shield for 8 s
+}
+
+powerup Speed {
+	sprite "Powerup/Speed.png"
+	gives: speed * 1.8 for 8 s
+}
+
 powerup Health {
 	sprite "Powerup/Health.png"
-	gives: heal 1
+	gives: heal 2
 }
 
 drops {
-	Tumbleweed 5% { Health }
+	Tumbleweed 10% { Health }
+	Cactus 15% { Health weight 2, Speed }
+	Armadillo 25% { Speed weight 2, Shield }
+	Bomb 40% { Shield weight 2, Speed, Health }
 }
 
 player Rango {
-	health 3
+	health 5 max 8
+	grace 1 s
 }
 
-mode ClassicRound "Classic Round" {
-	description "Pop the tumbleweed and everything it splits into."
+difficulty easy {
+	enemy.speed * 0.85
+	player.health * 1.4
+	drop.chance * 1.25
+	wave.delay * 1.5
+}
+
+difficulty medium {
+}
+
+difficulty hard {
+	enemy.speed * 1.2
+	enemy.points * 1.25
+	player.health * 0.6
+	drop.chance * 0.75
+	wave.delay * 0.6
+}
+
+mode Campaign "Campaign" {
+	description "Five levels of the original game. Clear a level to unlock the next."
 	player Rango
-	arena {
-		background "Desert"
+	level "Tumbleweed Flats" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block West at (31.7%, 47.4%) size 80 by 180
+			block Middle at (70.9%, 47.4%) size 80 by 180
+			block East at (97%, 47.4%) size 80 by 180
+		}
+		layout {
+			Tumbleweed size 2 at (64.4%, 66.4%) moving left
+		}
 	}
-	layout {
-		Tumbleweed size 3 at (70%, 60%) moving left
+	level "Cactus Garden" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block Pillar at (51.3%, 47.4%) size 80 by 180
+		}
+		layout {
+			Cactus size 2 at (31.7%, 66.4%) moving left
+			Cactus size 2 at (64.4%, 66.4%) moving left
+		}
+	}
+	level "Armadillo Canyon" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block West at (25.1%, 47.4%) size 80 by 180
+			block Overhang at (51.3%, 85.4%) size 160 by 300
+			block Mesa at (77.5%, 47.4%) size 260 by 180
+		}
+		layout {
+			Armadillo size 2 at (31.7%, 66.4%) moving left
+			Armadillo size 2 at (64.4%, 66.4%) moving left
+			Armadillo size 3 at (64.4%, 66.4%) moving left
+		}
+	}
+	level "Mixed Company" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+			block Overhang at (64.4%, 85.4%) size 400 by 300
+		}
+		layout {
+			Armadillo size 3 at (31.7%, 66.4%) moving left
+			Tumbleweed size 2 at (64.4%, 66.4%) moving left
+		}
+	}
+	level "Powder Keg" {
+		arena {
+			background "Desert"
+			player starts at 5.5%
+		}
+		layout {
+			Bomb size 2 at (64.4%, 66.4%) moving left
+		}
 	}
 	win when all enemies cleared
 	lose when health depleted
+}
+
+mode Endless "Endless" {
+	description "The waves never stop, and grow every round. Survive as long as you can."
+	player Rango
+	arena {
+		background "Desert"
+		player starts at 35%
+		block Ledge at (25%, 45%) size 180 by 24
+		block Shelf at (75%, 45%) size 180 by 24
+		jumppad Spring at (50%, 0%) launch 12 affects everything
+		teleporter West at (6%, 20%) to East affects enemies
+		teleporter East at (94%, 20%) to West affects enemies
+	}
+	waves looping escalate by 1 {
+		wave {
+			2 * Tumbleweed size 3 at (30%, 75%) moving right
+		}
+		wave after 3 s {
+			Cactus size 3 at (70%, 80%) moving left
+			Armadillo size 2 at (20%, 70%)
+		}
+		wave after 5 s {
+			Bomb size 3 at (50%, 85%)
+		}
+	}
+	lose when health depleted or 25 enemies alive
 }

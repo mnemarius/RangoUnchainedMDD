@@ -48,10 +48,10 @@ mode TimeAttack "Time Attack" {
 | `no.ntnu.tdt4250.rango.gamemode.dsl.ui/` | **Editor.** Outline, labels and icons, hovers, content assist, templates, quick fixes, and the *Generate Game Modes into Game...* command. |
 | `no.ntnu.tdt4250.rango.gamemode.tests/` | JUnit tests of the derived features and constraints of the metamodel. |
 | `no.ntnu.tdt4250.rango.gamemode.dsl.tests/` | JUnit tests of the examples, validation, scoping, generator and formatter. |
-| `no.ntnu.tdt4250.rango.gamemode.examples/` | **The three example editions** (`classic.rango`, `survival.rango`, `arcade.rango`). |
+| `no.ntnu.tdt4250.rango.gamemode.examples/` | **The three example editions** (`classic.rango`, `arcade.rango`, `hardcore.rango`). |
 | `no.ntnu.tdt4250.rango.gamemode.feature/`, `.repository/`, `.target/` | Eclipse feature, p2 update site and target platform of the build. |
-| `rango-game/` | **The game**, with the hand-written mode runtime and the generated game modes of the *Survival* edition. |
-| `docs/` | Class diagram of the metamodel (`metamodel.png`, generated from the Ecore model via `metamodel.puml`). |
+| `rango-game/` | **The game**, with the hand-written mode runtime and the generated game modes of one edition. `-Pgame` replaces them; the checked-in ones come from an earlier example. |
+| `docs/` | Class diagram of the metamodel (`metamodel.png`, generated from the Ecore model via `metamodel.puml`), and the project report (`report/report.tex`, IEEE format). |
 | `pom.xml`, `mvnw` | Maven/Tycho build of the plug-ins. |
 
 ## Quick start
@@ -61,8 +61,8 @@ Gradle 8.12 runs on JDK 21 to 23.
 
 ```sh
 ./mvnw verify                      # build the plug-ins, regenerate the language, run all tests
-./mvnw verify -Pgame               # also generate the Survival edition into rango-game/ and build the game
-./mvnw verify -Pgame -Dedition=arcade   # derive another product (classic, survival or arcade)
+./mvnw verify -Pgame               # also generate the Classic edition into rango-game/ and build the game
+./mvnw verify -Pgame -Dedition=arcade   # derive another product (classic, arcade or hardcore)
 cd rango-game && ./gradlew lwjgl3:run   # play: pick a mode in the main menu
 ```
 
@@ -105,12 +105,12 @@ errors. `-Pgame` runs the same entry point.
 In the original game, a "mode" only chose which JSON level to load. How enemies split, what they do to
 the player, what drops, and when a round is won or lost were all hard-coded. This project models
 exactly that. Following the feedback on our draft, the building blocks are *library elements with
-behaviour*, not enumerations of the enemies we happen to have. A enemy type is defined by its tuning, by
+behaviour*, not enumerations of the enemies we happen to have. An enemy type is defined by its tuning, by
 the split rule it owns, and by the effects it has on contact. "Cactus", "Bomb" or "Bubble" are just
 instances. Everything in the model is implemented in the game, and the examples show it working.
 
 The campaign is a game mode too: its five levels are written in the model (`Campaign` in
-`survival.rango`), so single player is no longer a separate system next to the modes. Out of scope:
+`classic.rango`), so single player is no longer a separate system next to the modes. Out of scope:
 sound, animation, rendering, the tutorial and multiplayer. The tutorial is hand-written and listed in
 the main menu next to the modes; multiplayer keeps playing the original JSON levels.
 
@@ -133,8 +133,11 @@ them:
 - **PowerUp**: sprite and the effects it gives. **PlayerProfile**: health, max health, speed, tongue
   time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
-- **Edition** also *contains* its **Difficulty**s, which apply to every mode (see
-  [Difficulty](#difficulty) below).
+- **Edition** also *contains* its **Difficulty**s, which apply to every mode
+- **Difficulty** has a tier (`EASY`, `MEDIUM` or `HARD`) and a list of **Modifier**s. An edition can optionally have difficulties, which the player chooses after picking a mode.Each modifier
+multiplies one kind of value, such as enemy speed or player health, by a factor. For example, a hard
+difficulty could make enemies 1.3 times as fast and give the player half the health. Values without a
+modifier stay as modelled, and the difficulty applies to every mode of the edition.
 - **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
   **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
   written down: they are derived from what its levels spawn.
@@ -159,19 +162,11 @@ them:
     condition. For example, TimeReached is "survive 60 s" as a win and a time limit as a loss. The
     role comes from the containing list (`winConditions`, `loseConditions`).
 
-### Difficulty
-
-An edition can optionally have difficulties, which the player chooses after picking a mode. A
-**Difficulty** has a tier (`EASY`, `MEDIUM` or `HARD`) and a list of **Modifier**s. Each modifier
-multiplies one kind of value, such as enemy speed or player health, by a factor. For example, a hard
-difficulty could make enemies 1.3 times as fast and give the player half the health. Values without a
-modifier stay as modelled, and the difficulty applies to every mode of the edition.
-
 ### Derived features (Java, in `GamemodeDerivations`)
 
 | Feature | Meaning |
 | --- | --- |
-| `EnemyType.producedTypes`, `Split.resultType` | What popping a enemy creates (the fragment type defaults to the enemy's own type). |
+| `EnemyType.producedTypes`, `Split.resultType` | What popping an enemy creates (the fragment type defaults to the enemy's own type). |
 | `Split.spacing` | Degrees between neighbouring fragments: 45, or 360 over the count above eight. |
 | `GameMode.enemyTypes` | The enemy types of a mode: those it spawns, and everything popping them can produce (recursively). |
 | `EnemySpawn/Wave/SpawnStrategy/Level/GameMode.popsToClear` | Tongue hits needed to clear everything. Recursive over split rules and fragment types; -1 for looping waves. A mode sums its levels. |
@@ -200,7 +195,7 @@ codes, which the quick fixes use:
 | Constraint | Rule |
 | --- | --- |
 | `nameUniqueAmongSiblings` | No two elements of a list share a name. |
-| `distinctEffectKinds` | A enemy type or power-up has at most one effect of each kind. |
+| `distinctEffectKinds` | An enemy type or power-up has at most one effect of each kind. |
 | `noSimultaneousOutcome` | In no level can a round be won and lost by the same event (survive 60 s vs. a 60 s time limit), nor start already lost (`EnemiesAlive` at or below the starting number of enemies). |
 | `winnable` | Every win condition can be met in every level: no "all enemies cleared" with looping waves, no "8 waves survived" with 5 non-looping waves, no more pops or points than the mode can give. |
 | `endsSomehow` | A mode without win conditions must loop its waves, and a mode of several levels needs a win condition to move on. |
@@ -230,7 +225,7 @@ The editor adds:
   list, add drop tables for the enemies without one, remove an unused element or a drop table without
   effect, fix sprite and background paths.
 - **Hovers** that show the derived facts: the enemy types of a mode, pops to clear, maximum score, drop
-  probabilities, what a enemy breaks into, and shots per second.
+  probabilities, what an enemy breaks into, and shots per second.
 - **Outline** with icons and summaries ("Mine: splits into 4 Weed", "win when score reaches 1500").
 - **Content assist** for the images the game ships and for enemy sizes, and **templates** for enemy
   types, power-ups, players, modes, waves and teleporter pairs.
@@ -273,9 +268,9 @@ The tutorial and multiplayer are unchanged.
 
 | Edition | Product | What it shows |
 | --- | --- | --- |
-| `classic.rango` | *Rango Unchained*, one mode | The minimal valid configuration (the draft's baseline): one enemy type that splits in two, a fixed layout, won when cleared, lost on health, and a single edition-level drop table (the one power-up every enemy must be able to drop). Only mandatory features. |
-| `survival.rango` | *Rango Unchained: Survival*, three modes | **Endless Survival**: four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*), looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, three power-ups, and lost when overrun by 25 enemies. The *edition's drop tables* apply: the tougher the enemy, the likelier and better its drop. **Wave Rush**: five waves to survive, higher gravity, and *its own drop tables*, which replace the edition's. **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other. Three *difficulty tiers* apply to all modes, mostly through the calm between waves. |
-| `arcade.rango` | *Rango Unchained: Arcade*, three modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. Every mode has *its own drop tables* (no edition defaults), and the Mine drops the best power-up. |
+| `classic.rango` | *Rango Unchained*, two modes | **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other to unlock the next. **Endless**: looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, no win condition, and lost when overrun by 25 enemies. Four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*) and three power-ups. Both modes use the *edition's drop tables*: the tougher the enemy, the likelier and better its drop. Three *difficulty tiers* apply to both modes, mostly through the calm between waves. |
+| `arcade.rango` | *Rango Unchained: Arcade*, five modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. **Wave Rush**: five waves to survive under higher gravity. **Minefield**: clear the mines in heavy gravity within 45 s. Every mode has *its own drop tables* (no edition defaults), so the same Mine drops a Rush in Time Attack but a trap in Minefield. |
+| `hardcore.rango` | *Rango Unchained: Hardcore*, one mode | **Gauntlet**: one heart and no healing (the only power-up is a short shield), against fast enemies that split into more of themselves: a Bomb bursts into four Armadillos, an Armadillo into three, a Cactus poisons. The edition has *no difficulty tiers*, so its mode plays exactly as modelled. |
 
 The tests check that all three are valid and that together they use every concrete class, every
 feature and every enumeration literal of the metamodel.
