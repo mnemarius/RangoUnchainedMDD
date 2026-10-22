@@ -6,7 +6,6 @@ import java.util.Objects;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
-import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
@@ -17,8 +16,6 @@ import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.util.Strings;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
-import org.eclipse.xtext.xbase.lib.ExclusiveRange;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -104,7 +101,7 @@ public class GeneratorNames {
   }
 
   /**
-   * A Java constant name for a enemy type: PricklyPear becomes ENEMY_PRICKLY_PEAR.
+   * A Java constant name for an enemy type: PricklyPear becomes ENEMY_PRICKLY_PEAR.
    */
   public static String constant(final NamedElement element) {
     String _upperCase = element.getName().replaceAll("([a-z0-9])([A-Z])", "$1_$2").toUpperCase();
@@ -194,25 +191,6 @@ public class GeneratorNames {
       _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
-  }
-
-  /**
-   * The horizontal positions of the enemies of a spawn: spread out sideways around the spawn position,
-   * the same way the game's spawner spreads out the enemies of a wave.
-   */
-  public static List<Float> spreadX(final EnemySpawn spawn) {
-    int _max = Math.max(spawn.getCount(), 0);
-    final Function1<Integer, Float> _function = (Integer i) -> {
-      float _x = spawn.getX();
-      int _count = spawn.getCount();
-      int _minus = (_count - 1);
-      float _divide = (_minus / 2f);
-      float _minus_1 = ((i).intValue() - _divide);
-      float _multiply = (_minus_1 * 8f);
-      float _plus = (_x + _multiply);
-      return Float.valueOf(Math.max(3f, Math.min(97f, _plus)));
-    };
-    return IterableExtensions.<Float>toList(IterableExtensions.<Integer, Float>map(new ExclusiveRange(0, _max, true), _function));
   }
 
   /**

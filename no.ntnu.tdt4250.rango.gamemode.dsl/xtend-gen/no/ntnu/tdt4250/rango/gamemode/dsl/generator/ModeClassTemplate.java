@@ -46,7 +46,7 @@ import org.eclipse.xtext.xbase.lib.XbaseGenerated;
  * Generates the Java class of a game mode: a subclass of the game's {@code GameModeDefinition} whose
  * methods carry out the rules of the mode. Every rule of the model becomes code here: split rules
  * become calls that create fragments, effects become calls on the player, drop tables become
- * weighted rolls, waves become spawn calls, and end conditions become the boolean expressions that
+ * weighted rolls, fixed layouts and waves become spawn calls, and end conditions become the boolean expressions that
  * decide when a round is won or lost.
  */
 @SuppressWarnings("all")
@@ -598,14 +598,18 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public int waveCount(int level) {");
+    _builder.append("public void placeEnemies(int level, Spawner spawner) {");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("switch (level) {");
     _builder.newLine();
     {
-      EList<Level> _levels_2 = mode.getLevels();
-      for(final Level level_4 : _levels_2) {
+      final Function1<Level, Boolean> _function_3 = (Level it) -> {
+        SpawnStrategy _spawning = it.getSpawning();
+        return Boolean.valueOf((_spawning instanceof FixedLayout));
+      };
+      Iterable<Level> _filter_4 = IterableExtensions.<Level>filter(mode.getLevels(), _function_3);
+      for(final Level level_4 : _filter_4) {
         _builder.append("            ");
         _builder.append("case ");
         int _number_3 = level_4.getNumber();
@@ -613,10 +617,59 @@ public class ModeClassTemplate {
         _builder.append(_minus_3, "            ");
         _builder.append(":");
         _builder.newLineIfNotEmpty();
+        {
+          SpawnStrategy _spawning = level_4.getSpawning();
+          EList<EnemySpawn> _spawns = ((FixedLayout) _spawning).getSpawns();
+          for(final EnemySpawn spawn : _spawns) {
+            _builder.append("            ");
+            _builder.append("    ");
+            CharSequence _spawnCall = this.spawnCall(spawn, "");
+            _builder.append(_spawnCall, "                ");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("            ");
+        _builder.append("    ");
+        _builder.append("break;");
+        _builder.newLine();
+      }
+    }
+    _builder.append("            ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("                ");
+    _builder.append("break; // its enemies come in waves");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("public int waveCount(int level) {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("switch (level) {");
+    _builder.newLine();
+    {
+      EList<Level> _levels_2 = mode.getLevels();
+      for(final Level level_5 : _levels_2) {
+        _builder.append("            ");
+        _builder.append("case ");
+        int _number_4 = level_5.getNumber();
+        int _minus_4 = (_number_4 - 1);
+        _builder.append(_minus_4, "            ");
+        _builder.append(":");
+        _builder.newLineIfNotEmpty();
         _builder.append("            ");
         _builder.append("    ");
         _builder.append("return ");
-        int _size_2 = GeneratorNames.waves(level_4).size();
+        int _size_2 = GeneratorNames.waves(level_5).size();
         _builder.append(_size_2, "                ");
         _builder.append(";");
         _builder.newLineIfNotEmpty();
@@ -646,18 +699,18 @@ public class ModeClassTemplate {
     _builder.newLine();
     {
       EList<Level> _levels_3 = mode.getLevels();
-      for(final Level level_5 : _levels_3) {
+      for(final Level level_6 : _levels_3) {
         _builder.append("            ");
         _builder.append("case ");
-        int _number_4 = level_5.getNumber();
-        int _minus_4 = (_number_4 - 1);
-        _builder.append(_minus_4, "            ");
+        int _number_5 = level_6.getNumber();
+        int _minus_5 = (_number_5 - 1);
+        _builder.append(_minus_5, "            ");
         _builder.append(":");
         _builder.newLineIfNotEmpty();
         _builder.append("            ");
         _builder.append("    ");
         _builder.append("return ");
-        _builder.append(((level_5.getSpawning() instanceof WaveSchedule) && ((WaveSchedule) level_5.getSpawning()).isLoop()), "                ");
+        _builder.append(((level_6.getSpawning() instanceof WaveSchedule) && ((WaveSchedule) level_6.getSpawning()).isLoop()), "                ");
         _builder.append(";");
         _builder.newLineIfNotEmpty();
       }
@@ -685,17 +738,17 @@ public class ModeClassTemplate {
     _builder.append("switch (level) {");
     _builder.newLine();
     {
-      final Function1<Level, Boolean> _function_3 = (Level it) -> {
+      final Function1<Level, Boolean> _function_4 = (Level it) -> {
         boolean _isEmpty_1 = GeneratorNames.waves(it).isEmpty();
         return Boolean.valueOf((!_isEmpty_1));
       };
-      Iterable<Level> _filter_4 = IterableExtensions.<Level>filter(mode.getLevels(), _function_3);
-      for(final Level level_6 : _filter_4) {
+      Iterable<Level> _filter_5 = IterableExtensions.<Level>filter(mode.getLevels(), _function_4);
+      for(final Level level_7 : _filter_5) {
         _builder.append("            ");
         _builder.append("case ");
-        int _number_5 = level_6.getNumber();
-        int _minus_5 = (_number_5 - 1);
-        _builder.append(_minus_5, "            ");
+        int _number_6 = level_7.getNumber();
+        int _minus_6 = (_number_6 - 1);
+        _builder.append(_minus_6, "            ");
         _builder.append(":");
         _builder.newLineIfNotEmpty();
         _builder.append("            ");
@@ -703,14 +756,14 @@ public class ModeClassTemplate {
         _builder.append("switch (wave) {");
         _builder.newLine();
         {
-          List<Wave> _waves = GeneratorNames.waves(level_6);
+          List<Wave> _waves = GeneratorNames.waves(level_7);
           for(final Wave wave : _waves) {
             _builder.append("            ");
             _builder.append("        ");
             _builder.append("case ");
-            int _number_6 = wave.getNumber();
-            int _minus_6 = (_number_6 - 1);
-            _builder.append(_minus_6, "                    ");
+            int _number_7 = wave.getNumber();
+            int _minus_7 = (_number_7 - 1);
+            _builder.append(_minus_7, "                    ");
             _builder.append(":");
             _builder.newLineIfNotEmpty();
             _builder.append("            ");
@@ -761,19 +814,19 @@ public class ModeClassTemplate {
     _builder.newLine();
     {
       EList<Level> _levels_4 = mode.getLevels();
-      for(final Level level_7 : _levels_4) {
+      for(final Level level_8 : _levels_4) {
         _builder.append("            ");
         _builder.append("case ");
-        int _number_7 = level_7.getNumber();
-        int _minus_7 = (_number_7 - 1);
-        _builder.append(_minus_7, "            ");
+        int _number_8 = level_8.getNumber();
+        int _minus_8 = (_number_8 - 1);
+        _builder.append(_minus_8, "            ");
         _builder.append(":");
         _builder.newLineIfNotEmpty();
         _builder.append("            ");
         _builder.append("    ");
         _builder.append("spawnWaveOfLevel");
-        int _number_8 = level_7.getNumber();
-        _builder.append(_number_8, "                ");
+        int _number_9 = level_8.getNumber();
+        _builder.append(_number_9, "                ");
         _builder.append("(wave, cycle, spawner);");
         _builder.newLineIfNotEmpty();
         _builder.append("            ");
@@ -796,17 +849,17 @@ public class ModeClassTemplate {
     _builder.newLine();
     {
       EList<Level> _levels_5 = mode.getLevels();
-      for(final Level level_8 : _levels_5) {
+      for(final Level level_9 : _levels_5) {
         _builder.newLine();
         _builder.append("    ");
         _builder.append("private void spawnWaveOfLevel");
-        int _number_9 = level_8.getNumber();
-        _builder.append(_number_9, "    ");
+        int _number_10 = level_9.getNumber();
+        _builder.append(_number_10, "    ");
         _builder.append("(int wave, int cycle, Spawner spawner) {");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         _builder.append("    ");
-        CharSequence _spawnWaves = this.spawnWaves(level_8.getSpawning(), level_8);
+        CharSequence _spawnWaves = this.spawnWaves(level_9.getSpawning(), level_9);
         _builder.append(_spawnWaves, "        ");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
@@ -854,12 +907,12 @@ public class ModeClassTemplate {
         _builder.append(_pop, "                ");
         _builder.newLineIfNotEmpty();
         {
-          final Function1<DropTable, Boolean> _function_4 = (DropTable it) -> {
+          final Function1<DropTable, Boolean> _function_5 = (DropTable it) -> {
             EnemyType _enemyType = it.getEnemyType();
             return Boolean.valueOf(Objects.equals(_enemyType, type_2));
           };
-          Iterable<DropTable> _filter_5 = IterableExtensions.<DropTable>filter(mode.getEffectiveDrops(), _function_4);
-          for(final DropTable table : _filter_5) {
+          Iterable<DropTable> _filter_6 = IterableExtensions.<DropTable>filter(mode.getEffectiveDrops(), _function_5);
+          for(final DropTable table : _filter_6) {
             _builder.append("            ");
             _builder.append("    ");
             CharSequence _drop = this.drop(table);
@@ -1063,10 +1116,8 @@ public class ModeClassTemplate {
 
   protected CharSequence _spawnWaves(final FixedLayout layout, final Level level) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("// all enemies are placed at the start by the arena resource ");
-    String _arenaResource = GeneratorNames.arenaResource(level);
-    _builder.append(_arenaResource);
-    _builder.newLineIfNotEmpty();
+    _builder.append("// all enemies are placed at the start, by placeEnemies");
+    _builder.newLine();
     return _builder;
   }
 
@@ -1100,32 +1151,16 @@ public class ModeClassTemplate {
           for(final EnemySpawn spawn : _spawns) {
             _builder.append("    ");
             _builder.append("    ");
-            _builder.append("spawner.spawn(");
-            String _javaString = GeneratorNames.javaString(spawn.getType().getName());
-            _builder.append(_javaString, "        ");
-            _builder.append(", ");
-            int _size = spawn.getSize();
-            _builder.append(_size, "        ");
-            _builder.append(", ");
-            int _count = spawn.getCount();
-            _builder.append(_count, "        ");
-            {
-              int _escalation_2 = schedule.getEscalation();
-              boolean _greaterThan_1 = (_escalation_2 > 0);
-              if (_greaterThan_1) {
-                _builder.append(" + extra");
-              }
+            String _xifexpression = null;
+            int _escalation_2 = schedule.getEscalation();
+            boolean _greaterThan_1 = (_escalation_2 > 0);
+            if (_greaterThan_1) {
+              _xifexpression = " + extra";
+            } else {
+              _xifexpression = "";
             }
-            _builder.append(", ");
-            String _javaFloat = GeneratorNames.javaFloat(spawn.getX());
-            _builder.append(_javaFloat, "        ");
-            _builder.append(", ");
-            String _javaFloat_1 = GeneratorNames.javaFloat(spawn.getY());
-            _builder.append(_javaFloat_1, "        ");
-            _builder.append(", ");
-            String _name = spawn.getDirection().getName();
-            _builder.append(_name, "        ");
-            _builder.append(");");
+            CharSequence _spawnCall = this.spawnCall(spawn, _xifexpression);
+            _builder.append(_spawnCall, "        ");
             _builder.newLineIfNotEmpty();
           }
         }
@@ -1143,6 +1178,34 @@ public class ModeClassTemplate {
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
+    return _builder;
+  }
+
+  /**
+   * The runtime spreads the enemies of a spawn out sideways and gives them the speed of their type.
+   */
+  public CharSequence spawnCall(final EnemySpawn spawn, final String extra) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("spawner.spawn(");
+    String _javaString = GeneratorNames.javaString(spawn.getType().getName());
+    _builder.append(_javaString);
+    _builder.append(", ");
+    int _size = spawn.getSize();
+    _builder.append(_size);
+    _builder.append(", ");
+    int _count = spawn.getCount();
+    _builder.append(_count);
+    _builder.append(extra);
+    _builder.append(", ");
+    String _javaFloat = GeneratorNames.javaFloat(spawn.getX());
+    _builder.append(_javaFloat);
+    _builder.append(", ");
+    String _javaFloat_1 = GeneratorNames.javaFloat(spawn.getY());
+    _builder.append(_javaFloat_1);
+    _builder.append(", ");
+    String _name = spawn.getDirection().getName();
+    _builder.append(_name);
+    _builder.append(");");
     return _builder;
   }
 
@@ -1195,7 +1258,7 @@ public class ModeClassTemplate {
   }
 
   /**
-   * The roll of a enemy type's drop table: whether the pop drops anything, then which power-up.
+   * The roll of an enemy type's drop table: whether the pop drops anything, then which power-up.
    */
   public CharSequence drop(final DropTable table) {
     StringConcatenation _builder = new StringConcatenation();

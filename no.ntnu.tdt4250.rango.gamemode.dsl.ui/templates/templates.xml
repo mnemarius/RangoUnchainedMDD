@@ -1,67 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <templates>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType" deleted="false" description="A enemy type that splits in two and hurts on contact" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.enemy" name="enemy">enemy ${Name} {
-	sprite "${Enemy/Tumbleweed.png}"
-	points ${10}
-	on pop: split into ${2}
-	on contact: damage ${1}
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType" deleted="false" description="An enemy type that splits in two and hurts on contact" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.enemy" name="enemy">enemy ${Name} {
+	sprite "Enemy/Tumbleweed.png"
+	points 10
+	on pop: split into 2
+	on contact: damage 1
 }</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType" deleted="false" description="A enemy type that explodes all around into enemies of another type" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.bomb" name="enemy (exploding)">enemy ${Name} {
-	sprite "${Enemy/Bomb.png}"
-	points ${25}
-	on pop: split into ${8} ${fragment:CrossReference('Split.fragmentType')}
-	on contact: damage ${2}
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EnemyType" deleted="false" description="An enemy type that explodes all around into enemies of another type" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.bomb" name="enemy (exploding)">enemy ${Name} {
+	sprite "Enemy/Bomb.png"
+	points 25
+	on pop: split into 8 ${fragmentType:CrossReference('Split.fragmentType')}
+	on contact: damage 2
 }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.PowerUp" deleted="false" description="A power-up with a timed effect" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.powerup" name="powerup">powerup ${Name} {
-	sprite "${Powerup/Shield.png}"
-	gives: shield for ${8} s
+	sprite "Powerup/Shield.png"
+	gives: shield for 8 s
 }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.PlayerProfile" deleted="false" description="A player profile" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.player" name="player">player ${Name} {
-	health ${3} max ${5}
-	speed ${5}
-	tongue ${0.8} s
-	cooldown ${1} s
+	health 3 max 5
+	speed 5
+	tongue 0.8 s
+	cooldown 1 s
+}</template>
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Difficulty" deleted="false" description="A difficulty tier and the factors it applies in every mode" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.difficulty" name="difficulty">difficulty ${tier:Enum('DifficultyTier')} {
+	enemy.speed * 0.8
+	player.health * 1.5${cursor}
 }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode" deleted="false" description="A mode with a fixed layout, won by clearing it" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.mode" name="mode (clear the arena)">mode ${Name} "${Title}" {
-	description "${Pop everything to win.}"
-	player ${player:CrossReference('GameMode.player')}
+	description "Pop everything to win."
+	player ${profile:CrossReference('GameMode.player')}
 	arena {
 		background "Desert"
 	}
 	layout {
-		${type:CrossReference('EnemySpawn.type')} size 3 at (${50}%, ${70}%)
+		${type:CrossReference('EnemySpawn.type')} size 3 at (50%, 70%)
 	}
 	win when all enemies cleared
 	lose when health depleted
 }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode" deleted="false" description="An endless mode with looping, growing waves" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.endless" name="mode (endless waves)">mode ${Name} "${Title}" {
-	description "${Survive as long as you can.}"
-	player ${player:CrossReference('GameMode.player')}
+	description "Survive as long as you can."
+	player ${profile:CrossReference('GameMode.player')}
 	arena {
 		background "Desert"
 	}
-	waves looping escalate by ${1} {
+	waves looping escalate by 1 {
 		wave {
-			${type:CrossReference('EnemySpawn.type')} size 3 at (${50}%, ${75}%)
+			${type:CrossReference('EnemySpawn.type')} size 3 at (50%, 75%)
 		}
 	}
-	lose when health depleted or ${20} enemies alive
+	lose when health depleted or 20 enemies alive
 }</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Wave" deleted="false" description="A wave of enemies" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.wave" name="wave">wave after ${2} s {
-	${count:2} * ${type:CrossReference('EnemySpawn.type')} size ${3} at (${50}%, ${75}%) moving ${left}
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Wave" deleted="false" description="A wave of enemies" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.wave" name="wave">wave after 2 s {
+	2 * ${type:CrossReference('EnemySpawn.type')} size 3 at (50%, 75%) moving ${direction:Enum('Direction')}
 }</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Obstacle" deleted="false" description="Two teleporters leading to each other" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.teleporters" name="teleporter pair">teleporter ${West} at (${6}%, ${10}%) to ${East} affects ${everything}
-teleporter ${East} at (${94}%, ${10}%) to ${West} affects ${everything}</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable" deleted="false" description="The drop table of one enemy type: its chance to drop, then the power-ups by weight" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.droptable" name="drop table">${enemy:CrossReference('DropTable.enemyType')} ${10}% { ${powerUp:CrossReference('Drop.powerUp')} weight ${2}, ${other:CrossReference('Drop.powerUp')} }</template>
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Obstacle" deleted="false" description="Two teleporters leading to each other" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.teleporters" name="teleporter pair">teleporter ${West} at (6%, 10%) to ${East} affects ${target:Enum('Target')}
+teleporter ${East} at (94%, 10%) to ${West} affects ${target}</template>
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.DropTable" deleted="false" description="The drop table of one enemy type: its chance to drop, then the power-ups by weight" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.droptable" name="drop table">${enemyType:CrossReference('DropTable.enemyType')} 10% { ${powerUp:CrossReference('Drop.powerUp')} weight 2${cursor} }</template>
 <template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.GameMode" deleted="false" description="A mode of several levels, each cleared to unlock the next" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.levels" name="mode (levels)">mode ${Name} "${Title}" {
-	description "${Clear every level.}"
-	player ${player:CrossReference('GameMode.player')}
+	description "Clear every level."
+	player ${profile:CrossReference('GameMode.player')}
 	level "${First}" {
 		arena {
 			background "Desert"
 		}
 		layout {
-			${type:CrossReference('EnemySpawn.type')} size 2 at (${60}%, ${50}%) moving left
+			${type:CrossReference('EnemySpawn.type')} size 2 at (60%, 50%) moving left
 		}
 	}
 	level "${Second}" {
@@ -69,7 +73,7 @@ teleporter ${East} at (${94}%, ${10}%) to ${West} affects ${everything}</templat
 			background "Desert"
 		}
 		layout {
-			${type} size 3 at (${60}%, ${50}%) moving left
+			${type} size 3 at (60%, 50%) moving left
 		}
 	}
 	win when all enemies cleared
@@ -80,12 +84,7 @@ teleporter ${East} at (${94}%, ${10}%) to ${West} affects ${everything}</templat
 		background "Desert"
 	}
 	layout {
-		${type:CrossReference('EnemySpawn.type')} size 3 at (${60}%, ${50}%) moving left
+		${type:CrossReference('EnemySpawn.type')} size 3 at (60%, 50%) moving left
 	}
-}</template>
-<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Difficulty" deleted="false" description="A difficulty tier that multiplies values in every mode" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.difficulty" name="difficulty">difficulty ${hard} {
-	enemy.speed * ${1.3}
-	player.health * ${0.5}
-	drop.chance * ${0.75}
 }</template>
 </templates>

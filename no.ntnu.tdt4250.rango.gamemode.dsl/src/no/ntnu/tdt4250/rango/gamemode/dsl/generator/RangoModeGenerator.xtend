@@ -4,7 +4,6 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator
 
 import com.google.inject.Inject
-import no.ntnu.tdt4250.rango.gamemode.DifficultyTier
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
@@ -71,9 +70,6 @@ class RangoModeGenerator extends AbstractGenerator {
 		    /** The model this edition was generated from. */
 		    public static final String SOURCE = «source.javaString»;
 
-		    /** The position in {@link #difficulties()} of the tier the menu starts at: medium, if there is one. */
-		    public static final int DEFAULT_DIFFICULTY = «edition.defaultDifficulty»;
-
 		    private GeneratedEdition() {
 		    }
 
@@ -100,10 +96,6 @@ class RangoModeGenerator extends AbstractGenerator {
 	/** The difficulties of an edition, from the easiest tier to the hardest. */
 	def sortedDifficulties(Edition edition) {
 		edition.difficulties.sortBy[tier]
-	}
-
-	def defaultDifficulty(Edition edition) {
-		Math.max(0, edition.sortedDifficulties.map[tier].indexOf(DifficultyTier.MEDIUM))
 	}
 
 	def androidValues(Edition edition, String source) '''

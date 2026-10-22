@@ -6,6 +6,9 @@ bin/
 # Downloaded by the Xtext generator when it runs inside Eclipse
 .antlr-generator-*.jar
 
+# Xtend debug traces, rewritten on every build
+*._trace
+
 # Preview of the generated game modes, written by the Eclipse builder next to the models
 generated-game/
 
@@ -13,6 +16,9 @@ generated-game/
 # versioned on purpose: they are needed to import the projects into Eclipse)
 .metadata/
 *.launch.bak
+# The repository root is not a project (an IDE language server may create these)
+/.project
+/.classpath
 
 # Maven wrapper download
 .mvn/wrapper/maven-wrapper.jar

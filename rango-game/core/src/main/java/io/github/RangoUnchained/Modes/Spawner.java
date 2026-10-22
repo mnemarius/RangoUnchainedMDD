@@ -6,7 +6,8 @@ package io.github.RangoUnchained.Modes;
 public interface Spawner {
 
     /**
-     * Spawns {@code count} enemies of a kind and size around a position, spread out sideways.
+     * Spawns {@code count} enemies of a kind and size around a position, spread out sideways and moving
+     * in the given direction at the speed of their kind.
      *
      * @param direction {@link GameModeDefinition#LEFT} or {@link GameModeDefinition#RIGHT}
      */

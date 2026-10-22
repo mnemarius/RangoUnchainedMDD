@@ -1,7 +1,12 @@
 \documentclass[conference]{IEEEtran}
-\usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
 \usepackage{listings}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{url}
 
 \lstset{basicstyle=\ttfamily\scriptsize, columns=fullflexible, frame=single, aboveskip=4pt, belowskip=4pt,
@@ -9,38 +14,77 @@
 
 \begin{document}
 
-\title{Rango Unchained: A Model-Driven Product Line\\of Game Modes}
+\title{Rango Unchained: A Model-Driven Product Line of Game Modes}
 
-\author{\IEEEauthorblockN{Group 6}
-\IEEEauthorblockA{TDT4250 Advanced Software Design, NTNU, Autumn 2026}}
+\author{\IEEEauthorblockN{Aleksander Kvelland}
+\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
+\textit{NTNU}\\
+Trondheim, Norway}
+\and
+\IEEEauthorblockN{Ferdinand Fremming}
+\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
+\textit{NTNU}\\
+Trondheim, Norway}
+\and
+\IEEEauthorblockN{[Fredrik L.]}
+\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
+\textit{NTNU}\\
+Trondheim, Norway}
+\and
+\IEEEauthorblockN{[Member 4]}
+\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
+\textit{NTNU}\\
+Trondheim, Norway}
+}
 
 \maketitle
 
 \begin{abstract}
-We turn the game modes of \emph{Rango Unchained}, a libGDX clone of Bubble Trouble, into a software
-product line~\cite{spl}. An \emph{edition} of the game is described in a textual DSL built on an Ecore
+We turn the game modes of Rango Unchained, a libGDX clone of Bubble Trouble, into a software product
+line. An edition of the game is described in a textual domain-specific language built on an Ecore
 metamodel, validated in an Xtext editor, and generated into the game as Java classes, level resources
-and product configuration. This report explains the idea and motivation, and the main design choices
-in the metamodel, the concrete syntax, the generator and the build.
+and product configuration. This report, written for TDT4250 at NTNU by group 6, explains the idea and
+motivation, and the main design choices in the metamodel, the concrete syntax, the generator and the
+build.
 \end{abstract}
 
-\section{Idea and Motivation}
-In the original game, a ``mode'' only chose which JSON level to load. How enemies split, what they do
-to the player, what drops, and when a round is won or lost were hard-coded. Adding a mode meant
-editing Java in several places. Yet these are exactly the things in which one mode differs from
-another, and they are what a designer wants to experiment with.
+\begin{IEEEkeywords}
+model-driven engineering, domain-specific languages, software product lines, EMF, Xtext, code
+generation, game development
+\end{IEEEkeywords}
 
-We therefore chose \emph{game modes} as the single variability aspect and model it in its entirety:
-everything that makes one mode differ from another is in the metamodel and reaches the game; nothing
-else is. Rendering, sound, animation, menus, multiplayer and the user system do not vary between
-modes and stay out of the DSL. The campaign is modelled as a game mode of several levels, so single
-player is no longer a separate system next to the modes.
+\section{Idea and Motivation}
+Rango Unchained is a 2D arcade game built with libGDX~\cite{libgdx} in an earlier course: the player
+pops bouncing enemies with a tongue, and popped enemies split into smaller ones. In the original game,
+a ``mode'' only chose which JSON level to load. How enemies split, what they do to the player, what
+drops, and when a round is won or lost were hard-coded. Adding a mode meant editing Java in several
+places. Yet these are exactly the things in which one mode differs from another, and they are what a
+game designer wants to experiment with.
+
+We therefore chose \emph{game modes} as the single variability aspect and treat the game as a
+software product line~\cite{spl}. One \emph{edition} (a product) is a set of game modes and the
+building blocks they share. We model the aspect in its entirety: everything that makes one mode
+differ from another is in the metamodel and reaches the game; nothing else is. Rendering, sound,
+animation, menus, multiplayer and the user system do not vary between modes and stay out of the
+language. The campaign is modelled as a game mode of several levels, so single player is no longer a
+separate system next to the modes.
+
+The solution is a chain of Eclipse tools. A designer writes an edition in a \texttt{.rango} file.
+Xtext parses it into an instance of the Ecore metamodel, which is checked by OCL and Java
+constraints. Xtend templates then generate the edition into the game, and the game's own Gradle
+build turns it into a playable product. All of it is built headless with Maven/Tycho.
 
 \section{Metamodel}
-The metamodel (EMF~\cite{emf}, \texttt{gamemode.ecore}, 42 classes, 9 of them abstract) has an \texttt{Edition} as
-root. It \emph{contains} reusable building blocks (enemy types, power-ups, player profiles, default
-drop tables, difficulties) and the game modes made from them, which \emph{reference} the blocks. The
-class diagram is in \texttt{docs/metamodel.png}.
+The metamodel (EMF~\cite{emf}, \texttt{gamemode.ecore}, 42 classes, 9 of them abstract, Fig.~\ref{fig:metamodel})
+has an \texttt{Edition} as root. It \emph{contains} reusable building blocks (enemy types, power-ups,
+player profiles, default drop tables, difficulties) and the game modes made from them, which
+\emph{reference} the blocks.
+
+\begin{figure*}[t]
+\centerline{\includegraphics[width=0.7\textwidth]{../metamodel.png}}
+\caption{Class diagram of the metamodel, generated from \texttt{gamemode.ecore}.}
+\label{fig:metamodel}
+\end{figure*}
 
 \subsection{Library elements with behaviour, not enumerations}
 Our draft listed the enemies of the game as an enum. Following the feedback, an \texttt{EnemyType} is
@@ -51,7 +95,7 @@ the game. Variation that carries different data is modelled as subclasses of an 
 \texttt{Heal} or the abstract \texttt{TimedEffect} (\texttt{Shield}, \texttt{SpeedChange},
 \texttt{Poison}). Effects are shared by enemy contacts and power-ups, so ``poison'' means the same in
 both places. Enums are kept for closed sets of labels without behaviour (\texttt{Direction},
-\texttt{DifficultyTier}).
+\texttt{DifficultyTier}, \texttt{ModifierTarget}).
 
 We deliberately rejected a separate \texttt{Burst} class for enemies that explode in a ring. The
 pattern follows from the number of fragments (they leave $45^\circ$ apart, or spread evenly above
@@ -70,11 +114,16 @@ and escalate. Obstacles and spawns share the abstract \texttt{Positioned}.
 is given by the containing list (\texttt{winConditions} or \texttt{loseConditions}) and exposed as a
 derived feature.
 
-\subsection{Drop tables}
+\subsection{Drop tables and difficulty}
 A \texttt{DropTable} references one enemy type and contains weighted \texttt{Drop}s that reference
 power-ups. Drop rates thus depend on which enemy is popped and on the mode: a mode's own tables
 replace the edition's defaults. Which tables apply is derived (\texttt{effectiveDrops}) rather than
 copied into each mode.
+
+An edition can define up to three \texttt{Difficulty}s, one per tier. A difficulty contains
+\texttt{Modifier}s, each multiplying one kind of modelled value (enemy speed, points, player health
+and speed, drop chance, wave delay) by a factor in every mode. Values without a modifier are played
+as modelled, so the tiers tune an edition without copying its modes.
 
 \subsection{Derived features and constraints}
 We never store what can be derived. Derived features (Java, \texttt{GamemodeDerivations}) include the
@@ -139,18 +188,20 @@ read enemy kinds and player tuning from the mode, and the menu lists the edition
 
 \section{Examples and Validation}
 Three structurally different editions show the range of the product line. \emph{Classic} has a
-five-level campaign and an endless mode with looping waves, teleporters and edition-wide drop tables.
-\emph{Arcade} has five short modes with two player profiles, a speed bonus, mode-specific drop tables
-and different win conditions (score, pops, time, waves). \emph{Hardcore} has one mode, a one-heart
-player, chained splits and no difficulty tiers. A test checks that the three together use every
-concrete class, feature and enum literal of the metamodel. Each constraint has a test that breaks
-exactly that rule on a valid fixture, and generator tests check the produced code.
+five-level campaign and an endless mode with looping waves, teleporters, edition-wide drop tables and
+three difficulty tiers. \emph{Arcade} has five short modes with two player profiles, a speed bonus,
+mode-specific drop tables and different win conditions (score, pops, time, waves). \emph{Hardcore}
+has one mode, a one-heart player, chained splits and no difficulty tiers. A test checks that the
+three together use every concrete class, feature and enum literal of the metamodel. Each constraint
+has a test that breaks exactly that rule on a valid fixture, and generator tests check the produced
+code.
 
 \section{Build and Packaging}
 Everything is built headless with Maven/Tycho against a pinned Eclipse 2026-06 target platform: the
 model, the language (MWE2 regeneration on every build), the editor, the tests, an Eclipse feature
 and a p2 update site. The profile \texttt{-Pgame -Dedition=arcade} generates an example into the game
-and builds it with Gradle, so deriving a product is one command.
+and builds it with Gradle, so deriving a product is one command. The repository README documents
+setup and use in detail.
 
 \section{Discussion}
 Modelling behaviour (split rules, effects, end conditions) instead of named entities made the
@@ -160,28 +211,39 @@ honest by generating and playing all three examples. Gameplay balance cannot be 
 constraints; we only guarantee that every mode is winnable, losable and ends.
 
 \section{Team Contributions}
-\begin{table}[h]
-\centering
-\caption{Focus and estimated hours per member}
-\begin{tabular}{@{}lll@{}}
+Table~\ref{tab:team} lists what each member focused on and the estimated hours of work.
+
+\begin{table}[htbp]
+\caption{Focus and Estimated Hours per Member}
+\begin{center}
+\begin{tabular}{@{}>{\raggedright}p{0.22\columnwidth}>{\raggedright}p{0.58\columnwidth}r@{}}
 \toprule
-Member & Focus & Hours \\
+\textbf{Member} & \textbf{Focus} & \textbf{Hours} \\
 \midrule
-{[Name 1]} & {[e.g.\ metamodel, constraints]} & {[h]} \\
-{[Name 2]} & {[e.g.\ grammar, editor]} & {[h]} \\
-{[Name 3]} & {[e.g.\ generator, runtime]} & {[h]} \\
-{[Name 4]} & {[e.g.\ examples, build, docs]} & {[h]} \\
+Aleksander Kvelland & Project setup: the Tycho build, the plug-in structure and the initial
+metamodel and grammar & [h] \tabularnewline
+Ferdinand Fremming & Metamodel refinement: enemy types, split rules and fragments, the speed bonus,
+derived features & [h] \tabularnewline
+{[Fredrik L.]} & Difficulty tiers and modifiers through all layers, documentation and the class
+diagram & [h] \tabularnewline
+{[Member 4]} & Levels and the campaign, drop tables and drop chances, the example editions & [h] \tabularnewline
+\midrule
+\textbf{Total} & & [h] \tabularnewline
 \bottomrule
 \end{tabular}
+\label{tab:team}
+\end{center}
 \end{table}
 
-\begin{thebibliography}{1}
+\begin{thebibliography}{00}
+\bibitem{spl} K.~Pohl, G.~B\"ockle, and F.~van~der~Linden, \emph{Software Product Line Engineering:
+Foundations, Principles and Techniques}. Berlin: Springer, 2005.
 \bibitem{emf} D.~Steinberg, F.~Budinsky, M.~Paternostro, and E.~Merks, \emph{EMF: Eclipse Modeling
-Framework}, 2nd~ed. Addison-Wesley, 2009.
+Framework}, 2nd~ed. Boston: Addison-Wesley, 2009.
 \bibitem{xtext} L.~Bettini, \emph{Implementing Domain-Specific Languages with Xtext and Xtend},
-2nd~ed. Packt, 2016.
-\bibitem{spl} K.~Pohl, G.~B\"ockle, and F.~van~der~Linden, \emph{Software Product Line Engineering}.
-Springer, 2005.
+2nd~ed. Birmingham: Packt, 2016.
+\bibitem{libgdx} libGDX, ``libGDX: Cross-platform Java game development framework.'' [Online].
+Available: \url{https://libgdx.com/}
 \end{thebibliography}
 
 \end{document}

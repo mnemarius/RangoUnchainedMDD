@@ -2,6 +2,7 @@ package io.github.RangoUnchained.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import org.lwjgl.glfw.GLFW;
 
 import io.github.RangoUnchained.Controllers.GameController;
 import io.github.RangoUnchained.Model.Firebase.DummyFirebaseManager;
@@ -35,9 +36,17 @@ public class Lwjgl3Launcher {
         //// If you remove the above line and set Vsync to false, you can get unlimited FPS, which can be
         //// useful for testing performance, but can also be very stressful to some hardware.
         //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
-        configuration.setWindowedMode((int)(1200*1.3), (int)(540*1.3));
+        float scale = windowScale();
+        configuration.setWindowedMode((int)(1200*scale), (int)(540*scale));
         //// You can change these files; they are in lwjgl3/src/main/resources/ .
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         return configuration;
+    }
+
+    /** Arenas fill the whole window, so the window must fit on the monitor (leaving room for the title bar and taskbar). */
+    private static float windowScale() {
+        int[] x = new int[1], y = new int[1], width = new int[1], height = new int[1];
+        GLFW.glfwGetMonitorWorkarea(GLFW.glfwGetPrimaryMonitor(), x, y, width, height);
+        return Math.min(1.3f, 0.9f * Math.min(width[0] / 1200f, height[0] / 540f));
     }
 }

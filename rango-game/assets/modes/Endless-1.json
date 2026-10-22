@@ -5,7 +5,7 @@
   },
   "entitiesData": [
     { "name": "Background", "dimension": {}, "typeInfo": { "type": "Background", "subType": "Desert" } },
-    { "name": "Player-Rango", "health": 5, "dimension": { "x": 35.0, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
+    { "name": "Player-Rango", "dimension": { "x": 35.0, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
     { "name": "ObsticleLeft", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Left" } },
     { "name": "ObsticleRight", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Right" } },
     { "name": "ObsticleRoof", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Roof" } },

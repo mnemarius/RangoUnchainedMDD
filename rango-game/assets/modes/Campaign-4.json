@@ -5,13 +5,11 @@
   },
   "entitiesData": [
     { "name": "Background", "dimension": {}, "typeInfo": { "type": "Background", "subType": "Desert" } },
-    { "name": "Player-Rango", "health": 5, "dimension": { "x": 5.5, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
+    { "name": "Player-Rango", "dimension": { "x": 5.5, "y": 0.0, "relative": true }, "typeInfo": { "type": "Player", "subType": "Rango" } },
     { "name": "ObsticleLeft", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Left" } },
     { "name": "ObsticleRight", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Right" } },
     { "name": "ObsticleRoof", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Roof" } },
     { "name": "ObsticleFloor", "dimension": {}, "typeInfo": { "type": "Obsticle", "subType": "Floor" } },
-    { "name": "Overhang", "dimension": { "x": 64.4, "y": 85.4, "width": 400, "height": 300, "relative": true }, "typeInfo": { "type": "Obsticle", "subType": "Block", "sprite": "Obstacles/Stone.png" } },
-    { "name": "Enemy Armadillo", "dimension": { "x": 31.7, "y": 66.4, "relative": true }, "velocity": { "x": -2.0, "y": 0.0 }, "typeInfo": { "type": "Enemy", "subType": "Armadillo", "size": 3 } },
-    { "name": "Enemy Tumbleweed", "dimension": { "x": 64.4, "y": 66.4, "relative": true }, "velocity": { "x": -2.0, "y": 0.0 }, "typeInfo": { "type": "Enemy", "subType": "Tumbleweed", "size": 2 } }
+    { "name": "Overhang", "dimension": { "x": 64.4, "y": 85.4, "width": 400, "height": 300, "relative": true }, "typeInfo": { "type": "Obsticle", "subType": "Block", "sprite": "Obstacles/Stone.png" } }
   ]
 }

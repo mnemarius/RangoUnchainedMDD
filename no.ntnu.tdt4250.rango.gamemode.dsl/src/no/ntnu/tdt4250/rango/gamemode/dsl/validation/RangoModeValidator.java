@@ -109,7 +109,7 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	}
 
 	/**
-	 * A drop table for a enemy type that never appears where the table applies has no effect: in a mode,
+	 * A drop table for an enemy type that never appears where the table applies has no effect: in a mode,
 	 * the enemy type is not one of the mode's; in the edition, no mode that uses the edition's tables has it.
 	 */
 	@Check

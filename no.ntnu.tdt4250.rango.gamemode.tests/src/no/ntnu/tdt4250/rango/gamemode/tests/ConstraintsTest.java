@@ -8,21 +8,28 @@ import java.util.List;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.junit.jupiter.api.Test;
 
+import no.ntnu.tdt4250.rango.gamemode.Block;
+import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
 import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
+import no.ntnu.tdt4250.rango.gamemode.Heal;
+import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
+import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.TimeReached;
+import no.ntnu.tdt4250.rango.gamemode.TimedEffect;
+import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
 
 /**
@@ -122,6 +129,201 @@ public class ConstraintsTest {
 		bonus.setDuration(0);
 		f.clear.setSpeedBonus(bonus);
 		assertViolated("positiveDuration");
+	}
+
+	@Test
+	public void oclEnemyBounceIsPositive() {
+		f.tumbleweed.setBounce(0);
+		assertViolated("positiveBounce");
+	}
+
+	@Test
+	public void oclEnemySpeedIsPositive() {
+		f.tumbleweed.setSpeed(0);
+		assertViolated("positiveSpeed");
+	}
+
+	@Test
+	public void oclEnemyPointsAreNotNegative() {
+		f.tumbleweed.setPoints(-1);
+		assertViolated("nonNegativePoints");
+	}
+
+	@Test
+	public void oclFragmentsAreLaunched() {
+		((Split) f.bomb.getSplitRule()).setLaunchSpeed(0);
+		assertViolated("positiveLaunchSpeed");
+	}
+
+	@Test
+	public void oclDamageIsPositive() {
+		((Damage) f.tumbleweed.getContactEffects().get(0)).setAmount(0);
+		assertViolated("positiveAmount");
+	}
+
+	@Test
+	public void oclHealIsPositive() {
+		((Heal) f.heart.getEffects().get(0)).setAmount(0);
+		assertViolated("positiveAmount");
+	}
+
+	@Test
+	public void oclPoisonIsPositive() {
+		Poison poison = ModelFixture.F.createPoison();
+		poison.setDuration(6);
+		poison.setInterval(2);
+		f.tumbleweed.getContactEffects().add(poison);
+		assertViolated("positiveAmount");
+	}
+
+	@Test
+	public void oclTimedEffectLastsAWhile() {
+		((TimedEffect) f.shield.getEffects().get(0)).setDuration(0);
+		assertViolated("positiveDuration");
+	}
+
+	@Test
+	public void oclSpeedChangeChangesTheSpeed() {
+		SpeedChange change = ModelFixture.F.createSpeedChange();
+		change.setDuration(5);
+		change.setFactor(1);
+		f.shield.getEffects().add(change);
+		assertViolated("factorChangesSpeed");
+	}
+
+	@Test
+	public void oclPlayerHealthIsPositive() {
+		f.rango.setHealth(0);
+		assertViolated("positiveHealth");
+	}
+
+	@Test
+	public void oclPlayerSpeedIsPositive() {
+		f.rango.setSpeed(0);
+		assertViolated("positiveSpeed");
+	}
+
+	@Test
+	public void oclTongueTimeIsPositive() {
+		f.rango.setTongueTime(0);
+		assertViolated("positiveTongueTime");
+	}
+
+	@Test
+	public void oclPlayerTimesAreNotNegative() {
+		f.rango.setGraceTime(-1);
+		assertViolated("nonNegativeTimes");
+	}
+
+	@Test
+	public void oclGravityIsPositive() {
+		f.clear.setGravity(0);
+		assertViolated("positiveGravity");
+	}
+
+	@Test
+	public void oclPlayerStartsInsideTheArena() {
+		ModelFixture.level(f.clear).getArena().setPlayerStart(120);
+		assertViolated("playerStartInside");
+	}
+
+	@Test
+	public void oclBlockHasASize() {
+		Block block = ModelFixture.F.createBlock();
+		block.setName("Ledge");
+		block.setWidth(0);
+		block.setHeight(5);
+		ModelFixture.level(f.clear).getArena().getObstacles().add(block);
+		assertViolated("positiveSize");
+	}
+
+	@Test
+	public void oclJumpPadLaunches() {
+		JumpPad pad = ModelFixture.F.createJumpPad();
+		pad.setName("Pad");
+		ModelFixture.level(f.clear).getArena().getObstacles().add(pad);
+		assertViolated("positiveLaunch");
+	}
+
+	@Test
+	public void oclEscalationIsNotNegative() {
+		f.schedule.setEscalation(-1);
+		assertViolated("nonNegativeEscalation");
+	}
+
+	@Test
+	public void oclWaveDelayIsNotNegative() {
+		f.schedule.getWaves().get(1).setDelay(-1);
+		assertViolated("nonNegativeDelay");
+	}
+
+	@Test
+	public void oclSpawnSizeIsInRange() {
+		f.layout.getSpawns().get(0).setSize(4);
+		assertViolated("sizeInRange");
+	}
+
+	@Test
+	public void oclSpawnHasAnEnemy() {
+		f.layout.getSpawns().get(0).setCount(0);
+		assertViolated("positiveCount");
+	}
+
+	@Test
+	public void oclDropWeightIsPositive() {
+		f.drops.getEntries().get(0).setWeight(0);
+		assertViolated("positiveWeight");
+	}
+
+	@Test
+	public void oclTimeReachedTakesTime() {
+		TimeReached limit = ModelFixture.F.createTimeReached();
+		f.clear.getLoseConditions().add(limit);
+		assertViolated("positiveSeconds");
+	}
+
+	@Test
+	public void oclScoreReachedNeedsPoints() {
+		f.clear.getWinConditions().add(ModelFixture.F.createScoreReached());
+		assertViolated("positivePoints");
+	}
+
+	@Test
+	public void oclEnemiesPoppedNeedsAPop() {
+		f.clear.getWinConditions().add(ModelFixture.F.createEnemiesPopped());
+		assertViolated("positiveCount");
+	}
+
+	@Test
+	public void oclWavesSurvivedNeedsAWave() {
+		((WavesSurvived) f.waves.getWinConditions().get(0)).setCount(0);
+		assertViolated("positiveCount");
+	}
+
+	@Test
+	public void oclEnemiesAliveNeedsAnEnemy() {
+		f.clear.getLoseConditions().add(ModelFixture.F.createEnemiesAlive());
+		// no enemies alive is also how every round starts, so the round is lost at once as well
+		Diagnostic diagnostic = ModelFixture.validate(f.edition);
+		List<String> messages = messages(diagnostic);
+		assertEquals(2, messages.size(), messages.toString());
+		assertTrue(messages.stream().anyMatch(m -> m.contains("'positiveCount'")), messages.toString());
+		assertTrue(diagnostic.getChildren().stream().anyMatch(d -> d.getCode() == GamemodeConstraints.LOST_AT_START),
+				messages.toString());
+	}
+
+	@Test
+	public void oclDifficultyModifiesEachValueOnce() {
+		Difficulty hard = difficulty(DifficultyTier.HARD, ModifierTarget.ENEMY_SPEED, 1.3f);
+		hard.getModifiers().add(difficulty(DifficultyTier.HARD, ModifierTarget.ENEMY_SPEED, 1.5f).getModifiers().get(0));
+		f.edition.getDifficulties().add(hard);
+		assertViolated("distinctTargets");
+	}
+
+	@Test
+	public void oclModifierFactorIsPositive() {
+		f.edition.getDifficulties().add(difficulty(DifficultyTier.HARD, ModifierTarget.ENEMY_SPEED, 0));
+		assertViolated("positiveFactor");
 	}
 
 	// ---------------------------------------------------------------- Java constraints
@@ -257,7 +459,7 @@ public class ConstraintsTest {
 	}
 
 	@Test
-	public void aEnemyHasOneDropTablePerList() {
+	public void anEnemyHasOneDropTablePerList() {
 		DropTable second = ModelFixture.dropTable(f.bomb, 5);
 		second.getEntries().add(ModelFixture.drop(f.heart, 1));
 		f.waves.getDrops().add(second);

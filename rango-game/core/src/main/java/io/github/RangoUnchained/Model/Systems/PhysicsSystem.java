@@ -103,7 +103,7 @@ public class PhysicsSystem implements Systems, ContactStrategy {
 
             }
         } else if (Math.abs(currentVelocity.x) < MINIMUMXTRESHOLD){
-            // keep drifting the way the enemy leans; a enemy going straight up picks a side at random
+            // keep drifting the way the enemy leans; an enemy going straight up picks a side at random
             float side = currentVelocity.x < 0 ? -1 : currentVelocity.x > 0 ? 1 : MathUtils.randomSign();
             enemyBody.setLinearVelocity(new Vector2(side * STANDARDXVELOCITY/2,currentVelocity.y));
 

@@ -1,7 +1,7 @@
 package io.github.RangoUnchained.Model.Components;
 
 /**
- * Component representing the type of a enemy entity.
+ * Component representing the type of an enemy entity.
  */
 public class EnemyComponent implements Component{
 

@@ -33,10 +33,7 @@ public abstract class GameModeDefinition {
     /** The name of the given level shown in the menu. */
     public abstract String levelTitle(int level);
 
-    /**
-     * The arena resource of the given level: background, walls, blocks, the player and the enemies
-     * placed at the start.
-     */
+    /** The arena resource of the given level: background, walls, blocks and the player. */
     public abstract String arenaFile(int level);
 
     public abstract PlayerSpec player();
@@ -53,6 +50,9 @@ public abstract class GameModeDefinition {
     /** Adds the obstacles that are not plain blocks (jump pads, teleporters) to the arena of the given level. */
     public abstract void buildArena(int level, ArenaBuilder arena);
 
+    /** Spawns the enemies the given level starts with; none if its enemies come in waves. */
+    public abstract void placeEnemies(int level, Spawner spawner);
+
     /** The number of waves of the given level; 0 if all its enemies are placed at the start. */
     public abstract int waveCount(int level);
 
@@ -64,10 +64,10 @@ public abstract class GameModeDefinition {
     /** Spawns the given wave (0-based) of the given level in the given round of the waves (0 the first time). */
     public abstract void spawnWave(int level, int wave, int cycle, Spawner spawner);
 
-    /** Applies what happens when the tongue pops a enemy: score, fragments and drops. */
+    /** Applies what happens when the tongue pops an enemy: score, fragments and drops. */
     public abstract void onEnemyPopped(EnemyState enemy, ModeContext context);
 
-    /** Applies what a enemy does to the player it touches. */
+    /** Applies what an enemy does to the player it touches. */
     public abstract void onEnemyTouchesPlayer(EnemyState enemy, ModeContext context);
 
     /** Applies the effects of a power-up the player has caught. */

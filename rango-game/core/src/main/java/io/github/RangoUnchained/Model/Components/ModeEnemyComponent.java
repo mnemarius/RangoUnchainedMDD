@@ -3,7 +3,7 @@ package io.github.RangoUnchained.Model.Components;
 import io.github.RangoUnchained.Modes.EnemyKind;
 
 /**
- * Component marking a enemy of a game mode: its kind, its size class and whether it has been popped.
+ * Component marking an enemy of a game mode: its kind, its size class and whether it has been popped.
  */
 public class ModeEnemyComponent implements Component {
 
@@ -20,7 +20,7 @@ public class ModeEnemyComponent implements Component {
         return popped;
     }
 
-    /** Marks the enemy as popped. A enemy can touch the tongue more than once before it is removed. */
+    /** Marks the enemy as popped. An enemy can touch the tongue more than once before it is removed. */
     public void setPopped() {
         popped = true;
     }

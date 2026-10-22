@@ -140,7 +140,7 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
 
     // ------------------------------------------------------------------ contacts
 
-    /** The tongue has hit a enemy. */
+    /** The tongue has hit an enemy. */
     public void pop(EnemyEntity enemy) {
         ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
         if (modeEnemy == null || modeEnemy.isPopped()) {
@@ -153,7 +153,7 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
         mode.onEnemyPopped(state, this);
     }
 
-    /** A enemy has touched the player. */
+    /** An enemy has touched the player. */
     public void touch(EnemyEntity enemy) {
         ModeEnemyComponent modeEnemy = (ModeEnemyComponent) enemy.getComponent(ModeEnemyComponent.class);
         if (modeEnemy == null || modeEnemy.isPopped()) {
@@ -416,10 +416,11 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
 
     @Override
     public void spawn(String kind, int size, int count, float x, float y, int direction) {
+        float speed = mode.enemyKind(kind).speed;
         for (int i = 0; i < count; i++) {
             float offset = (i - (count - 1) / 2f) * 8f;
             float spreadX = Math.max(3f, Math.min(97f, x + offset));
-            spawnEnemy(kind, size, ArenaGeometry.x(spreadX), ArenaGeometry.y(y), direction * 2f, 0f);
+            spawnEnemy(kind, size, ArenaGeometry.x(spreadX), ArenaGeometry.y(y), direction * speed, 0f);
         }
     }
 

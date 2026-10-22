@@ -91,7 +91,7 @@ public final class GamemodeConstraints {
 		return violations;
 	}
 
-	/** A enemy type or power-up has at most one effect of each kind: two shields would just overlap. */
+	/** An enemy type or power-up has at most one effect of each kind: two shields would just overlap. */
 	public static List<Violation> distinctEffectKinds(EObject owner, List<PlayerEffect> effects) {
 		List<Violation> violations = new ArrayList<>();
 		Set<EClass> seen = new HashSet<>();

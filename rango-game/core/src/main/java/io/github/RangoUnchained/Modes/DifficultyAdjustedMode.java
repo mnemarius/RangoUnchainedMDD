@@ -87,6 +87,11 @@ public final class DifficultyAdjustedMode extends GameModeDefinition {
     }
 
     @Override
+    public void placeEnemies(int level, Spawner spawner) {
+        mode.placeEnemies(level, spawner);
+    }
+
+    @Override
     public int waveCount(int level) {
         return mode.waveCount(level);
     }

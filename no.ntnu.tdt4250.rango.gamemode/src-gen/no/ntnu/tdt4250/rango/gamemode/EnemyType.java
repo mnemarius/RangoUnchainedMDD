@@ -142,7 +142,7 @@ public interface EnemyType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Score awarded for each pop of a enemy of this type.
+	 * Score awarded for each pop of an enemy of this type.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Points</em>' attribute.
 	 * @see #setPoints(int)
@@ -167,7 +167,7 @@ public interface EnemyType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What happens when a enemy of this type is hit by the tongue.
+	 * What happens when an enemy of this type is hit by the tongue.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Split Rule</em>' containment reference.
 	 * @see #setSplitRule(SplitRule)
@@ -193,7 +193,7 @@ public interface EnemyType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * What a enemy of this type does to the player when they touch.
+	 * What an enemy of this type does to the player when they touch.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Contact Effects</em>' containment reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_ContactEffects()
@@ -208,7 +208,7 @@ public interface EnemyType extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The enemy types that popping a enemy of this type can create: none if it vanishes, otherwise the type of its fragments.
+	 * The enemy types that popping an enemy of this type can create: none if it vanishes, otherwise the type of its fragments.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Produced Types</em>' reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType_ProducedTypes()
