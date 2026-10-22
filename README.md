@@ -108,17 +108,12 @@ errors. `-Pgame` runs the same entry point.
 
 ## The variability aspect
 
-In the original game, a "mode" only chose which JSON level to load. How enemies split, what they do to
+In the original game, we only had the current campaign where you chose which JSON level to load. How enemies split, what they do to
 the player, what drops, and when a round is won or lost were all hard-coded. This project models
 exactly that. Following the feedback on our draft, the building blocks are *library elements with
 behaviour*, not enumerations of the enemies we happen to have. An enemy type is defined by its tuning, by
 the split rule it owns, and by the effects it has on contact. "Cactus", "Bomb" or "Bubble" are just
-instances. Everything in the model is implemented in the game, and the examples show it working.
-
-The campaign is a game mode too: its five levels are written in the model (`Campaign` in
-`classic.rango`), so single player is no longer a separate system next to the modes. Out of scope:
-sound, animation, rendering, the tutorial and multiplayer. The tutorial is hand-written and listed in
-the main menu next to the modes; multiplayer keeps playing the original JSON levels.
+instances. Everything in the model is implemented in the game.
 
 ## The metamodel
 
@@ -132,8 +127,7 @@ them:
   - SplitRule is either **Vanish** or **Split** (fragments, launch speed, an optional *reference* to
     the fragment type). The number of fragments decides the pattern: fragments leave 45° apart,
     centred on straight up, so two fan out like the original game and eight or more fly off all
-    around. There is no separate Burst class, because a closed set of patterns would be an enum in
-    disguise. A Bomb that splits into Tumbleweeds is a cross-reference between enemy types.
+    around. A Bomb that splits into Tumbleweeds is a cross-reference between enemy types.
 - **PlayerEffect** is shared by enemy contacts and power-ups: **Damage**, **Heal**, and the abstract
   **TimedEffect** (duration), which is **Shield**, **SpeedChange** or **Poison** (damage over time).
 - **PowerUp**: sprite and the effects it gives. **PlayerProfile**: health, max health, speed, tongue
@@ -217,7 +211,7 @@ delegates. Standalone code registers the delegates through `GamemodeOCL.initiali
 `distinctTargets` (a difficulty modifies each value at most once), `positiveFactor`.
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
-codes, which the quick fixes use:
+codes:
 
 | Constraint | Rule |
 | --- | --- |
@@ -302,7 +296,7 @@ Hooks in the existing code are kept small:
 - The player factory takes the player's health from the mode being played, so a difficulty can
   change it.
 
-The tutorial and multiplayer are unchanged.
+The tutorial and multiplayer are unchanged from the base game and not modelled.
 
 ## The three example editions
 
