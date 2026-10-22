@@ -44,6 +44,28 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.5.0</version>
+				<executions>
+					<execution>
+						<id>enforce-jdk</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<!-- Xtend 2.43 cannot read the class files of JDK 27 ("resource is empty: java:/Objects/..."). -->
+								<requireJavaVersion>
+									<version>[21,26)</version>
+									<message>Build with JDK 21 to 25: set JAVA_HOME to such a JDK. Xtend ${xtextVersion} cannot compile on newer JDKs.</message>
+								</requireJavaVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>

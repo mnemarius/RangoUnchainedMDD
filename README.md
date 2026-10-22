@@ -27,7 +27,19 @@ use the tools, and the details of the metamodel, the editor and the generated co
 
 ## Quick start
 
-Requires JDK 21 or newer. Run these in the repository root.
+Requires JDK 21 to 25. Xtend 2.43 fails on JDK 27, so the build stops early if `JAVA_HOME` points
+to a JDK newer than 25. If it does, point it to a supported JDK for the current shell session:
+
+```powershell
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-25.0.4"   # Windows PowerShell
+```
+
+```sh
+export JAVA_HOME=/path/to/jdk-25                      # macOS and Linux
+```
+
+Replace the path with the location of your own JDK 21–25 installation. Then run from the
+repository root:
 
 macOS and Linux:
 
