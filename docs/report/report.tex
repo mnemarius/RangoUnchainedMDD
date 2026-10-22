@@ -17,24 +17,15 @@
 \title{Rango Unchained: A Model-Driven Product Line of Game Modes}
 
 \author{\IEEEauthorblockN{Aleksander Kvelland}
-\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
-\textit{NTNU}\\
-Trondheim, Norway}
 \and
 \IEEEauthorblockN{Ferdinand Fremming}
-\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
-\textit{NTNU}\\
-Trondheim, Norway}
 \and
-\IEEEauthorblockN{[Fredrik L.]}
-\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
-\textit{NTNU}\\
-Trondheim, Norway}
+\IEEEauthorblockN{Fredrik L.}
 \and
-\IEEEauthorblockN{[Member 4]}
-\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
-\textit{NTNU}\\
-Trondheim, Norway}
+\and
+\IEEEauthorblockN{Marius Norheim Engebretsen}
+\and
+\IEEEauthorblockN{Eirik Johan Andreassen}
 }
 
 \maketitle
@@ -43,7 +34,7 @@ Trondheim, Norway}
 We turn the game modes of Rango Unchained, a libGDX clone of Bubble Trouble, into a software product
 line. An edition of the game is described in a textual domain-specific language built on an Ecore
 metamodel, validated in an Xtext editor, and generated into the game as Java classes, level resources
-and product configuration. This report, written for TDT4250 at NTNU by group 6, explains the idea and
+and product configuration. This report explains the idea and
 motivation, and the main design choices in the metamodel, the concrete syntax, the generator and the
 build.
 \end{abstract}
@@ -56,7 +47,7 @@ generation, game development
 \section{Idea and Motivation}
 Rango Unchained is a 2D arcade game built with libGDX~\cite{libgdx} in an earlier course: the player
 pops bouncing enemies with a tongue, and popped enemies split into smaller ones. In the original game,
-a ``mode'' only chose which JSON level to load. How enemies split, what they do to the player, what
+you played a campaign with different JSON levels you loaded. How enemies split, what they do to the player, what
 drops, and when a round is won or lost were hard-coded. Adding a mode meant editing Java in several
 places. Yet these are exactly the things in which one mode differs from another, and they are what a
 game designer wants to experiment with.
@@ -97,11 +88,6 @@ the game. Variation that carries different data is modelled as subclasses of an 
 both places. Enums are kept for closed sets of labels without behaviour (\texttt{Direction},
 \texttt{DifficultyTier}, \texttt{ModifierTarget}).
 
-We deliberately rejected a separate \texttt{Burst} class for enemies that explode in a ring. The
-pattern follows from the number of fragments (they leave $45^\circ$ apart, or spread evenly above
-eight), so a closed set of patterns would be an enum in disguise. A Bomb that bursts into Tumbleweeds
-is a plain cross-reference from \texttt{Split} to another enemy type.
-
 \subsection{Modes, levels and end conditions}
 A \texttt{GameMode} contains one or more \texttt{Level}s. Each level contains an \texttt{Arena}
 (obstacles: \texttt{Block}s and \texttt{Trigger}s, i.e.\ \texttt{JumpPad}s and \texttt{Teleporter}s)
@@ -133,7 +119,7 @@ hovers and the constraints all reuse them.
 
 Constraints are domain rules, not artificial limits. Single-object invariants are in OCL in the Ecore
 model (e.g.\ a drop chance is a percentage, a teleporter does not lead to itself). Rules spanning
-several objects are in Java with stable diagnostic codes, used by the quick fixes. The most important
+several objects are in Java with stable diagnostic codes. An example
 is \texttt{winnable}: every win condition can be met in every level, so ``all enemies cleared'' with
 looping waves, or a score above the derived maximum, is an error. Others are \texttt{endsSomehow},
 \texttt{noSimultaneousOutcome} (a round cannot be won and lost by the same event), and
@@ -209,31 +195,6 @@ metamodel smaller than an enumeration-based design, and lets a designer create e
 original game never had. The cost is a runtime that must interpret every combination, which we keep
 honest by generating and playing all three examples. Gameplay balance cannot be checked by
 constraints; we only guarantee that every mode is winnable, losable and ends.
-
-\section{Team Contributions}
-Table~\ref{tab:team} lists what each member focused on and the estimated hours of work.
-
-\begin{table}[htbp]
-\caption{Focus and Estimated Hours per Member}
-\begin{center}
-\begin{tabular}{@{}>{\raggedright}p{0.22\columnwidth}>{\raggedright}p{0.58\columnwidth}r@{}}
-\toprule
-\textbf{Member} & \textbf{Focus} & \textbf{Hours} \\
-\midrule
-Aleksander Kvelland & Project setup: the Tycho build, the plug-in structure and the initial
-metamodel and grammar & [h] \tabularnewline
-Ferdinand Fremming & Metamodel refinement: enemy types, split rules and fragments, the speed bonus,
-derived features & [h] \tabularnewline
-{[Fredrik L.]} & Difficulty tiers and modifiers through all layers, documentation and the class
-diagram & [h] \tabularnewline
-{[Member 4]} & Levels and the campaign, drop tables and drop chances, the example editions & [h] \tabularnewline
-\midrule
-\textbf{Total} & & [h] \tabularnewline
-\bottomrule
-\end{tabular}
-\label{tab:team}
-\end{center}
-\end{table}
 
 \begin{thebibliography}{00}
 \bibitem{spl} K.~Pohl, G.~B\"ockle, and F.~van~der~Linden, \emph{Software Product Line Engineering:
