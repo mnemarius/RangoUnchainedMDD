@@ -133,12 +133,8 @@ them:
 - **PowerUp**: sprite and the effects it gives. **PlayerProfile**: health, max health, speed, tongue
   time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
-- **Edition** also *contains* its **Difficulty**s, at most one per **DifficultyTier** (`easy`,
-  `medium`, `hard`), which apply to every mode. A difficulty *contains* **Modifier**s, each of which
-  multiplies one kind of modelled value (**ModifierTarget**: `enemy.speed`, `enemy.points`,
-  `player.health`, `player.speed`, `drop.chance`, `wave.delay`) by a factor. The tiers are an enum,
-  since their order matters and the game can rely on the same three. What a tier does is modelled,
-  not hard-coded.
+- **Edition** also *contains* its **Difficulty**s, which apply to every mode (see
+  [Difficulty](#difficulty) below).
 - **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
   **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
   written down: they are derived from what its levels spawn.
@@ -162,6 +158,14 @@ them:
     **WavesSurvived**, **HealthDepleted** or **EnemiesAlive**. The same class can be a win or a lose
     condition. For example, TimeReached is "survive 60 s" as a win and a time limit as a loss. The
     role comes from the containing list (`winConditions`, `loseConditions`).
+
+### Difficulty
+
+An edition can optionally have difficulties, which the player chooses after picking a mode. A
+**Difficulty** has a tier (`EASY`, `MEDIUM` or `HARD`) and a list of **Modifier**s. Each modifier
+multiplies one kind of value, such as enemy speed or player health, by a factor. For example, a hard
+difficulty could make enemies 1.3 times as fast and give the player half the health. Values without a
+modifier stay as modelled, and the difficulty applies to every mode of the edition.
 
 ### Derived features (Java, in `GamemodeDerivations`)
 
