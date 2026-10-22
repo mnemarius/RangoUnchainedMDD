@@ -12,8 +12,8 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<properties>
-		<!-- The example edition that -Pgame generates into the game: classic, survival or arcade. -->
-		<edition>survival</edition>
+		<!-- The example edition that -Pgame generates into the game: classic, arcade or hardcore. -->
+		<edition>classic</edition>
 		<game.folder>${project.basedir}/../rango-game</game.folder>
 	</properties>
 

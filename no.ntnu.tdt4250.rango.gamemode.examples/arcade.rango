@@ -1,9 +1,9 @@
-// An arcade edition: three short modes with different goals (a score to reach under a time limit,
-// a number of pops, a time to survive), two player profiles to choose between per mode, harmless
-// bubbles that vanish when popped but slow the player down, and a trap among the power-ups. Each mode
-// has its own drop tables, and the mine, the most dangerous enemy, drops the best power-up. Players
-// choose between three difficulty tiers, which apply to all modes: hard gives faster enemies, less
-// health and fewer drops, but more points per pop.
+// An arcade edition: five short modes with different goals (a score to reach under a time limit, a
+// number of pops, a time to survive, a number of waves, a minefield to clear against the clock), two
+// player profiles to choose between per mode, harmless bubbles that vanish when popped but slow the
+// player down, and a trap among the power-ups. Each mode has its own drop tables, and the mine, the
+// most dangerous enemy, drops the best power-up. Players choose between three difficulty tiers, which
+// apply to all modes: hard gives faster enemies, less health and fewer drops, but more points per pop.
 
 edition Arcade "Rango Unchained: Arcade"
 
@@ -160,4 +160,56 @@ mode Survivor "Survivor" {
 	}
 	win when time reaches 60 s
 	lose when health depleted
+}
+
+mode WaveRush "Wave Rush" {
+	description "Five waves with hardly a break between them. Get through all of them."
+	player Sprinter
+	gravity 12
+	arena {
+		background "Desert"
+	}
+	waves {
+		wave {
+			Tumbleweed size 3 at (50%, 70%)
+		}
+		wave after 1 s {
+			2 * Tumbleweed size 2 at (50%, 75%) moving left
+		}
+		wave after 1 s {
+			Weed size 3 at (40%, 70%)
+		}
+		wave after 1 s {
+			3 * Tumbleweed size 2 at (60%, 75%)
+		}
+		wave after 1 s {
+			Weed size 3 at (30%, 70%)
+			Tumbleweed size 3 at (70%, 70%) moving left
+		}
+	}
+	drops {
+		Tumbleweed 5% { Heart }
+		Weed 20% { Heart weight 3, Rush }
+	}
+	win when 5 waves survived
+	lose when health depleted
+}
+
+mode Minefield "Minefield" {
+	description "Heavy gravity and nothing but mines. Clear them all within 45 seconds."
+	player Tank
+	gravity 14
+	arena {
+		background "Desert"
+	}
+	layout {
+		Mine size 2 at (25%, 70%) moving right
+		Mine size 2 at (75%, 70%) moving left
+	}
+	drops {
+		Weed 10% { Thorns }
+		Mine 50% { Heart weight 2, Thorns }
+	}
+	win when all enemies cleared
+	lose when health depleted or time reaches 45 s
 }

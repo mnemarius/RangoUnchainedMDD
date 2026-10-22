@@ -10,7 +10,7 @@
 
 		  ./mvnw verify            build everything and run the tests
 		  ./mvnw verify -Pgame     also generate an edition into rango-game and build the game
-		                           (-Dedition=arcade selects another example, default survival)
+		                           (-Dedition=arcade selects another example, default classic)
 	-->
 
 	<groupId>no.ntnu.tdt4250.rango</groupId>
