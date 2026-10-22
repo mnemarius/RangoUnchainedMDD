@@ -54,11 +54,10 @@ game designer wants to experiment with.
 
 We therefore chose \emph{game modes} as the single variability aspect and treat the game as a
 software product line~\cite{spl}. One \emph{edition} (a product) is a set of game modes and the
-building blocks they share. We model the aspect in its entirety: everything that makes one mode
-differ from another is in the metamodel and reaches the game; nothing else is. Rendering, sound,
+building blocks they share. We have modeled this aspect in its entirety. Everything that makes one mode
+differ from another is in the metamodel and reaches the game. Rendering, sound,
 animation, menus, multiplayer and the user system do not vary between modes and stay out of the
-language. The campaign is modelled as a game mode of several levels, so single player is no longer a
-separate system next to the modes.
+language.
 
 The solution is a chain of Eclipse tools. A designer writes an edition in a \texttt{.rango} file.
 Xtext parses it into an instance of the Ecore metamodel, which is checked by OCL and Java
@@ -104,7 +103,7 @@ derived feature.
 A \texttt{DropTable} references one enemy type and contains weighted \texttt{Drop}s that reference
 power-ups. Drop rates thus depend on which enemy is popped and on the mode: a mode's own tables
 replace the edition's defaults. Which tables apply is derived (\texttt{effectiveDrops}) rather than
-copied into each mode.
+copied into each mode. This enables different game modes to have different drop rates for the same enemy type without duplicating the enemy definition.
 
 An edition can define up to three \texttt{Difficulty}s, one per tier. A difficulty contains
 \texttt{Modifier}s, each multiplying one kind of modelled value (enemy speed, points, player health
@@ -117,17 +116,16 @@ enemy types of a mode (recursively through split rules), the pops needed to clea
 maximum score, and the probability that a pop drops a given power-up. The generator, the editor
 hovers and the constraints all reuse them.
 
-Constraints are domain rules, not artificial limits. Single-object invariants are in OCL in the Ecore
-model (e.g.\ a drop chance is a percentage, a teleporter does not lead to itself). Rules spanning
-several objects are in Java with stable diagnostic codes. An example
-is \texttt{winnable}: every win condition can be met in every level, so ``all enemies cleared'' with
-looping waves, or a score above the derived maximum, is an error. Others are \texttt{endsSomehow},
-\texttt{noSimultaneousOutcome} (a round cannot be won and lost by the same event), and
-\texttt{everyEnemyDrops}.
+Constraints encode the game's domain rules. Single-object invariants are written in OCL in the Ecore
+model, e.g.\ a drop chance is a percentage and a teleporter cannot lead to itself. Rules spanning
+several objects are implemented in Java with stable diagnostic codes. \texttt{winnable} requires
+every win condition to be achievable in every level, so ``all enemies cleared'' with looping waves,
+or a score above the derivable maximum, is an error. The others are \texttt{endsSomehow},
+\texttt{noSimultaneousOutcome} (no event both wins and loses a round), and \texttt{everyEnemyDrops}.
 
 \section{Concrete Syntax and Editor}
-The Xtext~\cite{xtext} grammar \emph{imports} the hand-made metamodel instead of generating one, so all OCL and Java
-constraints and derived features apply in the editor. The syntax is customised to read like a game
+The Xtext~\cite{xtext} grammar \emph{imports} the hand-made metamodel, so the editor enforces all
+OCL and Java constraints and computes the derived features. The syntax reads like a game
 description, with units, percentages, positions and counts:
 
 \begin{lstlisting}
@@ -148,9 +146,8 @@ mode TimeAttack "Time Attack" {
 }
 \end{lstlisting}
 
-Beyond the generated defaults, the editor has scoping (a teleporter can only target one in its own
-arena), quick fixes keyed on the constraint codes, hovers that show derived facts, an outline with
-summaries, content assist for the game's images, templates, a formatter, and a command that generates
+Beyond the generated defaults, scoping restricts a teleporter to targets in its own arena, quick
+fixes are keyed on the constraint codes, hovers show derived facts, and a generate command writes
 into a chosen game folder and refuses invalid models.
 
 \section{Generation and Runtime}
@@ -177,24 +174,21 @@ Three structurally different editions show the range of the product line. \emph{
 five-level campaign and an endless mode with looping waves, teleporters, edition-wide drop tables and
 three difficulty tiers. \emph{Arcade} has five short modes with two player profiles, a speed bonus,
 mode-specific drop tables and different win conditions (score, pops, time, waves). \emph{Hardcore}
-has one mode, a one-heart player, chained splits and no difficulty tiers. A test checks that the
-three together use every concrete class, feature and enum literal of the metamodel. Each constraint
-has a test that breaks exactly that rule on a valid fixture, and generator tests check the produced
-code.
+has one mode, a one-heart player, chained splits and no difficulty tiers. 
 
 \section{Build and Packaging}
-Everything is built headless with Maven/Tycho against a pinned Eclipse 2026-06 target platform: the
-model, the language (MWE2 regeneration on every build), the editor, the tests, an Eclipse feature
-and a p2 update site. The profile \texttt{-Pgame -Dedition=arcade} generates an example into the game
-and builds it with Gradle, so deriving a product is one command. The repository README documents
-setup and use in detail.
+A headless Maven/Tycho build against a pinned Eclipse 2026-06 target platform regenerates the
+language with MWE2, then builds the model, editor and tests, an Eclipse feature and a p2 update
+site. The profile \texttt{-Pgame -Dedition=arcade} generates an example into the game and builds
+it with Gradle, so deriving a product takes one command.
 
 \section{Discussion}
 Modelling behaviour (split rules, effects, end conditions) instead of named entities made the
 metamodel smaller than an enumeration-based design, and lets a designer create enemies and modes the
 original game never had. The cost is a runtime that must interpret every combination, which we keep
 honest by generating and playing all three examples. Gameplay balance cannot be checked by
-constraints; we only guarantee that every mode is winnable, losable and ends.
+constraints; we only guarantee that every mode is winnable, losable and ends. Our solution for modeling gamemodes have
+ made it easy to add new editions, new game modes, and made it clear how model driven developement can be used to create a product line of games.
 
 \begin{thebibliography}{00}
 \bibitem{spl} K.~Pohl, G.~B\"ockle, and F.~van~der~Linden, \emph{Software Product Line Engineering:
