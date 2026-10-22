@@ -1,7 +1,6 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator
 
 import java.util.List
-import no.ntnu.tdt4250.rango.gamemode.EnemySpawn
 import no.ntnu.tdt4250.rango.gamemode.DropTable
 import no.ntnu.tdt4250.rango.gamemode.Edition
 import no.ntnu.tdt4250.rango.gamemode.GameMode
@@ -57,7 +56,7 @@ class GeneratorNames {
 		level.title ?: 'Level ' + level.number
 	}
 
-	/** A Java constant name for a enemy type: PricklyPear becomes ENEMY_PRICKLY_PEAR. */
+	/** A Java constant name for an enemy type: PricklyPear becomes ENEMY_PRICKLY_PEAR. */
 	def static constant(NamedElement element) {
 		'ENEMY_' + element.name.replaceAll('([a-z0-9])([A-Z])', '$1_$2').toUpperCase
 	}
@@ -100,14 +99,6 @@ class GeneratorNames {
 	def static List<Wave> waves(Level level) {
 		val spawning = level.spawning
 		if (spawning instanceof WaveSchedule) spawning.waves else #[]
-	}
-
-	/**
-	 * The horizontal positions of the enemies of a spawn: spread out sideways around the spawn position,
-	 * the same way the game's spawner spreads out the enemies of a wave.
-	 */
-	def static List<Float> spreadX(EnemySpawn spawn) {
-		(0 ..< Math.max(spawn.count, 0)).map[i|Math.max(3f, Math.min(97f, spawn.x + (i - (spawn.count - 1) / 2f) * 8f))].toList
 	}
 
 	/** A percentage for a comment, with at most one decimal: 12.5, 20, 6.7. */

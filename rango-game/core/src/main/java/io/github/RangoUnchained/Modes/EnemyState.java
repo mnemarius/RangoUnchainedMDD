@@ -1,7 +1,7 @@
 package io.github.RangoUnchained.Modes;
 
 /**
- * A snapshot of a enemy, handed to the generated rules when it is popped or touches the player.
+ * A snapshot of an enemy, handed to the generated rules when it is popped or touches the player.
  * Positions are in pixels (the centre of the enemy), velocities in metres per second.
  */
 public final class EnemyState {

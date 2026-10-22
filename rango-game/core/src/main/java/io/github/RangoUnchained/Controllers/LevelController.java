@@ -118,6 +118,7 @@ public class LevelController {
         new ModeContactRules(modeSession).setContactStrategies();
 
         mode.buildArena(levelNumber, modeSession);
+        mode.placeEnemies(levelNumber, modeSession);
     }
 
     /** The game mode being played, or null when the tutorial or a multiplayer level is played. */

@@ -1,6 +1,7 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -74,7 +75,6 @@ public class GeneratorTest {
 	@Test
 	public void editionListsItsDifficultiesFromEasyToHard() {
 		String edition = file(generate("arcade"), JAVA + "GeneratedEdition.java");
-		assertTrue(edition.contains("DEFAULT_DIFFICULTY = 1;"), edition);
 		assertTrue(edition.indexOf("new Difficulty(\"easy\", \"Easy\")") < edition.indexOf("new Difficulty(\"medium\", \"Medium\")"));
 		assertTrue(edition.indexOf("new Difficulty(\"medium\", \"Medium\")") < edition.indexOf("new Difficulty(\"hard\", \"Hard\")"));
 		String hard = edition.substring(edition.indexOf("new Difficulty(\"hard\""));
@@ -162,7 +162,7 @@ public class GeneratorTest {
 		for (int level = 1; level <= 5; level++) {
 			file(files, "assets/modes/Campaign-" + level + ".json");
 		}
-		assertTrue(file(files, "assets/modes/Campaign-2.json").contains("\"subType\": \"Cactus\""));
+		assertTrue(placeEnemies(campaign).contains("case 1:\n                spawner.spawn(\"Cactus\", "), campaign);
 		assertTrue(file(files, "assets/modes/Campaign-3.json").contains("{ \"name\": \"Mesa\""));
 	}
 
@@ -170,12 +170,43 @@ public class GeneratorTest {
 	public void arenasUseTheLevelFormat() {
 		InMemoryFileSystemAccess files = generate("arcade");
 		String popFrenzy = file(files, "assets/modes/PopFrenzy-1.json");
-		// six bubbles spread out around 50 %, then the two tumbleweeds of the layout
-		assertEquals(8, popFrenzy.split("\"type\": \"Enemy\"").length - 1);
 		assertTrue(popFrenzy.contains("{ \"name\": \"ObsticleFloor\", \"dimension\": {}, \"typeInfo\": { \"type\": \"Obsticle\", \"subType\": \"Floor\" } }"));
-		assertTrue(popFrenzy.contains("\"health\": 6"));
+		// the game's spawner places the enemies, and the player's health comes from the mode's player profile
+		assertFalse(popFrenzy.contains("\"type\": \"Enemy\""), popFrenzy);
+		assertFalse(popFrenzy.contains("\"health\""), popFrenzy);
 		String survivor = file(files, "assets/modes/Survivor-1.json");
 		assertTrue(survivor.contains("{ \"name\": \"Pillar\", \"dimension\": { \"x\": 50.0, \"y\": 20.0, \"width\": 40, \"height\": 160, \"relative\": true }"));
 		assertTrue(file(files, "android/res/values/edition.xml").contains("Rango Unchained: Arcade"));
+	}
+
+	@Test
+	public void enemiesMoveAtTheSpeedOfTheirType() {
+		InMemoryFileSystemAccess files = generate("arcade");
+		// the speed reaches the game through the enemy kind, which the difficulty scales
+		String minefield = file(files, JAVA + "MinefieldMode.java");
+		assertTrue(minefield.contains("ENEMY_WEED = new EnemyKind(\"Weed\", \"Enemy/Plant.png\",\n        0.9f, 1.0f, 6.0f);"), minefield);
+		assertTrue(minefield.contains("ENEMY_MINE = new EnemyKind(\"Mine\", \"Enemy/Bomb.png\",\n        1.0f, 1.0f, 5.0f);"), minefield);
+		// so a spawn only gives the direction
+		String placed = placeEnemies(minefield);
+		assertTrue(placed.contains("spawner.spawn(\"Mine\", 2, 1, 25.0f, 70.0f, RIGHT);"), placed);
+		assertTrue(placed.contains("spawner.spawn(\"Mine\", 2, 1, 75.0f, 70.0f, LEFT);"), placed);
+	}
+
+	@Test
+	public void fixedLayoutsAreSpawnedAtTheStart() {
+		String placed = placeEnemies(file(generate("arcade"), JAVA + "PopFrenzyMode.java"));
+		// six bubbles in one spawn, which the game spreads out around 50 %
+		assertTrue(placed.contains("spawner.spawn(\"Bubble\", 3, 6, 50.0f, 85.0f, "), placed);
+		assertTrue(placed.contains("spawner.spawn(\"Tumbleweed\", 3, 1, 15.0f, 60.0f, RIGHT);"), placed);
+		// a wave schedule spawns nothing at the start
+		String endless = placeEnemies(file(generate("classic"), JAVA + "EndlessMode.java"));
+		assertFalse(endless.contains("spawner.spawn"), endless);
+	}
+
+	/** The body of placeEnemies. */
+	private static String placeEnemies(String mode) {
+		int from = mode.indexOf("public void placeEnemies");
+		assertTrue(from >= 0, "no placeEnemies");
+		return mode.substring(from, mode.indexOf("@Override", from));
 	}
 }

@@ -130,31 +130,31 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="points" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="10">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Score awarded for each pop of a enemy of this type."/>
+        <details key="documentation" value="Score awarded for each pop of an enemy of this type."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="splitRule" lowerBound="1"
         eType="#//SplitRule" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What happens when a enemy of this type is hit by the tongue."/>
+        <details key="documentation" value="What happens when an enemy of this type is hit by the tongue."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contactEffects" lowerBound="1"
         upperBound="-1" eType="#//PlayerEffect" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="What a enemy of this type does to the player when they touch."/>
+        <details key="documentation" value="What an enemy of this type does to the player when they touch."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="producedTypes" upperBound="-1"
         eType="#//EnemyType" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The enemy types that popping a enemy of this type can create: none if it vanishes, otherwise the type of its fragments."/>
+        <details key="documentation" value="The enemy types that popping an enemy of this type can create: none if it vanishes, otherwise the type of its fragments."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SplitRule" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The behaviour of a enemy when it is popped."/>
+      <details key="documentation" value="The behaviour of an enemy when it is popped."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Vanish" eSuperTypes="#//SplitRule">
@@ -164,7 +164,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Split" eSuperTypes="#//SplitRule">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="The enemy breaks into fragments one size smaller, launched in evenly spaced directions centred on straight up. The number of fragments decides the pattern: one fragment means the enemy shrinks and carries on in its direction of travel, two fan out to the left and the right and hop upwards as in the original game, and eight or more fly off all around the popped enemy like an exploding bomb. A enemy of the smallest size disappears instead."/>
+      <details key="documentation" value="The enemy breaks into fragments one size smaller, launched in evenly spaced directions centred on straight up. The number of fragments decides the pattern: one fragment means the enemy shrinks and carries on in its direction of travel, two fan out to the left and the right and hop upwards as in the original game, and eight or more fly off all around the popped enemy like an exploding bomb. An enemy of the smallest size disappears instead."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="atLeastOneFragment atMostSixteenFragments positiveLaunchSpeed"/>
@@ -207,7 +207,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PlayerEffect" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Something that happens to the player: when a enemy touches them or when they pick up a power-up."/>
+      <details key="documentation" value="Something that happens to the player: when an enemy touches them or when they pick up a power-up."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Damage" eSuperTypes="#//PlayerEffect">

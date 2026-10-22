@@ -35,7 +35,7 @@ public final class GamemodeDerivations {
 	/** The value of the counting features when a mode never runs out of enemies. */
 	public static final int UNBOUNDED = -1;
 
-	/** The largest size class of a enemy. Larger (invalid) sizes are counted as this one. */
+	/** The largest size class of an enemy. Larger (invalid) sizes are counted as this one. */
 	public static final int MAX_SIZE = 3;
 
 	/** The number of fragments that close into a full ring. Fewer fan out upwards, more close the gaps. */
@@ -58,7 +58,7 @@ public final class GamemodeDerivations {
 		return 360f / Math.max(rule.getFragments(), FULL_RING);
 	}
 
-	/** The enemy types that popping a enemy of the given type can create. */
+	/** The enemy types that popping an enemy of the given type can create. */
 	public static EList<EnemyType> producedTypes(EnemyType type) {
 		List<EnemyType> produced = new ArrayList<>();
 		if (type.getSplitRule() instanceof Split rule && resultType(rule) != null) {

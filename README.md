@@ -18,6 +18,12 @@ enemy Mine {
 	on contact: damage 2
 }
 
+difficulty hard {
+	enemy.speed * 1.3
+	player.health * 0.5
+	drop.chance * 0.5
+}
+
 mode TimeAttack "Time Attack" {
 	player Sprinter
 	speed bonus up to 2 times over 60 s
@@ -57,7 +63,7 @@ mode TimeAttack "Time Attack" {
 ## Quick start
 
 You need JDK 21. The Maven wrapper downloads Maven, and the game's Gradle wrapper downloads Gradle.
-Gradle 8.12 runs on JDK 21 to 23.
+The game uses Gradle 9.8.2 and is built with the same JDK 21.
 
 ```sh
 ./mvnw verify                      # build the plug-ins, regenerate the language, run all tests
@@ -133,11 +139,8 @@ them:
 - **PowerUp**: sprite and the effects it gives. **PlayerProfile**: health, max health, speed, tongue
   time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
-- **Edition** also *contains* its **Difficulty**s, which apply to every mode
-- **Difficulty** has a tier (`EASY`, `MEDIUM` or `HARD`) and a list of **Modifier**s. An edition can optionally have difficulties, which the player chooses after picking a mode.Each modifier
-multiplies one kind of value, such as enemy speed or player health, by a factor. For example, a hard
-difficulty could make enemies 1.3 times as fast and give the player half the health. Values without a
-modifier stay as modelled, and the difficulty applies to every mode of the edition.
+- **Edition** also *contains* its **Difficulty**s, which apply to every mode (see
+  [Difficulty](#difficulty) below).
 - **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
   **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
   written down: they are derived from what its levels spawn.
@@ -161,6 +164,30 @@ modifier stay as modelled, and the difficulty applies to every mode of the editi
     **WavesSurvived**, **HealthDepleted** or **EnemiesAlive**. The same class can be a win or a lose
     condition. For example, TimeReached is "survive 60 s" as a win and a time limit as a loss. The
     role comes from the containing list (`winConditions`, `loseConditions`).
+
+### Difficulty
+
+An edition can have up to three **Difficulty**s, one per **DifficultyTier** (`EASY`, `MEDIUM`,
+`HARD`). When an edition has any, the player chooses one after picking a mode, and it applies to
+every level of that mode. Without difficulties, the modes are played exactly as modelled and the
+game skips the choice (as in `hardcore.rango`).
+
+A difficulty *contains* **Modifier**s. Each one multiplies one kind of modelled value, its
+**ModifierTarget**, by a `factor`, in every mode of the edition. A value without a modifier keeps a
+factor of 1, so an empty `difficulty medium { }` plays the modes as modelled.
+
+| Target | What the factor multiplies |
+| --- | --- |
+| `enemy.speed` | The speed of every enemy type, in fixed layouts and in waves. |
+| `enemy.points` | The points of every pop. |
+| `player.health` | The starting and maximum health of the player profile, rounded, and never below one heart. |
+| `player.speed` | The running speed of the player profile. |
+| `drop.chance` | The chance of every drop table, capped at 100%. |
+| `wave.delay` | The delay before every wave. |
+
+Constraints: each difficulty changes each value at most once (`distinctTargets`), factors are
+positive (`positiveFactor`), and each tier is defined at most once (`onePerTier`). The editor also
+warns when a harder tier makes something easier than the tier below it.
 
 ### Derived features (Java, in `GamemodeDerivations`)
 
@@ -211,8 +238,9 @@ codes, which the quick fixes use:
 The grammar (`RangoMode.xtext`) imports the hand-made metamodel instead of inferring one, so all
 constraints and derived features apply to models written in the editor. It is customized to read like
 a description of the game. Tuning can be written in any order (unordered groups). The syntax has
-units (`8 s`, `25%`), positions (`at (30%, 45%)`), counts (`2 * Tumbleweed size 3`), and readable end
-conditions (`win when 20 enemies popped or all enemies cleared`).
+units (`8 s`, `25%`), positions (`at (30%, 45%)`), counts (`2 * Tumbleweed size 3`), readable end
+conditions (`win when 20 enemies popped or all enemies cleared`), and difficulties written as the
+factors they apply (`difficulty hard { enemy.speed * 1.3  player.health * 0.5 }`).
 
 The editor adds:
 
@@ -228,7 +256,7 @@ The editor adds:
   probabilities, what an enemy breaks into, and shots per second.
 - **Outline** with icons and summaries ("Mine: splits into 4 Weed", "win when score reaches 1500").
 - **Content assist** for the images the game ships and for enemy sizes, and **templates** for enemy
-  types, power-ups, players, modes, waves and teleporter pairs.
+  types, power-ups, players, difficulties, modes, levels, waves, teleporter pairs and drop tables.
 - **Formatter** (*Source > Format*), and the **Generate Game Modes into Game...** command.
 
 ## Generation: from model to game
@@ -237,9 +265,9 @@ The editor adds:
 
 | Generated file | Content |
 | --- | --- |
-| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split` calls (with the derived spacing), effects become calls on the player, each enemy type's drop table becomes a chance roll and a weighted pick inside that enemy's case of `onEnemyPopped` (commented with the derived shares and probabilities), waves become spawn schedules with escalation, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
-| `assets/modes/<Mode>-<n>.json` | The arena of each level in the game's existing level format: background, player (with the profile's health), walls, floor and roof, blocks, and the enemies of a fixed layout. Positions are relative to the arena. |
-| `core/src/generated/java/.../Modes/Generated/GeneratedEdition.java` | The product name and the modes in menu order, read by the main menu and the desktop launcher's window title. |
+| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split` calls (with the derived spacing), effects become calls on the player, each enemy type's drop table becomes a chance roll and a weighted pick inside that enemy's case of `onEnemyPopped` (commented with the derived shares and probabilities), fixed layouts become spawn calls at the start of a level and waves become spawn schedules with escalation, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
+| `assets/modes/<Mode>-<n>.json` | The arena of each level in the game's existing level format: background, player, walls, floor and roof, and blocks. Positions are relative to the arena. |
+| `core/src/generated/java/.../Modes/Generated/GeneratedEdition.java` | The product name, the modes in menu order, and the difficulties from the easiest tier to the hardest, each with the factors of its modifiers (`new Difficulty("hard", "Hard").with(Difficulty.ENEMY_SPEED, 1.3f)`). Read by the main menu, the difficulty menu and the desktop launcher's window title. |
 | `android/res/values/edition.xml` | The product name for the Android launcher label. |
 
 Earlier generated files are removed first, so a mode deleted from the model disappears from the game.
@@ -253,14 +281,24 @@ The generated classes plug into a small runtime added to the game:
   teleports, and the statistics the end conditions check.
 - `ModeContactRules` replaces the original fixed contact strategies when a mode is played.
 - `ModeProgress` remembers the unlocked levels of each mode across restarts.
+- `Difficulty` holds the factors of one tier (1 for a value it does not change).
+  `DifficultyAdjustedMode` wraps a generated mode and multiplies its enemy speeds, player profile,
+  wave delays, points and drop chances by them. The rest of the game sees an ordinary
+  `GameModeDefinition`, so the generated mode classes do not depend on difficulties.
 
 Hooks in the existing code are kept small:
 
 - Factories read enemy kinds, sprites, player speed, tongue time and cooldown from the mode.
-- The physics system applies the bounce of each enemy type.
-- The level loader accepts arena-relative positions.
-- The main menu lists the modes of the edition and the tutorial. A mode of several levels opens a
+- The physics system applies the bounce of each enemy type and, on each floor bounce, caps its horizontal speed at
+  the type's speed.
+- The level loader accepts arena-relative positions. When a level starts, the level controller lets the mode build
+  its triggers and place the enemies of a fixed layout through the same spawner as waves, so both are spread out the
+  same way and move at their type's speed, which the difficulty's `enemy.speed` factor scales.
+- The main menu lists the modes of the edition, each with its description, and the tutorial. If the edition has difficulties, a
+  mode first opens the difficulty menu (`SelectDifficultyView`). A mode of several levels opens a
   level list (`SelectModeLevelView`), and the game over screen offers the next level once one is won.
+- The player factory takes the player's health from the mode being played, so a difficulty can
+  change it.
 
 The tutorial and multiplayer are unchanged.
 
@@ -279,9 +317,11 @@ feature and every enumeration literal of the metamodel.
 
 `./mvnw verify` runs:
 
-- `no.ntnu.tdt4250.rango.gamemode.tests`: every derived feature, each OCL invariant tested above,
-  and each Java constraint. Every test breaks one rule of a valid fixture and checks that exactly that
-  rule fires.
+- `no.ntnu.tdt4250.rango.gamemode.tests`: every derived feature, every OCL invariant of every class
+  (also where several classes share a name, such as `positiveCount`), and every Java constraint. Each
+  test breaks one rule of a valid fixture and checks that exactly that rule fires. The one exception
+  is a lose condition of 0 enemies alive, which also breaks `noSimultaneousOutcome`: the round would
+  be lost the moment it starts.
 - `no.ntnu.tdt4250.rango.gamemode.dsl.tests`: the examples (validity and metamodel coverage),
   constraint and DSL errors in the editor with their issue codes, scoping of teleporters, the
   generated files and their content, and the formatter.

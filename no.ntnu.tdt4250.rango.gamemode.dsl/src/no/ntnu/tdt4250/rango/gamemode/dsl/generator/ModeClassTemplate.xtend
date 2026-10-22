@@ -5,6 +5,7 @@ import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped
 import no.ntnu.tdt4250.rango.gamemode.Cleared
 import no.ntnu.tdt4250.rango.gamemode.Damage
 import no.ntnu.tdt4250.rango.gamemode.DropTable
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout
 import no.ntnu.tdt4250.rango.gamemode.GameMode
 import no.ntnu.tdt4250.rango.gamemode.Heal
@@ -29,7 +30,7 @@ import static extension no.ntnu.tdt4250.rango.gamemode.dsl.generator.GeneratorNa
  * Generates the Java class of a game mode: a subclass of the game's {@code GameModeDefinition} whose
  * methods carry out the rules of the mode. Every rule of the model becomes code here: split rules
  * become calls that create fragments, effects become calls on the player, drop tables become
- * weighted rolls, waves become spawn calls, and end conditions become the boolean expressions that
+ * weighted rolls, fixed layouts and waves become spawn calls, and end conditions become the boolean expressions that
  * decide when a round is won or lost.
  */
 class ModeClassTemplate {
@@ -176,6 +177,21 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
+		    public void placeEnemies(int level, Spawner spawner) {
+		        switch (level) {
+		            «FOR level : mode.levels.filter[spawning instanceof FixedLayout]»
+		            case «level.number - 1»:
+		                «FOR spawn : (level.spawning as FixedLayout).spawns»
+		                «spawnCall(spawn, '')»
+		                «ENDFOR»
+		                break;
+		            «ENDFOR»
+		            default:
+		                break; // its enemies come in waves
+		        }
+		    }
+
+		    @Override
 		    public int waveCount(int level) {
 		        switch (level) {
 		            «FOR level : mode.levels»
@@ -307,7 +323,7 @@ class ModeClassTemplate {
 	'''
 
 	def dispatch spawnWaves(FixedLayout layout, Level level) '''
-		// all enemies are placed at the start by the arena resource «level.arenaResource»
+		// all enemies are placed at the start, by placeEnemies
 	'''
 
 	def dispatch spawnWaves(WaveSchedule schedule, Level level) '''
@@ -318,7 +334,7 @@ class ModeClassTemplate {
 		    «FOR wave : schedule.waves»
 		    case «wave.number - 1»:
 		        «FOR spawn : wave.spawns»
-		        spawner.spawn(«spawn.type.name.javaString», «spawn.size», «spawn.count»«IF schedule.escalation > 0» + extra«ENDIF», «spawn.x.javaFloat», «spawn.y.javaFloat», «spawn.direction.getName»);
+		        «spawnCall(spawn, if (schedule.escalation > 0) ' + extra' else '')»
 		        «ENDFOR»
 		        break;
 		    «ENDFOR»
@@ -326,6 +342,9 @@ class ModeClassTemplate {
 		        break;
 		}
 	'''
+
+	/** The runtime spreads the enemies of a spawn out sideways and gives them the speed of their type. */
+	def spawnCall(EnemySpawn spawn, String extra) '''spawner.spawn(«spawn.type.name.javaString», «spawn.size», «spawn.count»«extra», «spawn.x.javaFloat», «spawn.y.javaFloat», «spawn.direction.getName»);'''
 
 	def dispatch pop(Vanish rule) '''
 		// vanishes at once, whatever its size
@@ -340,7 +359,7 @@ class ModeClassTemplate {
 		if (bonus === null) '' else ''' * context.speedBonus(«bonus.maxFactor.javaFloat», «bonus.duration.javaFloat»)'''
 	}
 
-	/** The roll of a enemy type's drop table: whether the pop drops anything, then which power-up. */
+	/** The roll of an enemy type's drop table: whether the pop drops anything, then which power-up. */
 	def drop(DropTable table) '''
 		if (context.chance(«table.chance.javaFloat»)) { // «table.chance.percent» % of «table.enemyType.name» pops drop something
 		    «IF table.entries.size == 1»

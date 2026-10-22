@@ -1,7 +1,7 @@
 package io.github.RangoUnchained.Modes;
 
 /**
- * The tuning of a enemy type: what the physics and the rendering of a enemy need to know about it.
+ * The tuning of an enemy type: what the physics and the rendering of an enemy need to know about it.
  * Its behaviour (popping, contact) lives in the generated {@link GameModeDefinition}.
  */
 public final class EnemyKind {

@@ -61,6 +61,7 @@ Workflow {
 			}
 			junitSupport = {
 				junitVersion = "6"
+				generateStub = false
 			}
 		}
 	}

@@ -9,7 +9,7 @@ package no.ntnu.tdt4250.rango.gamemode;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * The enemy breaks into fragments one size smaller, launched in evenly spaced directions centred on straight up. The number of fragments decides the pattern: one fragment means the enemy shrinks and carries on in its direction of travel, two fan out to the left and the right and hop upwards as in the original game, and eight or more fly off all around the popped enemy like an exploding bomb. A enemy of the smallest size disappears instead.
+ * The enemy breaks into fragments one size smaller, launched in evenly spaced directions centred on straight up. The number of fragments decides the pattern: one fragment means the enemy shrinks and carries on in its direction of travel, two fan out to the left and the right and hop upwards as in the original game, and eight or more fly off all around the popped enemy like an exploding bomb. An enemy of the smallest size disappears instead.
  * <!-- end-model-doc -->
  *
  * <p>

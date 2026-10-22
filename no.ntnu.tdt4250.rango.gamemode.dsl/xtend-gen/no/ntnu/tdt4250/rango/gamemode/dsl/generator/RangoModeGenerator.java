@@ -20,7 +20,6 @@ import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
@@ -130,16 +129,6 @@ public class RangoModeGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("/** The position in {@link #difficulties()} of the tier the menu starts at: medium, if there is one. */");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("public static final int DEFAULT_DIFFICULTY = ");
-    int _defaultDifficulty = this.defaultDifficulty(edition);
-    _builder.append(_defaultDifficulty, "    ");
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
-    _builder.append("    ");
     _builder.append("private GeneratedEdition() {");
     _builder.newLine();
     _builder.append("    ");
@@ -238,13 +227,6 @@ public class RangoModeGenerator extends AbstractGenerator {
       return it.getTier();
     };
     return IterableExtensions.<Difficulty, DifficultyTier>sortBy(edition.getDifficulties(), _function);
-  }
-
-  public int defaultDifficulty(final Edition edition) {
-    final Function1<Difficulty, DifficultyTier> _function = (Difficulty it) -> {
-      return it.getTier();
-    };
-    return Math.max(0, ListExtensions.<Difficulty, DifficultyTier>map(this.sortedDifficulties(edition), _function).indexOf(DifficultyTier.MEDIUM));
   }
 
   public CharSequence androidValues(final Edition edition, final String source) {
