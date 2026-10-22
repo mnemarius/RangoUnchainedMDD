@@ -83,4 +83,9 @@ teleporter ${East} at (${94}%, ${10}%) to ${West} affects ${everything}</templat
 		${type:CrossReference('EnemySpawn.type')} size 3 at (${60}%, ${50}%) moving left
 	}
 }</template>
+<template autoinsert="true" context="no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Difficulty" deleted="false" description="A difficulty tier that multiplies values in every mode" enabled="true" id="no.ntnu.tdt4250.rango.gamemode.dsl.templates.difficulty" name="difficulty">difficulty ${hard} {
+	enemy.speed * ${1.3}
+	player.health * ${0.5}
+	drop.chance * ${0.75}
+}</template>
 </templates>

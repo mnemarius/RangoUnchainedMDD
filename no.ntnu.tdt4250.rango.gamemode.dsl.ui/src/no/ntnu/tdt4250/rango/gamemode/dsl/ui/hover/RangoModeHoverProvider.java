@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
 
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
@@ -16,6 +17,7 @@ import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
@@ -106,8 +108,32 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			facts.add("Leads to " + teleporter.getTarget().getName());
 		} else if (object instanceof PlayerProfile player && player.getCooldown() > 0) {
 			facts.add("At most " + Math.round(10 / player.getCooldown()) / 10.0 + " shots per second");
+		} else if (object instanceof Difficulty difficulty) {
+			if (difficulty.getModifiers().isEmpty()) {
+				facts.add("Every value stays as modelled.");
+			}
+			for (Modifier modifier : difficulty.getModifiers()) {
+				facts.add(describe(modifier));
+			}
+			if (difficulty.eContainer() instanceof Edition edition) {
+				facts.add("Applies to every mode: " + names(edition.getModes()));
+			}
+		} else if (object instanceof Modifier modifier) {
+			facts.add(describe(modifier) + " in every mode of the edition.");
 		}
 		return facts;
+	}
+
+	private static String describe(Modifier modifier) {
+		String value = switch (modifier.getTarget()) {
+			case ENEMY_SPEED -> "the speed of every enemy";
+			case ENEMY_POINTS -> "the points of every pop";
+			case PLAYER_HEALTH -> "the health of the player";
+			case PLAYER_SPEED -> "the speed of the player";
+			case DROP_CHANCE -> "the drop chance of every enemy type";
+			case WAVE_DELAY -> "the delay before every wave";
+		};
+		return "Multiplies " + value + " by " + factor(modifier.getFactor());
 	}
 
 	/** A percentage with at most one decimal. */

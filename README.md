@@ -225,10 +225,12 @@ The editor adds:
   list, add drop tables for the enemies without one, remove an unused element or a drop table without
   effect, fix sprite and background paths.
 - **Hovers** that show the derived facts: the enemy types of a mode, pops to clear, maximum score, drop
-  probabilities, what an enemy breaks into, and shots per second.
-- **Outline** with icons and summaries ("Mine: splits into 4 Weed", "win when score reaches 1500").
+  probabilities, what an enemy breaks into, shots per second, and what each difficulty multiplies in
+  which modes.
+- **Outline** with icons and summaries ("Mine: splits into 4 Weed", "win when score reaches 1500",
+  "enemy.speed ×1.3").
 - **Content assist** for the images the game ships and for enemy sizes, and **templates** for enemy
-  types, power-ups, players, modes, waves and teleporter pairs.
+  types, power-ups, players, difficulties, modes, waves and teleporter pairs.
 - **Formatter** (*Source > Format*), and the **Generate Game Modes into Game...** command.
 
 ## Generation: from model to game

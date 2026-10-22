@@ -16,6 +16,7 @@ import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
+import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
@@ -26,6 +27,7 @@ import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
+import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
@@ -100,6 +102,22 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 
 	String image(PlayerProfile player) {
 		return "player.png";
+	}
+
+	String text(Difficulty difficulty) {
+		return "difficulty " + difficulty.getTier().getLiteral() + (difficulty.getModifiers().isEmpty() ? ": as modelled" : "");
+	}
+
+	String image(Difficulty difficulty) {
+		return "difficulty.png";
+	}
+
+	String text(Modifier modifier) {
+		return modifier.getTarget().getLiteral() + " ×" + number(modifier.getFactor());
+	}
+
+	String image(Modifier modifier) {
+		return "difficulty.png";
 	}
 
 	String text(GameMode mode) {
