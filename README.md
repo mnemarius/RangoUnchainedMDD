@@ -132,8 +132,8 @@ them:
 - **PowerUp**: sprite and the effects it gives. **PlayerProfile**: health, max health, speed, tongue
   time, shot cooldown and grace time.
 - **Edition** also *contains* the default **DropTable**s of its modes.
-- **Edition** also *contains* its **Difficulty**s, which apply to every mode (see
-  [Difficulty](#difficulty) below).
+- **Edition** also *contains* **Difficulties**, which apply to every mode.
+- **Difficulty** can be either (`EASY`, `MEDIUM`, `HARD`). When an edition has any, the player chooses a difficulty after picking a mode, and it applies to every level of that mode. Without difficulties, the modes are played exactly as modelled and the game skips the choice.
 - **GameMode** *references* a player profile, and *contains* one or more **Level**s, an optional
   **SpeedBonus**, its own **DropTable**s, and its win and lose conditions. Its enemy types are not
   written down: they are derived from what its levels spawn.
@@ -158,29 +158,6 @@ them:
     condition. For example, TimeReached is "survive 60 s" as a win and a time limit as a loss. The
     role comes from the containing list (`winConditions`, `loseConditions`).
 
-### Difficulty
-
-An edition can have up to three **Difficulty**s, one per **DifficultyTier** (`EASY`, `MEDIUM`,
-`HARD`). When an edition has any, the player chooses one after picking a mode, and it applies to
-every level of that mode. Without difficulties, the modes are played exactly as modelled and the
-game skips the choice (as in `hardcore.rango`).
-
-A difficulty *contains* **Modifier**s. Each one multiplies one kind of modelled value, its
-**ModifierTarget**, by a `factor`, in every mode of the edition. A value without a modifier keeps a
-factor of 1, so an empty `difficulty medium { }` plays the modes as modelled.
-
-| Target | What the factor multiplies |
-| --- | --- |
-| `enemy.speed` | The speed of every enemy type, in fixed layouts and in waves. |
-| `enemy.points` | The points of every pop. |
-| `player.health` | The starting and maximum health of the player profile, rounded, and never below one heart. |
-| `player.speed` | The running speed of the player profile. |
-| `drop.chance` | The chance of every drop table, capped at 100%. |
-| `wave.delay` | The delay before every wave. |
-
-Constraints: each difficulty changes each value at most once (`distinctTargets`), factors are
-positive (`positiveFactor`), and each tier is defined at most once (`onePerTier`). The editor also
-warns when a harder tier makes something easier than the tier below it.
 
 ### Derived features (Java, in `GamemodeDerivations`)
 
