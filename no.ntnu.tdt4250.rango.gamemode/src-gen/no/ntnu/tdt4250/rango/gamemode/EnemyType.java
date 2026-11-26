@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getEnemyType()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveScale positiveBounce positiveSpeed nonNegativePoints distinctEffectKinds'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveScale positiveBounce positiveSpeed nonNegativePoints distinctEffectKinds oneInstantEffect'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG positiveScale='scale &gt; 0' positiveBounce='bounce &gt; 0' positiveSpeed='speed &gt; 0' nonNegativePoints='points &gt;= 0'"
  * @generated
  */

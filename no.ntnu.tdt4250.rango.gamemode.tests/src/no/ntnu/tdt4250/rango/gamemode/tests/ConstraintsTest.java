@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import no.ntnu.tdt4250.rango.gamemode.Block;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
@@ -22,14 +20,11 @@ import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
-import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
-import no.ntnu.tdt4250.rango.gamemode.TimeReached;
 import no.ntnu.tdt4250.rango.gamemode.TimedEffect;
-import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
 
 /**
@@ -276,39 +271,33 @@ public class ConstraintsTest {
 	}
 
 	@Test
-	public void oclTimeReachedTakesTime() {
-		TimeReached limit = ModelFixture.F.createTimeReached();
-		f.clear.getLoseConditions().add(limit);
-		assertViolated("positiveSeconds");
+	public void oclWinValuesAreNotNegative() {
+		f.clear.getWin().setEnemiesPopped(-1);
+		assertViolated("nonNegativeValues");
 	}
 
 	@Test
-	public void oclScoreReachedNeedsPoints() {
-		f.clear.getWinConditions().add(ModelFixture.F.createScoreReached());
-		assertViolated("positivePoints");
+	public void oclLoseValuesAreNotNegative() {
+		f.clear.getLose().setTimeLimit(-1);
+		assertViolated("nonNegativeValues");
 	}
 
 	@Test
-	public void oclEnemiesPoppedNeedsAPop() {
-		f.clear.getWinConditions().add(ModelFixture.F.createEnemiesPopped());
-		assertViolated("positiveCount");
+	public void oclWinConditionSetsACondition() {
+		// a value of 0 means the condition is not set, so this win condition has none left
+		f.waves.getWin().setWavesSurvived(0);
+		assertViolated("setsACondition");
 	}
 
 	@Test
-	public void oclWavesSurvivedNeedsAWave() {
-		((WavesSurvived) f.waves.getWinConditions().get(0)).setCount(0);
-		assertViolated("positiveCount");
-	}
-
-	@Test
-	public void oclEnemiesAliveNeedsAnEnemy() {
-		f.clear.getLoseConditions().add(ModelFixture.F.createEnemiesAlive());
-		// no enemies alive is also how every round starts, so the round is lost at once as well
+	public void oclLoseConditionSetsACondition() {
+		f.clear.getLose().setHealthDepleted(false);
+		// the enemies of the mode can hurt the player, so health has to decide the round as well
 		Diagnostic diagnostic = ModelFixture.validate(f.edition);
 		List<String> messages = messages(diagnostic);
 		assertEquals(2, messages.size(), messages.toString());
-		assertTrue(messages.stream().anyMatch(m -> m.contains("'positiveCount'")), messages.toString());
-		assertTrue(diagnostic.getChildren().stream().anyMatch(d -> d.getCode() == GamemodeConstraints.LOST_AT_START),
+		assertTrue(messages.stream().anyMatch(m -> m.contains("'setsACondition'")), messages.toString());
+		assertTrue(diagnostic.getChildren().stream().anyMatch(d -> d.getCode() == GamemodeConstraints.HEALTH_NOT_DECISIVE),
 				messages.toString());
 	}
 
@@ -343,37 +332,43 @@ public class ConstraintsTest {
 	}
 
 	@Test
+	public void enemyCannotHealAndDamage() {
+		var heal = ModelFixture.F.createHeal();
+		heal.setAmount(1);
+		f.tumbleweed.getContactEffects().add(heal);
+		assertCode(GamemodeConstraints.OPPOSING_INSTANT_EFFECTS);
+	}
+
+	@Test
+	public void powerUpCannotHealAndDamage() {
+		var damage = ModelFixture.F.createDamage();
+		damage.setAmount(1);
+		f.heart.getEffects().add(damage);
+		assertCode(GamemodeConstraints.OPPOSING_INSTANT_EFFECTS);
+	}
+
+	@Test
 	public void cannotWinAndLoseByTheSameTime() {
-		TimeReached survive = ModelFixture.F.createTimeReached();
-		survive.setSeconds(60);
-		TimeReached limit = ModelFixture.F.createTimeReached();
-		limit.setSeconds(60);
-		f.clear.getWinConditions().add(survive);
-		f.clear.getLoseConditions().add(limit);
+		f.clear.getWin().setSurviveSeconds(60);
+		f.clear.getLose().setTimeLimit(60);
 		assertCode(GamemodeConstraints.SIMULTANEOUS_OUTCOME);
 	}
 
 	@Test
 	public void cannotBeLostAtTheStart() {
-		EnemiesAlive overrun = ModelFixture.F.createEnemiesAlive();
-		overrun.setCount(2);
-		f.clear.getLoseConditions().add(overrun);
+		f.clear.getLose().setEnemiesAlive(2);
 		assertCode(GamemodeConstraints.LOST_AT_START);
 	}
 
 	@Test
 	public void winConditionsMustBeReachable() {
-		EnemiesPopped popped = ModelFixture.F.createEnemiesPopped();
-		popped.setCount(21);
-		f.clear.getWinConditions().add(popped);
+		f.clear.getWin().setEnemiesPopped(21);
 		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
 	}
 
 	@Test
 	public void scoreBonusRaisesTheReachableScore() {
-		ScoreReached score = ModelFixture.F.createScoreReached();
-		score.setPoints(300);
-		f.clear.getWinConditions().add(score);
+		f.clear.getWin().setPoints(300);
 		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
 		SpeedBonus bonus = ModelFixture.F.createSpeedBonus();
 		f.clear.setSpeedBonus(bonus);
@@ -385,20 +380,20 @@ public class ConstraintsTest {
 
 	@Test
 	public void clearedNeedsWavesThatEnd() {
-		f.waves.getWinConditions().add(ModelFixture.F.createCleared());
+		f.waves.getWin().setCleared(true);
 		f.schedule.setLoop(true);
 		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
 	}
 
 	@Test
 	public void modeWithoutWinConditionsMustLoop() {
-		f.clear.getWinConditions().clear();
+		f.clear.setWin(null);
 		assertCode(GamemodeConstraints.NEVER_ENDS);
 	}
 
 	@Test
 	public void modeWithSeveralLevelsNeedsAWinCondition() {
-		f.waves.getWinConditions().clear();
+		f.waves.setWin(null);
 		f.schedule.setLoop(true);
 		Level second = ModelFixture.level();
 		second.setSpawning(ModelFixture.copyOf(f.schedule));
@@ -410,9 +405,7 @@ public class ConstraintsTest {
 	public void winConditionsMustBeReachableInEveryLevel() {
 		// Clear is won after 20 pops, which its first level offers; a second level with a small
 		// tumbleweed only offers 1
-		EnemiesPopped popped = ModelFixture.F.createEnemiesPopped();
-		popped.setCount(20);
-		f.clear.getWinConditions().add(popped);
+		f.clear.getWin().setEnemiesPopped(20);
 		Level small = ModelFixture.level();
 		FixedLayout layout = ModelFixture.F.createFixedLayout();
 		layout.getSpawns().add(ModelFixture.spawn(f.tumbleweed, 1, 1));
@@ -425,17 +418,9 @@ public class ConstraintsTest {
 
 	@Test
 	public void harmfulModesAreLostOnHealth() {
-		f.clear.getLoseConditions().clear();
-		TimeReached limit = ModelFixture.F.createTimeReached();
-		limit.setSeconds(60);
-		f.clear.getLoseConditions().add(limit);
+		f.clear.getLose().setHealthDepleted(false);
+		f.clear.getLose().setTimeLimit(60);
 		assertCode(GamemodeConstraints.HEALTH_NOT_DECISIVE);
-	}
-
-	@Test
-	public void healthCanOnlyLose() {
-		f.clear.getWinConditions().add(ModelFixture.F.createHealthDepleted());
-		assertCode(GamemodeConstraints.WRONG_ROLE);
 	}
 
 	@Test

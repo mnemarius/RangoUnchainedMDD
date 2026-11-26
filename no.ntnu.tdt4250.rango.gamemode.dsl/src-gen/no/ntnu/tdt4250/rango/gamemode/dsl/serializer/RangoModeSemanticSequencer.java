@@ -7,38 +7,33 @@ import com.google.inject.Inject;
 import java.util.Set;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.Block;
-import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
-import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
-import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
-import no.ntnu.tdt4250.rango.gamemode.TimeReached;
 import no.ntnu.tdt4250.rango.gamemode.Vanish;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import no.ntnu.tdt4250.rango.gamemode.dsl.services.RangoModeGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -70,9 +65,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case GamemodePackage.BLOCK:
 				sequence_At_Block(context, (Block) semanticObject); 
 				return; 
-			case GamemodePackage.CLEARED:
-				sequence_Cleared(context, (Cleared) semanticObject); 
-				return; 
 			case GamemodePackage.DAMAGE:
 				sequence_Damage(context, (Damage) semanticObject); 
 				return; 
@@ -87,12 +79,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 				return; 
 			case GamemodePackage.EDITION:
 				sequence_Drops_Edition(context, (Edition) semanticObject); 
-				return; 
-			case GamemodePackage.ENEMIES_ALIVE:
-				sequence_EnemiesAlive(context, (EnemiesAlive) semanticObject); 
-				return; 
-			case GamemodePackage.ENEMIES_POPPED:
-				sequence_EnemiesPopped(context, (EnemiesPopped) semanticObject); 
 				return; 
 			case GamemodePackage.ENEMY_SPAWN:
 				sequence_At_EnemySpawn(context, (EnemySpawn) semanticObject); 
@@ -109,9 +95,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case GamemodePackage.HEAL:
 				sequence_Heal(context, (Heal) semanticObject); 
 				return; 
-			case GamemodePackage.HEALTH_DEPLETED:
-				sequence_HealthDepleted(context, (HealthDepleted) semanticObject); 
-				return; 
 			case GamemodePackage.JUMP_PAD:
 				sequence_At_JumpPad(context, (JumpPad) semanticObject); 
 				return; 
@@ -125,6 +108,9 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 					return; 
 				}
 				else break;
+			case GamemodePackage.LOSE_CONDITION:
+				sequence_LoseClause_LoseCondition(context, (LoseCondition) semanticObject); 
+				return; 
 			case GamemodePackage.MODIFIER:
 				sequence_Modifier(context, (Modifier) semanticObject); 
 				return; 
@@ -136,9 +122,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 				return; 
 			case GamemodePackage.POWER_UP:
 				sequence_PowerUp(context, (PowerUp) semanticObject); 
-				return; 
-			case GamemodePackage.SCORE_REACHED:
-				sequence_ScoreReached(context, (ScoreReached) semanticObject); 
 				return; 
 			case GamemodePackage.SHIELD:
 				sequence_Shield(context, (Shield) semanticObject); 
@@ -155,9 +138,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case GamemodePackage.TELEPORTER:
 				sequence_At_Teleporter(context, (Teleporter) semanticObject); 
 				return; 
-			case GamemodePackage.TIME_REACHED:
-				sequence_TimeReached(context, (TimeReached) semanticObject); 
-				return; 
 			case GamemodePackage.VANISH:
 				sequence_Vanish(context, (Vanish) semanticObject); 
 				return; 
@@ -167,8 +147,8 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case GamemodePackage.WAVE_SCHEDULE:
 				sequence_WaveSchedule(context, (WaveSchedule) semanticObject); 
 				return; 
-			case GamemodePackage.WAVES_SURVIVED:
-				sequence_WavesSurvived(context, (WavesSurvived) semanticObject); 
+			case GamemodePackage.WIN_CONDITION:
+				sequence_WinClause_WinCondition(context, (WinCondition) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -276,21 +256,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     EndCondition returns Cleared
-	 *     Cleared returns Cleared
-	 *
-	 * Constraint:
-	 *     {Cleared}
-	 * </pre>
-	 */
-	protected void sequence_Cleared(ISerializationContext context, Cleared semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
 	 *     PlayerEffect returns Damage
 	 *     Damage returns Damage
 	 *
@@ -300,8 +265,8 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 */
 	protected void sequence_Damage(ISerializationContext context, Damage semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.DAMAGE__AMOUNT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.DAMAGE__AMOUNT));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.INSTANT_EFFECT__AMOUNT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.INSTANT_EFFECT__AMOUNT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getDamageAccess().getAmountINTTerminalRuleCall_1_0(), semanticObject.getAmount());
@@ -390,56 +355,13 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *         (gravity=Decimal | speedBonus=SpeedBonus)* 
 	 *         (levels+=SingleLevel | levels+=Level+) 
 	 *         drops+=DropTable* 
-	 *         (winConditions+=EndCondition winConditions+=EndCondition*)? 
-	 *         loseConditions+=EndCondition 
-	 *         loseConditions+=EndCondition*
+	 *         win=WinCondition? 
+	 *         lose=LoseCondition
 	 *     )
 	 * </pre>
 	 */
 	protected void sequence_Drops_GameMode(ISerializationContext context, GameMode semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     EndCondition returns EnemiesAlive
-	 *     EnemiesAlive returns EnemiesAlive
-	 *
-	 * Constraint:
-	 *     count=INT
-	 * </pre>
-	 */
-	protected void sequence_EnemiesAlive(ISerializationContext context, EnemiesAlive semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.ENEMIES_ALIVE__COUNT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.ENEMIES_ALIVE__COUNT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getEnemiesAliveAccess().getCountINTTerminalRuleCall_0_0(), semanticObject.getCount());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     EndCondition returns EnemiesPopped
-	 *     EnemiesPopped returns EnemiesPopped
-	 *
-	 * Constraint:
-	 *     count=INT
-	 * </pre>
-	 */
-	protected void sequence_EnemiesPopped(ISerializationContext context, EnemiesPopped semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.ENEMIES_POPPED__COUNT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.ENEMIES_POPPED__COUNT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getEnemiesPoppedAccess().getCountINTTerminalRuleCall_0_0(), semanticObject.getCount());
-		feeder.finish();
 	}
 	
 	
@@ -490,27 +412,12 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 */
 	protected void sequence_Heal(ISerializationContext context, Heal semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.HEAL__AMOUNT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.HEAL__AMOUNT));
+			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.INSTANT_EFFECT__AMOUNT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.INSTANT_EFFECT__AMOUNT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getHealAccess().getAmountINTTerminalRuleCall_1_0(), semanticObject.getAmount());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     EndCondition returns HealthDepleted
-	 *     HealthDepleted returns HealthDepleted
-	 *
-	 * Constraint:
-	 *     {HealthDepleted}
-	 * </pre>
-	 */
-	protected void sequence_HealthDepleted(ISerializationContext context, HealthDepleted semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -524,6 +431,20 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 * </pre>
 	 */
 	protected void sequence_Level(ISerializationContext context, Level semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
+	 *     LoseCondition returns LoseCondition
+	 *
+	 * Constraint:
+	 *     (healthDepleted?='health' | timeLimit=Decimal | enemiesAlive=INT)+
+	 * </pre>
+	 */
+	protected void sequence_LoseClause_LoseCondition(ISerializationContext context, LoseCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -603,27 +524,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 */
 	protected void sequence_PowerUp(ISerializationContext context, PowerUp semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     EndCondition returns ScoreReached
-	 *     ScoreReached returns ScoreReached
-	 *
-	 * Constraint:
-	 *     points=INT
-	 * </pre>
-	 */
-	protected void sequence_ScoreReached(ISerializationContext context, ScoreReached semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.SCORE_REACHED__POINTS) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.SCORE_REACHED__POINTS));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getScoreReachedAccess().getPointsINTTerminalRuleCall_2_0(), semanticObject.getPoints());
-		feeder.finish();
 	}
 	
 	
@@ -727,27 +627,6 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     EndCondition returns TimeReached
-	 *     TimeReached returns TimeReached
-	 *
-	 * Constraint:
-	 *     seconds=Decimal
-	 * </pre>
-	 */
-	protected void sequence_TimeReached(ISerializationContext context, TimeReached semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.TIME_REACHED__SECONDS) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.TIME_REACHED__SECONDS));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTimeReachedAccess().getSecondsDecimalParserRuleCall_2_0(), semanticObject.getSeconds());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
 	 *     SplitRule returns Vanish
 	 *     Vanish returns Vanish
 	 *
@@ -792,21 +671,14 @@ public class RangoModeSemanticSequencer extends AbstractDelegatingSemanticSequen
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     EndCondition returns WavesSurvived
-	 *     WavesSurvived returns WavesSurvived
+	 *     WinCondition returns WinCondition
 	 *
 	 * Constraint:
-	 *     count=INT
+	 *     (cleared?='all' | surviveSeconds=Decimal | points=INT | enemiesPopped=INT | wavesSurvived=INT)+
 	 * </pre>
 	 */
-	protected void sequence_WavesSurvived(ISerializationContext context, WavesSurvived semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, GamemodePackage.Literals.WAVES_SURVIVED__COUNT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, GamemodePackage.Literals.WAVES_SURVIVED__COUNT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getWavesSurvivedAccess().getCountINTTerminalRuleCall_0_0(), semanticObject.getCount());
-		feeder.finish();
+	protected void sequence_WinClause_WinCondition(ISerializationContext context, WinCondition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

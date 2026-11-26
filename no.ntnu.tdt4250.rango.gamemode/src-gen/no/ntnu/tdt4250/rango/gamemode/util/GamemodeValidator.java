@@ -106,6 +106,8 @@ public class GamemodeValidator extends EObjectValidator {
 				return validateSplit((Split)value, diagnostics, context);
 			case GamemodePackage.PLAYER_EFFECT:
 				return validatePlayerEffect((PlayerEffect)value, diagnostics, context);
+			case GamemodePackage.INSTANT_EFFECT:
+				return validateInstantEffect((InstantEffect)value, diagnostics, context);
 			case GamemodePackage.DAMAGE:
 				return validateDamage((Damage)value, diagnostics, context);
 			case GamemodePackage.HEAL:
@@ -154,22 +156,10 @@ public class GamemodeValidator extends EObjectValidator {
 				return validateDropTable((DropTable)value, diagnostics, context);
 			case GamemodePackage.DROP:
 				return validateDrop((Drop)value, diagnostics, context);
-			case GamemodePackage.END_CONDITION:
-				return validateEndCondition((EndCondition)value, diagnostics, context);
-			case GamemodePackage.CLEARED:
-				return validateCleared((Cleared)value, diagnostics, context);
-			case GamemodePackage.TIME_REACHED:
-				return validateTimeReached((TimeReached)value, diagnostics, context);
-			case GamemodePackage.SCORE_REACHED:
-				return validateScoreReached((ScoreReached)value, diagnostics, context);
-			case GamemodePackage.ENEMIES_POPPED:
-				return validateEnemiesPopped((EnemiesPopped)value, diagnostics, context);
-			case GamemodePackage.WAVES_SURVIVED:
-				return validateWavesSurvived((WavesSurvived)value, diagnostics, context);
-			case GamemodePackage.HEALTH_DEPLETED:
-				return validateHealthDepleted((HealthDepleted)value, diagnostics, context);
-			case GamemodePackage.ENEMIES_ALIVE:
-				return validateEnemiesAlive((EnemiesAlive)value, diagnostics, context);
+			case GamemodePackage.WIN_CONDITION:
+				return validateWinCondition((WinCondition)value, diagnostics, context);
+			case GamemodePackage.LOSE_CONDITION:
+				return validateLoseCondition((LoseCondition)value, diagnostics, context);
 			case GamemodePackage.DIFFICULTY:
 				return validateDifficulty((Difficulty)value, diagnostics, context);
 			case GamemodePackage.MODIFIER:
@@ -304,6 +294,7 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateEnemyType_positiveSpeed(enemyType, diagnostics, context);
 		if (result || diagnostics != null) result &= validateEnemyType_nonNegativePoints(enemyType, diagnostics, context);
 		if (result || diagnostics != null) result &= validateEnemyType_distinctEffectKinds(enemyType, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnemyType_oneInstantEffect(enemyType, diagnostics, context);
 		return result;
 	}
 
@@ -431,6 +422,16 @@ public class GamemodeValidator extends EObjectValidator {
 	 */
 	public boolean validateEnemyType_distinctEffectKinds(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return report(GamemodeConstraints.distinctEffectKinds(enemyType, enemyType.getContactEffects()), diagnostics);
+	}
+
+	/**
+	 * Validates the oneInstantEffect constraint of '<em>Enemy Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateEnemyType_oneInstantEffect(EnemyType enemyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.oneInstantEffect(enemyType, enemyType.getContactEffects()), diagnostics);
 	}
 
 	/**
@@ -573,6 +574,54 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateInstantEffect(InstantEffect instantEffect, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(instantEffect, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(instantEffect, diagnostics, context);
+		if (result || diagnostics != null) result &= validateInstantEffect_positiveAmount(instantEffect, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * The cached validation expression for the positiveAmount constraint of '<em>Instant Effect</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String INSTANT_EFFECT__POSITIVE_AMOUNT__EEXPRESSION = "amount > 0";
+
+	/**
+	 * Validates the positiveAmount constraint of '<em>Instant Effect</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateInstantEffect_positiveAmount(InstantEffect instantEffect, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.INSTANT_EFFECT,
+				 instantEffect,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "positiveAmount",
+				 INSTANT_EFFECT__POSITIVE_AMOUNT__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateDamage(Damage damage, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(damage, diagnostics, context)) return false;
 		boolean result = validate_EveryMultiplicityConforms(damage, diagnostics, context);
@@ -583,37 +632,8 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(damage, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(damage, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(damage, diagnostics, context);
-		if (result || diagnostics != null) result &= validateDamage_positiveAmount(damage, diagnostics, context);
+		if (result || diagnostics != null) result &= validateInstantEffect_positiveAmount(damage, diagnostics, context);
 		return result;
-	}
-
-	/**
-	 * The cached validation expression for the positiveAmount constraint of '<em>Damage</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String DAMAGE__POSITIVE_AMOUNT__EEXPRESSION = "amount > 0";
-
-	/**
-	 * Validates the positiveAmount constraint of '<em>Damage</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateDamage_positiveAmount(Damage damage, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.DAMAGE,
-				 damage,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positiveAmount",
-				 DAMAGE__POSITIVE_AMOUNT__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
 	}
 
 	/**
@@ -631,37 +651,8 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_UniqueID(heal, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(heal, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(heal, diagnostics, context);
-		if (result || diagnostics != null) result &= validateHeal_positiveAmount(heal, diagnostics, context);
+		if (result || diagnostics != null) result &= validateInstantEffect_positiveAmount(heal, diagnostics, context);
 		return result;
-	}
-
-	/**
-	 * The cached validation expression for the positiveAmount constraint of '<em>Heal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String HEAL__POSITIVE_AMOUNT__EEXPRESSION = "amount > 0";
-
-	/**
-	 * Validates the positiveAmount constraint of '<em>Heal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateHeal_positiveAmount(Heal heal, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.HEAL,
-				 heal,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positiveAmount",
-				 HEAL__POSITIVE_AMOUNT__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
 	}
 
 	/**
@@ -876,6 +867,7 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(powerUp, diagnostics, context);
 		if (result || diagnostics != null) result &= validateNamedElement_nameUniqueAmongSiblings(powerUp, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePowerUp_distinctEffectKinds(powerUp, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePowerUp_oneInstantEffect(powerUp, diagnostics, context);
 		return result;
 	}
 
@@ -887,6 +879,16 @@ public class GamemodeValidator extends EObjectValidator {
 	 */
 	public boolean validatePowerUp_distinctEffectKinds(PowerUp powerUp, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return report(GamemodeConstraints.distinctEffectKinds(powerUp, powerUp.getEffects()), diagnostics);
+	}
+
+	/**
+	 * Validates the oneInstantEffect constraint of '<em>Power Up</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validatePowerUp_oneInstantEffect(PowerUp powerUp, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.oneInstantEffect(powerUp, powerUp.getEffects()), diagnostics);
 	}
 
 	/**
@@ -1863,93 +1865,74 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEndCondition(EndCondition endCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(endCondition, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(endCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(endCondition, diagnostics, context);
+	public boolean validateWinCondition(WinCondition winCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(winCondition, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validateWinCondition_nonNegativeValues(winCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validateWinCondition_setsACondition(winCondition, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * Validates the fitsRole constraint of '<em>End Condition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateEndCondition_fitsRole(EndCondition endCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.fitsRole(endCondition), diagnostics);
-	}
-
-	/**
+	 * The cached validation expression for the nonNegativeValues constraint of '<em>Win Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateCleared(Cleared cleared, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(cleared, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(cleared, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(cleared, diagnostics, context);
-		return result;
-	}
+	protected static final String WIN_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION = "surviveSeconds >= 0 and points >= 0 and enemiesPopped >= 0 and wavesSurvived >= 0";
 
 	/**
+	 * Validates the nonNegativeValues constraint of '<em>Win Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateTimeReached(TimeReached timeReached, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(timeReached, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(timeReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validateTimeReached_positiveSeconds(timeReached, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * The cached validation expression for the positiveSeconds constraint of '<em>Time Reached</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String TIME_REACHED__POSITIVE_SECONDS__EEXPRESSION = "seconds > 0";
-
-	/**
-	 * Validates the positiveSeconds constraint of '<em>Time Reached</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateTimeReached_positiveSeconds(TimeReached timeReached, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateWinCondition_nonNegativeValues(WinCondition winCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.TIME_REACHED,
-				 timeReached,
+				(GamemodePackage.Literals.WIN_CONDITION,
+				 winCondition,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positiveSeconds",
-				 TIME_REACHED__POSITIVE_SECONDS__EEXPRESSION,
+				 "nonNegativeValues",
+				 WIN_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION,
+				 Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0);
+	}
+
+	/**
+	 * The cached validation expression for the setsACondition constraint of '<em>Win Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static final String WIN_CONDITION__SETS_ACONDITION__EEXPRESSION = "cleared or surviveSeconds > 0 or points > 0 or enemiesPopped > 0 or wavesSurvived > 0";
+
+	/**
+	 * Validates the setsACondition constraint of '<em>Win Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateWinCondition_setsACondition(WinCondition winCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return
+			validate
+				(GamemodePackage.Literals.WIN_CONDITION,
+				 winCondition,
+				 diagnostics,
+				 context,
+				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
+				 "setsACondition",
+				 WIN_CONDITION__SETS_ACONDITION__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
@@ -1960,211 +1943,74 @@ public class GamemodeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateScoreReached(ScoreReached scoreReached, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(scoreReached, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(scoreReached, diagnostics, context);
-		if (result || diagnostics != null) result &= validateScoreReached_positivePoints(scoreReached, diagnostics, context);
+	public boolean validateLoseCondition(LoseCondition loseCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(loseCondition, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLoseCondition_nonNegativeValues(loseCondition, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLoseCondition_setsACondition(loseCondition, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * The cached validation expression for the positivePoints constraint of '<em>Score Reached</em>'.
+	 * The cached validation expression for the nonNegativeValues constraint of '<em>Lose Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String SCORE_REACHED__POSITIVE_POINTS__EEXPRESSION = "points > 0";
+	protected static final String LOSE_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION = "timeLimit >= 0 and enemiesAlive >= 0";
 
 	/**
-	 * Validates the positivePoints constraint of '<em>Score Reached</em>'.
+	 * Validates the nonNegativeValues constraint of '<em>Lose Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateScoreReached_positivePoints(ScoreReached scoreReached, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateLoseCondition_nonNegativeValues(LoseCondition loseCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.SCORE_REACHED,
-				 scoreReached,
+				(GamemodePackage.Literals.LOSE_CONDITION,
+				 loseCondition,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positivePoints",
-				 SCORE_REACHED__POSITIVE_POINTS__EEXPRESSION,
+				 "nonNegativeValues",
+				 LOSE_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
 	}
 
 	/**
+	 * The cached validation expression for the setsACondition constraint of '<em>Lose Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEnemiesPopped(EnemiesPopped enemiesPopped, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(enemiesPopped, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(enemiesPopped, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEnemiesPopped_positiveCount(enemiesPopped, diagnostics, context);
-		return result;
-	}
+	protected static final String LOSE_CONDITION__SETS_ACONDITION__EEXPRESSION = "healthDepleted or timeLimit > 0 or enemiesAlive > 0";
 
 	/**
-	 * The cached validation expression for the positiveCount constraint of '<em>Enemies Popped</em>'.
+	 * Validates the setsACondition constraint of '<em>Lose Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String ENEMIES_POPPED__POSITIVE_COUNT__EEXPRESSION = "count > 0";
-
-	/**
-	 * Validates the positiveCount constraint of '<em>Enemies Popped</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateEnemiesPopped_positiveCount(EnemiesPopped enemiesPopped, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateLoseCondition_setsACondition(LoseCondition loseCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.ENEMIES_POPPED,
-				 enemiesPopped,
+				(GamemodePackage.Literals.LOSE_CONDITION,
+				 loseCondition,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positiveCount",
-				 ENEMIES_POPPED__POSITIVE_COUNT__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateWavesSurvived(WavesSurvived wavesSurvived, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(wavesSurvived, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(wavesSurvived, diagnostics, context);
-		if (result || diagnostics != null) result &= validateWavesSurvived_positiveCount(wavesSurvived, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * The cached validation expression for the positiveCount constraint of '<em>Waves Survived</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String WAVES_SURVIVED__POSITIVE_COUNT__EEXPRESSION = "count > 0";
-
-	/**
-	 * Validates the positiveCount constraint of '<em>Waves Survived</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateWavesSurvived_positiveCount(WavesSurvived wavesSurvived, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.WAVES_SURVIVED,
-				 wavesSurvived,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positiveCount",
-				 WAVES_SURVIVED__POSITIVE_COUNT__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateHealthDepleted(HealthDepleted healthDepleted, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(healthDepleted, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(healthDepleted, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(healthDepleted, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateEnemiesAlive(EnemiesAlive enemiesAlive, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(enemiesAlive, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndCondition_fitsRole(enemiesAlive, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEnemiesAlive_positiveCount(enemiesAlive, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * The cached validation expression for the positiveCount constraint of '<em>Enemies Alive</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String ENEMIES_ALIVE__POSITIVE_COUNT__EEXPRESSION = "count > 0";
-
-	/**
-	 * Validates the positiveCount constraint of '<em>Enemies Alive</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateEnemiesAlive_positiveCount(EnemiesAlive enemiesAlive, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.ENEMIES_ALIVE,
-				 enemiesAlive,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "positiveCount",
-				 ENEMIES_ALIVE__POSITIVE_COUNT__EEXPRESSION,
+				 "setsACondition",
+				 LOSE_CONDITION__SETS_ACONDITION__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);

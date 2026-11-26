@@ -3,7 +3,7 @@
 package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
-import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
+import no.ntnu.tdt4250.rango.gamemode.InstantEffect;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -13,44 +13,44 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Score Reached</b></em>'.
+ * An implementation of the model object '<em><b>Instant Effect</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.ScoreReachedImpl#getPoints <em>Points</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.InstantEffectImpl#getAmount <em>Amount</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
+public abstract class InstantEffectImpl extends PlayerEffectImpl implements InstantEffect {
 	/**
-	 * The default value of the '{@link #getPoints() <em>Points</em>}' attribute.
+	 * The default value of the '{@link #getAmount() <em>Amount</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPoints()
+	 * @see #getAmount()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int POINTS_EDEFAULT = 0;
+	protected static final int AMOUNT_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getPoints() <em>Points</em>}' attribute.
+	 * The cached value of the '{@link #getAmount() <em>Amount</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPoints()
+	 * @see #getAmount()
 	 * @generated
 	 * @ordered
 	 */
-	protected int points = POINTS_EDEFAULT;
+	protected int amount = AMOUNT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ScoreReachedImpl() {
+	protected InstantEffectImpl() {
 		super();
 	}
 
@@ -61,7 +61,7 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GamemodePackage.Literals.SCORE_REACHED;
+		return GamemodePackage.Literals.INSTANT_EFFECT;
 	}
 
 	/**
@@ -70,8 +70,8 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 	 * @generated
 	 */
 	@Override
-	public int getPoints() {
-		return points;
+	public int getAmount() {
+		return amount;
 	}
 
 	/**
@@ -80,11 +80,11 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 	 * @generated
 	 */
 	@Override
-	public void setPoints(int newPoints) {
-		int oldPoints = points;
-		points = newPoints;
+	public void setAmount(int newAmount) {
+		int oldAmount = amount;
+		amount = newAmount;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.SCORE_REACHED__POINTS, oldPoints, points));
+			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.INSTANT_EFFECT__AMOUNT, oldAmount, amount));
 	}
 
 	/**
@@ -95,8 +95,8 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GamemodePackage.SCORE_REACHED__POINTS:
-				return getPoints();
+			case GamemodePackage.INSTANT_EFFECT__AMOUNT:
+				return getAmount();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,8 +109,8 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GamemodePackage.SCORE_REACHED__POINTS:
-				setPoints((Integer)newValue);
+			case GamemodePackage.INSTANT_EFFECT__AMOUNT:
+				setAmount((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -124,8 +124,8 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.SCORE_REACHED__POINTS:
-				setPoints(POINTS_EDEFAULT);
+			case GamemodePackage.INSTANT_EFFECT__AMOUNT:
+				setAmount(AMOUNT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -139,8 +139,8 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GamemodePackage.SCORE_REACHED__POINTS:
-				return points != POINTS_EDEFAULT;
+			case GamemodePackage.INSTANT_EFFECT__AMOUNT:
+				return amount != AMOUNT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -155,10 +155,10 @@ public class ScoreReachedImpl extends EndConditionImpl implements ScoreReached {
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (points: ");
-		result.append(points);
+		result.append(" (amount: ");
+		result.append(amount);
 		result.append(')');
 		return result.toString();
 	}
 
-} //ScoreReachedImpl
+} //InstantEffectImpl

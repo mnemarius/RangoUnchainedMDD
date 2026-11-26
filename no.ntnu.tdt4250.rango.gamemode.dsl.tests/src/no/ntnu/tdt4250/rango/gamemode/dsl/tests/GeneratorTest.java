@@ -114,7 +114,8 @@ public class GeneratorTest {
 		InMemoryFileSystemAccess files = generate("arcade");
 		assertTrue(file(files, JAVA + "TimeAttackMode.java").contains("return stats.score() >= 1500;"));
 		String popFrenzy = file(files, JAVA + "PopFrenzyMode.java");
-		assertTrue(popFrenzy.contains("return stats.popped() >= 20\n            || stats.cleared();"));
+		// the checks follow the order of the conditions in the metamodel, not in the text
+		assertTrue(popFrenzy.contains("return stats.cleared()\n            || stats.popped() >= 20;"), popFrenzy);
 		assertTrue(popFrenzy.contains("return stats.playerHealth() <= 0\n            || stats.elapsed() >= 120.0f;"));
 		assertTrue(file(generate("classic"), JAVA + "EndlessMode.java").contains("return false; // endless"));
 	}

@@ -9,18 +9,19 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
-import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 
 /**
  * The outline shows an edition as its building blocks and its modes. A mode lists its levels (or,
- * if it has only one, that level's arena and spawning), its drop tables and then its end conditions,
- * labelled "win when ..." and "lose when ...".
+ * if it has only one, that level's arena and spawning), its drop tables and then its win and lose
+ * conditions, labelled "win when ..." and "lose when ...".
  * Elements without further structure are leaves.
  */
 public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
@@ -36,11 +37,11 @@ public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		for (DropTable table : mode.getDrops()) {
 			createNode(parent, table);
 		}
-		for (EndCondition condition : mode.getWinConditions()) {
-			createNode(parent, condition);
+		if (mode.getWin() != null) {
+			createNode(parent, mode.getWin());
 		}
-		for (EndCondition condition : mode.getLoseConditions()) {
-			createNode(parent, condition);
+		if (mode.getLose() != null) {
+			createNode(parent, mode.getLose());
 		}
 	}
 
@@ -73,7 +74,11 @@ public class RangoModeOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		return true;
 	}
 
-	protected boolean _isLeaf(EndCondition condition) {
+	protected boolean _isLeaf(WinCondition win) {
+		return true;
+	}
+
+	protected boolean _isLeaf(LoseCondition lose) {
 		return true;
 	}
 

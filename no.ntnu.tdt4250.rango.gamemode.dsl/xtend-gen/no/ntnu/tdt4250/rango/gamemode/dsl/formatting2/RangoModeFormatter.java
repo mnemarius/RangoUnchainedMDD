@@ -17,6 +17,7 @@ import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
@@ -26,6 +27,7 @@ import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.AbstractFormatter2;
@@ -110,13 +112,18 @@ public class RangoModeFormatter extends AbstractFormatter2 {
     this.block(mode, document);
     this.lines(mode, document, "description", "player", "gravity", "win", "lose");
     this.lists(mode, document);
-    final Consumer<ISemanticRegion> _function = (ISemanticRegion it) -> {
-      final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it_1) -> {
-        it_1.oneSpace();
+    WinCondition _win = mode.getWin();
+    LoseCondition _lose = mode.getLose();
+    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_win, _lose)));
+    for (final EObject condition : _filterNull) {
+      final Consumer<ISemanticRegion> _function = (ISemanticRegion it) -> {
+        final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it_1) -> {
+          it_1.oneSpace();
+        };
+        document.surround(it, _function_1);
       };
-      document.surround(it, _function_1);
-    };
-    this.textRegionExtensions.regionFor(mode).keywords("or").forEach(_function);
+      this.textRegionExtensions.regionFor(condition).keywords("or").forEach(_function);
+    }
     SpeedBonus _speedBonus = mode.getSpeedBonus();
     if (_speedBonus!=null) {
       final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {

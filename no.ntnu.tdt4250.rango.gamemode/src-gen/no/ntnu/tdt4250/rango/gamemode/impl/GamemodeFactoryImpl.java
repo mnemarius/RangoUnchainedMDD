@@ -81,13 +81,8 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 			case GamemodePackage.ENEMY_SPAWN: return createEnemySpawn();
 			case GamemodePackage.DROP_TABLE: return createDropTable();
 			case GamemodePackage.DROP: return createDrop();
-			case GamemodePackage.CLEARED: return createCleared();
-			case GamemodePackage.TIME_REACHED: return createTimeReached();
-			case GamemodePackage.SCORE_REACHED: return createScoreReached();
-			case GamemodePackage.ENEMIES_POPPED: return createEnemiesPopped();
-			case GamemodePackage.WAVES_SURVIVED: return createWavesSurvived();
-			case GamemodePackage.HEALTH_DEPLETED: return createHealthDepleted();
-			case GamemodePackage.ENEMIES_ALIVE: return createEnemiesAlive();
+			case GamemodePackage.WIN_CONDITION: return createWinCondition();
+			case GamemodePackage.LOSE_CONDITION: return createLoseCondition();
 			case GamemodePackage.DIFFICULTY: return createDifficulty();
 			case GamemodePackage.MODIFIER: return createModifier();
 			default:
@@ -407,9 +402,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public Cleared createCleared() {
-		ClearedImpl cleared = new ClearedImpl();
-		return cleared;
+	public WinCondition createWinCondition() {
+		WinConditionImpl winCondition = new WinConditionImpl();
+		return winCondition;
 	}
 
 	/**
@@ -418,64 +413,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public TimeReached createTimeReached() {
-		TimeReachedImpl timeReached = new TimeReachedImpl();
-		return timeReached;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ScoreReached createScoreReached() {
-		ScoreReachedImpl scoreReached = new ScoreReachedImpl();
-		return scoreReached;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EnemiesPopped createEnemiesPopped() {
-		EnemiesPoppedImpl enemiesPopped = new EnemiesPoppedImpl();
-		return enemiesPopped;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public WavesSurvived createWavesSurvived() {
-		WavesSurvivedImpl wavesSurvived = new WavesSurvivedImpl();
-		return wavesSurvived;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public HealthDepleted createHealthDepleted() {
-		HealthDepletedImpl healthDepleted = new HealthDepletedImpl();
-		return healthDepleted;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EnemiesAlive createEnemiesAlive() {
-		EnemiesAliveImpl enemiesAlive = new EnemiesAliveImpl();
-		return enemiesAlive;
+	public LoseCondition createLoseCondition() {
+		LoseConditionImpl loseCondition = new LoseConditionImpl();
+		return loseCondition;
 	}
 
 	/**

@@ -238,67 +238,22 @@ public interface GamemodeFactory extends EFactory {
 	Drop createDrop();
 
 	/**
-	 * Returns a new object of class '<em>Cleared</em>'.
+	 * Returns a new object of class '<em>Win Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Cleared</em>'.
+	 * @return a new object of class '<em>Win Condition</em>'.
 	 * @generated
 	 */
-	Cleared createCleared();
+	WinCondition createWinCondition();
 
 	/**
-	 * Returns a new object of class '<em>Time Reached</em>'.
+	 * Returns a new object of class '<em>Lose Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Time Reached</em>'.
+	 * @return a new object of class '<em>Lose Condition</em>'.
 	 * @generated
 	 */
-	TimeReached createTimeReached();
-
-	/**
-	 * Returns a new object of class '<em>Score Reached</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Score Reached</em>'.
-	 * @generated
-	 */
-	ScoreReached createScoreReached();
-
-	/**
-	 * Returns a new object of class '<em>Enemies Popped</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Enemies Popped</em>'.
-	 * @generated
-	 */
-	EnemiesPopped createEnemiesPopped();
-
-	/**
-	 * Returns a new object of class '<em>Waves Survived</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Waves Survived</em>'.
-	 * @generated
-	 */
-	WavesSurvived createWavesSurvived();
-
-	/**
-	 * Returns a new object of class '<em>Health Depleted</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Health Depleted</em>'.
-	 * @generated
-	 */
-	HealthDepleted createHealthDepleted();
-
-	/**
-	 * Returns a new object of class '<em>Enemies Alive</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Enemies Alive</em>'.
-	 * @generated
-	 */
-	EnemiesAlive createEnemiesAlive();
+	LoseCondition createLoseCondition();
 
 	/**
 	 * Returns a new object of class '<em>Difficulty</em>'.

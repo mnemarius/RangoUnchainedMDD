@@ -67,7 +67,9 @@ class RangoModeFormatter extends AbstractFormatter2 {
 		mode.block(document)
 		mode.lines(document, 'description', 'player', 'gravity', 'win', 'lose')
 		mode.lists(document)
-		mode.regionFor.keywords('or').forEach[surround[oneSpace]]
+		for (condition : #[mode.win, mode.lose].filterNull) {
+			condition.regionFor.keywords('or').forEach[surround[oneSpace]]
+		}
 		mode.speedBonus?.prepend[newLine]
 		mode.speedBonus?.format
 		for (level : mode.levels) {

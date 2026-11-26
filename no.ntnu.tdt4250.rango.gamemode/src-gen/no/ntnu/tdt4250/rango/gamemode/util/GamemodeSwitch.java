@@ -118,9 +118,17 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GamemodePackage.INSTANT_EFFECT: {
+				InstantEffect instantEffect = (InstantEffect)theEObject;
+				T result = caseInstantEffect(instantEffect);
+				if (result == null) result = casePlayerEffect(instantEffect);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GamemodePackage.DAMAGE: {
 				Damage damage = (Damage)theEObject;
 				T result = caseDamage(damage);
+				if (result == null) result = caseInstantEffect(damage);
 				if (result == null) result = casePlayerEffect(damage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -128,6 +136,7 @@ public class GamemodeSwitch<T> extends Switch<T> {
 			case GamemodePackage.HEAL: {
 				Heal heal = (Heal)theEObject;
 				T result = caseHeal(heal);
+				if (result == null) result = caseInstantEffect(heal);
 				if (result == null) result = casePlayerEffect(heal);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -293,58 +302,15 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GamemodePackage.END_CONDITION: {
-				EndCondition endCondition = (EndCondition)theEObject;
-				T result = caseEndCondition(endCondition);
+			case GamemodePackage.WIN_CONDITION: {
+				WinCondition winCondition = (WinCondition)theEObject;
+				T result = caseWinCondition(winCondition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GamemodePackage.CLEARED: {
-				Cleared cleared = (Cleared)theEObject;
-				T result = caseCleared(cleared);
-				if (result == null) result = caseEndCondition(cleared);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GamemodePackage.TIME_REACHED: {
-				TimeReached timeReached = (TimeReached)theEObject;
-				T result = caseTimeReached(timeReached);
-				if (result == null) result = caseEndCondition(timeReached);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GamemodePackage.SCORE_REACHED: {
-				ScoreReached scoreReached = (ScoreReached)theEObject;
-				T result = caseScoreReached(scoreReached);
-				if (result == null) result = caseEndCondition(scoreReached);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GamemodePackage.ENEMIES_POPPED: {
-				EnemiesPopped enemiesPopped = (EnemiesPopped)theEObject;
-				T result = caseEnemiesPopped(enemiesPopped);
-				if (result == null) result = caseEndCondition(enemiesPopped);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GamemodePackage.WAVES_SURVIVED: {
-				WavesSurvived wavesSurvived = (WavesSurvived)theEObject;
-				T result = caseWavesSurvived(wavesSurvived);
-				if (result == null) result = caseEndCondition(wavesSurvived);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GamemodePackage.HEALTH_DEPLETED: {
-				HealthDepleted healthDepleted = (HealthDepleted)theEObject;
-				T result = caseHealthDepleted(healthDepleted);
-				if (result == null) result = caseEndCondition(healthDepleted);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GamemodePackage.ENEMIES_ALIVE: {
-				EnemiesAlive enemiesAlive = (EnemiesAlive)theEObject;
-				T result = caseEnemiesAlive(enemiesAlive);
-				if (result == null) result = caseEndCondition(enemiesAlive);
+			case GamemodePackage.LOSE_CONDITION: {
+				LoseCondition loseCondition = (LoseCondition)theEObject;
+				T result = caseLoseCondition(loseCondition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -481,6 +447,21 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePlayerEffect(PlayerEffect object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Instant Effect</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Instant Effect</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInstantEffect(InstantEffect object) {
 		return null;
 	}
 
@@ -845,122 +826,32 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>End Condition</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Win Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>End Condition</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Win Condition</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseEndCondition(EndCondition object) {
+	public T caseWinCondition(WinCondition object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Cleared</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Lose Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Cleared</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Lose Condition</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseCleared(Cleared object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Time Reached</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Time Reached</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseTimeReached(TimeReached object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Score Reached</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Score Reached</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseScoreReached(ScoreReached object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Enemies Popped</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Enemies Popped</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEnemiesPopped(EnemiesPopped object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Waves Survived</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Waves Survived</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseWavesSurvived(WavesSurvived object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Health Depleted</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Health Depleted</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseHealthDepleted(HealthDepleted object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Enemies Alive</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Enemies Alive</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEnemiesAlive(EnemiesAlive object) {
+	public T caseLoseCondition(LoseCondition object) {
 		return null;
 	}
 

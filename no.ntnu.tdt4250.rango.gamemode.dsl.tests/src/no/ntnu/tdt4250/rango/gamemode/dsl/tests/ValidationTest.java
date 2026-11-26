@@ -1,6 +1,7 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,6 +42,13 @@ public class ValidationTest {
 
 	/** A valid edition with one mode, into which a test can put its own mode body and extra elements. */
 	private Edition edition(String extra, String modeBody) throws Exception {
+		Edition edition = parse(extra, modeBody);
+		assertTrue(edition.eResource().getErrors().isEmpty(), edition.eResource().getErrors().toString());
+		return edition;
+	}
+
+	/** Like {@link #edition}, but the text may have syntax errors. */
+	private Edition parse(String extra, String modeBody) throws Exception {
 		Edition edition = parser.parse("""
 				edition Test
 				enemy Tumbleweed {
@@ -71,7 +79,6 @@ public class ValidationTest {
 				}
 				""".formatted(extra, modeBody));
 		assertNotNull(edition);
-		assertTrue(edition.eResource().getErrors().isEmpty(), edition.eResource().getErrors().toString());
 		return edition;
 	}
 
@@ -131,9 +138,33 @@ public class ValidationTest {
 	}
 
 	@Test
-	public void conditionsHaveRoles() throws Exception {
-		Edition edition = edition("", VALID_BODY.replace("win when all enemies cleared", "win when health depleted"));
-		validation.assertError(edition, GamemodePackage.Literals.HEALTH_DEPLETED, GamemodeConstraints.ISSUE_WRONG_ROLE);
+	public void conditionsOnlyFitTheirRole() throws Exception {
+		// running out of health can only lose a round, so a win condition cannot say it
+		Edition edition = parse("", VALID_BODY.replace("win when all enemies cleared", "win when health depleted"));
+		assertFalse(edition.eResource().getErrors().isEmpty());
+	}
+
+	@Test
+	public void conditionsAreWrittenInAnyOrder() throws Exception {
+		Edition edition = edition("", VALID_BODY.replace("lose when health depleted",
+				"lose when time reaches 90 s or health depleted"));
+		validation.assertNoIssues(edition);
+		assertTrue(edition.getModes().get(0).getLose().isHealthDepleted());
+		assertEquals(90f, edition.getModes().get(0).getLose().getTimeLimit());
+	}
+
+	@Test
+	public void conditionWrittenTwiceIsAnError() throws Exception {
+		Edition edition = edition("", VALID_BODY.replace("lose when health depleted",
+				"lose when health depleted or time reaches 60 s or time reaches 90 s"));
+		validation.assertError(edition, GamemodePackage.Literals.LOSE_CONDITION, RangoModeValidator.CONDITION_TWICE);
+	}
+
+	@Test
+	public void zeroSetsNoCondition() throws Exception {
+		Edition edition = edition("", VALID_BODY.replace("win when all enemies cleared",
+				"win when all enemies cleared or score reaches 0"));
+		validation.assertWarning(edition, GamemodePackage.Literals.WIN_CONDITION, RangoModeValidator.ZERO_CONDITION);
 	}
 
 	@Test
@@ -241,7 +272,7 @@ public class ValidationTest {
 				"""));
 		assertEquals(2, edition.getModes().get(0).getLevels().size());
 		assertEquals("One", edition.getModes().get(0).getLevels().get(0).getTitle());
-		validation.assertError(edition, GamemodePackage.Literals.CLEARED, GamemodeConstraints.SOURCE + "." + GamemodeConstraints.CONDITION_UNREACHABLE,
+		validation.assertError(edition, GamemodePackage.Literals.WIN_CONDITION, GamemodeConstraints.SOURCE + "." + GamemodeConstraints.CONDITION_UNREACHABLE,
 				"In level 2, the waves loop");
 	}
 

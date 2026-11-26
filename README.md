@@ -86,6 +86,17 @@ To install only the editor, use the update site in
 
 ![Class diagram of the metamodel](docs/metamodel.png)
 
+**End conditions.** A `GameMode` owns one `WinCondition` (optional: without it the mode is endless)
+and one `LoseCondition`. Each class has one field per condition that fits its role: a win condition
+can be "all enemies cleared", a time to survive, a score, a number of pops or of waves survived; a
+lose condition can be "health depleted", a time limit or a number of enemies alive at once. A round
+ends as soon as any condition that is set holds (a flag that is true, or a value above 0). End
+conditions are the one kind of behaviour that does not use subclasses, for two reasons. Some
+conditions are only valid in one role, which a single hierarchy could only enforce with an extra
+constraint, whereas a class per role makes the wrong condition impossible to write. And each
+condition is a single value, so it fits a field; effects, by contrast, keep their subclasses, since a
+kind such as `Poison` groups several values (amount, interval, duration).
+
 
 ### Derived features (Java, in `GamemodeDerivations`)
 
@@ -100,7 +111,7 @@ To install only the editor, use the update site in
 | `GameMode.effectiveDrops` | The drop tables that apply in a mode: its own if it has any, otherwise the edition's. |
 | `GameMode.powerUps` | The power-ups of the mode's effective drop tables. |
 | `DropTable.totalWeight`, `Drop.share`, `Drop.probability` | How likely a power-up is when a pop drops something (`share`), and the chance that a single pop of the table's enemy type drops it (`probability`). |
-| `Wave.number`, `EndCondition.win` | Position of a wave; the role of a condition. |
+| `Wave.number` | Position of a wave in its schedule. |
 
 ### Constraints
 
@@ -110,7 +121,8 @@ delegates. Standalone code registers the delegates through `GamemodeOCL.initiali
 (poison ticks within its duration), `insideArena`, `healthWithinMaximum`, `escalationNeedsLoop`,
 `chanceIsPercentage` (a drop chance is above 0 and at most 100), `distinctPowerUps`
 (`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bonusAboveOne` (a speed bonus is worth more than plain points),
-`distinctTargets` (a difficulty modifies each value at most once), `positiveFactor`.
+`distinctTargets` (a difficulty modifies each value at most once), `positiveFactor`,
+`setsACondition` (a win or lose condition sets at least one condition).
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes:
@@ -119,13 +131,12 @@ codes:
 | --- | --- |
 | `nameUniqueAmongSiblings` | No two elements of a list share a name. |
 | `distinctEffectKinds` | An enemy type or power-up has at most one effect of each kind. |
-| `noSimultaneousOutcome` | In no level can a round be won and lost by the same event (survive 60 s vs. a 60 s time limit), nor start already lost (`EnemiesAlive` at or below the starting number of enemies). |
+| `noSimultaneousOutcome` | In no level can a round be won and lost by the same event (survive 60 s vs. a 60 s time limit), nor start already lost (enemies alive at or below the starting number of enemies). |
 | `winnable` | Every win condition can be met in every level: no "all enemies cleared" with looping waves, no "8 waves survived" with 5 non-looping waves, no more pops or points than the mode can give. |
 | `endsSomehow` | A mode without win conditions must loop its waves, and a mode of several levels needs a win condition to move on. |
 | `healthDepletedWhenHarmful` | If anything can hurt the player, the mode is lost when health runs out. |
 | `everyEnemyDrops` | Every enemy type that can appear in a mode has a drop table there (the mode's own, or the edition's), so popping any enemy has a chance to drop a power-up. |
 | `oneTablePerEnemy` | A list of drop tables (of a mode or of the edition) has at most one table per enemy type. |
-| `fitsRole` | Health depleted and enemies alive can only lose a round; the other conditions can only win it. |
 | `targetInSameArena` | A teleporter leads to a teleporter of the same arena. |
 | `onePerTier` | An edition defines each difficulty tier at most once. |
 
@@ -140,10 +151,12 @@ The editor adds:
 - **Validation**: the OCL and Java constraints of the metamodel, plus warnings for unused building
   blocks, sprite paths that are not images, duplicate titles, and drop tables for enemies that never
   appear where the table applies, a harder difficulty that makes something easier than the tier
-  below it (such as slower enemies on hard than on medium), and a note on endless modes.
+  below it (such as slower enemies on hard than on medium), a value of 0 in an end condition (which
+  sets nothing), and a note on endless modes. The one DSL error is an end condition written twice
+  (`score reaches 500 or score reaches 1000`), since the model can hold only one value per condition.
 - **Scoping**: a teleporter can only target another teleporter of its own arena.
-- **Quick fixes**: make a mode end (win when cleared, or loop the waves), add "lose when health depleted", move a condition to the other
-  list, add drop tables for the enemies without one, remove an unused element or a drop table without
+- **Quick fixes**: make a mode end (win when cleared, or loop the waves), add "lose when health depleted",
+  add drop tables for the enemies without one, remove an unused element or a drop table without
   effect, fix sprite and background paths.
 - **Hovers** that show the derived facts: the enemy types of a mode, pops to clear, maximum score, drop
   probabilities, what an enemy breaks into, shots per second, and what each difficulty multiplies in
@@ -213,13 +226,13 @@ feature and every enumeration literal of the metamodel.
 `./mvnw verify` runs:
 
 - `no.ntnu.tdt4250.rango.gamemode.tests`: every derived feature, every OCL invariant of every class
-  (also where several classes share a name, such as `positiveCount`), and every Java constraint. Each
+  (also where several classes share a name, such as `setsACondition`), and every Java constraint. Each
   test breaks one rule of a valid fixture and checks that exactly that rule fires. The one exception
-  is a lose condition of 0 enemies alive, which also breaks `noSimultaneousOutcome`: the round would
-  be lost the moment it starts.
+  is a lose condition that sets nothing in a mode where enemies hurt the player, which also breaks
+  `healthDepletedWhenHarmful`.
 - `no.ntnu.tdt4250.rango.gamemode.dsl.tests`: the examples (validity and metamodel coverage),
   constraint and DSL errors in the editor with their issue codes, scoping of teleporters, the
-  generated files and their content, and the formatter.
+  generated files and their content, the formatter, and the serializer that quick fixes rely on.
 
 ## Building blocks of the build
 

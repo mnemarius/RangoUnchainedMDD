@@ -93,11 +93,15 @@ A \texttt{GameMode} contains one or more \texttt{Level}s. Each level contains an
 and a \texttt{SpawnStrategy}, which is a \texttt{FixedLayout} or a \texttt{WaveSchedule} that can loop
 and escalate. Obstacles and spawns share the abstract \texttt{Positioned}.
 
-\texttt{EndCondition} has seven subclasses (\texttt{Cleared}, \texttt{TimeReached},
-\texttt{ScoreReached}, \ldots). The same class can win or lose a round: \texttt{TimeReached} is
-``survive 60\,s'' as a win and a time limit as a loss. We do not store a \texttt{win} flag; the role
-is given by the containing list (\texttt{winConditions} or \texttt{loseConditions}) and exposed as a
-derived feature.
+A \texttt{GameMode} owns one \texttt{WinCondition} (optional; without it the mode is endless) and one
+\texttt{LoseCondition}. Each has one field per condition that fits its role: a round is won when all
+enemies are cleared, a time is survived, or a score, a number of pops or of waves is reached, and lost
+when health is depleted, a time limit passes or too many enemies are alive. The round ends as soon as
+a condition that is set holds. Earlier, \texttt{EndCondition} had seven subclasses kept in a win list
+and a lose list, and a Java constraint rejected a condition in the wrong list. Following feedback, we
+replaced this inheritance with composition: a class per role makes a wrong condition impossible to
+write, and as each condition is a single value, it fits a field. Effects keep their subclasses, since
+a kind such as \texttt{Poison} groups several values (amount, interval, duration).
 
 \subsection{Drop tables and difficulty}
 A \texttt{DropTable} references one enemy type and contains weighted \texttt{Drop}s that reference

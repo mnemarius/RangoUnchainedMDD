@@ -1866,103 +1866,53 @@ ruleGameMode returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_10_2_0());
+						newCompositeNode(grammarAccess.getGameModeAccess().getWinWinConditionParserRuleCall_10_2_0());
 					}
-					lv_winConditions_17_0=ruleEndCondition
+					lv_win_17_0=ruleWinCondition
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getGameModeRule());
 						}
-						add(
+						set(
 							$current,
-							"winConditions",
-							lv_winConditions_17_0,
-							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
+							"win",
+							lv_win_17_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.WinCondition");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
-			(
-				otherlv_18='or'
-				{
-					newLeafNode(otherlv_18, grammarAccess.getGameModeAccess().getOrKeyword_10_3_0());
-				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getGameModeAccess().getWinConditionsEndConditionParserRuleCall_10_3_1_0());
-						}
-						lv_winConditions_19_0=ruleEndCondition
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getGameModeRule());
-							}
-							add(
-								$current,
-								"winConditions",
-								lv_winConditions_19_0,
-								"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
-			)*
 		)?
-		otherlv_20='lose'
+		otherlv_18='lose'
 		{
-			newLeafNode(otherlv_20, grammarAccess.getGameModeAccess().getLoseKeyword_11());
+			newLeafNode(otherlv_18, grammarAccess.getGameModeAccess().getLoseKeyword_11());
 		}
-		otherlv_21='when'
+		otherlv_19='when'
 		{
-			newLeafNode(otherlv_21, grammarAccess.getGameModeAccess().getWhenKeyword_12());
+			newLeafNode(otherlv_19, grammarAccess.getGameModeAccess().getWhenKeyword_12());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_13_0());
+					newCompositeNode(grammarAccess.getGameModeAccess().getLoseLoseConditionParserRuleCall_13_0());
 				}
-				lv_loseConditions_22_0=ruleEndCondition
+				lv_lose_20_0=ruleLoseCondition
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getGameModeRule());
 					}
-					add(
+					set(
 						$current,
-						"loseConditions",
-						lv_loseConditions_22_0,
-						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
+						"lose",
+						lv_lose_20_0,
+						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.LoseCondition");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		(
-			otherlv_23='or'
-			{
-				newLeafNode(otherlv_23, grammarAccess.getGameModeAccess().getOrKeyword_14_0());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getGameModeAccess().getLoseConditionsEndConditionParserRuleCall_14_1_0());
-					}
-					lv_loseConditions_24_0=ruleEndCondition
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getGameModeRule());
-						}
-						add(
-							$current,
-							"loseConditions",
-							lv_loseConditions_24_0,
-							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndCondition");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-		)*
-		otherlv_25='}'
+		otherlv_21='}'
 		{
-			newLeafNode(otherlv_25, grammarAccess.getGameModeAccess().getRightCurlyBracketKeyword_15());
+			newLeafNode(otherlv_21, grammarAccess.getGameModeAccess().getRightCurlyBracketKeyword_14());
 		}
 	)
 ;
@@ -3306,96 +3256,15 @@ ruleDrop returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleEndCondition
-entryRuleEndCondition returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getEndConditionRule()); }
-	iv_ruleEndCondition=ruleEndCondition
-	{ $current=$iv_ruleEndCondition.current; }
+// Entry rule entryRuleWinCondition
+entryRuleWinCondition returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getWinConditionRule()); }
+	iv_ruleWinCondition=ruleWinCondition
+	{ $current=$iv_ruleWinCondition.current; }
 	EOF;
 
-// Rule EndCondition
-ruleEndCondition returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getClearedParserRuleCall_0());
-		}
-		this_Cleared_0=ruleCleared
-		{
-			$current = $this_Cleared_0.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getTimeReachedParserRuleCall_1());
-		}
-		this_TimeReached_1=ruleTimeReached
-		{
-			$current = $this_TimeReached_1.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getScoreReachedParserRuleCall_2());
-		}
-		this_ScoreReached_2=ruleScoreReached
-		{
-			$current = $this_ScoreReached_2.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getEnemiesPoppedParserRuleCall_3());
-		}
-		this_EnemiesPopped_3=ruleEnemiesPopped
-		{
-			$current = $this_EnemiesPopped_3.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getWavesSurvivedParserRuleCall_4());
-		}
-		this_WavesSurvived_4=ruleWavesSurvived
-		{
-			$current = $this_WavesSurvived_4.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getHealthDepletedParserRuleCall_5());
-		}
-		this_HealthDepleted_5=ruleHealthDepleted
-		{
-			$current = $this_HealthDepleted_5.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getEndConditionAccess().getEnemiesAliveParserRuleCall_6());
-		}
-		this_EnemiesAlive_6=ruleEnemiesAlive
-		{
-			$current = $this_EnemiesAlive_6.current;
-			afterParserOrEnumRuleCall();
-		}
-	)
-;
-
-// Entry rule entryRuleCleared
-entryRuleCleared returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getClearedRule()); }
-	iv_ruleCleared=ruleCleared
-	{ $current=$iv_ruleCleared.current; }
-	EOF;
-
-// Rule Cleared
-ruleCleared returns [EObject current=null]
+// Rule WinCondition
+ruleWinCondition returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -3406,129 +3275,44 @@ ruleCleared returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getClearedAccess().getClearedAction_0(),
+					grammarAccess.getWinConditionAccess().getWinConditionAction_0(),
 					$current);
 			}
 		)
-		otherlv_1='all'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getClearedAccess().getAllKeyword_1());
+			if ($current==null) {
+				$current = createModelElement(grammarAccess.getWinConditionRule());
+			}
+			newCompositeNode(grammarAccess.getWinConditionAccess().getWinClauseParserRuleCall_1());
 		}
-		otherlv_2='enemies'
+		this_WinClause_1=ruleWinClause[$current]
 		{
-			newLeafNode(otherlv_2, grammarAccess.getClearedAccess().getEnemiesKeyword_2());
-		}
-		otherlv_3='cleared'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getClearedAccess().getClearedKeyword_3());
-		}
-	)
-;
-
-// Entry rule entryRuleTimeReached
-entryRuleTimeReached returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getTimeReachedRule()); }
-	iv_ruleTimeReached=ruleTimeReached
-	{ $current=$iv_ruleTimeReached.current; }
-	EOF;
-
-// Rule TimeReached
-ruleTimeReached returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='time'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getTimeReachedAccess().getTimeKeyword_0());
-		}
-		otherlv_1='reaches'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getTimeReachedAccess().getReachesKeyword_1());
+			$current = $this_WinClause_1.current;
+			afterParserOrEnumRuleCall();
 		}
 		(
-			(
-				{
-					newCompositeNode(grammarAccess.getTimeReachedAccess().getSecondsDecimalParserRuleCall_2_0());
+			otherlv_2='or'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getWinConditionAccess().getOrKeyword_2_0());
+			}
+			{
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getWinConditionRule());
 				}
-				lv_seconds_2_0=ruleDecimal
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getTimeReachedRule());
-					}
-					set(
-						$current,
-						"seconds",
-						lv_seconds_2_0,
-						"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		otherlv_3='s'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getTimeReachedAccess().getSKeyword_3());
-		}
+				newCompositeNode(grammarAccess.getWinConditionAccess().getWinClauseParserRuleCall_2_1());
+			}
+			this_WinClause_3=ruleWinClause[$current]
+			{
+				$current = $this_WinClause_3.current;
+				afterParserOrEnumRuleCall();
+			}
+		)*
 	)
 ;
 
-// Entry rule entryRuleScoreReached
-entryRuleScoreReached returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getScoreReachedRule()); }
-	iv_ruleScoreReached=ruleScoreReached
-	{ $current=$iv_ruleScoreReached.current; }
-	EOF;
 
-// Rule ScoreReached
-ruleScoreReached returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='score'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getScoreReachedAccess().getScoreKeyword_0());
-		}
-		otherlv_1='reaches'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getScoreReachedAccess().getReachesKeyword_1());
-		}
-		(
-			(
-				lv_points_2_0=RULE_INT
-				{
-					newLeafNode(lv_points_2_0, grammarAccess.getScoreReachedAccess().getPointsINTTerminalRuleCall_2_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getScoreReachedRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"points",
-						lv_points_2_0,
-						"org.eclipse.xtext.common.Terminals.INT");
-				}
-			)
-		)
-	)
-;
-
-// Entry rule entryRuleEnemiesPopped
-entryRuleEnemiesPopped returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getEnemiesPoppedRule()); }
-	iv_ruleEnemiesPopped=ruleEnemiesPopped
-	{ $current=$iv_ruleEnemiesPopped.current; }
-	EOF;
-
-// Rule EnemiesPopped
-ruleEnemiesPopped returns [EObject current=null]
+// Rule WinClause
+ruleWinClause[EObject in_current]  returns [EObject current=in_current]
 @init {
 	enterRule();
 }
@@ -3538,87 +3322,161 @@ ruleEnemiesPopped returns [EObject current=null]
 	(
 		(
 			(
-				lv_count_0_0=RULE_INT
-				{
-					newLeafNode(lv_count_0_0, grammarAccess.getEnemiesPoppedAccess().getCountINTTerminalRuleCall_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getEnemiesPoppedRule());
+				(
+					lv_cleared_0_0='all'
+					{
+						newLeafNode(lv_cleared_0_0, grammarAccess.getWinClauseAccess().getClearedAllKeyword_0_0_0());
 					}
-					setWithLastConsumed(
-						$current,
-						"count",
-						lv_count_0_0,
-						"org.eclipse.xtext.common.Terminals.INT");
-				}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getWinClauseRule());
+						}
+						setWithLastConsumed($current, "cleared", lv_cleared_0_0 != null, "all");
+					}
+				)
+			)
+			otherlv_1='enemies'
+			{
+				newLeafNode(otherlv_1, grammarAccess.getWinClauseAccess().getEnemiesKeyword_0_1());
+			}
+			otherlv_2='cleared'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getWinClauseAccess().getClearedKeyword_0_2());
+			}
+		)
+		    |
+		(
+			otherlv_3='time'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getWinClauseAccess().getTimeKeyword_1_0());
+			}
+			otherlv_4='reaches'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getWinClauseAccess().getReachesKeyword_1_1());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getWinClauseAccess().getSurviveSecondsDecimalParserRuleCall_1_2_0());
+					}
+					lv_surviveSeconds_5_0=ruleDecimal
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getWinClauseRule());
+						}
+						set(
+							$current,
+							"surviveSeconds",
+							lv_surviveSeconds_5_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_6='s'
+			{
+				newLeafNode(otherlv_6, grammarAccess.getWinClauseAccess().getSKeyword_1_3());
+			}
+		)
+		    |
+		(
+			otherlv_7='score'
+			{
+				newLeafNode(otherlv_7, grammarAccess.getWinClauseAccess().getScoreKeyword_2_0());
+			}
+			otherlv_8='reaches'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getWinClauseAccess().getReachesKeyword_2_1());
+			}
+			(
+				(
+					lv_points_9_0=RULE_INT
+					{
+						newLeafNode(lv_points_9_0, grammarAccess.getWinClauseAccess().getPointsINTTerminalRuleCall_2_2_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getWinClauseRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"points",
+							lv_points_9_0,
+							"org.eclipse.xtext.common.Terminals.INT");
+					}
+				)
 			)
 		)
-		otherlv_1='enemies'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getEnemiesPoppedAccess().getEnemiesKeyword_1());
-		}
-		otherlv_2='popped'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getEnemiesPoppedAccess().getPoppedKeyword_2());
-		}
-	)
-;
-
-// Entry rule entryRuleWavesSurvived
-entryRuleWavesSurvived returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getWavesSurvivedRule()); }
-	iv_ruleWavesSurvived=ruleWavesSurvived
-	{ $current=$iv_ruleWavesSurvived.current; }
-	EOF;
-
-// Rule WavesSurvived
-ruleWavesSurvived returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
+		    |
 		(
 			(
-				lv_count_0_0=RULE_INT
-				{
-					newLeafNode(lv_count_0_0, grammarAccess.getWavesSurvivedAccess().getCountINTTerminalRuleCall_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getWavesSurvivedRule());
+				(
+					lv_enemiesPopped_10_0=RULE_INT
+					{
+						newLeafNode(lv_enemiesPopped_10_0, grammarAccess.getWinClauseAccess().getEnemiesPoppedINTTerminalRuleCall_3_0_0());
 					}
-					setWithLastConsumed(
-						$current,
-						"count",
-						lv_count_0_0,
-						"org.eclipse.xtext.common.Terminals.INT");
-				}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getWinClauseRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"enemiesPopped",
+							lv_enemiesPopped_10_0,
+							"org.eclipse.xtext.common.Terminals.INT");
+					}
+				)
 			)
+			otherlv_11='enemies'
+			{
+				newLeafNode(otherlv_11, grammarAccess.getWinClauseAccess().getEnemiesKeyword_3_1());
+			}
+			otherlv_12='popped'
+			{
+				newLeafNode(otherlv_12, grammarAccess.getWinClauseAccess().getPoppedKeyword_3_2());
+			}
 		)
-		otherlv_1='waves'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getWavesSurvivedAccess().getWavesKeyword_1());
-		}
-		otherlv_2='survived'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getWavesSurvivedAccess().getSurvivedKeyword_2());
-		}
+		    |
+		(
+			(
+				(
+					lv_wavesSurvived_13_0=RULE_INT
+					{
+						newLeafNode(lv_wavesSurvived_13_0, grammarAccess.getWinClauseAccess().getWavesSurvivedINTTerminalRuleCall_4_0_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getWinClauseRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"wavesSurvived",
+							lv_wavesSurvived_13_0,
+							"org.eclipse.xtext.common.Terminals.INT");
+					}
+				)
+			)
+			otherlv_14='waves'
+			{
+				newLeafNode(otherlv_14, grammarAccess.getWinClauseAccess().getWavesKeyword_4_1());
+			}
+			otherlv_15='survived'
+			{
+				newLeafNode(otherlv_15, grammarAccess.getWinClauseAccess().getSurvivedKeyword_4_2());
+			}
+		)
 	)
 ;
 
-// Entry rule entryRuleHealthDepleted
-entryRuleHealthDepleted returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getHealthDepletedRule()); }
-	iv_ruleHealthDepleted=ruleHealthDepleted
-	{ $current=$iv_ruleHealthDepleted.current; }
+// Entry rule entryRuleLoseCondition
+entryRuleLoseCondition returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getLoseConditionRule()); }
+	iv_ruleLoseCondition=ruleLoseCondition
+	{ $current=$iv_ruleLoseCondition.current; }
 	EOF;
 
-// Rule HealthDepleted
-ruleHealthDepleted returns [EObject current=null]
+// Rule LoseCondition
+ruleLoseCondition returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -3629,30 +3487,44 @@ ruleHealthDepleted returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getHealthDepletedAccess().getHealthDepletedAction_0(),
+					grammarAccess.getLoseConditionAccess().getLoseConditionAction_0(),
 					$current);
 			}
 		)
-		otherlv_1='health'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getHealthDepletedAccess().getHealthKeyword_1());
+			if ($current==null) {
+				$current = createModelElement(grammarAccess.getLoseConditionRule());
+			}
+			newCompositeNode(grammarAccess.getLoseConditionAccess().getLoseClauseParserRuleCall_1());
 		}
-		otherlv_2='depleted'
+		this_LoseClause_1=ruleLoseClause[$current]
 		{
-			newLeafNode(otherlv_2, grammarAccess.getHealthDepletedAccess().getDepletedKeyword_2());
+			$current = $this_LoseClause_1.current;
+			afterParserOrEnumRuleCall();
 		}
+		(
+			otherlv_2='or'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getLoseConditionAccess().getOrKeyword_2_0());
+			}
+			{
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getLoseConditionRule());
+				}
+				newCompositeNode(grammarAccess.getLoseConditionAccess().getLoseClauseParserRuleCall_2_1());
+			}
+			this_LoseClause_3=ruleLoseClause[$current]
+			{
+				$current = $this_LoseClause_3.current;
+				afterParserOrEnumRuleCall();
+			}
+		)*
 	)
 ;
 
-// Entry rule entryRuleEnemiesAlive
-entryRuleEnemiesAlive returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getEnemiesAliveRule()); }
-	iv_ruleEnemiesAlive=ruleEnemiesAlive
-	{ $current=$iv_ruleEnemiesAlive.current; }
-	EOF;
 
-// Rule EnemiesAlive
-ruleEnemiesAlive returns [EObject current=null]
+// Rule LoseClause
+ruleLoseClause[EObject in_current]  returns [EObject current=in_current]
 @init {
 	enterRule();
 }
@@ -3662,30 +3534,87 @@ ruleEnemiesAlive returns [EObject current=null]
 	(
 		(
 			(
-				lv_count_0_0=RULE_INT
-				{
-					newLeafNode(lv_count_0_0, grammarAccess.getEnemiesAliveAccess().getCountINTTerminalRuleCall_0_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getEnemiesAliveRule());
+				(
+					lv_healthDepleted_0_0='health'
+					{
+						newLeafNode(lv_healthDepleted_0_0, grammarAccess.getLoseClauseAccess().getHealthDepletedHealthKeyword_0_0_0());
 					}
-					setWithLastConsumed(
-						$current,
-						"count",
-						lv_count_0_0,
-						"org.eclipse.xtext.common.Terminals.INT");
-				}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getLoseClauseRule());
+						}
+						setWithLastConsumed($current, "healthDepleted", lv_healthDepleted_0_0 != null, "health");
+					}
+				)
 			)
+			otherlv_1='depleted'
+			{
+				newLeafNode(otherlv_1, grammarAccess.getLoseClauseAccess().getDepletedKeyword_0_1());
+			}
 		)
-		otherlv_1='enemies'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getEnemiesAliveAccess().getEnemiesKeyword_1());
-		}
-		otherlv_2='alive'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getEnemiesAliveAccess().getAliveKeyword_2());
-		}
+		    |
+		(
+			otherlv_2='time'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getLoseClauseAccess().getTimeKeyword_1_0());
+			}
+			otherlv_3='reaches'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getLoseClauseAccess().getReachesKeyword_1_1());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getLoseClauseAccess().getTimeLimitDecimalParserRuleCall_1_2_0());
+					}
+					lv_timeLimit_4_0=ruleDecimal
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getLoseClauseRule());
+						}
+						set(
+							$current,
+							"timeLimit",
+							lv_timeLimit_4_0,
+							"no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_5='s'
+			{
+				newLeafNode(otherlv_5, grammarAccess.getLoseClauseAccess().getSKeyword_1_3());
+			}
+		)
+		    |
+		(
+			(
+				(
+					lv_enemiesAlive_6_0=RULE_INT
+					{
+						newLeafNode(lv_enemiesAlive_6_0, grammarAccess.getLoseClauseAccess().getEnemiesAliveINTTerminalRuleCall_2_0_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getLoseClauseRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"enemiesAlive",
+							lv_enemiesAlive_6_0,
+							"org.eclipse.xtext.common.Terminals.INT");
+					}
+				)
+			)
+			otherlv_7='enemies'
+			{
+				newLeafNode(otherlv_7, grammarAccess.getLoseClauseAccess().getEnemiesKeyword_2_1());
+			}
+			otherlv_8='alive'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getLoseClauseAccess().getAliveKeyword_2_2());
+			}
+		)
 	)
 ;
 

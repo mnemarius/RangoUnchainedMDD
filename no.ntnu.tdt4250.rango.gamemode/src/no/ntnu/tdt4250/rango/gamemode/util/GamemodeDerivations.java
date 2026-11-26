@@ -15,7 +15,6 @@ import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
-import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -296,10 +295,6 @@ public final class GamemodeDerivations {
 			}
 		}
 		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__POWER_UPS, new ArrayList<>(powerUps));
-	}
-
-	public static boolean isWin(EndCondition condition) {
-		return condition.eContainingFeature() == GamemodePackage.Literals.GAME_MODE__WIN_CONDITIONS;
 	}
 
 	/** The mode an element belongs to, or null if it is not inside a mode. */

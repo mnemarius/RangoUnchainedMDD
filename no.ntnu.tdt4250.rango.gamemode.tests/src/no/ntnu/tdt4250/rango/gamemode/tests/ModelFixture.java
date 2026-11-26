@@ -17,12 +17,14 @@ import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeOCL;
 
 /**
@@ -96,7 +98,9 @@ public class ModelFixture {
 		layout.getSpawns().add(spawn(tumbleweed, 3, 1));
 		layout.getSpawns().add(spawn(bomb, 3, 1));
 		level(clear).setSpawning(layout);
-		clear.getWinConditions().add(F.createCleared());
+		WinCondition cleared = F.createWinCondition();
+		cleared.setCleared(true);
+		clear.setWin(cleared);
 
 		mode(waves, "Waves");
 		Wave first = F.createWave();
@@ -112,9 +116,9 @@ public class ModelFixture {
 		tumbleweedDrops.getEntries().add(drop(heart, 1));
 		waves.getDrops().add(drops);
 		waves.getDrops().add(tumbleweedDrops);
-		var survived = F.createWavesSurvived();
-		survived.setCount(2);
-		waves.getWinConditions().add(survived);
+		WinCondition survived = F.createWinCondition();
+		survived.setWavesSurvived(2);
+		waves.setWin(survived);
 	}
 
 	private EnemyType enemy(String name, int points) {
@@ -133,7 +137,9 @@ public class ModelFixture {
 		mode.setTitle(name);
 		mode.setPlayer(rango);
 		mode.getLevels().add(level());
-		mode.getLoseConditions().add(F.createHealthDepleted());
+		LoseCondition lose = F.createLoseCondition();
+		lose.setHealthDepleted(true);
+		mode.setLose(lose);
 		edition.getModes().add(mode);
 	}
 

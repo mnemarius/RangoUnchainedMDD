@@ -4,7 +4,6 @@ package no.ntnu.tdt4250.rango.gamemode.impl;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.Block;
-import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
@@ -12,9 +11,6 @@ import no.ntnu.tdt4250.rango.gamemode.Direction;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
-import no.ntnu.tdt4250.rango.gamemode.EndCondition;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
@@ -22,9 +18,10 @@ import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
-import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
+import no.ntnu.tdt4250.rango.gamemode.InstantEffect;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
@@ -34,7 +31,6 @@ import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.Positioned;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
-import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
@@ -43,14 +39,12 @@ import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
 import no.ntnu.tdt4250.rango.gamemode.Target;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
-import no.ntnu.tdt4250.rango.gamemode.TimeReached;
 import no.ntnu.tdt4250.rango.gamemode.TimedEffect;
 import no.ntnu.tdt4250.rango.gamemode.Trigger;
 import no.ntnu.tdt4250.rango.gamemode.Vanish;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
-
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeValidator;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -124,6 +118,13 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	private EClass playerEffectEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass instantEffectEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -298,56 +299,14 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass endConditionEClass = null;
+	private EClass winConditionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass clearedEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass timeReachedEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass scoreReachedEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass enemiesPoppedEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass wavesSurvivedEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass healthDepletedEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass enemiesAliveEClass = null;
+	private EClass loseConditionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -777,6 +736,26 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
+	public EClass getInstantEffect() {
+		return instantEffectEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getInstantEffect_Amount() {
+		return (EAttribute)instantEffectEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getDamage() {
 		return damageEClass;
 	}
@@ -787,28 +766,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDamage_Amount() {
-		return (EAttribute)damageEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getHeal() {
 		return healEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getHeal_Amount() {
-		return (EAttribute)healEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1097,7 +1056,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_WinConditions() {
+	public EReference getGameMode_Win() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1107,7 +1066,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getGameMode_LoseConditions() {
+	public EReference getGameMode_Lose() {
 		return (EReference)gameModeEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1697,8 +1656,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getEndCondition() {
-		return endConditionEClass;
+	public EClass getWinCondition() {
+		return winConditionEClass;
 	}
 
 	/**
@@ -1707,8 +1666,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getEndCondition_Win() {
-		return (EAttribute)endConditionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getWinCondition_Cleared() {
+		return (EAttribute)winConditionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1717,8 +1676,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getCleared() {
-		return clearedEClass;
+	public EAttribute getWinCondition_SurviveSeconds() {
+		return (EAttribute)winConditionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1727,8 +1686,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getTimeReached() {
-		return timeReachedEClass;
+	public EAttribute getWinCondition_Points() {
+		return (EAttribute)winConditionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1737,8 +1696,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTimeReached_Seconds() {
-		return (EAttribute)timeReachedEClass.getEStructuralFeatures().get(0);
+	public EAttribute getWinCondition_EnemiesPopped() {
+		return (EAttribute)winConditionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1747,8 +1706,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getScoreReached() {
-		return scoreReachedEClass;
+	public EAttribute getWinCondition_WavesSurvived() {
+		return (EAttribute)winConditionEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1757,8 +1716,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getScoreReached_Points() {
-		return (EAttribute)scoreReachedEClass.getEStructuralFeatures().get(0);
+	public EClass getLoseCondition() {
+		return loseConditionEClass;
 	}
 
 	/**
@@ -1767,8 +1726,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getEnemiesPopped() {
-		return enemiesPoppedEClass;
+	public EAttribute getLoseCondition_HealthDepleted() {
+		return (EAttribute)loseConditionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1777,8 +1736,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getEnemiesPopped_Count() {
-		return (EAttribute)enemiesPoppedEClass.getEStructuralFeatures().get(0);
+	public EAttribute getLoseCondition_TimeLimit() {
+		return (EAttribute)loseConditionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1787,48 +1746,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 	 * @generated
 	 */
 	@Override
-	public EClass getWavesSurvived() {
-		return wavesSurvivedEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getWavesSurvived_Count() {
-		return (EAttribute)wavesSurvivedEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getHealthDepleted() {
-		return healthDepletedEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getEnemiesAlive() {
-		return enemiesAliveEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getEnemiesAlive_Count() {
-		return (EAttribute)enemiesAliveEClass.getEStructuralFeatures().get(0);
+	public EAttribute getLoseCondition_EnemiesAlive() {
+		return (EAttribute)loseConditionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1999,11 +1918,12 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		playerEffectEClass = createEClass(PLAYER_EFFECT);
 
+		instantEffectEClass = createEClass(INSTANT_EFFECT);
+		createEAttribute(instantEffectEClass, INSTANT_EFFECT__AMOUNT);
+
 		damageEClass = createEClass(DAMAGE);
-		createEAttribute(damageEClass, DAMAGE__AMOUNT);
 
 		healEClass = createEClass(HEAL);
-		createEAttribute(healEClass, HEAL__AMOUNT);
 
 		timedEffectEClass = createEClass(TIMED_EFFECT);
 		createEAttribute(timedEffectEClass, TIMED_EFFECT__DURATION);
@@ -2039,8 +1959,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEReference(gameModeEClass, GAME_MODE__SPEED_BONUS);
 		createEReference(gameModeEClass, GAME_MODE__LEVELS);
 		createEReference(gameModeEClass, GAME_MODE__DROPS);
-		createEReference(gameModeEClass, GAME_MODE__WIN_CONDITIONS);
-		createEReference(gameModeEClass, GAME_MODE__LOSE_CONDITIONS);
+		createEReference(gameModeEClass, GAME_MODE__WIN);
+		createEReference(gameModeEClass, GAME_MODE__LOSE);
 		createEReference(gameModeEClass, GAME_MODE__POWER_UPS);
 		createEAttribute(gameModeEClass, GAME_MODE__POPS_TO_CLEAR);
 		createEAttribute(gameModeEClass, GAME_MODE__MAX_SCORE);
@@ -2115,27 +2035,17 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		createEAttribute(dropEClass, DROP__PROBABILITY);
 		createEAttribute(dropEClass, DROP__SHARE);
 
-		endConditionEClass = createEClass(END_CONDITION);
-		createEAttribute(endConditionEClass, END_CONDITION__WIN);
+		winConditionEClass = createEClass(WIN_CONDITION);
+		createEAttribute(winConditionEClass, WIN_CONDITION__CLEARED);
+		createEAttribute(winConditionEClass, WIN_CONDITION__SURVIVE_SECONDS);
+		createEAttribute(winConditionEClass, WIN_CONDITION__POINTS);
+		createEAttribute(winConditionEClass, WIN_CONDITION__ENEMIES_POPPED);
+		createEAttribute(winConditionEClass, WIN_CONDITION__WAVES_SURVIVED);
 
-		clearedEClass = createEClass(CLEARED);
-
-		timeReachedEClass = createEClass(TIME_REACHED);
-		createEAttribute(timeReachedEClass, TIME_REACHED__SECONDS);
-
-		scoreReachedEClass = createEClass(SCORE_REACHED);
-		createEAttribute(scoreReachedEClass, SCORE_REACHED__POINTS);
-
-		enemiesPoppedEClass = createEClass(ENEMIES_POPPED);
-		createEAttribute(enemiesPoppedEClass, ENEMIES_POPPED__COUNT);
-
-		wavesSurvivedEClass = createEClass(WAVES_SURVIVED);
-		createEAttribute(wavesSurvivedEClass, WAVES_SURVIVED__COUNT);
-
-		healthDepletedEClass = createEClass(HEALTH_DEPLETED);
-
-		enemiesAliveEClass = createEClass(ENEMIES_ALIVE);
-		createEAttribute(enemiesAliveEClass, ENEMIES_ALIVE__COUNT);
+		loseConditionEClass = createEClass(LOSE_CONDITION);
+		createEAttribute(loseConditionEClass, LOSE_CONDITION__HEALTH_DEPLETED);
+		createEAttribute(loseConditionEClass, LOSE_CONDITION__TIME_LIMIT);
+		createEAttribute(loseConditionEClass, LOSE_CONDITION__ENEMIES_ALIVE);
 
 		difficultyEClass = createEClass(DIFFICULTY);
 		createEAttribute(difficultyEClass, DIFFICULTY__TIER);
@@ -2184,8 +2094,9 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		enemyTypeEClass.getESuperTypes().add(this.getNamedElement());
 		vanishEClass.getESuperTypes().add(this.getSplitRule());
 		splitEClass.getESuperTypes().add(this.getSplitRule());
-		damageEClass.getESuperTypes().add(this.getPlayerEffect());
-		healEClass.getESuperTypes().add(this.getPlayerEffect());
+		instantEffectEClass.getESuperTypes().add(this.getPlayerEffect());
+		damageEClass.getESuperTypes().add(this.getInstantEffect());
+		healEClass.getESuperTypes().add(this.getInstantEffect());
 		timedEffectEClass.getESuperTypes().add(this.getPlayerEffect());
 		shieldEClass.getESuperTypes().add(this.getTimedEffect());
 		speedChangeEClass.getESuperTypes().add(this.getTimedEffect());
@@ -2202,13 +2113,6 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		fixedLayoutEClass.getESuperTypes().add(this.getSpawnStrategy());
 		waveScheduleEClass.getESuperTypes().add(this.getSpawnStrategy());
 		enemySpawnEClass.getESuperTypes().add(this.getPositioned());
-		clearedEClass.getESuperTypes().add(this.getEndCondition());
-		timeReachedEClass.getESuperTypes().add(this.getEndCondition());
-		scoreReachedEClass.getESuperTypes().add(this.getEndCondition());
-		enemiesPoppedEClass.getESuperTypes().add(this.getEndCondition());
-		wavesSurvivedEClass.getESuperTypes().add(this.getEndCondition());
-		healthDepletedEClass.getESuperTypes().add(this.getEndCondition());
-		enemiesAliveEClass.getESuperTypes().add(this.getEndCondition());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2250,11 +2154,12 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 
 		initEClass(playerEffectEClass, PlayerEffect.class, "PlayerEffect", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(instantEffectEClass, InstantEffect.class, "InstantEffect", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInstantEffect_Amount(), ecorePackage.getEInt(), "amount", null, 1, 1, InstantEffect.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(damageEClass, Damage.class, "Damage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDamage_Amount(), ecorePackage.getEInt(), "amount", null, 1, 1, Damage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(healEClass, Heal.class, "Heal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getHeal_Amount(), ecorePackage.getEInt(), "amount", null, 1, 1, Heal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(timedEffectEClass, TimedEffect.class, "TimedEffect", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTimedEffect_Duration(), ecorePackage.getEFloat(), "duration", null, 1, 1, TimedEffect.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2290,8 +2195,8 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEReference(getGameMode_SpeedBonus(), this.getSpeedBonus(), null, "speedBonus", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Levels(), this.getLevel(), null, "levels", null, 1, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_Drops(), this.getDropTable(), null, "drops", null, 0, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGameMode_WinConditions(), this.getEndCondition(), null, "winConditions", null, 0, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGameMode_LoseConditions(), this.getEndCondition(), null, "loseConditions", null, 1, -1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_Win(), this.getWinCondition(), null, "win", null, 0, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGameMode_Lose(), this.getLoseCondition(), null, "lose", null, 1, 1, GameMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGameMode_PowerUps(), this.getPowerUp(), null, "powerUps", null, 0, -1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_PopsToClear(), ecorePackage.getEInt(), "popsToClear", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGameMode_MaxScore(), ecorePackage.getEInt(), "maxScore", null, 0, 1, GameMode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -2366,27 +2271,17 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		initEAttribute(getDrop_Probability(), ecorePackage.getEFloat(), "probability", null, 0, 1, Drop.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDrop_Share(), ecorePackage.getEFloat(), "share", null, 0, 1, Drop.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
-		initEClass(endConditionEClass, EndCondition.class, "EndCondition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEndCondition_Win(), ecorePackage.getEBoolean(), "win", null, 0, 1, EndCondition.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEClass(winConditionEClass, WinCondition.class, "WinCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getWinCondition_Cleared(), ecorePackage.getEBoolean(), "cleared", null, 0, 1, WinCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWinCondition_SurviveSeconds(), ecorePackage.getEFloat(), "surviveSeconds", null, 0, 1, WinCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWinCondition_Points(), ecorePackage.getEInt(), "points", null, 0, 1, WinCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWinCondition_EnemiesPopped(), ecorePackage.getEInt(), "enemiesPopped", null, 0, 1, WinCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWinCondition_WavesSurvived(), ecorePackage.getEInt(), "wavesSurvived", null, 0, 1, WinCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(clearedEClass, Cleared.class, "Cleared", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(timeReachedEClass, TimeReached.class, "TimeReached", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTimeReached_Seconds(), ecorePackage.getEFloat(), "seconds", null, 1, 1, TimeReached.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(scoreReachedEClass, ScoreReached.class, "ScoreReached", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getScoreReached_Points(), ecorePackage.getEInt(), "points", null, 1, 1, ScoreReached.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(enemiesPoppedEClass, EnemiesPopped.class, "EnemiesPopped", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEnemiesPopped_Count(), ecorePackage.getEInt(), "count", null, 1, 1, EnemiesPopped.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(wavesSurvivedEClass, WavesSurvived.class, "WavesSurvived", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getWavesSurvived_Count(), ecorePackage.getEInt(), "count", null, 1, 1, WavesSurvived.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(healthDepletedEClass, HealthDepleted.class, "HealthDepleted", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(enemiesAliveEClass, EnemiesAlive.class, "EnemiesAlive", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEnemiesAlive_Count(), ecorePackage.getEInt(), "count", null, 1, 1, EnemiesAlive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(loseConditionEClass, LoseCondition.class, "LoseCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLoseCondition_HealthDepleted(), ecorePackage.getEBoolean(), "healthDepleted", null, 0, 1, LoseCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLoseCondition_TimeLimit(), ecorePackage.getEFloat(), "timeLimit", null, 0, 1, LoseCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLoseCondition_EnemiesAlive(), ecorePackage.getEInt(), "enemiesAlive", null, 0, 1, LoseCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(difficultyEClass, Difficulty.class, "Difficulty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDifficulty_Tier(), this.getDifficultyTier(), "tier", null, 1, 1, Difficulty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2461,7 +2356,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (enemyTypeEClass,
 		   source,
 		   new String[] {
-			   "constraints", "positiveScale positiveBounce positiveSpeed nonNegativePoints distinctEffectKinds"
+			   "constraints", "positiveScale positiveBounce positiveSpeed nonNegativePoints distinctEffectKinds oneInstantEffect"
 		   });
 		addAnnotation
 		  (splitEClass,
@@ -2470,13 +2365,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "constraints", "atLeastOneFragment atMostSixteenFragments positiveLaunchSpeed"
 		   });
 		addAnnotation
-		  (damageEClass,
-		   source,
-		   new String[] {
-			   "constraints", "positiveAmount"
-		   });
-		addAnnotation
-		  (healEClass,
+		  (instantEffectEClass,
 		   source,
 		   new String[] {
 			   "constraints", "positiveAmount"
@@ -2503,7 +2392,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 		  (powerUpEClass,
 		   source,
 		   new String[] {
-			   "constraints", "distinctEffectKinds"
+			   "constraints", "distinctEffectKinds oneInstantEffect"
 		   });
 		addAnnotation
 		  (playerProfileEClass,
@@ -2578,40 +2467,16 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "constraints", "positiveWeight"
 		   });
 		addAnnotation
-		  (endConditionEClass,
+		  (winConditionEClass,
 		   source,
 		   new String[] {
-			   "constraints", "fitsRole"
+			   "constraints", "nonNegativeValues setsACondition"
 		   });
 		addAnnotation
-		  (timeReachedEClass,
+		  (loseConditionEClass,
 		   source,
 		   new String[] {
-			   "constraints", "positiveSeconds"
-		   });
-		addAnnotation
-		  (scoreReachedEClass,
-		   source,
-		   new String[] {
-			   "constraints", "positivePoints"
-		   });
-		addAnnotation
-		  (enemiesPoppedEClass,
-		   source,
-		   new String[] {
-			   "constraints", "positiveCount"
-		   });
-		addAnnotation
-		  (wavesSurvivedEClass,
-		   source,
-		   new String[] {
-			   "constraints", "positiveCount"
-		   });
-		addAnnotation
-		  (enemiesAliveEClass,
-		   source,
-		   new String[] {
-			   "constraints", "positiveCount"
+			   "constraints", "nonNegativeValues setsACondition"
 		   });
 		addAnnotation
 		  (difficultyEClass,
@@ -2659,13 +2524,7 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "positiveLaunchSpeed", "launchSpeed > 0"
 		   });
 		addAnnotation
-		  (damageEClass,
-		   source,
-		   new String[] {
-			   "positiveAmount", "amount > 0"
-		   });
-		addAnnotation
-		  (healEClass,
+		  (instantEffectEClass,
 		   source,
 		   new String[] {
 			   "positiveAmount", "amount > 0"
@@ -2770,34 +2629,18 @@ public class GamemodePackageImpl extends EPackageImpl implements GamemodePackage
 			   "positiveWeight", "weight > 0"
 		   });
 		addAnnotation
-		  (timeReachedEClass,
+		  (winConditionEClass,
 		   source,
 		   new String[] {
-			   "positiveSeconds", "seconds > 0"
+			   "nonNegativeValues", "surviveSeconds >= 0 and points >= 0 and enemiesPopped >= 0 and wavesSurvived >= 0",
+			   "setsACondition", "cleared or surviveSeconds > 0 or points > 0 or enemiesPopped > 0 or wavesSurvived > 0"
 		   });
 		addAnnotation
-		  (scoreReachedEClass,
+		  (loseConditionEClass,
 		   source,
 		   new String[] {
-			   "positivePoints", "points > 0"
-		   });
-		addAnnotation
-		  (enemiesPoppedEClass,
-		   source,
-		   new String[] {
-			   "positiveCount", "count > 0"
-		   });
-		addAnnotation
-		  (wavesSurvivedEClass,
-		   source,
-		   new String[] {
-			   "positiveCount", "count > 0"
-		   });
-		addAnnotation
-		  (enemiesAliveEClass,
-		   source,
-		   new String[] {
-			   "positiveCount", "count > 0"
+			   "nonNegativeValues", "timeLimit >= 0 and enemiesAlive >= 0",
+			   "setsACondition", "healthDepleted or timeLimit > 0 or enemiesAlive > 0"
 		   });
 		addAnnotation
 		  (difficultyEClass,

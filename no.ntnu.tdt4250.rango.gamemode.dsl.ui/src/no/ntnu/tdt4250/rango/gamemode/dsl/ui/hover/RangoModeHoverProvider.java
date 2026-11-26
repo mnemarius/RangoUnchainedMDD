@@ -13,7 +13,6 @@ import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
-import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
@@ -67,7 +66,7 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			if (!mode.getDrops().isEmpty() && mode.eContainer() instanceof Edition edition && !edition.getDrops().isEmpty()) {
 				facts.add("Its drop tables replace those of the edition.");
 			}
-			if (mode.getWinConditions().isEmpty()) {
+			if (mode.getWin() == null) {
 				facts.add("Endless: a round only ends when it is lost.");
 			}
 		} else if (object instanceof EnemyType type) {
@@ -102,8 +101,6 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 		} else if (object instanceof Drop drop) {
 			facts.add(percent(drop.getShare()) + "% of the drops of this table, " + percent(drop.getProbability())
 					+ "% of all pops of its enemy type");
-		} else if (object instanceof EndCondition condition) {
-			facts.add(condition.isWin() ? "Wins the round." : "Loses the round.");
 		} else if (object instanceof Teleporter teleporter && teleporter.getTarget() != null) {
 			facts.add("Leads to " + teleporter.getTarget().getName());
 		} else if (object instanceof PlayerProfile player && player.getCooldown() > 0) {

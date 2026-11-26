@@ -38,6 +38,7 @@ class EnemyType {
   <<positiveSpeed>>
   <<nonNegativePoints>>
   <<distinctEffectKinds>>
+  <<oneInstantEffect>>
 }
 abstract class SplitRule {
 }
@@ -55,15 +56,14 @@ class Split {
 }
 abstract class PlayerEffect {
 }
-class Damage {
+abstract class InstantEffect {
   amount : Int
   --
   <<positiveAmount>>
 }
+class Damage {
+}
 class Heal {
-  amount : Int
-  --
-  <<positiveAmount>>
 }
 abstract class TimedEffect {
   duration : Float
@@ -88,6 +88,7 @@ class PowerUp {
   sprite : String
   --
   <<distinctEffectKinds>>
+  <<oneInstantEffect>>
 }
 class PlayerProfile {
   character : String [0..1]
@@ -238,39 +239,23 @@ enum ModifierTarget {
   DROP_CHANCE
   WAVE_DELAY
 }
-abstract class EndCondition {
-  /win : Boolean [0..1]
+class WinCondition {
+  cleared : Boolean [0..1]
+  surviveSeconds : Float [0..1]
+  points : Int [0..1]
+  enemiesPopped : Int [0..1]
+  wavesSurvived : Int [0..1]
   --
-  <<fitsRole>>
+  <<nonNegativeValues>>
+  <<setsACondition>>
 }
-class Cleared {
-}
-class TimeReached {
-  seconds : Float
+class LoseCondition {
+  healthDepleted : Boolean [0..1]
+  timeLimit : Float [0..1]
+  enemiesAlive : Int [0..1]
   --
-  <<positiveSeconds>>
-}
-class ScoreReached {
-  points : Int
-  --
-  <<positivePoints>>
-}
-class EnemiesPopped {
-  count : Int
-  --
-  <<positiveCount>>
-}
-class WavesSurvived {
-  count : Int
-  --
-  <<positiveCount>>
-}
-class HealthDepleted {
-}
-class EnemiesAlive {
-  count : Int
-  --
-  <<positiveCount>>
+  <<nonNegativeValues>>
+  <<setsACondition>>
 }
 Edition *--> "enemyTypes *" EnemyType
 Edition *--> "powerUps *" PowerUp
@@ -286,8 +271,9 @@ NamedElement <|-- EnemyType
 SplitRule <|-- Vanish
 Split --> "fragmentType 0..1" EnemyType
 SplitRule <|-- Split
-PlayerEffect <|-- Damage
-PlayerEffect <|-- Heal
+PlayerEffect <|-- InstantEffect
+InstantEffect <|-- Damage
+InstantEffect <|-- Heal
 PlayerEffect <|-- TimedEffect
 TimedEffect <|-- Shield
 TimedEffect <|-- SpeedChange
@@ -301,8 +287,8 @@ Level *--> "arena 1" Arena
 Level *--> "spawning 1" SpawnStrategy
 GameMode *--> "speedBonus 0..1" SpeedBonus
 GameMode *--> "drops *" DropTable
-GameMode *--> "winConditions *" EndCondition
-GameMode *--> "loseConditions 1..*" EndCondition
+GameMode *--> "win 0..1" WinCondition
+GameMode *--> "lose 1" LoseCondition
 NamedElement <|-- GameMode
 Arena *--> "obstacles *" Obstacle
 NamedElement <|-- Obstacle
@@ -322,11 +308,4 @@ Positioned <|-- EnemySpawn
 DropTable *--> "entries 1..*" Drop
 DropTable --> "enemyType 1" EnemyType
 Drop --> "powerUp 1" PowerUp
-EndCondition <|-- Cleared
-EndCondition <|-- TimeReached
-EndCondition <|-- ScoreReached
-EndCondition <|-- EnemiesPopped
-EndCondition <|-- WavesSurvived
-EndCondition <|-- HealthDepleted
-EndCondition <|-- EnemiesAlive
 @enduml

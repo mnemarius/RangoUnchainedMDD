@@ -3,6 +3,9 @@
  */
 package no.ntnu.tdt4250.rango.gamemode.dsl.ui.labeling;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
@@ -11,38 +14,32 @@ import com.google.inject.Inject;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.Block;
-import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
-import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
-import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
-import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
-import no.ntnu.tdt4250.rango.gamemode.TimeReached;
 import no.ntnu.tdt4250.rango.gamemode.Vanish;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 
 /**
@@ -220,12 +217,20 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 		return "powerup.png";
 	}
 
-	String text(EndCondition condition) {
-		return (condition.isWin() ? "win when " : "lose when ") + describe(condition);
+	String text(WinCondition win) {
+		return "win when " + describe(win);
 	}
 
-	String image(EndCondition condition) {
-		return condition.isWin() ? "win.png" : "lose.png";
+	String image(WinCondition win) {
+		return "win.png";
+	}
+
+	String text(LoseCondition lose) {
+		return "lose when " + describe(lose);
+	}
+
+	String image(LoseCondition lose) {
+		return "lose.png";
 	}
 
 	static String describe(SplitRule rule) {
@@ -259,23 +264,40 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 		return "";
 	}
 
-	static String describe(EndCondition condition) {
-		if (condition instanceof Cleared) {
-			return "all enemies cleared";
-		} else if (condition instanceof TimeReached time) {
-			return "time reaches " + number(time.getSeconds()) + " s";
-		} else if (condition instanceof ScoreReached score) {
-			return "score reaches " + score.getPoints();
-		} else if (condition instanceof EnemiesPopped popped) {
-			return popped.getCount() + " enemies popped";
-		} else if (condition instanceof WavesSurvived waves) {
-			return waves.getCount() + " waves survived";
-		} else if (condition instanceof HealthDepleted) {
-			return "health depleted";
-		} else if (condition instanceof EnemiesAlive alive) {
-			return alive.getCount() + " enemies alive";
+	/** The win conditions that are set, as they are written. */
+	static String describe(WinCondition win) {
+		List<String> conditions = new ArrayList<>();
+		if (win.isCleared()) {
+			conditions.add("all enemies cleared");
 		}
-		return "";
+		if (win.getSurviveSeconds() > 0) {
+			conditions.add("time reaches " + number(win.getSurviveSeconds()) + " s");
+		}
+		if (win.getPoints() > 0) {
+			conditions.add("score reaches " + win.getPoints());
+		}
+		if (win.getEnemiesPopped() > 0) {
+			conditions.add(win.getEnemiesPopped() + " enemies popped");
+		}
+		if (win.getWavesSurvived() > 0) {
+			conditions.add(win.getWavesSurvived() + " waves survived");
+		}
+		return String.join(" or ", conditions);
+	}
+
+	/** The lose conditions that are set, as they are written. */
+	static String describe(LoseCondition lose) {
+		List<String> conditions = new ArrayList<>();
+		if (lose.isHealthDepleted()) {
+			conditions.add("health depleted");
+		}
+		if (lose.getTimeLimit() > 0) {
+			conditions.add("time reaches " + number(lose.getTimeLimit()) + " s");
+		}
+		if (lose.getEnemiesAlive() > 0) {
+			conditions.add(lose.getEnemiesAlive() + " enemies alive");
+		}
+		return String.join(" or ", conditions);
 	}
 
 	/** A number without a needless ".0". */

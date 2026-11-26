@@ -139,8 +139,8 @@ GameMode returns GameMode:
 	)
 	(levels+=SingleLevel | levels+=Level+)
 	Drops?
-	('win' 'when' winConditions+=EndCondition ('or' winConditions+=EndCondition)*)?
-	'lose' 'when' loseConditions+=EndCondition ('or' loseConditions+=EndCondition)*
+	('win' 'when' win=WinCondition)?
+	'lose' 'when' lose=LoseCondition
 	'}';
 
 // The only level of a mode, written without a level block.
@@ -215,8 +215,8 @@ enum Direction returns Direction:
 	LEFT='left' | RIGHT='right';
 
 // ---------------------------------------------------------------------------------------------
-// Drops and end conditions. Each enemy type has its own drop table: the chance that popping it drops
-// a power-up, and which power-up, by weight. The tables of a mode replace those of the edition.
+// Drops. Each enemy type has its own drop table: the chance that popping it drops a power-up, and
+// which power-up, by weight. The tables of a mode replace those of the edition.
 //
 //   drops {
 //       Bomb       40% { Shield weight 2, Health }
@@ -232,29 +232,31 @@ DropTable returns DropTable:
 Drop returns Drop:
 	powerUp=[PowerUp] ('weight' weight=INT)?;
 
-EndCondition returns EndCondition:
-	Cleared | TimeReached | ScoreReached | EnemiesPopped | WavesSurvived | HealthDepleted | EnemiesAlive;
+// ---------------------------------------------------------------------------------------------
+// End conditions. A round is won or lost as soon as one of the conditions of that role holds. Each
+// clause sets one field of the role's condition, so only the conditions that fit a role can be
+// written for it.
+//
+//   win when 20 enemies popped or all enemies cleared
+//   lose when health depleted or time reaches 120 s
 
-Cleared returns Cleared:
-	{Cleared} 'all' 'enemies' 'cleared';
+WinCondition returns WinCondition:
+	{WinCondition} WinClause ('or' WinClause)*;
 
-TimeReached returns TimeReached:
-	'time' 'reaches' seconds=Decimal 's';
+fragment WinClause returns WinCondition:
+		cleared?='all' 'enemies' 'cleared'
+	|	'time' 'reaches' surviveSeconds=Decimal 's'
+	|	'score' 'reaches' points=INT
+	|	enemiesPopped=INT 'enemies' 'popped'
+	|	wavesSurvived=INT 'waves' 'survived';
 
-ScoreReached returns ScoreReached:
-	'score' 'reaches' points=INT;
+LoseCondition returns LoseCondition:
+	{LoseCondition} LoseClause ('or' LoseClause)*;
 
-EnemiesPopped returns EnemiesPopped:
-	count=INT 'enemies' 'popped';
-
-WavesSurvived returns WavesSurvived:
-	count=INT 'waves' 'survived';
-
-HealthDepleted returns HealthDepleted:
-	{HealthDepleted} 'health' 'depleted';
-
-EnemiesAlive returns EnemiesAlive:
-	count=INT 'enemies' 'alive';
+fragment LoseClause returns LoseCondition:
+		healthDepleted?='health' 'depleted'
+	|	'time' 'reaches' timeLimit=Decimal 's'
+	|	enemiesAlive=INT 'enemies' 'alive';
 
 // ---------------------------------------------------------------------------------------------
 

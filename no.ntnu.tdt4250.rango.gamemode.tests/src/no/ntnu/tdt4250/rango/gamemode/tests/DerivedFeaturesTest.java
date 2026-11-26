@@ -1,9 +1,7 @@
 package no.ntnu.tdt4250.rango.gamemode.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -151,11 +149,5 @@ public class DerivedFeaturesTest {
 		// without tables of its own, a mode falls back to the edition's
 		f.waves.getDrops().clear();
 		assertEquals(List.of(f.tumbleweedDefault, f.bombDefault), f.waves.getEffectiveDrops());
-	}
-
-	@Test
-	public void endConditionsKnowTheirRole() {
-		assertTrue(f.clear.getWinConditions().get(0).isWin());
-		assertFalse(f.clear.getLoseConditions().get(0).isWin());
 	}
 }

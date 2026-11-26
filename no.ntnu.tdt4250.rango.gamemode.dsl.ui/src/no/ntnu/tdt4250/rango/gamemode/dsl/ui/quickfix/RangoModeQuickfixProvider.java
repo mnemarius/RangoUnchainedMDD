@@ -18,11 +18,11 @@ import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
-import no.ntnu.tdt4250.rango.gamemode.EndCondition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import no.ntnu.tdt4250.rango.gamemode.dsl.validation.RangoModeValidator;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
@@ -37,7 +37,9 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 	public void makeModeEnd(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Win when all enemies are cleared", "Adds the win condition 'all enemies cleared'.", "win.png",
 				(EObject element, IModificationContext context) -> {
-					((GameMode) element).getWinConditions().add(GamemodeFactory.eINSTANCE.createCleared());
+					WinCondition win = GamemodeFactory.eINSTANCE.createWinCondition();
+					win.setCleared(true);
+					((GameMode) element).setWin(win);
 				});
 		acceptor.accept(issue, "Make the waves loop", "Makes the mode endless: its waves start over once cleared.",
 				"waves.png", (EObject element, IModificationContext context) -> {
@@ -52,7 +54,11 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 	public void loseOnHealth(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Lose when health is depleted", "Adds the lose condition 'health depleted'.", "lose.png",
 				(EObject element, IModificationContext context) -> {
-					((GameMode) element).getLoseConditions().add(0, GamemodeFactory.eINSTANCE.createHealthDepleted());
+					GameMode mode = (GameMode) element;
+					if (mode.getLose() == null) {
+						mode.setLose(GamemodeFactory.eINSTANCE.createLoseCondition());
+					}
+					mode.getLose().setHealthDepleted(true);
 				});
 	}
 
@@ -89,20 +95,6 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 	public void removeDropTable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove the drop table", "Removes the drop table, which has no effect.", "drops.png",
 				(EObject element, IModificationContext context) -> EcoreUtil.remove(element));
-	}
-
-	@Fix(GamemodeConstraints.ISSUE_WRONG_ROLE)
-	public void swapRole(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "Move to the other list", "Turns a win condition into a lose condition, or the reverse.",
-				"mode.png", (EObject element, IModificationContext context) -> {
-					EndCondition condition = (EndCondition) element;
-					GameMode mode = (GameMode) condition.eContainer();
-					if (condition.isWin()) {
-						mode.getLoseConditions().add(condition);
-					} else {
-						mode.getWinConditions().add(condition);
-					}
-				});
 	}
 
 	@Fix(RangoModeValidator.UNUSED)

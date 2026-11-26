@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getPowerUp()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='distinctEffectKinds'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='distinctEffectKinds oneInstantEffect'"
  * @generated
  */
 public interface PowerUp extends NamedElement {

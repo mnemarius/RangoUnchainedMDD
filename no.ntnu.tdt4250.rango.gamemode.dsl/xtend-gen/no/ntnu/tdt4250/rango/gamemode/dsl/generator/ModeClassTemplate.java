@@ -1,28 +1,24 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator;
 
 import com.google.common.collect.Iterables;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
-import no.ntnu.tdt4250.rango.gamemode.EndCondition;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesAlive;
-import no.ntnu.tdt4250.rango.gamemode.EnemiesPopped;
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
 import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
-import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
-import no.ntnu.tdt4250.rango.gamemode.ScoreReached;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
@@ -30,13 +26,13 @@ import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
-import no.ntnu.tdt4250.rango.gamemode.TimeReached;
 import no.ntnu.tdt4250.rango.gamemode.Vanish;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -1054,27 +1050,17 @@ public class ModeClassTemplate {
     _builder.append("public boolean isWon(ModeStats stats) {");
     _builder.newLine();
     {
-      boolean _isEmpty_2 = mode.getWinConditions().isEmpty();
-      if (_isEmpty_2) {
+      WinCondition _win = mode.getWin();
+      boolean _tripleEquals = (_win == null);
+      if (_tripleEquals) {
         _builder.append("        ");
         _builder.append("return false; // endless: a round only ends when it is lost");
         _builder.newLine();
       } else {
         _builder.append("        ");
         _builder.append("return ");
-        {
-          EList<EndCondition> _winConditions = mode.getWinConditions();
-          boolean _hasElements = false;
-          for(final EndCondition condition : _winConditions) {
-            if (!_hasElements) {
-              _hasElements = true;
-            } else {
-              _builder.appendImmediate("\n    || ", "        ");
-            }
-            CharSequence _check = this.check(condition);
-            _builder.append(_check, "        ");
-          }
-        }
+        String _join = IterableExtensions.join(this.checks(mode.getWin()), "\n    || ");
+        _builder.append(_join, "        ");
         _builder.append(";");
         _builder.newLineIfNotEmpty();
       }
@@ -1091,19 +1077,8 @@ public class ModeClassTemplate {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return ");
-    {
-      EList<EndCondition> _loseConditions = mode.getLoseConditions();
-      boolean _hasElements_1 = false;
-      for(final EndCondition condition_1 : _loseConditions) {
-        if (!_hasElements_1) {
-          _hasElements_1 = true;
-        } else {
-          _builder.appendImmediate("\n    || ", "        ");
-        }
-        CharSequence _check_1 = this.check(condition_1);
-        _builder.append(_check_1, "        ");
-      }
-    }
+    String _join_1 = IterableExtensions.join(this.checks(mode.getLose()), "\n    || ");
+    _builder.append(_join_1, "        ");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -1409,56 +1384,90 @@ public class ModeClassTemplate {
     return _builder;
   }
 
-  protected CharSequence _check(final Cleared condition) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.cleared()");
-    return _builder;
+  /**
+   * The checks of the win conditions that are set, in the order the class declares them.
+   */
+  public ArrayList<CharSequence> checks(final WinCondition win) {
+    ArrayList<CharSequence> _xblockexpression = null;
+    {
+      final ArrayList<CharSequence> checks = CollectionLiterals.<CharSequence>newArrayList();
+      boolean _isCleared = win.isCleared();
+      if (_isCleared) {
+        checks.add("stats.cleared()");
+      }
+      float _surviveSeconds = win.getSurviveSeconds();
+      boolean _greaterThan = (_surviveSeconds > 0);
+      if (_greaterThan) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("stats.elapsed() >= ");
+        String _javaFloat = GeneratorNames.javaFloat(win.getSurviveSeconds());
+        _builder.append(_javaFloat);
+        checks.add(_builder.toString());
+      }
+      int _points = win.getPoints();
+      boolean _greaterThan_1 = (_points > 0);
+      if (_greaterThan_1) {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("stats.score() >= ");
+        int _points_1 = win.getPoints();
+        _builder_1.append(_points_1);
+        checks.add(_builder_1.toString());
+      }
+      int _enemiesPopped = win.getEnemiesPopped();
+      boolean _greaterThan_2 = (_enemiesPopped > 0);
+      if (_greaterThan_2) {
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append("stats.popped() >= ");
+        int _enemiesPopped_1 = win.getEnemiesPopped();
+        _builder_2.append(_enemiesPopped_1);
+        checks.add(_builder_2.toString());
+      }
+      int _wavesSurvived = win.getWavesSurvived();
+      boolean _greaterThan_3 = (_wavesSurvived > 0);
+      if (_greaterThan_3) {
+        StringConcatenation _builder_3 = new StringConcatenation();
+        _builder_3.append("stats.wavesCleared() >= ");
+        int _wavesSurvived_1 = win.getWavesSurvived();
+        _builder_3.append(_wavesSurvived_1);
+        checks.add(_builder_3.toString());
+      }
+      _xblockexpression = checks;
+    }
+    return _xblockexpression;
   }
 
-  protected CharSequence _check(final TimeReached condition) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.elapsed() >= ");
-    String _javaFloat = GeneratorNames.javaFloat(condition.getSeconds());
-    _builder.append(_javaFloat);
-    return _builder;
-  }
-
-  protected CharSequence _check(final ScoreReached condition) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.score() >= ");
-    int _points = condition.getPoints();
-    _builder.append(_points);
-    return _builder;
-  }
-
-  protected CharSequence _check(final EnemiesPopped condition) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.popped() >= ");
-    int _count = condition.getCount();
-    _builder.append(_count);
-    return _builder;
-  }
-
-  protected CharSequence _check(final WavesSurvived condition) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.wavesCleared() >= ");
-    int _count = condition.getCount();
-    _builder.append(_count);
-    return _builder;
-  }
-
-  protected CharSequence _check(final HealthDepleted condition) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.playerHealth() <= 0");
-    return _builder;
-  }
-
-  protected CharSequence _check(final EnemiesAlive condition) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("stats.enemiesAlive() >= ");
-    int _count = condition.getCount();
-    _builder.append(_count);
-    return _builder;
+  /**
+   * The checks of the lose conditions that are set, in the order the class declares them.
+   */
+  public ArrayList<CharSequence> checks(final LoseCondition lose) {
+    ArrayList<CharSequence> _xblockexpression = null;
+    {
+      final ArrayList<CharSequence> checks = CollectionLiterals.<CharSequence>newArrayList();
+      boolean _isHealthDepleted = lose.isHealthDepleted();
+      if (_isHealthDepleted) {
+        checks.add("stats.playerHealth() <= 0");
+      }
+      float _timeLimit = lose.getTimeLimit();
+      boolean _greaterThan = (_timeLimit > 0);
+      if (_greaterThan) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("stats.elapsed() >= ");
+        String _javaFloat = GeneratorNames.javaFloat(lose.getTimeLimit());
+        _builder.append(_javaFloat);
+        checks.add(_builder.toString());
+      }
+      int _enemiesAlive = lose.getEnemiesAlive();
+      boolean _greaterThan_1 = (_enemiesAlive > 0);
+      if (_greaterThan_1) {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("stats.enemiesAlive() >= ");
+        int _enemiesAlive_1 = lose.getEnemiesAlive();
+        _builder_1.append(_enemiesAlive_1);
+        checks.add(_builder_1.toString());
+      }
+      _xblockexpression = checks;
+    }
+    return _xblockexpression;
   }
 
   @XbaseGenerated
@@ -1487,41 +1496,19 @@ public class ModeClassTemplate {
 
   @XbaseGenerated
   public CharSequence effect(final PlayerEffect effect, final String icon) {
-    if (effect instanceof Poison) {
+    if (effect instanceof Damage) {
+      return _effect((Damage)effect, icon);
+    } else if (effect instanceof Heal) {
+      return _effect((Heal)effect, icon);
+    } else if (effect instanceof Poison) {
       return _effect((Poison)effect, icon);
     } else if (effect instanceof Shield) {
       return _effect((Shield)effect, icon);
     } else if (effect instanceof SpeedChange) {
       return _effect((SpeedChange)effect, icon);
-    } else if (effect instanceof Damage) {
-      return _effect((Damage)effect, icon);
-    } else if (effect instanceof Heal) {
-      return _effect((Heal)effect, icon);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(effect, icon).toString());
-    }
-  }
-
-  @XbaseGenerated
-  public CharSequence check(final EndCondition condition) {
-    if (condition instanceof Cleared) {
-      return _check((Cleared)condition);
-    } else if (condition instanceof EnemiesAlive) {
-      return _check((EnemiesAlive)condition);
-    } else if (condition instanceof EnemiesPopped) {
-      return _check((EnemiesPopped)condition);
-    } else if (condition instanceof HealthDepleted) {
-      return _check((HealthDepleted)condition);
-    } else if (condition instanceof ScoreReached) {
-      return _check((ScoreReached)condition);
-    } else if (condition instanceof TimeReached) {
-      return _check((TimeReached)condition);
-    } else if (condition instanceof WavesSurvived) {
-      return _check((WavesSurvived)condition);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(condition).toString());
     }
   }
 }

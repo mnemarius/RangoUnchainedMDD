@@ -25,8 +25,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus <em>Speed Bonus</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLevels <em>Levels</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops <em>Drops</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getWinConditions <em>Win Conditions</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLoseConditions <em>Lose Conditions</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getWin <em>Win</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLose <em>Lose</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPowerUps <em>Power Ups</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPopsToClear <em>Pops To Clear</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getMaxScore <em>Max Score</em>}</li>
@@ -211,34 +211,54 @@ public interface GameMode extends NamedElement {
 	EList<DropTable> getDrops();
 
 	/**
-	 * Returns the value of the '<em><b>Win Conditions</b></em>' containment reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.EndCondition}.
+	 * Returns the value of the '<em><b>Win</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The round is won as soon as any of these holds. A mode without win conditions is endless.
+	 * When a round is won. A mode without a win condition is endless: its rounds only end when they are lost.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Win Conditions</em>' containment reference list.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_WinConditions()
+	 * @return the value of the '<em>Win</em>' containment reference.
+	 * @see #setWin(WinCondition)
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Win()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<EndCondition> getWinConditions();
+	WinCondition getWin();
 
 	/**
-	 * Returns the value of the '<em><b>Lose Conditions</b></em>' containment reference list.
-	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.EndCondition}.
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getWin <em>Win</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Win</em>' containment reference.
+	 * @see #getWin()
+	 * @generated
+	 */
+	void setWin(WinCondition value);
+
+	/**
+	 * Returns the value of the '<em><b>Lose</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The round is lost as soon as any of these holds.
+	 * When a round is lost.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Lose Conditions</em>' containment reference list.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_LoseConditions()
+	 * @return the value of the '<em>Lose</em>' containment reference.
+	 * @see #setLose(LoseCondition)
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Lose()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EList<EndCondition> getLoseConditions();
+	LoseCondition getLose();
+
+	/**
+	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLose <em>Lose</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Lose</em>' containment reference.
+	 * @see #getLose()
+	 * @generated
+	 */
+	void setLose(LoseCondition value);
 
 	/**
 	 * Returns the value of the '<em><b>Power Ups</b></em>' reference list.
