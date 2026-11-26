@@ -74,7 +74,8 @@ lists the files it writes.
 ### In Eclipse
 
 1. Import every project except `rango-game` into Eclipse 2026-06 with Xtext and OCL (*File > Import >
-   Existing Projects into Workspace*).
+   Existing Projects into Workspace*). They are plain PDE and Xtext projects. Maven is only used from
+   the command line, so don't import them as Maven projects.
 2. Run `no.ntnu.tdt4250.rango.gamemode.dsl.ui` as an *Eclipse Application*.
 3. In the new Eclipse, import `no.ntnu.tdt4250.rango.gamemode.examples` and open a `.rango` file.
 4. Right-click it and choose **Generate Game Modes into Game...**, then select `rango-game`.
