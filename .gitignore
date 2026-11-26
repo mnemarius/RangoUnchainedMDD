@@ -9,6 +9,7 @@ bin/
 
 # Xtend debug traces, rewritten on every build
 *._trace
+*.xtendbin
 
 # Preview of the generated game modes, written by the Eclipse builder next to the models
 generated-game/

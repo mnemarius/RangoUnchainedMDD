@@ -27,6 +27,9 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<executions>
 					<execution>
+						<!-- m2e must not run this inside Eclipse: Mwe2Launcher calls System.exit on failure,
+						     which terminates the IDE. In Eclipse, run GenerateRangoMode.mwe2 by hand instead. -->
+						<?m2e ignore?>
 						<id>mwe2Launcher</id>
 						<phase>generate-sources</phase>
 						<goals>
