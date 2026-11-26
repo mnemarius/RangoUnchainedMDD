@@ -1,10 +1,14 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator;
 
 import com.google.common.collect.Iterables;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
+import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
@@ -13,6 +17,7 @@ import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
+import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
@@ -26,24 +31,29 @@ import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
+import no.ntnu.tdt4250.rango.gamemode.TimeLimit;
+import no.ntnu.tdt4250.rango.gamemode.TimeSurvived;
 import no.ntnu.tdt4250.rango.gamemode.Vanish;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
+import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.XbaseGenerated;
 
 /**
  * Generates the Java class of a game mode: a subclass of the game's {@code GameModeDefinition} whose
  * methods carry out the rules of the mode. Every rule of the model becomes code here: split rules
  * become calls that create fragments, effects become calls on the player, drop tables become
- * weighted rolls, fixed layouts and waves become spawn calls, and end conditions become the boolean expressions that
- * decide when a round is won or lost.
+ * weighted rolls, fixed layouts and waves become spawn calls, and the end conditions of each level become the
+ * boolean expressions that decide when a round of that level is won or lost.
  */
 @SuppressWarnings("all")
 public class ModeClassTemplate {
@@ -1047,24 +1057,18 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public boolean isWon(ModeStats stats) {");
+    _builder.append("public boolean isWon(int level, ModeStats stats) {");
     _builder.newLine();
-    {
-      WinCondition _win = mode.getWin();
-      boolean _tripleEquals = (_win == null);
-      if (_tripleEquals) {
-        _builder.append("        ");
-        _builder.append("return false; // endless: a round only ends when it is lost");
-        _builder.newLine();
-      } else {
-        _builder.append("        ");
-        _builder.append("return ");
-        String _join = IterableExtensions.join(this.checks(mode.getWin()), "\n    || ");
-        _builder.append(_join, "        ");
-        _builder.append(";");
-        _builder.newLineIfNotEmpty();
-      }
-    }
+    _builder.append("        ");
+    final Function1<Level, List<CharSequence>> _function_6 = (Level level_10) -> {
+      final Function1<WinCondition, CharSequence> _function_7 = (WinCondition it) -> {
+        return this.check(it);
+      };
+      return IterableExtensions.<CharSequence>toList(ListExtensions.<WinCondition, CharSequence>map(level_10.getWin(), _function_7));
+    };
+    CharSequence _outcome = this.outcome(ListExtensions.<Level, List<CharSequence>>map(mode.getLevels(), _function_6));
+    _builder.append(_outcome, "        ");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
@@ -1073,13 +1077,17 @@ public class ModeClassTemplate {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public boolean isLost(ModeStats stats) {");
+    _builder.append("public boolean isLost(int level, ModeStats stats) {");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("return ");
-    String _join_1 = IterableExtensions.join(this.checks(mode.getLose()), "\n    || ");
-    _builder.append(_join_1, "        ");
-    _builder.append(";");
+    final Function1<Level, List<CharSequence>> _function_7 = (Level level_10) -> {
+      final Function1<LoseCondition, CharSequence> _function_8 = (LoseCondition it) -> {
+        return this.check(it);
+      };
+      return IterableExtensions.<CharSequence>toList(ListExtensions.<LoseCondition, CharSequence>map(level_10.getLose(), _function_8));
+    };
+    CharSequence _outcome_1 = this.outcome(ListExtensions.<Level, List<CharSequence>>map(mode.getLevels(), _function_7));
+    _builder.append(_outcome_1, "        ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("}");
@@ -1087,6 +1095,81 @@ public class ModeClassTemplate {
     _builder.append("}");
     _builder.newLine();
     return _builder;
+  }
+
+  /**
+   * The body of isWon or isLost, given the checks of each level. Levels with the same checks share a
+   * case; if all levels have the same checks, there is no switch at all.
+   */
+  public CharSequence outcome(final List<List<CharSequence>> checksPerLevel) {
+    CharSequence _xblockexpression = null;
+    {
+      final LinkedHashMap<String, List<Integer>> levelsPerResult = CollectionLiterals.<String, List<Integer>>newLinkedHashMap();
+      int _size = checksPerLevel.size();
+      ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
+      for (final Integer i : _doubleDotLessThan) {
+        {
+          final List<CharSequence> checks = checksPerLevel.get((i).intValue());
+          String _xifexpression = null;
+          boolean _isEmpty = checks.isEmpty();
+          if (_isEmpty) {
+            _xifexpression = "false; // endless: a round only ends when it is lost";
+          } else {
+            String _join = IterableExtensions.join(checks, "\n    || ");
+            _xifexpression = (_join + ";");
+          }
+          final String result = _xifexpression;
+          final Function<String, List<Integer>> _function = (String it) -> {
+            return CollectionLiterals.<Integer>newArrayList();
+          };
+          List<Integer> _computeIfAbsent = levelsPerResult.computeIfAbsent(result, _function);
+          _computeIfAbsent.add(i);
+        }
+      }
+      int _size_1 = levelsPerResult.size();
+      boolean _equals = (_size_1 == 1);
+      if (_equals) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("return ");
+        String _head = IterableExtensions.<String>head(levelsPerResult.keySet());
+        _builder.append(_head);
+        return _builder.toString();
+      }
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("switch (level) {");
+      _builder_1.newLine();
+      {
+        Set<Map.Entry<String, List<Integer>>> _entrySet = levelsPerResult.entrySet();
+        for(final Map.Entry<String, List<Integer>> entry : _entrySet) {
+          {
+            List<Integer> _value = entry.getValue();
+            for(final Integer index : _value) {
+              _builder_1.append("    ");
+              _builder_1.append("case ");
+              _builder_1.append(index, "    ");
+              _builder_1.append(":");
+              _builder_1.newLineIfNotEmpty();
+            }
+          }
+          _builder_1.append("    ");
+          _builder_1.append("    ");
+          _builder_1.append("return ");
+          String _key = entry.getKey();
+          _builder_1.append(_key, "        ");
+          _builder_1.newLineIfNotEmpty();
+        }
+      }
+      _builder_1.append("    ");
+      _builder_1.append("default:");
+      _builder_1.newLine();
+      _builder_1.append("        ");
+      _builder_1.append("return false;");
+      _builder_1.newLine();
+      _builder_1.append("}");
+      _builder_1.newLine();
+      _xblockexpression = _builder_1;
+    }
+    return _xblockexpression;
   }
 
   protected CharSequence _spawnWaves(final FixedLayout layout, final Level level) {
@@ -1384,90 +1467,40 @@ public class ModeClassTemplate {
     return _builder;
   }
 
-  /**
-   * The checks of the win conditions that are set, in the order the class declares them.
-   */
-  public ArrayList<CharSequence> checks(final WinCondition win) {
-    ArrayList<CharSequence> _xblockexpression = null;
-    {
-      final ArrayList<CharSequence> checks = CollectionLiterals.<CharSequence>newArrayList();
-      boolean _isCleared = win.isCleared();
-      if (_isCleared) {
-        checks.add("stats.cleared()");
-      }
-      float _surviveSeconds = win.getSurviveSeconds();
-      boolean _greaterThan = (_surviveSeconds > 0);
-      if (_greaterThan) {
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("stats.elapsed() >= ");
-        String _javaFloat = GeneratorNames.javaFloat(win.getSurviveSeconds());
-        _builder.append(_javaFloat);
-        checks.add(_builder.toString());
-      }
-      int _points = win.getPoints();
-      boolean _greaterThan_1 = (_points > 0);
-      if (_greaterThan_1) {
-        StringConcatenation _builder_1 = new StringConcatenation();
-        _builder_1.append("stats.score() >= ");
-        int _points_1 = win.getPoints();
-        _builder_1.append(_points_1);
-        checks.add(_builder_1.toString());
-      }
-      int _enemiesPopped = win.getEnemiesPopped();
-      boolean _greaterThan_2 = (_enemiesPopped > 0);
-      if (_greaterThan_2) {
-        StringConcatenation _builder_2 = new StringConcatenation();
-        _builder_2.append("stats.popped() >= ");
-        int _enemiesPopped_1 = win.getEnemiesPopped();
-        _builder_2.append(_enemiesPopped_1);
-        checks.add(_builder_2.toString());
-      }
-      int _wavesSurvived = win.getWavesSurvived();
-      boolean _greaterThan_3 = (_wavesSurvived > 0);
-      if (_greaterThan_3) {
-        StringConcatenation _builder_3 = new StringConcatenation();
-        _builder_3.append("stats.wavesCleared() >= ");
-        int _wavesSurvived_1 = win.getWavesSurvived();
-        _builder_3.append(_wavesSurvived_1);
-        checks.add(_builder_3.toString());
-      }
-      _xblockexpression = checks;
-    }
-    return _xblockexpression;
+  protected CharSequence _check(final Cleared condition) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("stats.cleared()");
+    return _builder;
   }
 
-  /**
-   * The checks of the lose conditions that are set, in the order the class declares them.
-   */
-  public ArrayList<CharSequence> checks(final LoseCondition lose) {
-    ArrayList<CharSequence> _xblockexpression = null;
-    {
-      final ArrayList<CharSequence> checks = CollectionLiterals.<CharSequence>newArrayList();
-      boolean _isHealthDepleted = lose.isHealthDepleted();
-      if (_isHealthDepleted) {
-        checks.add("stats.playerHealth() <= 0");
-      }
-      float _timeLimit = lose.getTimeLimit();
-      boolean _greaterThan = (_timeLimit > 0);
-      if (_greaterThan) {
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("stats.elapsed() >= ");
-        String _javaFloat = GeneratorNames.javaFloat(lose.getTimeLimit());
-        _builder.append(_javaFloat);
-        checks.add(_builder.toString());
-      }
-      int _enemiesAlive = lose.getEnemiesAlive();
-      boolean _greaterThan_1 = (_enemiesAlive > 0);
-      if (_greaterThan_1) {
-        StringConcatenation _builder_1 = new StringConcatenation();
-        _builder_1.append("stats.enemiesAlive() >= ");
-        int _enemiesAlive_1 = lose.getEnemiesAlive();
-        _builder_1.append(_enemiesAlive_1);
-        checks.add(_builder_1.toString());
-      }
-      _xblockexpression = checks;
-    }
-    return _xblockexpression;
+  protected CharSequence _check(final TimeSurvived condition) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("stats.elapsed() >= ");
+    String _javaFloat = GeneratorNames.javaFloat(condition.getSeconds());
+    _builder.append(_javaFloat);
+    return _builder;
+  }
+
+  protected CharSequence _check(final WavesSurvived condition) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("stats.wavesCleared() >= ");
+    int _count = condition.getCount();
+    _builder.append(_count);
+    return _builder;
+  }
+
+  protected CharSequence _check(final HealthDepleted condition) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("stats.playerHealth() <= 0");
+    return _builder;
+  }
+
+  protected CharSequence _check(final TimeLimit condition) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("stats.elapsed() >= ");
+    String _javaFloat = GeneratorNames.javaFloat(condition.getSeconds());
+    _builder.append(_javaFloat);
+    return _builder;
   }
 
   @XbaseGenerated
@@ -1509,6 +1542,24 @@ public class ModeClassTemplate {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(effect, icon).toString());
+    }
+  }
+
+  @XbaseGenerated
+  public CharSequence check(final EObject condition) {
+    if (condition instanceof Cleared) {
+      return _check((Cleared)condition);
+    } else if (condition instanceof HealthDepleted) {
+      return _check((HealthDepleted)condition);
+    } else if (condition instanceof TimeLimit) {
+      return _check((TimeLimit)condition);
+    } else if (condition instanceof TimeSurvived) {
+      return _check((TimeSurvived)condition);
+    } else if (condition instanceof WavesSurvived) {
+      return _check((WavesSurvived)condition);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(condition).toString());
     }
   }
 }

@@ -189,21 +189,6 @@ public final class GamemodeDerivations {
 		return spawns;
 	}
 
-	/** The number of enemies in the arena when the round starts (fixed layout) or the first wave arrives. */
-	public static int initialEnemies(SpawnStrategy strategy) {
-		List<EnemySpawn> spawns = new ArrayList<>();
-		if (strategy instanceof FixedLayout layout) {
-			spawns.addAll(layout.getSpawns());
-		} else if (strategy instanceof WaveSchedule schedule && !schedule.getWaves().isEmpty()) {
-			spawns.addAll(schedule.getWaves().get(0).getSpawns());
-		}
-		long enemies = 0;
-		for (EnemySpawn spawn : spawns) {
-			enemies += spawn.getCount();
-		}
-		return saturate(enemies);
-	}
-
 	public static int number(Wave wave) {
 		return wave.eContainer() instanceof WaveSchedule schedule ? schedule.getWaves().indexOf(wave) + 1 : 0;
 	}
@@ -253,12 +238,21 @@ public final class GamemodeDerivations {
 
 	/**
 	 * The enemy types that can appear in a mode: those its levels spawn, and everything popping them
-	 * can produce, in the order the edition declares them.
+	 * can produce, in the order the edition declares them (here and for a single level).
 	 */
 	public static EList<EnemyType> enemyTypes(GameMode mode) {
+		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__ENEMY_TYPES, enemyTypes(mode.getLevels(), mode));
+	}
+
+	/** The enemy types that can appear in one level: those it spawns, and everything popping them can produce. */
+	public static List<EnemyType> enemyTypes(Level level) {
+		return enemyTypes(List.of(level), level.eContainer());
+	}
+
+	private static List<EnemyType> enemyTypes(List<Level> levels, EObject mode) {
 		Set<EnemyType> reachable = new LinkedHashSet<>();
 		List<EnemyType> pending = new ArrayList<>();
-		for (Level level : mode.getLevels()) {
+		for (Level level : levels) {
 			for (EnemySpawn spawn : allSpawns(level.getSpawning())) {
 				pending.add(spawn.getType());
 			}
@@ -270,7 +264,7 @@ public final class GamemodeDerivations {
 			}
 		}
 		List<EnemyType> types = new ArrayList<>();
-		if (mode.eContainer() instanceof Edition edition) {
+		if (mode != null && mode.eContainer() instanceof Edition edition) {
 			for (EnemyType type : edition.getEnemyTypes()) {
 				if (reachable.contains(type)) {
 					types.add(type);
@@ -282,7 +276,7 @@ public final class GamemodeDerivations {
 				types.add(type);
 			}
 		}
-		return unmodifiable(mode, GamemodePackage.Literals.GAME_MODE__ENEMY_TYPES, types);
+		return types;
 	}
 
 	public static EList<PowerUp> powerUps(GameMode mode) {

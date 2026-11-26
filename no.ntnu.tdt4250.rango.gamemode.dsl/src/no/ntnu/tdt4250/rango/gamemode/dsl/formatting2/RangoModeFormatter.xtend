@@ -65,22 +65,22 @@ class RangoModeFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(GameMode mode, extension IFormattableDocument document) {
 		mode.block(document)
-		mode.lines(document, 'description', 'player', 'gravity', 'win', 'lose')
+		mode.lines(document, 'description', 'player', 'gravity')
 		mode.lists(document)
-		for (condition : #[mode.win, mode.lose].filterNull) {
-			condition.regionFor.keywords('or').forEach[surround[oneSpace]]
-		}
 		mode.speedBonus?.prepend[newLine]
 		mode.speedBonus?.format
+		mode.regionFor.keyword('drops').prepend[newLine]
+		mode.drops(document)
 		for (level : mode.levels) {
 			level.prepend[newLine]
 			level.format
 		}
-		mode.regionFor.keyword('drops').prepend[newLine]
-		mode.drops(document)
 	}
 
-	/** A level block, or the arena and spawning of a mode's only level written without one. */
+	/**
+	 * A level block, or the arena, spawning and end conditions of a mode's only level written without
+	 * one. The win and the lose conditions each get a line, with their clauses joined by "or".
+	 */
 	def dispatch void format(Level level, extension IFormattableDocument document) {
 		if (level.regionFor.keyword('level') !== null) {
 			level.block(document)
@@ -90,6 +90,8 @@ class RangoModeFormatter extends AbstractFormatter2 {
 			part.prepend[newLine]
 			part.format
 		}
+		level.lines(document, 'win', 'lose')
+		level.regionFor.keywords('or').forEach[surround[oneSpace]]
 	}
 
 	def dispatch void format(Arena arena, extension IFormattableDocument document) {

@@ -1004,36 +1004,28 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cGravityDecimalParserRuleCall_7_0_1_0 = (RuleCall)cGravityAssignment_7_0_1.eContents().get(0);
 		private final Assignment cSpeedBonusAssignment_7_1 = (Assignment)cUnorderedGroup_7.eContents().get(1);
 		private final RuleCall cSpeedBonusSpeedBonusParserRuleCall_7_1_0 = (RuleCall)cSpeedBonusAssignment_7_1.eContents().get(0);
-		private final Alternatives cAlternatives_8 = (Alternatives)cGroup.eContents().get(8);
-		private final Assignment cLevelsAssignment_8_0 = (Assignment)cAlternatives_8.eContents().get(0);
-		private final RuleCall cLevelsSingleLevelParserRuleCall_8_0_0 = (RuleCall)cLevelsAssignment_8_0.eContents().get(0);
-		private final Assignment cLevelsAssignment_8_1 = (Assignment)cAlternatives_8.eContents().get(1);
-		private final RuleCall cLevelsLevelParserRuleCall_8_1_0 = (RuleCall)cLevelsAssignment_8_1.eContents().get(0);
-		private final RuleCall cDropsParserRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cWinKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Keyword cWhenKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
-		private final Assignment cWinAssignment_10_2 = (Assignment)cGroup_10.eContents().get(2);
-		private final RuleCall cWinWinConditionParserRuleCall_10_2_0 = (RuleCall)cWinAssignment_10_2.eContents().get(0);
-		private final Keyword cLoseKeyword_11 = (Keyword)cGroup.eContents().get(11);
-		private final Keyword cWhenKeyword_12 = (Keyword)cGroup.eContents().get(12);
-		private final Assignment cLoseAssignment_13 = (Assignment)cGroup.eContents().get(13);
-		private final RuleCall cLoseLoseConditionParserRuleCall_13_0 = (RuleCall)cLoseAssignment_13.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_14 = (Keyword)cGroup.eContents().get(14);
+		private final RuleCall cDropsParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Alternatives cAlternatives_9 = (Alternatives)cGroup.eContents().get(9);
+		private final Assignment cLevelsAssignment_9_0 = (Assignment)cAlternatives_9.eContents().get(0);
+		private final RuleCall cLevelsSingleLevelParserRuleCall_9_0_0 = (RuleCall)cLevelsAssignment_9_0.eContents().get(0);
+		private final Assignment cLevelsAssignment_9_1 = (Assignment)cAlternatives_9.eContents().get(1);
+		private final RuleCall cLevelsLevelParserRuleCall_9_1_0 = (RuleCall)cLevelsAssignment_9_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// Game modes. A mode is played in one or more levels: a mode of one level just gives its arena and
-		//// spawning, a mode of several levels gives them per level, in the order they are played.
+		//// Game modes. The rules of the mode come first, then the levels it is played in. A level is an arena,
+		//// its spawning and its end conditions. A mode of one level writes them directly; a mode of several
+		//// levels writes them per level, in the order the levels are played.
 		////
 		////   mode Campaign "Campaign" {
 		////       player Rango
 		////       level "First steps" {
 		////           arena { background "Desert" }
 		////           layout { Tumbleweed size 2 at (60%, 40%) moving left }
+		////           win when all enemies cleared
+		////           lose when health depleted
 		////       }
 		////       level { ... }
-		////       win when all enemies cleared
-		////       lose when health depleted
 		////   }
 		//GameMode returns GameMode:
 		//    'mode' name=ID title=STRING '{'
@@ -1042,10 +1034,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//    (    ('gravity' gravity=Decimal)?
 		//    &    (speedBonus=SpeedBonus)?
 		//    )
-		//    (levels+=SingleLevel | levels+=Level+)
 		//    Drops?
-		//    ('win' 'when' win=WinCondition)?
-		//    'lose' 'when' lose=LoseCondition
+		//    (levels+=SingleLevel | levels+=Level+)
 		//    '}';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -1055,10 +1045,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//(    ('gravity' gravity=Decimal)?
 		//&    (speedBonus=SpeedBonus)?
 		//)
-		//(levels+=SingleLevel | levels+=Level+)
 		//Drops?
-		//('win' 'when' win=WinCondition)?
-		//'lose' 'when' lose=LoseCondition
+		//(levels+=SingleLevel | levels+=Level+)
 		//'}'
 		public Group getGroup() { return cGroup; }
 		
@@ -1127,53 +1115,26 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//SpeedBonus
 		public RuleCall getSpeedBonusSpeedBonusParserRuleCall_7_1_0() { return cSpeedBonusSpeedBonusParserRuleCall_7_1_0; }
 		
+		//Drops?
+		public RuleCall getDropsParserRuleCall_8() { return cDropsParserRuleCall_8; }
+		
 		//(levels+=SingleLevel | levels+=Level+)
-		public Alternatives getAlternatives_8() { return cAlternatives_8; }
+		public Alternatives getAlternatives_9() { return cAlternatives_9; }
 		
 		//levels+=SingleLevel
-		public Assignment getLevelsAssignment_8_0() { return cLevelsAssignment_8_0; }
+		public Assignment getLevelsAssignment_9_0() { return cLevelsAssignment_9_0; }
 		
 		//SingleLevel
-		public RuleCall getLevelsSingleLevelParserRuleCall_8_0_0() { return cLevelsSingleLevelParserRuleCall_8_0_0; }
+		public RuleCall getLevelsSingleLevelParserRuleCall_9_0_0() { return cLevelsSingleLevelParserRuleCall_9_0_0; }
 		
 		//levels+=Level+
-		public Assignment getLevelsAssignment_8_1() { return cLevelsAssignment_8_1; }
+		public Assignment getLevelsAssignment_9_1() { return cLevelsAssignment_9_1; }
 		
 		//Level
-		public RuleCall getLevelsLevelParserRuleCall_8_1_0() { return cLevelsLevelParserRuleCall_8_1_0; }
-		
-		//Drops?
-		public RuleCall getDropsParserRuleCall_9() { return cDropsParserRuleCall_9; }
-		
-		//('win' 'when' win=WinCondition)?
-		public Group getGroup_10() { return cGroup_10; }
-		
-		//'win'
-		public Keyword getWinKeyword_10_0() { return cWinKeyword_10_0; }
-		
-		//'when'
-		public Keyword getWhenKeyword_10_1() { return cWhenKeyword_10_1; }
-		
-		//win=WinCondition
-		public Assignment getWinAssignment_10_2() { return cWinAssignment_10_2; }
-		
-		//WinCondition
-		public RuleCall getWinWinConditionParserRuleCall_10_2_0() { return cWinWinConditionParserRuleCall_10_2_0; }
-		
-		//'lose'
-		public Keyword getLoseKeyword_11() { return cLoseKeyword_11; }
-		
-		//'when'
-		public Keyword getWhenKeyword_12() { return cWhenKeyword_12; }
-		
-		//lose=LoseCondition
-		public Assignment getLoseAssignment_13() { return cLoseAssignment_13; }
-		
-		//LoseCondition
-		public RuleCall getLoseLoseConditionParserRuleCall_13_0() { return cLoseLoseConditionParserRuleCall_13_0; }
+		public RuleCall getLevelsLevelParserRuleCall_9_1_0() { return cLevelsLevelParserRuleCall_9_1_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_14() { return cRightCurlyBracketKeyword_14; }
+		public Keyword getRightCurlyBracketKeyword_10() { return cRightCurlyBracketKeyword_10; }
 	}
 	public class SingleLevelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SingleLevel");
@@ -1182,15 +1143,18 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cArenaArenaParserRuleCall_0_0 = (RuleCall)cArenaAssignment_0.eContents().get(0);
 		private final Assignment cSpawningAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cSpawningSpawnStrategyParserRuleCall_1_0 = (RuleCall)cSpawningAssignment_1.eContents().get(0);
+		private final RuleCall cEndConditionsParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//// The only level of a mode, written without a level block.
 		//SingleLevel returns Level:
 		//    arena=Arena
-		//    spawning=SpawnStrategy;
+		//    spawning=SpawnStrategy
+		//    EndConditions;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//arena=Arena
 		//spawning=SpawnStrategy
+		//EndConditions
 		public Group getGroup() { return cGroup; }
 		
 		//arena=Arena
@@ -1204,6 +1168,9 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		
 		//SpawnStrategy
 		public RuleCall getSpawningSpawnStrategyParserRuleCall_1_0() { return cSpawningSpawnStrategyParserRuleCall_1_0; }
+		
+		//EndConditions
+		public RuleCall getEndConditionsParserRuleCall_2() { return cEndConditionsParserRuleCall_2; }
 	}
 	public class LevelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Level");
@@ -1216,18 +1183,21 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		private final RuleCall cArenaArenaParserRuleCall_3_0 = (RuleCall)cArenaAssignment_3.eContents().get(0);
 		private final Assignment cSpawningAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cSpawningSpawnStrategyParserRuleCall_4_0 = (RuleCall)cSpawningAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cEndConditionsParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//Level returns Level:
 		//    'level' (title=STRING)? '{'
 		//    arena=Arena
 		//    spawning=SpawnStrategy
+		//    EndConditions
 		//    '}';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'level' (title=STRING)? '{'
 		//arena=Arena
 		//spawning=SpawnStrategy
+		//EndConditions
 		//'}'
 		public Group getGroup() { return cGroup; }
 		
@@ -1255,8 +1225,11 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//SpawnStrategy
 		public RuleCall getSpawningSpawnStrategyParserRuleCall_4_0() { return cSpawningSpawnStrategyParserRuleCall_4_0; }
 		
+		//EndConditions
+		public RuleCall getEndConditionsParserRuleCall_5() { return cEndConditionsParserRuleCall_5; }
+		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
 	public class SpeedBonusElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.SpeedBonus");
@@ -2034,272 +2007,274 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		//INT
 		public RuleCall getWeightINTTerminalRuleCall_1_1_0() { return cWeightINTTerminalRuleCall_1_1_0; }
 	}
-	public class WinConditionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.WinCondition");
+	public class EndConditionsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.EndConditions");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cWinConditionAction_0 = (Action)cGroup.eContents().get(0);
-		private final RuleCall cWinClauseParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cOrKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final RuleCall cWinClauseParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Keyword cWinKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Keyword cWhenKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Assignment cWinAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cWinWinConditionParserRuleCall_0_2_0 = (RuleCall)cWinAssignment_0_2.eContents().get(0);
+		private final Group cGroup_0_3 = (Group)cGroup_0.eContents().get(3);
+		private final Keyword cOrKeyword_0_3_0 = (Keyword)cGroup_0_3.eContents().get(0);
+		private final Assignment cWinAssignment_0_3_1 = (Assignment)cGroup_0_3.eContents().get(1);
+		private final RuleCall cWinWinConditionParserRuleCall_0_3_1_0 = (RuleCall)cWinAssignment_0_3_1.eContents().get(0);
+		private final Keyword cLoseKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cWhenKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cLoseAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cLoseLoseConditionParserRuleCall_3_0 = (RuleCall)cLoseAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cOrKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cLoseAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cLoseLoseConditionParserRuleCall_4_1_0 = (RuleCall)cLoseAssignment_4_1.eContents().get(0);
 		
 		//// ---------------------------------------------------------------------------------------------
-		//// End conditions. A round is won or lost as soon as one of the conditions of that role holds. Each
-		//// clause sets one field of the role's condition, so only the conditions that fit a role can be
-		//// written for it.
+		//// End conditions of a level. A round is won or lost as soon as one of the conditions of that role
+		//// holds. Each role has its own kinds of condition, so only the conditions that fit a role can be
+		//// written for it. A level without win conditions is endless.
 		////
-		////   win when 20 enemies popped or all enemies cleared
+		////   win when 5 waves survived or all enemies cleared
 		////   lose when health depleted or time reaches 120 s
-		//WinCondition returns WinCondition:
-		//    {WinCondition} WinClause ('or' WinClause)*;
+		//fragment EndConditions returns Level:
+		//    ('win' 'when' win+=WinCondition ('or' win+=WinCondition)*)?
+		//    'lose' 'when' lose+=LoseCondition ('or' lose+=LoseCondition)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{WinCondition} WinClause ('or' WinClause)*
+		//('win' 'when' win+=WinCondition ('or' win+=WinCondition)*)?
+		//'lose' 'when' lose+=LoseCondition ('or' lose+=LoseCondition)*
 		public Group getGroup() { return cGroup; }
 		
-		//{WinCondition}
-		public Action getWinConditionAction_0() { return cWinConditionAction_0; }
-		
-		//WinClause
-		public RuleCall getWinClauseParserRuleCall_1() { return cWinClauseParserRuleCall_1; }
-		
-		//('or' WinClause)*
-		public Group getGroup_2() { return cGroup_2; }
-		
-		//'or'
-		public Keyword getOrKeyword_2_0() { return cOrKeyword_2_0; }
-		
-		//WinClause
-		public RuleCall getWinClauseParserRuleCall_2_1() { return cWinClauseParserRuleCall_2_1; }
-	}
-	public class WinClauseElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.WinClause");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cClearedAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final Keyword cClearedAllKeyword_0_0_0 = (Keyword)cClearedAssignment_0_0.eContents().get(0);
-		private final Keyword cEnemiesKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Keyword cClearedKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cTimeKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Keyword cReachesKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cSurviveSecondsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cSurviveSecondsDecimalParserRuleCall_1_2_0 = (RuleCall)cSurviveSecondsAssignment_1_2.eContents().get(0);
-		private final Keyword cSKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final Keyword cScoreKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Keyword cReachesKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
-		private final Assignment cPointsAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
-		private final RuleCall cPointsINTTerminalRuleCall_2_2_0 = (RuleCall)cPointsAssignment_2_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Assignment cEnemiesPoppedAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
-		private final RuleCall cEnemiesPoppedINTTerminalRuleCall_3_0_0 = (RuleCall)cEnemiesPoppedAssignment_3_0.eContents().get(0);
-		private final Keyword cEnemiesKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
-		private final Keyword cPoppedKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
-		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
-		private final Assignment cWavesSurvivedAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
-		private final RuleCall cWavesSurvivedINTTerminalRuleCall_4_0_0 = (RuleCall)cWavesSurvivedAssignment_4_0.eContents().get(0);
-		private final Keyword cWavesKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Keyword cSurvivedKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
-		
-		//fragment WinClause returns WinCondition:
-		//        cleared?='all' 'enemies' 'cleared'
-		//    |    'time' 'reaches' surviveSeconds=Decimal 's'
-		//    |    'score' 'reaches' points=INT
-		//    |    enemiesPopped=INT 'enemies' 'popped'
-		//    |    wavesSurvived=INT 'waves' 'survived';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//    cleared?='all' 'enemies' 'cleared'
-		//|    'time' 'reaches' surviveSeconds=Decimal 's'
-		//|    'score' 'reaches' points=INT
-		//|    enemiesPopped=INT 'enemies' 'popped'
-		//|    wavesSurvived=INT 'waves' 'survived'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//cleared?='all' 'enemies' 'cleared'
+		//('win' 'when' win+=WinCondition ('or' win+=WinCondition)*)?
 		public Group getGroup_0() { return cGroup_0; }
 		
-		//cleared?='all'
-		public Assignment getClearedAssignment_0_0() { return cClearedAssignment_0_0; }
+		//'win'
+		public Keyword getWinKeyword_0_0() { return cWinKeyword_0_0; }
 		
-		//'all'
-		public Keyword getClearedAllKeyword_0_0_0() { return cClearedAllKeyword_0_0_0; }
+		//'when'
+		public Keyword getWhenKeyword_0_1() { return cWhenKeyword_0_1; }
 		
-		//'enemies'
-		public Keyword getEnemiesKeyword_0_1() { return cEnemiesKeyword_0_1; }
+		//win+=WinCondition
+		public Assignment getWinAssignment_0_2() { return cWinAssignment_0_2; }
 		
-		//'cleared'
-		public Keyword getClearedKeyword_0_2() { return cClearedKeyword_0_2; }
+		//WinCondition
+		public RuleCall getWinWinConditionParserRuleCall_0_2_0() { return cWinWinConditionParserRuleCall_0_2_0; }
 		
-		//'time' 'reaches' surviveSeconds=Decimal 's'
-		public Group getGroup_1() { return cGroup_1; }
+		//('or' win+=WinCondition)*
+		public Group getGroup_0_3() { return cGroup_0_3; }
 		
-		//'time'
-		public Keyword getTimeKeyword_1_0() { return cTimeKeyword_1_0; }
+		//'or'
+		public Keyword getOrKeyword_0_3_0() { return cOrKeyword_0_3_0; }
 		
-		//'reaches'
-		public Keyword getReachesKeyword_1_1() { return cReachesKeyword_1_1; }
+		//win+=WinCondition
+		public Assignment getWinAssignment_0_3_1() { return cWinAssignment_0_3_1; }
 		
-		//surviveSeconds=Decimal
-		public Assignment getSurviveSecondsAssignment_1_2() { return cSurviveSecondsAssignment_1_2; }
+		//WinCondition
+		public RuleCall getWinWinConditionParserRuleCall_0_3_1_0() { return cWinWinConditionParserRuleCall_0_3_1_0; }
 		
-		//Decimal
-		public RuleCall getSurviveSecondsDecimalParserRuleCall_1_2_0() { return cSurviveSecondsDecimalParserRuleCall_1_2_0; }
+		//'lose'
+		public Keyword getLoseKeyword_1() { return cLoseKeyword_1; }
 		
-		//'s'
-		public Keyword getSKeyword_1_3() { return cSKeyword_1_3; }
+		//'when'
+		public Keyword getWhenKeyword_2() { return cWhenKeyword_2; }
 		
-		//'score' 'reaches' points=INT
-		public Group getGroup_2() { return cGroup_2; }
+		//lose+=LoseCondition
+		public Assignment getLoseAssignment_3() { return cLoseAssignment_3; }
 		
-		//'score'
-		public Keyword getScoreKeyword_2_0() { return cScoreKeyword_2_0; }
+		//LoseCondition
+		public RuleCall getLoseLoseConditionParserRuleCall_3_0() { return cLoseLoseConditionParserRuleCall_3_0; }
 		
-		//'reaches'
-		public Keyword getReachesKeyword_2_1() { return cReachesKeyword_2_1; }
-		
-		//points=INT
-		public Assignment getPointsAssignment_2_2() { return cPointsAssignment_2_2; }
-		
-		//INT
-		public RuleCall getPointsINTTerminalRuleCall_2_2_0() { return cPointsINTTerminalRuleCall_2_2_0; }
-		
-		//enemiesPopped=INT 'enemies' 'popped'
-		public Group getGroup_3() { return cGroup_3; }
-		
-		//enemiesPopped=INT
-		public Assignment getEnemiesPoppedAssignment_3_0() { return cEnemiesPoppedAssignment_3_0; }
-		
-		//INT
-		public RuleCall getEnemiesPoppedINTTerminalRuleCall_3_0_0() { return cEnemiesPoppedINTTerminalRuleCall_3_0_0; }
-		
-		//'enemies'
-		public Keyword getEnemiesKeyword_3_1() { return cEnemiesKeyword_3_1; }
-		
-		//'popped'
-		public Keyword getPoppedKeyword_3_2() { return cPoppedKeyword_3_2; }
-		
-		//wavesSurvived=INT 'waves' 'survived'
+		//('or' lose+=LoseCondition)*
 		public Group getGroup_4() { return cGroup_4; }
 		
-		//wavesSurvived=INT
-		public Assignment getWavesSurvivedAssignment_4_0() { return cWavesSurvivedAssignment_4_0; }
+		//'or'
+		public Keyword getOrKeyword_4_0() { return cOrKeyword_4_0; }
+		
+		//lose+=LoseCondition
+		public Assignment getLoseAssignment_4_1() { return cLoseAssignment_4_1; }
+		
+		//LoseCondition
+		public RuleCall getLoseLoseConditionParserRuleCall_4_1_0() { return cLoseLoseConditionParserRuleCall_4_1_0; }
+	}
+	public class WinConditionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.WinCondition");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cClearedParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cTimeSurvivedParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cWavesSurvivedParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		
+		//WinCondition returns WinCondition:
+		//    Cleared | TimeSurvived | WavesSurvived;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Cleared | TimeSurvived | WavesSurvived
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Cleared
+		public RuleCall getClearedParserRuleCall_0() { return cClearedParserRuleCall_0; }
+		
+		//TimeSurvived
+		public RuleCall getTimeSurvivedParserRuleCall_1() { return cTimeSurvivedParserRuleCall_1; }
+		
+		//WavesSurvived
+		public RuleCall getWavesSurvivedParserRuleCall_2() { return cWavesSurvivedParserRuleCall_2; }
+	}
+	public class ClearedElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Cleared");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cClearedAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cAllKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cEnemiesKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cClearedKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Cleared returns Cleared:
+		//    {Cleared} 'all' 'enemies' 'cleared';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{Cleared} 'all' 'enemies' 'cleared'
+		public Group getGroup() { return cGroup; }
+		
+		//{Cleared}
+		public Action getClearedAction_0() { return cClearedAction_0; }
+		
+		//'all'
+		public Keyword getAllKeyword_1() { return cAllKeyword_1; }
+		
+		//'enemies'
+		public Keyword getEnemiesKeyword_2() { return cEnemiesKeyword_2; }
+		
+		//'cleared'
+		public Keyword getClearedKeyword_3() { return cClearedKeyword_3; }
+	}
+	public class TimeSurvivedElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.TimeSurvived");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTimeKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cReachesKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cSecondsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cSecondsDecimalParserRuleCall_2_0 = (RuleCall)cSecondsAssignment_2.eContents().get(0);
+		private final Keyword cSKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//TimeSurvived returns TimeSurvived:
+		//    'time' 'reaches' seconds=Decimal 's';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'time' 'reaches' seconds=Decimal 's'
+		public Group getGroup() { return cGroup; }
+		
+		//'time'
+		public Keyword getTimeKeyword_0() { return cTimeKeyword_0; }
+		
+		//'reaches'
+		public Keyword getReachesKeyword_1() { return cReachesKeyword_1; }
+		
+		//seconds=Decimal
+		public Assignment getSecondsAssignment_2() { return cSecondsAssignment_2; }
+		
+		//Decimal
+		public RuleCall getSecondsDecimalParserRuleCall_2_0() { return cSecondsDecimalParserRuleCall_2_0; }
+		
+		//'s'
+		public Keyword getSKeyword_3() { return cSKeyword_3; }
+	}
+	public class WavesSurvivedElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.WavesSurvived");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cCountAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cCountINTTerminalRuleCall_0_0 = (RuleCall)cCountAssignment_0.eContents().get(0);
+		private final Keyword cWavesKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cSurvivedKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		
+		//WavesSurvived returns WavesSurvived:
+		//    count=INT 'waves' 'survived';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//count=INT 'waves' 'survived'
+		public Group getGroup() { return cGroup; }
+		
+		//count=INT
+		public Assignment getCountAssignment_0() { return cCountAssignment_0; }
 		
 		//INT
-		public RuleCall getWavesSurvivedINTTerminalRuleCall_4_0_0() { return cWavesSurvivedINTTerminalRuleCall_4_0_0; }
+		public RuleCall getCountINTTerminalRuleCall_0_0() { return cCountINTTerminalRuleCall_0_0; }
 		
 		//'waves'
-		public Keyword getWavesKeyword_4_1() { return cWavesKeyword_4_1; }
+		public Keyword getWavesKeyword_1() { return cWavesKeyword_1; }
 		
 		//'survived'
-		public Keyword getSurvivedKeyword_4_2() { return cSurvivedKeyword_4_2; }
+		public Keyword getSurvivedKeyword_2() { return cSurvivedKeyword_2; }
 	}
 	public class LoseConditionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.LoseCondition");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cLoseConditionAction_0 = (Action)cGroup.eContents().get(0);
-		private final RuleCall cLoseClauseParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cOrKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final RuleCall cLoseClauseParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cHealthDepletedParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cTimeLimitParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//LoseCondition returns LoseCondition:
-		//    {LoseCondition} LoseClause ('or' LoseClause)*;
+		//    HealthDepleted | TimeLimit;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{LoseCondition} LoseClause ('or' LoseClause)*
-		public Group getGroup() { return cGroup; }
-		
-		//{LoseCondition}
-		public Action getLoseConditionAction_0() { return cLoseConditionAction_0; }
-		
-		//LoseClause
-		public RuleCall getLoseClauseParserRuleCall_1() { return cLoseClauseParserRuleCall_1; }
-		
-		//('or' LoseClause)*
-		public Group getGroup_2() { return cGroup_2; }
-		
-		//'or'
-		public Keyword getOrKeyword_2_0() { return cOrKeyword_2_0; }
-		
-		//LoseClause
-		public RuleCall getLoseClauseParserRuleCall_2_1() { return cLoseClauseParserRuleCall_2_1; }
-	}
-	public class LoseClauseElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.LoseClause");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cHealthDepletedAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final Keyword cHealthDepletedHealthKeyword_0_0_0 = (Keyword)cHealthDepletedAssignment_0_0.eContents().get(0);
-		private final Keyword cDepletedKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cTimeKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Keyword cReachesKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cTimeLimitAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cTimeLimitDecimalParserRuleCall_1_2_0 = (RuleCall)cTimeLimitAssignment_1_2.eContents().get(0);
-		private final Keyword cSKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final Assignment cEnemiesAliveAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final RuleCall cEnemiesAliveINTTerminalRuleCall_2_0_0 = (RuleCall)cEnemiesAliveAssignment_2_0.eContents().get(0);
-		private final Keyword cEnemiesKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
-		private final Keyword cAliveKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
-		
-		//fragment LoseClause returns LoseCondition:
-		//        healthDepleted?='health' 'depleted'
-		//    |    'time' 'reaches' timeLimit=Decimal 's'
-		//    |    enemiesAlive=INT 'enemies' 'alive';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//    healthDepleted?='health' 'depleted'
-		//|    'time' 'reaches' timeLimit=Decimal 's'
-		//|    enemiesAlive=INT 'enemies' 'alive'
+		//HealthDepleted | TimeLimit
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//healthDepleted?='health' 'depleted'
-		public Group getGroup_0() { return cGroup_0; }
+		//HealthDepleted
+		public RuleCall getHealthDepletedParserRuleCall_0() { return cHealthDepletedParserRuleCall_0; }
 		
-		//healthDepleted?='health'
-		public Assignment getHealthDepletedAssignment_0_0() { return cHealthDepletedAssignment_0_0; }
+		//TimeLimit
+		public RuleCall getTimeLimitParserRuleCall_1() { return cTimeLimitParserRuleCall_1; }
+	}
+	public class HealthDepletedElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.HealthDepleted");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cHealthDepletedAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cHealthKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cDepletedKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		
+		//HealthDepleted returns HealthDepleted:
+		//    {HealthDepleted} 'health' 'depleted';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{HealthDepleted} 'health' 'depleted'
+		public Group getGroup() { return cGroup; }
+		
+		//{HealthDepleted}
+		public Action getHealthDepletedAction_0() { return cHealthDepletedAction_0; }
 		
 		//'health'
-		public Keyword getHealthDepletedHealthKeyword_0_0_0() { return cHealthDepletedHealthKeyword_0_0_0; }
+		public Keyword getHealthKeyword_1() { return cHealthKeyword_1; }
 		
 		//'depleted'
-		public Keyword getDepletedKeyword_0_1() { return cDepletedKeyword_0_1; }
+		public Keyword getDepletedKeyword_2() { return cDepletedKeyword_2; }
+	}
+	public class TimeLimitElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.TimeLimit");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTimeKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cReachesKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cSecondsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cSecondsDecimalParserRuleCall_2_0 = (RuleCall)cSecondsAssignment_2.eContents().get(0);
+		private final Keyword cSKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//'time' 'reaches' timeLimit=Decimal 's'
-		public Group getGroup_1() { return cGroup_1; }
+		//TimeLimit returns TimeLimit:
+		//    'time' 'reaches' seconds=Decimal 's';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'time' 'reaches' seconds=Decimal 's'
+		public Group getGroup() { return cGroup; }
 		
 		//'time'
-		public Keyword getTimeKeyword_1_0() { return cTimeKeyword_1_0; }
+		public Keyword getTimeKeyword_0() { return cTimeKeyword_0; }
 		
 		//'reaches'
-		public Keyword getReachesKeyword_1_1() { return cReachesKeyword_1_1; }
+		public Keyword getReachesKeyword_1() { return cReachesKeyword_1; }
 		
-		//timeLimit=Decimal
-		public Assignment getTimeLimitAssignment_1_2() { return cTimeLimitAssignment_1_2; }
+		//seconds=Decimal
+		public Assignment getSecondsAssignment_2() { return cSecondsAssignment_2; }
 		
 		//Decimal
-		public RuleCall getTimeLimitDecimalParserRuleCall_1_2_0() { return cTimeLimitDecimalParserRuleCall_1_2_0; }
+		public RuleCall getSecondsDecimalParserRuleCall_2_0() { return cSecondsDecimalParserRuleCall_2_0; }
 		
 		//'s'
-		public Keyword getSKeyword_1_3() { return cSKeyword_1_3; }
-		
-		//enemiesAlive=INT 'enemies' 'alive'
-		public Group getGroup_2() { return cGroup_2; }
-		
-		//enemiesAlive=INT
-		public Assignment getEnemiesAliveAssignment_2_0() { return cEnemiesAliveAssignment_2_0; }
-		
-		//INT
-		public RuleCall getEnemiesAliveINTTerminalRuleCall_2_0_0() { return cEnemiesAliveINTTerminalRuleCall_2_0_0; }
-		
-		//'enemies'
-		public Keyword getEnemiesKeyword_2_1() { return cEnemiesKeyword_2_1; }
-		
-		//'alive'
-		public Keyword getAliveKeyword_2_2() { return cAliveKeyword_2_2; }
+		public Keyword getSKeyword_3() { return cSKeyword_3; }
 	}
 	public class DecimalElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "no.ntnu.tdt4250.rango.gamemode.dsl.RangoMode.Decimal");
@@ -2526,10 +2501,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	private final DropsElements pDrops;
 	private final DropTableElements pDropTable;
 	private final DropElements pDrop;
+	private final EndConditionsElements pEndConditions;
 	private final WinConditionElements pWinCondition;
-	private final WinClauseElements pWinClause;
+	private final ClearedElements pCleared;
+	private final TimeSurvivedElements pTimeSurvived;
+	private final WavesSurvivedElements pWavesSurvived;
 	private final LoseConditionElements pLoseCondition;
-	private final LoseClauseElements pLoseClause;
+	private final HealthDepletedElements pHealthDepleted;
+	private final TimeLimitElements pTimeLimit;
 	private final DecimalElements pDecimal;
 	
 	private final Grammar grammar;
@@ -2578,10 +2557,14 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		this.pDrops = new DropsElements();
 		this.pDropTable = new DropTableElements();
 		this.pDrop = new DropElements();
+		this.pEndConditions = new EndConditionsElements();
 		this.pWinCondition = new WinConditionElements();
-		this.pWinClause = new WinClauseElements();
+		this.pCleared = new ClearedElements();
+		this.pTimeSurvived = new TimeSurvivedElements();
+		this.pWavesSurvived = new WavesSurvivedElements();
 		this.pLoseCondition = new LoseConditionElements();
-		this.pLoseClause = new LoseClauseElements();
+		this.pHealthDepleted = new HealthDepletedElements();
+		this.pTimeLimit = new TimeLimitElements();
 		this.pDecimal = new DecimalElements();
 	}
 	
@@ -2836,18 +2819,19 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// Game modes. A mode is played in one or more levels: a mode of one level just gives its arena and
-	//// spawning, a mode of several levels gives them per level, in the order they are played.
+	//// Game modes. The rules of the mode come first, then the levels it is played in. A level is an arena,
+	//// its spawning and its end conditions. A mode of one level writes them directly; a mode of several
+	//// levels writes them per level, in the order the levels are played.
 	////
 	////   mode Campaign "Campaign" {
 	////       player Rango
 	////       level "First steps" {
 	////           arena { background "Desert" }
 	////           layout { Tumbleweed size 2 at (60%, 40%) moving left }
+	////           win when all enemies cleared
+	////           lose when health depleted
 	////       }
 	////       level { ... }
-	////       win when all enemies cleared
-	////       lose when health depleted
 	////   }
 	//GameMode returns GameMode:
 	//    'mode' name=ID title=STRING '{'
@@ -2856,10 +2840,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    (    ('gravity' gravity=Decimal)?
 	//    &    (speedBonus=SpeedBonus)?
 	//    )
-	//    (levels+=SingleLevel | levels+=Level+)
 	//    Drops?
-	//    ('win' 'when' win=WinCondition)?
-	//    'lose' 'when' lose=LoseCondition
+	//    (levels+=SingleLevel | levels+=Level+)
 	//    '}';
 	public GameModeElements getGameModeAccess() {
 		return pGameMode;
@@ -2872,7 +2854,8 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//// The only level of a mode, written without a level block.
 	//SingleLevel returns Level:
 	//    arena=Arena
-	//    spawning=SpawnStrategy;
+	//    spawning=SpawnStrategy
+	//    EndConditions;
 	public SingleLevelElements getSingleLevelAccess() {
 		return pSingleLevel;
 	}
@@ -2885,6 +2868,7 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	//    'level' (title=STRING)? '{'
 	//    arena=Arena
 	//    spawning=SpawnStrategy
+	//    EndConditions
 	//    '}';
 	public LevelElements getLevelAccess() {
 		return pLevel;
@@ -3088,14 +3072,25 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 	}
 	
 	//// ---------------------------------------------------------------------------------------------
-	//// End conditions. A round is won or lost as soon as one of the conditions of that role holds. Each
-	//// clause sets one field of the role's condition, so only the conditions that fit a role can be
-	//// written for it.
+	//// End conditions of a level. A round is won or lost as soon as one of the conditions of that role
+	//// holds. Each role has its own kinds of condition, so only the conditions that fit a role can be
+	//// written for it. A level without win conditions is endless.
 	////
-	////   win when 20 enemies popped or all enemies cleared
+	////   win when 5 waves survived or all enemies cleared
 	////   lose when health depleted or time reaches 120 s
+	//fragment EndConditions returns Level:
+	//    ('win' 'when' win+=WinCondition ('or' win+=WinCondition)*)?
+	//    'lose' 'when' lose+=LoseCondition ('or' lose+=LoseCondition)*;
+	public EndConditionsElements getEndConditionsAccess() {
+		return pEndConditions;
+	}
+	
+	public ParserRule getEndConditionsRule() {
+		return getEndConditionsAccess().getRule();
+	}
+	
 	//WinCondition returns WinCondition:
-	//    {WinCondition} WinClause ('or' WinClause)*;
+	//    Cleared | TimeSurvived | WavesSurvived;
 	public WinConditionElements getWinConditionAccess() {
 		return pWinCondition;
 	}
@@ -3104,22 +3099,38 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getWinConditionAccess().getRule();
 	}
 	
-	//fragment WinClause returns WinCondition:
-	//        cleared?='all' 'enemies' 'cleared'
-	//    |    'time' 'reaches' surviveSeconds=Decimal 's'
-	//    |    'score' 'reaches' points=INT
-	//    |    enemiesPopped=INT 'enemies' 'popped'
-	//    |    wavesSurvived=INT 'waves' 'survived';
-	public WinClauseElements getWinClauseAccess() {
-		return pWinClause;
+	//Cleared returns Cleared:
+	//    {Cleared} 'all' 'enemies' 'cleared';
+	public ClearedElements getClearedAccess() {
+		return pCleared;
 	}
 	
-	public ParserRule getWinClauseRule() {
-		return getWinClauseAccess().getRule();
+	public ParserRule getClearedRule() {
+		return getClearedAccess().getRule();
+	}
+	
+	//TimeSurvived returns TimeSurvived:
+	//    'time' 'reaches' seconds=Decimal 's';
+	public TimeSurvivedElements getTimeSurvivedAccess() {
+		return pTimeSurvived;
+	}
+	
+	public ParserRule getTimeSurvivedRule() {
+		return getTimeSurvivedAccess().getRule();
+	}
+	
+	//WavesSurvived returns WavesSurvived:
+	//    count=INT 'waves' 'survived';
+	public WavesSurvivedElements getWavesSurvivedAccess() {
+		return pWavesSurvived;
+	}
+	
+	public ParserRule getWavesSurvivedRule() {
+		return getWavesSurvivedAccess().getRule();
 	}
 	
 	//LoseCondition returns LoseCondition:
-	//    {LoseCondition} LoseClause ('or' LoseClause)*;
+	//    HealthDepleted | TimeLimit;
 	public LoseConditionElements getLoseConditionAccess() {
 		return pLoseCondition;
 	}
@@ -3128,16 +3139,24 @@ public class RangoModeGrammarAccess extends AbstractElementFinder.AbstractGramma
 		return getLoseConditionAccess().getRule();
 	}
 	
-	//fragment LoseClause returns LoseCondition:
-	//        healthDepleted?='health' 'depleted'
-	//    |    'time' 'reaches' timeLimit=Decimal 's'
-	//    |    enemiesAlive=INT 'enemies' 'alive';
-	public LoseClauseElements getLoseClauseAccess() {
-		return pLoseClause;
+	//HealthDepleted returns HealthDepleted:
+	//    {HealthDepleted} 'health' 'depleted';
+	public HealthDepletedElements getHealthDepletedAccess() {
+		return pHealthDepleted;
 	}
 	
-	public ParserRule getLoseClauseRule() {
-		return getLoseClauseAccess().getRule();
+	public ParserRule getHealthDepletedRule() {
+		return getHealthDepletedAccess().getRule();
+	}
+	
+	//TimeLimit returns TimeLimit:
+	//    'time' 'reaches' seconds=Decimal 's';
+	public TimeLimitElements getTimeLimitAccess() {
+		return pTimeLimit;
+	}
+	
+	public ParserRule getTimeLimitRule() {
+		return getTimeLimitAccess().getRule();
 	}
 	
 	//// ---------------------------------------------------------------------------------------------

@@ -11,10 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
@@ -24,20 +22,18 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
-import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.NamedElement;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 
 /**
  * Checks of the game mode DSL that are about writing good models rather than about valid ones.
  * Validity is checked by the constraints of the metamodel (OCL and Java, see
  * {@code GamemodeValidator}), which Xtext runs as well; these checks produce warnings and
- * information. The one error is about the text itself, which the metamodel cannot see: an end
- * condition written twice.
+ * information only.
  */
 public class RangoModeValidator extends AbstractRangoModeValidator {
 
@@ -48,8 +44,6 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	public static final String DUPLICATE_TITLE = PREFIX + "duplicateTitle";
 	public static final String USELESS_DROP_TABLE = PREFIX + "uselessDropTable";
 	public static final String DIFFICULTY_ORDER = PREFIX + "difficultyOrder";
-	public static final String CONDITION_TWICE = PREFIX + "conditionTwice";
-	public static final String ZERO_CONDITION = PREFIX + "zeroCondition";
 
 	/** Building blocks of an edition that no game mode uses only make the product harder to read. */
 	@Check
@@ -196,41 +190,19 @@ public class RangoModeValidator extends AbstractRangoModeValidator {
 	}
 
 	/**
-	 * Each condition of a role is written at most once. The parser keeps only the last value of a
-	 * condition written twice, so "score reaches 500 or score reaches 1000" would quietly win at 1000.
+	 * Tells the designer which levels are endless, which is easy to miss when reading a mode. A mode of
+	 * one level is marked at its name, the level of a mode of several at its lose conditions.
 	 */
 	@Check
-	public void checkWrittenOnce(WinCondition win) {
-		checkWrittenConditions(win);
-	}
-
-	@Check
-	public void checkWrittenOnce(LoseCondition lose) {
-		checkWrittenConditions(lose);
-	}
-
-	/**
-	 * Reports conditions written more than once (an error, since the model would not say what the text
-	 * says) and conditions written with a value of 0, which sets no condition and is therefore ignored.
-	 */
-	private void checkWrittenConditions(EObject condition) {
-		for (EAttribute attribute : condition.eClass().getEAllAttributes()) {
-			int written = NodeModelUtils.findNodesForFeature(condition, attribute).size();
-			if (written > 1) {
-				error("This condition is written " + written + " times; write it once", condition, attribute,
-						CONDITION_TWICE);
-			} else if (written == 1 && condition.eGet(attribute) instanceof Number value && value.doubleValue() == 0) {
-				warning("A value of 0 sets no condition, so it is ignored", condition, attribute, ZERO_CONDITION);
-			}
+	public void checkEndless(Level level) {
+		if (!level.getWin().isEmpty() || !(level.getSpawning() instanceof WaveSchedule schedule) || !schedule.isLoop()
+				|| !(level.eContainer() instanceof GameMode mode)) {
+			return;
 		}
-	}
-
-	/** Tells the designer which modes are endless, which is easy to miss when reading a mode. */
-	@Check
-	public void checkEndless(GameMode mode) {
-		if (mode.getWin() == null && mode.getLevels().size() == 1
-				&& mode.getLevels().get(0).getSpawning() instanceof WaveSchedule schedule && schedule.isLoop()) {
+		if (mode.getLevels().size() == 1) {
 			info("Endless mode: rounds only end when they are lost", mode, GamemodePackage.Literals.NAMED_ELEMENT__NAME);
+		} else {
+			info("Endless level: rounds only end when they are lost", level, GamemodePackage.Literals.LEVEL__LOSE);
 		}
 	}
 

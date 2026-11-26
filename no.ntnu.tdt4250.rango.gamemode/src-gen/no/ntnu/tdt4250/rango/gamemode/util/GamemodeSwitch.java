@@ -308,9 +308,44 @@ public class GamemodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GamemodePackage.CLEARED: {
+				Cleared cleared = (Cleared)theEObject;
+				T result = caseCleared(cleared);
+				if (result == null) result = caseWinCondition(cleared);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GamemodePackage.TIME_SURVIVED: {
+				TimeSurvived timeSurvived = (TimeSurvived)theEObject;
+				T result = caseTimeSurvived(timeSurvived);
+				if (result == null) result = caseWinCondition(timeSurvived);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GamemodePackage.WAVES_SURVIVED: {
+				WavesSurvived wavesSurvived = (WavesSurvived)theEObject;
+				T result = caseWavesSurvived(wavesSurvived);
+				if (result == null) result = caseWinCondition(wavesSurvived);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GamemodePackage.LOSE_CONDITION: {
 				LoseCondition loseCondition = (LoseCondition)theEObject;
 				T result = caseLoseCondition(loseCondition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GamemodePackage.HEALTH_DEPLETED: {
+				HealthDepleted healthDepleted = (HealthDepleted)theEObject;
+				T result = caseHealthDepleted(healthDepleted);
+				if (result == null) result = caseLoseCondition(healthDepleted);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GamemodePackage.TIME_LIMIT: {
+				TimeLimit timeLimit = (TimeLimit)theEObject;
+				T result = caseTimeLimit(timeLimit);
+				if (result == null) result = caseLoseCondition(timeLimit);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -841,6 +876,51 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Cleared</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Cleared</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCleared(Cleared object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Time Survived</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Time Survived</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimeSurvived(TimeSurvived object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Waves Survived</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Waves Survived</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWavesSurvived(WavesSurvived object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Lose Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -852,6 +932,36 @@ public class GamemodeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLoseCondition(LoseCondition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Health Depleted</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Health Depleted</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseHealthDepleted(HealthDepleted object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Time Limit</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Time Limit</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimeLimit(TimeLimit object) {
 		return null;
 	}
 

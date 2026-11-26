@@ -17,7 +17,6 @@ import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.Obstacle;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
@@ -27,7 +26,6 @@ import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.AbstractFormatter2;
@@ -110,31 +108,24 @@ public class RangoModeFormatter extends AbstractFormatter2 {
 
   protected void _format(final GameMode mode, @Extension final IFormattableDocument document) {
     this.block(mode, document);
-    this.lines(mode, document, "description", "player", "gravity", "win", "lose");
+    this.lines(mode, document, "description", "player", "gravity");
     this.lists(mode, document);
-    WinCondition _win = mode.getWin();
-    LoseCondition _lose = mode.getLose();
-    Iterable<? extends EObject> _filterNull = IterableExtensions.filterNull(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(_win, _lose)));
-    for (final EObject condition : _filterNull) {
-      final Consumer<ISemanticRegion> _function = (ISemanticRegion it) -> {
-        final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it_1) -> {
-          it_1.oneSpace();
-        };
-        document.surround(it, _function_1);
-      };
-      this.textRegionExtensions.regionFor(condition).keywords("or").forEach(_function);
-    }
     SpeedBonus _speedBonus = mode.getSpeedBonus();
     if (_speedBonus!=null) {
-      final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+      final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
         it.newLine();
       };
-      document.<SpeedBonus>prepend(_speedBonus, _function_1);
+      document.<SpeedBonus>prepend(_speedBonus, _function);
     }
     SpeedBonus _speedBonus_1 = mode.getSpeedBonus();
     if (_speedBonus_1!=null) {
       document.<SpeedBonus>format(_speedBonus_1);
     }
+    final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
+      it.newLine();
+    };
+    document.prepend(this.textRegionExtensions.regionFor(mode).keyword("drops"), _function_1);
+    this.drops(mode, document);
     EList<Level> _levels = mode.getLevels();
     for (final Level level : _levels) {
       {
@@ -145,15 +136,11 @@ public class RangoModeFormatter extends AbstractFormatter2 {
         document.<Level>format(level);
       }
     }
-    final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
-      it.newLine();
-    };
-    document.prepend(this.textRegionExtensions.regionFor(mode).keyword("drops"), _function_2);
-    this.drops(mode, document);
   }
 
   /**
-   * A level block, or the arena and spawning of a mode's only level written without one.
+   * A level block, or the arena, spawning and end conditions of a mode's only level written without
+   * one. The win and the lose conditions each get a line, with their clauses joined by "or".
    */
   protected void _format(final Level level, @Extension final IFormattableDocument document) {
     ISemanticRegion _keyword = this.textRegionExtensions.regionFor(level).keyword("level");
@@ -177,6 +164,14 @@ public class RangoModeFormatter extends AbstractFormatter2 {
         document.<EObject>format(part);
       }
     }
+    this.lines(level, document, "win", "lose");
+    final Consumer<ISemanticRegion> _function_1 = (ISemanticRegion it) -> {
+      final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it_1) -> {
+        it_1.oneSpace();
+      };
+      document.surround(it, _function_2);
+    };
+    this.textRegionExtensions.regionFor(level).keywords("or").forEach(_function_1);
   }
 
   protected void _format(final Arena arena, @Extension final IFormattableDocument document) {

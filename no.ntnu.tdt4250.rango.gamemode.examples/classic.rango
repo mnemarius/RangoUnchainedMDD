@@ -1,10 +1,10 @@
 // The classic edition: the original game's campaign and an endless mode. Four enemy types with their
 // own behaviour (a bomb explodes into a ring of tumbleweeds, a cactus poisons) and power-ups dropped at
 // random: the tougher the enemy, the likelier and the better its drop. Both modes use the edition's
-// drop tables. The Campaign is the original game's five levels, each cleared to unlock the next;
-// Endless is waves that never stop until the player is overrun. Three difficulty tiers apply to both
-// modes, mostly through the calm between waves: hard gives faster enemies, shorter breaks, less health
-// and fewer drops.
+// drop tables. The Campaign is the original game's five levels, each with its own goal (clear the arena,
+// clear it against the clock, or hold out for a minute) and won to unlock the next; Endless is waves that
+// never stop until the player runs out of health. Three difficulty tiers apply to both modes, mostly through the calm
+// between waves: hard gives faster enemies, shorter breaks, less health and fewer drops.
 
 edition Classic "Rango Unchained"
 
@@ -87,7 +87,7 @@ difficulty hard {
 }
 
 mode Campaign "Campaign" {
-	description "Five levels of the original game. Clear a level to unlock the next."
+	description "Five levels of the original game. Win a level to unlock the next."
 	player Rango
 	level "Tumbleweed Flats" {
 		arena {
@@ -100,6 +100,8 @@ mode Campaign "Campaign" {
 		layout {
 			Tumbleweed size 2 at (64.4%, 66.4%) moving left
 		}
+		win when all enemies cleared
+		lose when health depleted
 	}
 	level "Cactus Garden" {
 		arena {
@@ -111,6 +113,8 @@ mode Campaign "Campaign" {
 			Cactus size 2 at (31.7%, 66.4%) moving left
 			Cactus size 2 at (64.4%, 66.4%) moving left
 		}
+		win when all enemies cleared
+		lose when health depleted
 	}
 	level "Armadillo Canyon" {
 		arena {
@@ -125,6 +129,8 @@ mode Campaign "Campaign" {
 			Armadillo size 2 at (64.4%, 66.4%) moving left
 			Armadillo size 3 at (64.4%, 66.4%) moving left
 		}
+		win when all enemies cleared
+		lose when health depleted or time reaches 120 s
 	}
 	level "Mixed Company" {
 		arena {
@@ -136,6 +142,8 @@ mode Campaign "Campaign" {
 			Armadillo size 3 at (31.7%, 66.4%) moving left
 			Tumbleweed size 2 at (64.4%, 66.4%) moving left
 		}
+		win when all enemies cleared or time reaches 60 s
+		lose when health depleted
 	}
 	level "Powder Keg" {
 		arena {
@@ -145,9 +153,9 @@ mode Campaign "Campaign" {
 		layout {
 			Bomb size 2 at (64.4%, 66.4%) moving left
 		}
+		win when all enemies cleared
+		lose when health depleted or time reaches 45 s
 	}
-	win when all enemies cleared
-	lose when health depleted
 }
 
 mode Endless "Endless" {
@@ -174,5 +182,5 @@ mode Endless "Endless" {
 			Bomb size 3 at (50%, 85%)
 		}
 	}
-	lose when health depleted or 25 enemies alive
+	lose when health depleted
 }

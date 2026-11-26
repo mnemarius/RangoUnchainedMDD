@@ -14,7 +14,7 @@ import io.github.RangoUnchained.Modes.PlayerSpec;
 import io.github.RangoUnchained.Modes.Spawner;
 
 /**
- * Campaign: Five levels of the original game. Clear a level to unlock the next.
+ * Campaign: Five levels of the original game. Win a level to unlock the next.
  * <p>
  * Tumbleweed Flats: clearing everything takes 3 pops and is worth 30 points before bonuses.
  * Cactus Garden: clearing everything takes 4 pops and is worth 60 points before bonuses.
@@ -48,7 +48,7 @@ public final class CampaignMode extends GameModeDefinition {
 
     @Override
     public String description() {
-        return "Five levels of the original game. Clear a level to unlock the next.";
+        return "Five levels of the original game. Win a level to unlock the next.";
     }
 
     @Override
@@ -352,12 +352,36 @@ public final class CampaignMode extends GameModeDefinition {
     }
 
     @Override
-    public boolean isWon(ModeStats stats) {
-        return stats.cleared();
+    public boolean isWon(int level, ModeStats stats) {
+        switch (level) {
+            case 0:
+            case 1:
+            case 2:
+            case 4:
+                return stats.cleared();
+            case 3:
+                return stats.cleared()
+                    || stats.elapsed() >= 60.0f;
+            default:
+                return false;
+        }
     }
 
     @Override
-    public boolean isLost(ModeStats stats) {
-        return stats.playerHealth() <= 0;
+    public boolean isLost(int level, ModeStats stats) {
+        switch (level) {
+            case 0:
+            case 1:
+            case 3:
+                return stats.playerHealth() <= 0;
+            case 2:
+                return stats.playerHealth() <= 0
+                    || stats.elapsed() >= 120.0f;
+            case 4:
+                return stats.playerHealth() <= 0
+                    || stats.elapsed() >= 45.0f;
+            default:
+                return false;
+        }
     }
 }

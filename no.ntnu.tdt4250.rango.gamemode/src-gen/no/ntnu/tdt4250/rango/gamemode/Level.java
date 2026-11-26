@@ -2,6 +2,7 @@
  */
 package no.ntnu.tdt4250.rango.gamemode;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -10,7 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * One round of a mode: the arena it is played in and the enemies that enter it.
+ * One round of a mode: the arena it is played in, the enemies that enter it, and when it is won or lost.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -20,13 +21,15 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getTitle <em>Title</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getArena <em>Arena</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getSpawning <em>Spawning</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getWin <em>Win</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getLose <em>Lose</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getNumber <em>Number</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getPopsToClear <em>Pops To Clear</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.Level#getMaxScore <em>Max Score</em>}</li>
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getLevel()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='distinctConditionKinds noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful'"
  * @generated
  */
 public interface Level extends EObject {
@@ -104,6 +107,36 @@ public interface Level extends EObject {
 	 * @generated
 	 */
 	void setSpawning(SpawnStrategy value);
+
+	/**
+	 * Returns the value of the '<em><b>Win</b></em>' containment reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.WinCondition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The level is won as soon as any of these holds. A level without win conditions is endless: its rounds only end when they are lost.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Win</em>' containment reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getLevel_Win()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<WinCondition> getWin();
+
+	/**
+	 * Returns the value of the '<em><b>Lose</b></em>' containment reference list.
+	 * The list contents are of type {@link no.ntnu.tdt4250.rango.gamemode.LoseCondition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The level is lost as soon as any of these holds.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Lose</em>' containment reference list.
+	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getLevel_Lose()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	EList<LoseCondition> getLose();
 
 	/**
 	 * Returns the value of the '<em><b>Number</b></em>' attribute.

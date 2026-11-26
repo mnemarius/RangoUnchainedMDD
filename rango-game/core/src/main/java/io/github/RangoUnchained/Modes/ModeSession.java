@@ -48,7 +48,6 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     private final Random random = new Random();
 
     private float elapsed;
-    private int popped;
     private int wavesCleared;
     private int nextWave;
     private int cycle;
@@ -102,11 +101,11 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     }
 
     public boolean isLost() {
-        return mode.isLost(this);
+        return mode.isLost(level, this);
     }
 
     public boolean isWon() {
-        return !isLost() && mode.isWon(this);
+        return !isLost() && mode.isWon(level, this);
     }
 
     // ------------------------------------------------------------------ waves
@@ -149,7 +148,6 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
         modeEnemy.setPopped();
         EnemyState state = stateOf(enemy);
         LevelController.getInstance().handleRemovalRequests(enemy);
-        popped++;
         mode.onEnemyPopped(state, this);
     }
 
@@ -190,23 +188,12 @@ public class ModeSession implements ModeContext, ModeStats, Spawner, ArenaBuilde
     }
 
     @Override
-    public int score() {
-        GameLevel level = LevelController.getInstance().getLevel();
-        return level == null ? 0 : level.getScore();
-    }
-
-    @Override
-    public int popped() {
-        return popped;
-    }
-
-    @Override
     public int wavesCleared() {
         return wavesCleared;
     }
 
-    @Override
-    public int enemiesAlive() {
+    /** The enemies in the arena that have not been popped. */
+    private int enemiesAlive() {
         GameLevel level = LevelController.getInstance().getLevel();
         if (level == null) {
             return 0;

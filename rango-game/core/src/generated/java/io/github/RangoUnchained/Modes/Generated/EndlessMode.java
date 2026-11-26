@@ -297,13 +297,12 @@ public final class EndlessMode extends GameModeDefinition {
     }
 
     @Override
-    public boolean isWon(ModeStats stats) {
+    public boolean isWon(int level, ModeStats stats) {
         return false; // endless: a round only ends when it is lost
     }
 
     @Override
-    public boolean isLost(ModeStats stats) {
-        return stats.playerHealth() <= 0
-            || stats.enemiesAlive() >= 25;
+    public boolean isLost(int level, ModeStats stats) {
+        return stats.playerHealth() <= 0;
     }
 }

@@ -379,10 +379,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GameMode" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A way to play the game: the rules its rounds are played by, from what popping an enemy does to when a round ends, and the levels it is played in."/>
+      <details key="documentation" value="A way to play the game: the rules its rounds are played by, from the player and gravity to what popping an enemy drops, and the levels it is played in."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyEnemyDrops"/>
+      <details key="constraints" value="positiveGravity everyEnemyDrops"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
       <details key="positiveGravity" value="gravity > 0"/>
@@ -424,25 +424,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="levels" lowerBound="1"
         upperBound="-1" eType="#//Level" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The levels of the mode, in the order they are played. Each level is one round under the rules of the mode; winning it unlocks the next."/>
+        <details key="documentation" value="The levels of the mode, in the order they are played. Each level is one round under the rules of the mode, with its own goal; winning it unlocks the next."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="drops" upperBound="-1"
         eType="#//DropTable" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="What popping each enemy type of this mode can drop, one table per enemy type. If the mode has drop tables, they replace those of the edition."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="win" eType="#//WinCondition"
-        containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="When a round is won. A mode without a win condition is endless: its rounds only end when they are lost."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="lose" lowerBound="1"
-        eType="#//LoseCondition" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="When a round is lost."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="powerUps" upperBound="-1"
@@ -472,7 +460,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Level">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="One round of a mode: the arena it is played in and the enemies that enter it."/>
+      <details key="documentation" value="One round of a mode: the arena it is played in, the enemies that enter it, and when it is won or lost."/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="distinctConditionKinds noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -489,6 +480,18 @@
         eType="#//SpawnStrategy" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Which enemies enter the arena, where and when."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="win" upperBound="-1" eType="#//WinCondition"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The level is won as soon as any of these holds. A level without win conditions is endless: its rounds only end when they are lost."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lose" lowerBound="1" upperBound="-1"
+        eType="#//LoseCondition" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The level is lost as soon as any of these holds."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -822,67 +825,71 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WinCondition">
+  <eClassifiers xsi:type="ecore:EClass" name="WinCondition" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="When a round is won: as soon as any of the conditions set here holds. A condition is set when it is true or its value is above 0. Each condition is a single value, and winning and losing are decided by different conditions, so the conditions are fields of one class per role."/>
+      <details key="documentation" value="A situation that wins a level. Each kind of win condition is a subclass, so a lose condition cannot be written as one."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Cleared" eSuperTypes="#//WinCondition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Won when no enemy is left and none is still to come."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeSurvived" eSuperTypes="#//WinCondition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Won when the player has survived a number of seconds."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="nonNegativeValues setsACondition"/>
+      <details key="constraints" value="positiveSeconds"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
-      <details key="nonNegativeValues" value="surviveSeconds >= 0 and points >= 0 and enemiesPopped >= 0 and wavesSurvived >= 0"/>
-      <details key="setsACondition" value="cleared or surviveSeconds > 0 or points > 0 or enemiesPopped > 0 or wavesSurvived > 0"/>
+      <details key="positiveSeconds" value="seconds &gt; 0"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cleared" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="seconds" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Won when no enemy is left and none is still to come."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="surviveSeconds" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Won when the player has survived this many seconds. 0 if the round is not won by time."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="points" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Won when the score reaches this many points. 0 if the round is not won by score."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enemiesPopped" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Won when the player has popped this many enemies. 0 if the round is not won by pops."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="wavesSurvived" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Won when the player has cleared this many waves. 0 if the round is not won by waves."/>
+        <details key="documentation" value="The seconds to survive."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LoseCondition">
+  <eClassifiers xsi:type="ecore:EClass" name="WavesSurvived" eSuperTypes="#//WinCondition">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="When a round is lost: as soon as any of the conditions set here holds. A condition is set when it is true or its value is above 0."/>
+      <details key="documentation" value="Won when the player has cleared a number of waves."/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="nonNegativeValues setsACondition"/>
+      <details key="constraints" value="positiveCount"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
-      <details key="nonNegativeValues" value="timeLimit >= 0 and enemiesAlive >= 0"/>
-      <details key="setsACondition" value="healthDepleted or timeLimit > 0 or enemiesAlive > 0"/>
+      <details key="positiveCount" value="count &gt; 0"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="healthDepleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Lost when the player has no hearts left."/>
+        <details key="documentation" value="The number of waves."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat">
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LoseCondition" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A situation that loses a level. Each kind of lose condition is a subclass, so a win condition cannot be written as one."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HealthDepleted" eSuperTypes="#//LoseCondition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Lost when the player has no hearts left."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeLimit" eSuperTypes="#//LoseCondition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Lost when the round has lasted a number of seconds."/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="positiveSeconds"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG">
+      <details key="positiveSeconds" value="seconds &gt; 0"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="seconds" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Lost when the round has lasted this many seconds. 0 if the round has no time limit."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enemiesAlive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Lost when this many enemies are in the arena at the same time: the player is overrun. 0 if the round cannot be lost that way."/>
+        <details key="documentation" value="The time limit in seconds."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

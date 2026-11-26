@@ -22,6 +22,7 @@ import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
+import no.ntnu.tdt4250.rango.gamemode.dsl.ui.labeling.RangoModeLabelProvider;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 
 /**
@@ -66,8 +67,8 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 			if (!mode.getDrops().isEmpty() && mode.eContainer() instanceof Edition edition && !edition.getDrops().isEmpty()) {
 				facts.add("Its drop tables replace those of the edition.");
 			}
-			if (mode.getWin() == null) {
-				facts.add("Endless: a round only ends when it is lost.");
+			if (mode.getLevels().size() == 1) {
+				facts.add(goal(mode.getLevels().get(0)));
 			}
 		} else if (object instanceof EnemyType type) {
 			facts.add("Pops to get rid of a large, medium, small enemy: " + GamemodeDerivations.popsFor(type, 3) + ", "
@@ -83,6 +84,7 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 				facts.add("Level " + level.getNumber() + ", pops to clear: " + level.getPopsToClear()
 						+ ", points for clearing everything: " + level.getMaxScore());
 			}
+			facts.add(goal(level));
 		} else if (object instanceof EnemySpawn spawn) {
 			facts.add("Pops to clear: " + spawn.getPopsToClear());
 		} else if (object instanceof Wave wave) {
@@ -140,6 +142,14 @@ public class RangoModeHoverProvider extends DefaultEObjectHoverProvider {
 
 	private static String factor(float factor) {
 		return factor == Math.rint(factor) ? String.valueOf((int) factor) : String.valueOf(factor);
+	}
+
+	/** How a round of a level ends: its win conditions, or that it is endless. */
+	private static String goal(Level level) {
+		String lose = "lost when " + RangoModeLabelProvider.describeLose(level);
+		return level.getWin().isEmpty()
+				? "Endless: a round is only " + lose + "."
+				: "A round is won when " + RangoModeLabelProvider.describeWin(level) + ", " + lose + ".";
 	}
 
 	private static String names(List<? extends NamedElement> elements) {

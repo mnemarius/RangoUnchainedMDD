@@ -158,8 +158,18 @@ public class GamemodeValidator extends EObjectValidator {
 				return validateDrop((Drop)value, diagnostics, context);
 			case GamemodePackage.WIN_CONDITION:
 				return validateWinCondition((WinCondition)value, diagnostics, context);
+			case GamemodePackage.CLEARED:
+				return validateCleared((Cleared)value, diagnostics, context);
+			case GamemodePackage.TIME_SURVIVED:
+				return validateTimeSurvived((TimeSurvived)value, diagnostics, context);
+			case GamemodePackage.WAVES_SURVIVED:
+				return validateWavesSurvived((WavesSurvived)value, diagnostics, context);
 			case GamemodePackage.LOSE_CONDITION:
 				return validateLoseCondition((LoseCondition)value, diagnostics, context);
+			case GamemodePackage.HEALTH_DEPLETED:
+				return validateHealthDepleted((HealthDepleted)value, diagnostics, context);
+			case GamemodePackage.TIME_LIMIT:
+				return validateTimeLimit((TimeLimit)value, diagnostics, context);
 			case GamemodePackage.DIFFICULTY:
 				return validateDifficulty((Difficulty)value, diagnostics, context);
 			case GamemodePackage.MODIFIER:
@@ -1077,10 +1087,6 @@ public class GamemodeValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateNamedElement_nameUniqueAmongSiblings(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_positiveGravity(gameMode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateGameMode_noSimultaneousOutcome(gameMode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateGameMode_winnable(gameMode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateGameMode_endsSomehow(gameMode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateGameMode_healthDepletedWhenHarmful(gameMode, diagnostics, context);
 		if (result || diagnostics != null) result &= validateGameMode_everyEnemyDrops(gameMode, diagnostics, context);
 		return result;
 	}
@@ -1115,46 +1121,6 @@ public class GamemodeValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Validates the noSimultaneousOutcome constraint of '<em>Game Mode</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateGameMode_noSimultaneousOutcome(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.noSimultaneousOutcome(gameMode), diagnostics);
-	}
-
-	/**
-	 * Validates the winnable constraint of '<em>Game Mode</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateGameMode_winnable(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.winnable(gameMode), diagnostics);
-	}
-
-	/**
-	 * Validates the endsSomehow constraint of '<em>Game Mode</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateGameMode_endsSomehow(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.endsSomehow(gameMode), diagnostics);
-	}
-
-	/**
-	 * Validates the healthDepletedWhenHarmful constraint of '<em>Game Mode</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateGameMode_healthDepletedWhenHarmful(GameMode gameMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return report(GamemodeConstraints.healthDepletedWhenHarmful(gameMode), diagnostics);
-	}
-
-	/**
 	 * Validates the everyEnemyDrops constraint of '<em>Game Mode</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1170,7 +1136,71 @@ public class GamemodeValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateLevel(Level level, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(level, diagnostics, context);
+		if (!validate_NoCircularContainment(level, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLevel_distinctConditionKinds(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLevel_noSimultaneousOutcome(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLevel_winnable(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLevel_endsSomehow(level, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLevel_healthDepletedWhenHarmful(level, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the distinctConditionKinds constraint of '<em>Level</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateLevel_distinctConditionKinds(Level level, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.distinctConditionKinds(level), diagnostics);
+	}
+
+	/**
+	 * Validates the noSimultaneousOutcome constraint of '<em>Level</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateLevel_noSimultaneousOutcome(Level level, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.noSimultaneousOutcome(level), diagnostics);
+	}
+
+	/**
+	 * Validates the winnable constraint of '<em>Level</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateLevel_winnable(Level level, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.winnable(level), diagnostics);
+	}
+
+	/**
+	 * Validates the endsSomehow constraint of '<em>Level</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateLevel_endsSomehow(Level level, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.endsSomehow(level), diagnostics);
+	}
+
+	/**
+	 * Validates the healthDepletedWhenHarmful constraint of '<em>Level</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateLevel_healthDepletedWhenHarmful(Level level, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return report(GamemodeConstraints.healthDepletedWhenHarmful(level), diagnostics);
 	}
 
 	/**
@@ -1866,73 +1896,109 @@ public class GamemodeValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateWinCondition(WinCondition winCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(winCondition, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validateWinCondition_nonNegativeValues(winCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validateWinCondition_setsACondition(winCondition, diagnostics, context);
+		return validate_EveryDefaultConstraint(winCondition, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCleared(Cleared cleared, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(cleared, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTimeSurvived(TimeSurvived timeSurvived, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(timeSurvived, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(timeSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTimeSurvived_positiveSeconds(timeSurvived, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * The cached validation expression for the nonNegativeValues constraint of '<em>Win Condition</em>'.
+	 * The cached validation expression for the positiveSeconds constraint of '<em>Time Survived</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String WIN_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION = "surviveSeconds >= 0 and points >= 0 and enemiesPopped >= 0 and wavesSurvived >= 0";
+	protected static final String TIME_SURVIVED__POSITIVE_SECONDS__EEXPRESSION = "seconds > 0";
 
 	/**
-	 * Validates the nonNegativeValues constraint of '<em>Win Condition</em>'.
+	 * Validates the positiveSeconds constraint of '<em>Time Survived</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWinCondition_nonNegativeValues(WinCondition winCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateTimeSurvived_positiveSeconds(TimeSurvived timeSurvived, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.WIN_CONDITION,
-				 winCondition,
+				(GamemodePackage.Literals.TIME_SURVIVED,
+				 timeSurvived,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "nonNegativeValues",
-				 WIN_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION,
+				 "positiveSeconds",
+				 TIME_SURVIVED__POSITIVE_SECONDS__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
 	}
 
 	/**
-	 * The cached validation expression for the setsACondition constraint of '<em>Win Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String WIN_CONDITION__SETS_ACONDITION__EEXPRESSION = "cleared or surviveSeconds > 0 or points > 0 or enemiesPopped > 0 or wavesSurvived > 0";
+	public boolean validateWavesSurvived(WavesSurvived wavesSurvived, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(wavesSurvived, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(wavesSurvived, diagnostics, context);
+		if (result || diagnostics != null) result &= validateWavesSurvived_positiveCount(wavesSurvived, diagnostics, context);
+		return result;
+	}
 
 	/**
-	 * Validates the setsACondition constraint of '<em>Win Condition</em>'.
+	 * The cached validation expression for the positiveCount constraint of '<em>Waves Survived</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWinCondition_setsACondition(WinCondition winCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	protected static final String WAVES_SURVIVED__POSITIVE_COUNT__EEXPRESSION = "count > 0";
+
+	/**
+	 * Validates the positiveCount constraint of '<em>Waves Survived</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateWavesSurvived_positiveCount(WavesSurvived wavesSurvived, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.WIN_CONDITION,
-				 winCondition,
+				(GamemodePackage.Literals.WAVES_SURVIVED,
+				 wavesSurvived,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "setsACondition",
-				 WIN_CONDITION__SETS_ACONDITION__EEXPRESSION,
+				 "positiveCount",
+				 WAVES_SURVIVED__POSITIVE_COUNT__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);
@@ -1944,73 +2010,61 @@ public class GamemodeValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateLoseCondition(LoseCondition loseCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(loseCondition, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validateLoseCondition_nonNegativeValues(loseCondition, diagnostics, context);
-		if (result || diagnostics != null) result &= validateLoseCondition_setsACondition(loseCondition, diagnostics, context);
+		return validate_EveryDefaultConstraint(loseCondition, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateHealthDepleted(HealthDepleted healthDepleted, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(healthDepleted, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTimeLimit(TimeLimit timeLimit, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(timeLimit, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(timeLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTimeLimit_positiveSeconds(timeLimit, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * The cached validation expression for the nonNegativeValues constraint of '<em>Lose Condition</em>'.
+	 * The cached validation expression for the positiveSeconds constraint of '<em>Time Limit</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static final String LOSE_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION = "timeLimit >= 0 and enemiesAlive >= 0";
+	protected static final String TIME_LIMIT__POSITIVE_SECONDS__EEXPRESSION = "seconds > 0";
 
 	/**
-	 * Validates the nonNegativeValues constraint of '<em>Lose Condition</em>'.
+	 * Validates the positiveSeconds constraint of '<em>Time Limit</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLoseCondition_nonNegativeValues(LoseCondition loseCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateTimeLimit_positiveSeconds(TimeLimit timeLimit, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return
 			validate
-				(GamemodePackage.Literals.LOSE_CONDITION,
-				 loseCondition,
+				(GamemodePackage.Literals.TIME_LIMIT,
+				 timeLimit,
 				 diagnostics,
 				 context,
 				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "nonNegativeValues",
-				 LOSE_CONDITION__NON_NEGATIVE_VALUES__EEXPRESSION,
-				 Diagnostic.ERROR,
-				 DIAGNOSTIC_SOURCE,
-				 0);
-	}
-
-	/**
-	 * The cached validation expression for the setsACondition constraint of '<em>Lose Condition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected static final String LOSE_CONDITION__SETS_ACONDITION__EEXPRESSION = "healthDepleted or timeLimit > 0 or enemiesAlive > 0";
-
-	/**
-	 * Validates the setsACondition constraint of '<em>Lose Condition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateLoseCondition_setsACondition(LoseCondition loseCondition, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return
-			validate
-				(GamemodePackage.Literals.LOSE_CONDITION,
-				 loseCondition,
-				 diagnostics,
-				 context,
-				 "http://www.eclipse.org/emf/2002/Ecore/OCL/LPG",
-				 "setsACondition",
-				 LOSE_CONDITION__SETS_ACONDITION__EEXPRESSION,
+				 "positiveSeconds",
+				 TIME_LIMIT__POSITIVE_SECONDS__EEXPRESSION,
 				 Diagnostic.ERROR,
 				 DIAGNOSTIC_SOURCE,
 				 0);

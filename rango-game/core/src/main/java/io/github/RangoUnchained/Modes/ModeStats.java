@@ -8,13 +8,7 @@ public interface ModeStats {
     /** Seconds since the round started. */
     float elapsed();
 
-    int score();
-
-    int popped();
-
     int wavesCleared();
-
-    int enemiesAlive();
 
     int playerHealth();
 

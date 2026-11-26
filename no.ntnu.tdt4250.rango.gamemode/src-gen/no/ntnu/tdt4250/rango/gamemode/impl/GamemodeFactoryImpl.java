@@ -81,8 +81,11 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 			case GamemodePackage.ENEMY_SPAWN: return createEnemySpawn();
 			case GamemodePackage.DROP_TABLE: return createDropTable();
 			case GamemodePackage.DROP: return createDrop();
-			case GamemodePackage.WIN_CONDITION: return createWinCondition();
-			case GamemodePackage.LOSE_CONDITION: return createLoseCondition();
+			case GamemodePackage.CLEARED: return createCleared();
+			case GamemodePackage.TIME_SURVIVED: return createTimeSurvived();
+			case GamemodePackage.WAVES_SURVIVED: return createWavesSurvived();
+			case GamemodePackage.HEALTH_DEPLETED: return createHealthDepleted();
+			case GamemodePackage.TIME_LIMIT: return createTimeLimit();
 			case GamemodePackage.DIFFICULTY: return createDifficulty();
 			case GamemodePackage.MODIFIER: return createModifier();
 			default:
@@ -402,9 +405,9 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public WinCondition createWinCondition() {
-		WinConditionImpl winCondition = new WinConditionImpl();
-		return winCondition;
+	public Cleared createCleared() {
+		ClearedImpl cleared = new ClearedImpl();
+		return cleared;
 	}
 
 	/**
@@ -413,9 +416,42 @@ public class GamemodeFactoryImpl extends EFactoryImpl implements GamemodeFactory
 	 * @generated
 	 */
 	@Override
-	public LoseCondition createLoseCondition() {
-		LoseConditionImpl loseCondition = new LoseConditionImpl();
-		return loseCondition;
+	public TimeSurvived createTimeSurvived() {
+		TimeSurvivedImpl timeSurvived = new TimeSurvivedImpl();
+		return timeSurvived;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public WavesSurvived createWavesSurvived() {
+		WavesSurvivedImpl wavesSurvived = new WavesSurvivedImpl();
+		return wavesSurvived;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public HealthDepleted createHealthDepleted() {
+		HealthDepletedImpl healthDepleted = new HealthDepletedImpl();
+		return healthDepleted;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TimeLimit createTimeLimit() {
+		TimeLimitImpl timeLimit = new TimeLimitImpl();
+		return timeLimit;
 	}
 
 	/**

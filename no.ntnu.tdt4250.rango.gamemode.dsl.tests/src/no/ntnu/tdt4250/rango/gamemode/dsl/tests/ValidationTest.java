@@ -15,13 +15,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.google.inject.Inject;
 
+import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.DifficultyTier;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.ModifierTarget;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
+import no.ntnu.tdt4250.rango.gamemode.TimeLimit;
+import no.ntnu.tdt4250.rango.gamemode.TimeSurvived;
 import no.ntnu.tdt4250.rango.gamemode.dsl.validation.RangoModeValidator;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
 
@@ -132,9 +136,9 @@ public class ValidationTest {
 	}
 
 	@Test
-	public void modeMustEnd() throws Exception {
+	public void levelMustEnd() throws Exception {
 		Edition edition = edition("", VALID_BODY.replace("win when all enemies cleared", ""));
-		validation.assertError(edition, GamemodePackage.Literals.GAME_MODE, GamemodeConstraints.ISSUE_NEVER_ENDS);
+		validation.assertError(edition, GamemodePackage.Literals.LEVEL, GamemodeConstraints.ISSUE_NEVER_ENDS);
 	}
 
 	@Test
@@ -149,36 +153,38 @@ public class ValidationTest {
 		Edition edition = edition("", VALID_BODY.replace("lose when health depleted",
 				"lose when time reaches 90 s or health depleted"));
 		validation.assertNoIssues(edition);
-		assertTrue(edition.getModes().get(0).getLose().isHealthDepleted());
-		assertEquals(90f, edition.getModes().get(0).getLose().getTimeLimit());
+		var lose = edition.getModes().get(0).getLevels().get(0).getLose();
+		assertEquals(90f, ((TimeLimit) lose.get(0)).getSeconds());
+		assertTrue(lose.get(1) instanceof HealthDepleted);
 	}
 
 	@Test
 	public void conditionWrittenTwiceIsAnError() throws Exception {
 		Edition edition = edition("", VALID_BODY.replace("lose when health depleted",
 				"lose when health depleted or time reaches 60 s or time reaches 90 s"));
-		validation.assertError(edition, GamemodePackage.Literals.LOSE_CONDITION, RangoModeValidator.CONDITION_TWICE);
+		validation.assertError(edition, GamemodePackage.Literals.TIME_LIMIT,
+				GamemodeConstraints.SOURCE + "." + GamemodeConstraints.DUPLICATE_CONDITION_KIND, "two TimeLimit conditions");
 	}
 
 	@Test
-	public void zeroSetsNoCondition() throws Exception {
+	public void conditionValuesArePositive() throws Exception {
 		Edition edition = edition("", VALID_BODY.replace("win when all enemies cleared",
-				"win when all enemies cleared or score reaches 0"));
-		validation.assertWarning(edition, GamemodePackage.Literals.WIN_CONDITION, RangoModeValidator.ZERO_CONDITION);
+				"win when all enemies cleared or time reaches 0 s"));
+		validation.assertError(edition, GamemodePackage.Literals.TIME_SURVIVED, GamemodeConstraints.SOURCE + ".0", "positiveSeconds");
 	}
 
 	@Test
 	public void everyEnemyOfAModeNeedsADropTable() throws Exception {
 		// the mode's own drop tables replace the edition's, and forget the Tumbleweeds the Bomb bursts into
-		Edition edition = edition("", VALID_BODY.replace("win when", "drops { Bomb 30% { Health } } win when"));
+		Edition edition = edition("", VALID_BODY.replace("arena {", "drops { Bomb 30% { Health } } arena {"));
 		validation.assertError(edition, GamemodePackage.Literals.GAME_MODE, GamemodeConstraints.ISSUE_NO_DROP_TABLE,
 				"Tumbleweed");
 	}
 
 	@Test
 	public void dropTablesOfAModeReplaceThoseOfTheEdition() throws Exception {
-		Edition edition = edition("", VALID_BODY.replace("win when",
-				"drops { Bomb 30% { Health } Tumbleweed 1% { Health } } win when"));
+		Edition edition = edition("", VALID_BODY.replace("arena {",
+				"drops { Bomb 30% { Health } Tumbleweed 1% { Health } } arena {"));
 		validation.assertNoErrors(edition);
 		assertEquals(30f, edition.getModes().get(0).getEffectiveDrops().get(0).getChance());
 		// the only mode has tables of its own, so the edition's apply nowhere
@@ -194,8 +200,8 @@ public class ValidationTest {
 					on pop: vanish
 					on contact: damage 1
 				}
-				""", VALID_BODY.replace("win when",
-				"drops { Bomb 30% { Health } Tumbleweed 1% { Health } Cactus 50% { Health } } win when"));
+				""", VALID_BODY.replace("arena {",
+				"drops { Bomb 30% { Health } Tumbleweed 1% { Health } Cactus 50% { Health } } arena {"));
 		validation.assertWarning(edition, GamemodePackage.Literals.DROP_TABLE, RangoModeValidator.USELESS_DROP_TABLE,
 				"Cactus never appears in mode Test");
 	}
@@ -242,38 +248,61 @@ public class ValidationTest {
 				org.eclipse.xtext.diagnostics.Diagnostic.LINKING_DIAGNOSTIC, "Lonely");
 	}
 
-	@Test
-	public void levelsAreCheckedOneByOne() throws Exception {
-		// the first level can be cleared, but the second loops, so it is never cleared
-		Edition edition = edition("", VALID_BODY.replace("""
+	/** Two levels, each with its own goal: clearing a fixed layout, and surviving looping waves. */
+	private static final String TWO_LEVELS = """
+			level "One" {
 				arena {
 					background "Desert"
 				}
 				layout {
 					Bomb size 3 at (50%, 70%)
 				}
-				""", """
-				level "One" {
-					arena {
-						background "Desert"
-					}
-					layout {
-						Bomb size 3 at (50%, 70%)
-					}
+				win when all enemies cleared
+				lose when health depleted
+			}
+			level {
+				arena {
+					background "Desert"
 				}
-				level {
-					arena {
-						background "Desert"
-					}
-					waves looping {
-						wave { Bomb size 1 at (50%, 70%) }
-					}
+				waves looping {
+					wave { Bomb size 1 at (50%, 70%) }
 				}
-				"""));
-		assertEquals(2, edition.getModes().get(0).getLevels().size());
-		assertEquals("One", edition.getModes().get(0).getLevels().get(0).getTitle());
-		validation.assertError(edition, GamemodePackage.Literals.WIN_CONDITION, GamemodeConstraints.SOURCE + "." + GamemodeConstraints.CONDITION_UNREACHABLE,
-				"In level 2, the waves loop");
+				win when time reaches 60 s
+				lose when health depleted or time reaches 90 s
+			}
+			""";
+
+	@Test
+	public void levelsHaveTheirOwnGoals() throws Exception {
+		Edition edition = edition("", TWO_LEVELS);
+		validation.assertNoIssues(edition);
+		var levels = edition.getModes().get(0).getLevels();
+		assertEquals(2, levels.size());
+		assertEquals("One", levels.get(0).getTitle());
+		assertTrue(levels.get(0).getWin().get(0) instanceof Cleared);
+		assertEquals(60f, ((TimeSurvived) levels.get(1).getWin().get(0)).getSeconds());
+		assertEquals(2, levels.get(1).getLose().size());
+	}
+
+	@Test
+	public void levelsAreCheckedOneByOne() throws Exception {
+		// the first level can be cleared, but the second loops, so it is never cleared
+		Edition edition = edition("", TWO_LEVELS.replace("win when time reaches 60 s", "win when all enemies cleared"));
+		validation.assertError(edition, GamemodePackage.Literals.CLEARED,
+				GamemodeConstraints.SOURCE + "." + GamemodeConstraints.CONDITION_UNREACHABLE, "In level 2, the waves loop");
+	}
+
+	@Test
+	public void onlyTheLastLevelIsEndless() throws Exception {
+		// without a win condition, the first level could never unlock the second
+		Edition edition = edition("", TWO_LEVELS.replace("win when all enemies cleared", ""));
+		validation.assertError(edition, GamemodePackage.Literals.LEVEL, GamemodeConstraints.ISSUE_NEVER_ENDS,
+				"In level 1, the level has no win condition");
+		// an endless last level is fine
+		edition = edition("", TWO_LEVELS.replace("win when time reaches 60 s", ""));
+		validation.assertNoErrors(edition);
+		validation.assertIssue(edition, GamemodePackage.Literals.LEVEL, null, org.eclipse.xtext.diagnostics.Severity.INFO,
+				"Endless level");
 	}
 
 	@Test

@@ -24,7 +24,10 @@ import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
+import no.ntnu.tdt4250.rango.gamemode.TimeLimit;
+import no.ntnu.tdt4250.rango.gamemode.TimeSurvived;
 import no.ntnu.tdt4250.rango.gamemode.TimedEffect;
+import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
 
 /**
@@ -271,32 +274,31 @@ public class ConstraintsTest {
 	}
 
 	@Test
-	public void oclWinValuesAreNotNegative() {
-		f.clear.getWin().setEnemiesPopped(-1);
-		assertViolated("nonNegativeValues");
+	public void oclTimeToSurviveIsPositive() {
+		ModelFixture.level(f.clear).getWin().add(ModelFixture.F.createTimeSurvived());
+		assertViolated("positiveSeconds");
 	}
 
 	@Test
-	public void oclLoseValuesAreNotNegative() {
-		f.clear.getLose().setTimeLimit(-1);
-		assertViolated("nonNegativeValues");
+	public void oclWavesToSurviveArePositive() {
+		((WavesSurvived) ModelFixture.level(f.waves).getWin().get(0)).setCount(0);
+		assertViolated("positiveCount");
 	}
 
 	@Test
-	public void oclWinConditionSetsACondition() {
-		// a value of 0 means the condition is not set, so this win condition has none left
-		f.waves.getWin().setWavesSurvived(0);
-		assertViolated("setsACondition");
+	public void oclTimeLimitIsPositive() {
+		ModelFixture.level(f.clear).getLose().add(ModelFixture.F.createTimeLimit());
+		assertViolated("positiveSeconds");
 	}
 
 	@Test
-	public void oclLoseConditionSetsACondition() {
-		f.clear.getLose().setHealthDepleted(false);
-		// the enemies of the mode can hurt the player, so health has to decide the round as well
+	public void levelNeedsALoseCondition() {
+		ModelFixture.level(f.clear).getLose().clear();
+		// the lower bound of Level.lose; the enemies of the level hurt, so health has to decide the round as well
 		Diagnostic diagnostic = ModelFixture.validate(f.edition);
 		List<String> messages = messages(diagnostic);
 		assertEquals(2, messages.size(), messages.toString());
-		assertTrue(messages.stream().anyMatch(m -> m.contains("'setsACondition'")), messages.toString());
+		assertTrue(messages.stream().anyMatch(m -> m.contains("'lose'") && m.contains("at least 1")), messages.toString());
 		assertTrue(diagnostic.getChildren().stream().anyMatch(d -> d.getCode() == GamemodeConstraints.HEALTH_NOT_DECISIVE),
 				messages.toString());
 	}
@@ -348,78 +350,91 @@ public class ConstraintsTest {
 	}
 
 	@Test
+	public void conditionKindsAreDistinct() {
+		ModelFixture.level(f.clear).getWin().add(ModelFixture.F.createCleared());
+		assertCode(GamemodeConstraints.DUPLICATE_CONDITION_KIND);
+	}
+
+	@Test
 	public void cannotWinAndLoseByTheSameTime() {
-		f.clear.getWin().setSurviveSeconds(60);
-		f.clear.getLose().setTimeLimit(60);
+		TimeSurvived survive = ModelFixture.F.createTimeSurvived();
+		survive.setSeconds(60);
+		ModelFixture.level(f.clear).getWin().add(survive);
+		TimeLimit limit = ModelFixture.F.createTimeLimit();
+		limit.setSeconds(60);
+		ModelFixture.level(f.clear).getLose().add(limit);
 		assertCode(GamemodeConstraints.SIMULTANEOUS_OUTCOME);
 	}
 
 	@Test
-	public void cannotBeLostAtTheStart() {
-		f.clear.getLose().setEnemiesAlive(2);
-		assertCode(GamemodeConstraints.LOST_AT_START);
-	}
-
-	@Test
 	public void winConditionsMustBeReachable() {
-		f.clear.getWin().setEnemiesPopped(21);
-		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
-	}
-
-	@Test
-	public void scoreBonusRaisesTheReachableScore() {
-		f.clear.getWin().setPoints(300);
-		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
-		SpeedBonus bonus = ModelFixture.F.createSpeedBonus();
-		f.clear.setSpeedBonus(bonus);
-		assertEquals(Diagnostic.OK, ModelFixture.validate(f.edition).getSeverity());
-		// the reachable score follows the factor of the model: 215 points at most 1.2 times
-		bonus.setMaxFactor(1.2f);
+		// Waves has two waves that do not loop
+		((WavesSurvived) ModelFixture.level(f.waves).getWin().get(0)).setCount(3);
 		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
 	}
 
 	@Test
 	public void clearedNeedsWavesThatEnd() {
-		f.waves.getWin().setCleared(true);
+		ModelFixture.level(f.waves).getWin().add(ModelFixture.F.createCleared());
 		f.schedule.setLoop(true);
 		assertCode(GamemodeConstraints.CONDITION_UNREACHABLE);
 	}
 
 	@Test
-	public void modeWithoutWinConditionsMustLoop() {
-		f.clear.setWin(null);
+	public void levelWithoutWinConditionsMustLoop() {
+		ModelFixture.level(f.clear).getWin().clear();
 		assertCode(GamemodeConstraints.NEVER_ENDS);
 	}
 
 	@Test
-	public void modeWithSeveralLevelsNeedsAWinCondition() {
-		f.waves.setWin(null);
+	public void onlyTheLastLevelCanBeEndless() {
+		// the first level of Waves becomes endless, so the second could never be unlocked
+		ModelFixture.level(f.waves).getWin().clear();
 		f.schedule.setLoop(true);
 		Level second = ModelFixture.level();
 		second.setSpawning(ModelFixture.copyOf(f.schedule));
 		f.waves.getLevels().add(second);
-		assertCode(GamemodeConstraints.NEVER_ENDS);
-	}
-
-	@Test
-	public void winConditionsMustBeReachableInEveryLevel() {
-		// Clear is won after 20 pops, which its first level offers; a second level with a small
-		// tumbleweed only offers 1
-		f.clear.getWin().setEnemiesPopped(20);
-		Level small = ModelFixture.level();
-		FixedLayout layout = ModelFixture.F.createFixedLayout();
-		layout.getSpawns().add(ModelFixture.spawn(f.tumbleweed, 1, 1));
-		small.setSpawning(layout);
-		f.clear.getLevels().add(small);
 		List<String> messages = messages(ModelFixture.validate(f.edition));
 		assertEquals(1, messages.size(), messages.toString());
-		assertTrue(messages.get(0).startsWith("In level 2, only 1 pops"), messages.toString());
+		assertTrue(messages.get(0).startsWith("In level 1, the level has no win condition"), messages.toString());
 	}
 
 	@Test
-	public void harmfulModesAreLostOnHealth() {
-		f.clear.getLose().setHealthDepleted(false);
-		f.clear.getLose().setTimeLimit(60);
+	public void eachLevelIsCheckedAgainstItsOwnConditions() {
+		// Waves is won after its two waves; a second level with the same goal but a fixed layout has no
+		// waves to survive
+		Level small = smallLevel();
+		small.getWin().add(ModelFixture.copyOf(ModelFixture.level(f.waves).getWin().get(0)));
+		f.waves.getLevels().add(small);
+		List<String> messages = messages(ModelFixture.validate(f.edition));
+		assertEquals(1, messages.size(), messages.toString());
+		assertTrue(messages.get(0).startsWith("In level 2, the level has no waves to survive"), messages.toString());
+	}
+
+	@Test
+	public void levelsHaveGoalsOfTheirOwn() {
+		// the first level of Clear is won by clearing it, the second by surviving 30 s
+		Level small = smallLevel();
+		TimeSurvived survive = ModelFixture.F.createTimeSurvived();
+		survive.setSeconds(30);
+		small.getWin().add(survive);
+		f.clear.getLevels().add(small);
+		assertEquals(Diagnostic.OK, ModelFixture.validate(f.edition).getSeverity());
+		// a time limit of 30 s in the second level only conflicts with that level's own goal
+		TimeLimit limit = ModelFixture.F.createTimeLimit();
+		limit.setSeconds(30);
+		small.getLose().add(limit);
+		List<String> messages = messages(ModelFixture.validate(f.edition));
+		assertEquals(1, messages.size(), messages.toString());
+		assertTrue(messages.get(0).startsWith("In level 2, the round would be won at the same moment"), messages.toString());
+	}
+
+	@Test
+	public void harmfulLevelsAreLostOnHealth() {
+		ModelFixture.level(f.clear).getLose().clear();
+		TimeLimit limit = ModelFixture.F.createTimeLimit();
+		limit.setSeconds(60);
+		ModelFixture.level(f.clear).getLose().add(limit);
 		assertCode(GamemodeConstraints.HEALTH_NOT_DECISIVE);
 	}
 
@@ -474,6 +489,15 @@ public class ConstraintsTest {
 	}
 
 	// ---------------------------------------------------------------- helpers
+
+	/** A level with a fixed layout of one small tumbleweed. */
+	private Level smallLevel() {
+		Level small = ModelFixture.level();
+		FixedLayout layout = ModelFixture.F.createFixedLayout();
+		layout.getSpawns().add(ModelFixture.spawn(f.tumbleweed, 1, 1));
+		small.setSpawning(layout);
+		return small;
+	}
 
 	private static Difficulty difficulty(DifficultyTier tier, ModifierTarget target, float factor) {
 		Difficulty difficulty = ModelFixture.F.createDifficulty();

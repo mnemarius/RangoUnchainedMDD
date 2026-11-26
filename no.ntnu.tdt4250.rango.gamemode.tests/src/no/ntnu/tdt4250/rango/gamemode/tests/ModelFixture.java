@@ -17,14 +17,13 @@ import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
 import no.ntnu.tdt4250.rango.gamemode.Heal;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.Shield;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WinCondition;
+import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeOCL;
 
 /**
@@ -32,7 +31,8 @@ import no.ntnu.tdt4250.rango.gamemode.util.GamemodeOCL;
  * <ul>
  * <li>Tumbleweed splits into 2 (10 points); Bomb splits into 4 Tumbleweed (25 points).</li>
  * <li>The edition's drop tables: Tumbleweed drops Heart at 5 %, Bomb drops Heart at 10 %.</li>
- * <li>Every mode has one level, whose arena has a desert background.</li>
+ * <li>Every mode has one level, whose arena has a desert background and which is lost when health is
+ * depleted.</li>
  * <li>Mode Clear: a fixed layout of one large Tumbleweed and one large Bomb, won when cleared. It
  * uses the edition's drop tables.</li>
  * <li>Mode Waves: two waves (one large Tumbleweed, then two medium Bombs), won after two waves. Its
@@ -98,9 +98,7 @@ public class ModelFixture {
 		layout.getSpawns().add(spawn(tumbleweed, 3, 1));
 		layout.getSpawns().add(spawn(bomb, 3, 1));
 		level(clear).setSpawning(layout);
-		WinCondition cleared = F.createWinCondition();
-		cleared.setCleared(true);
-		clear.setWin(cleared);
+		level(clear).getWin().add(F.createCleared());
 
 		mode(waves, "Waves");
 		Wave first = F.createWave();
@@ -116,9 +114,9 @@ public class ModelFixture {
 		tumbleweedDrops.getEntries().add(drop(heart, 1));
 		waves.getDrops().add(drops);
 		waves.getDrops().add(tumbleweedDrops);
-		WinCondition survived = F.createWinCondition();
-		survived.setWavesSurvived(2);
-		waves.setWin(survived);
+		WavesSurvived survived = F.createWavesSurvived();
+		survived.setCount(2);
+		level(waves).getWin().add(survived);
 	}
 
 	private EnemyType enemy(String name, int points) {
@@ -137,18 +135,16 @@ public class ModelFixture {
 		mode.setTitle(name);
 		mode.setPlayer(rango);
 		mode.getLevels().add(level());
-		LoseCondition lose = F.createLoseCondition();
-		lose.setHealthDepleted(true);
-		mode.setLose(lose);
 		edition.getModes().add(mode);
 	}
 
-	/** A level with an empty desert arena and no spawning yet. */
+	/** A level with an empty desert arena, lost when health is depleted, and no spawning or win condition yet. */
 	static Level level() {
 		Level level = F.createLevel();
 		Arena arena = F.createArena();
 		arena.setBackground("Desert");
 		level.setArena(arena);
+		level.getLose().add(F.createHealthDepleted());
 		return level;
 	}
 

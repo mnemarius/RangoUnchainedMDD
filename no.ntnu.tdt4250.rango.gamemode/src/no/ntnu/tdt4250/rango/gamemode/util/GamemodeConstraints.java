@@ -9,13 +9,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import no.ntnu.tdt4250.rango.gamemode.EnemyType;
+import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
+import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
 import no.ntnu.tdt4250.rango.gamemode.InstantEffect;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
@@ -25,7 +27,10 @@ import no.ntnu.tdt4250.rango.gamemode.Poison;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
+import no.ntnu.tdt4250.rango.gamemode.TimeLimit;
+import no.ntnu.tdt4250.rango.gamemode.TimeSurvived;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
+import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 
 /**
@@ -41,7 +46,6 @@ public final class GamemodeConstraints {
 	public static final int NAME_NOT_UNIQUE = 101;
 	public static final int DUPLICATE_EFFECT_KIND = 102;
 	public static final int SIMULTANEOUS_OUTCOME = 105;
-	public static final int LOST_AT_START = 106;
 	public static final int CONDITION_UNREACHABLE = 107;
 	public static final int NEVER_ENDS = 108;
 	public static final int TELEPORTER_ELSEWHERE = 110;
@@ -50,6 +54,7 @@ public final class GamemodeConstraints {
 	public static final int DUPLICATE_DROP_TABLE = 113;
 	public static final int DUPLICATE_DIFFICULTY = 114;
 	public static final int OPPOSING_INSTANT_EFFECTS = 115;
+	public static final int DUPLICATE_CONDITION_KIND = 116;
 
 	/** Issue codes as seen by Xtext, which joins the source and the code of an EMF diagnostic. */
 	public static final String ISSUE_NEVER_ENDS = SOURCE + "." + NEVER_ENDS;
@@ -123,115 +128,92 @@ public final class GamemodeConstraints {
 	}
 
 	/**
-	 * A round cannot be won and lost by the same event, and is not decided before it starts: the time
-	 * to survive is shorter than the time limit, and the round does not start overrun.
+	 * A level has at most one condition of each kind in each role. "time reaches 60 s or time reaches
+	 * 90 s" is decided by the shorter time alone, so the other condition would be dead text.
 	 */
-	public static List<Violation> noSimultaneousOutcome(GameMode mode) {
+	public static List<Violation> distinctConditionKinds(Level level) {
 		List<Violation> violations = new ArrayList<>();
-		WinCondition win = mode.getWin();
-		LoseCondition lose = mode.getLose();
-		if (lose == null) {
-			return violations;
-		}
-		float survive = win != null ? win.getSurviveSeconds() : 0;
-		float limit = lose.getTimeLimit();
-		if (survive > 0 && limit > 0 && survive >= limit) {
-			String when = survive == limit ? "at the same moment as" : "after";
-			violations.add(new Violation(SIMULTANEOUS_OUTCOME,
-					"The round would be won " + when + " it is lost by its time limit of " + seconds(limit),
-					win, GamemodePackage.Literals.WIN_CONDITION__SURVIVE_SECONDS));
-		}
-		int overrun = lose.getEnemiesAlive();
-		if (overrun > 0) {
-			for (Level level : mode.getLevels()) {
-				int initialEnemies = GamemodeDerivations.initialEnemies(level.getSpawning());
-				if (overrun <= initialEnemies) {
-					violations.add(new Violation(LOST_AT_START,
-							about(level, "The round starts with " + initialEnemies + " enemies, so it would be lost at once by having "
-									+ overrun + " enemies alive"),
-							lose, GamemodePackage.Literals.LOSE_CONDITION__ENEMIES_ALIVE));
+		for (List<? extends EObject> conditions : List.of(level.getWin(), level.getLose())) {
+			Set<EClass> seen = new HashSet<>();
+			for (EObject condition : conditions) {
+				if (!seen.add(condition.eClass())) {
+					violations.add(new Violation(DUPLICATE_CONDITION_KIND,
+							about(level, "There are two " + condition.eClass().getName() + " conditions; keep only one"),
+							condition, null));
 				}
 			}
 		}
 		return violations;
 	}
 
-	/** Every win condition can actually be met in every level, given what the level spawns. */
-	public static List<Violation> winnable(GameMode mode) {
+	/**
+	 * A round cannot be won and lost by the same event: the time to survive is shorter than the time
+	 * limit. Values that are not positive are left to the OCL invariants of the conditions.
+	 */
+	public static List<Violation> noSimultaneousOutcome(Level level) {
 		List<Violation> violations = new ArrayList<>();
-		if (mode.getWin() == null) {
-			return violations;
-		}
-		for (Level level : mode.getLevels()) {
-			violations.addAll(winnable(mode, mode.getWin(), level));
+		for (LoseCondition lose : level.getLose()) {
+			if (lose instanceof TimeLimit limit && limit.getSeconds() > 0) {
+				for (WinCondition win : level.getWin()) {
+					if (win instanceof TimeSurvived survive && survive.getSeconds() >= limit.getSeconds()) {
+						String when = survive.getSeconds() == limit.getSeconds() ? "at the same moment as" : "after";
+						violations.add(new Violation(SIMULTANEOUS_OUTCOME,
+								about(level, "The round would be won " + when + " it is lost by its time limit of "
+										+ seconds(limit.getSeconds())),
+								survive, GamemodePackage.Literals.TIME_SURVIVED__SECONDS));
+					}
+				}
+			}
 		}
 		return violations;
 	}
 
-	private static List<Violation> winnable(GameMode mode, WinCondition win, Level level) {
+	/** Every win condition of a level can actually be met, given what the level spawns. */
+	public static List<Violation> winnable(Level level) {
 		List<Violation> violations = new ArrayList<>();
 		SpawnStrategy spawning = level.getSpawning();
 		boolean looping = spawning instanceof WaveSchedule schedule && schedule.isLoop();
-		if (win.isCleared() && looping) {
-			violations.add(new Violation(CONDITION_UNREACHABLE,
-					about(level, "The waves loop, so the arena is never cleared for good"),
-					win, GamemodePackage.Literals.WIN_CONDITION__CLEARED));
-		}
-		if (win.getWavesSurvived() > 0) {
-			if (!(spawning instanceof WaveSchedule schedule)) {
+		for (WinCondition win : level.getWin()) {
+			if (win instanceof Cleared && looping) {
 				violations.add(new Violation(CONDITION_UNREACHABLE,
-						about(level, "The " + kind(level) + " has no waves to survive"),
-						win, GamemodePackage.Literals.WIN_CONDITION__WAVES_SURVIVED));
-			} else if (!schedule.isLoop() && win.getWavesSurvived() > schedule.getWaves().size()) {
-				violations.add(new Violation(CONDITION_UNREACHABLE,
-						about(level, "The " + kind(level) + " only has " + schedule.getWaves().size() + " waves, and they do not loop"),
-						win, GamemodePackage.Literals.WIN_CONDITION__WAVES_SURVIVED));
-			}
-		}
-		if (win.getEnemiesPopped() > 0) {
-			int available = level.getPopsToClear();
-			if (available != GamemodeDerivations.UNBOUNDED && win.getEnemiesPopped() > available) {
-				violations.add(new Violation(CONDITION_UNREACHABLE,
-						about(level, "Only " + available + " pops are possible in this " + kind(level)),
-						win, GamemodePackage.Literals.WIN_CONDITION__ENEMIES_POPPED));
-			}
-		}
-		if (win.getPoints() > 0) {
-			int maxScore = level.getMaxScore();
-			float bonus = mode.getSpeedBonus() != null ? mode.getSpeedBonus().getMaxFactor() : 1;
-			long reachable = (long) Math.floor((double) maxScore * bonus);
-			if (maxScore != GamemodeDerivations.UNBOUNDED && win.getPoints() > reachable) {
-				violations.add(new Violation(CONDITION_UNREACHABLE,
-						about(level, "At most " + reachable + " points can be scored in this " + kind(level)),
-						win, GamemodePackage.Literals.WIN_CONDITION__POINTS));
+						about(level, "The waves loop, so the arena is never cleared for good"), win, null));
+			} else if (win instanceof WavesSurvived waves) {
+				if (!(spawning instanceof WaveSchedule schedule)) {
+					violations.add(new Violation(CONDITION_UNREACHABLE,
+							about(level, "The " + kind(level) + " has no waves to survive"),
+							win, GamemodePackage.Literals.WAVES_SURVIVED__COUNT));
+				} else if (!schedule.isLoop() && waves.getCount() > schedule.getWaves().size()) {
+					violations.add(new Violation(CONDITION_UNREACHABLE,
+							about(level, "The " + kind(level) + " only has " + schedule.getWaves().size() + " waves, and they do not loop"),
+							win, GamemodePackage.Literals.WAVES_SURVIVED__COUNT));
+				}
 			}
 		}
 		return violations;
 	}
 
 	/**
-	 * A mode without win conditions keeps sending enemies (its waves loop); otherwise the round would
-	 * never end once everything has been popped. A mode with several levels needs a win condition,
-	 * since only winning a level moves on to the next.
+	 * A level without win conditions keeps sending enemies (its waves loop); otherwise its round would
+	 * never end once everything has been popped. It is also the last level of its mode, since only
+	 * winning a level unlocks the next. The problem is shown at the lose conditions, which the missing
+	 * win conditions would stand next to.
 	 */
-	public static List<Violation> endsSomehow(GameMode mode) {
+	public static List<Violation> endsSomehow(Level level) {
 		List<Violation> violations = new ArrayList<>();
-		if (mode.getWin() != null) {
+		if (!level.getWin().isEmpty()) {
 			return violations;
 		}
-		if (mode.getLevels().size() > 1) {
+		if (level.eContainer() instanceof GameMode mode && mode.getLevels().indexOf(level) < mode.getLevels().size() - 1) {
 			violations.add(new Violation(NEVER_ENDS,
-					"Mode " + mode.getName() + " has several levels but no win condition, so no level could ever be completed",
-					mode, GamemodePackage.Literals.GAME_MODE__WIN));
+					about(level, "The level has no win condition, so the levels after it could never be unlocked"),
+					level, GamemodePackage.Literals.LEVEL__LOSE));
 			return violations;
 		}
-		for (Level level : mode.getLevels()) {
-			boolean looping = level.getSpawning() instanceof WaveSchedule schedule && schedule.isLoop();
-			if (!looping) {
-				violations.add(new Violation(NEVER_ENDS,
-						"Mode " + mode.getName() + " has no win condition and its enemies run out, so a round could never end",
-						mode, GamemodePackage.Literals.GAME_MODE__WIN));
-			}
+		boolean looping = level.getSpawning() instanceof WaveSchedule schedule && schedule.isLoop();
+		if (!looping) {
+			violations.add(new Violation(NEVER_ENDS,
+					about(level, "The " + kind(level) + " has no win condition and its enemies run out, so a round could never end"),
+					level, GamemodePackage.Literals.LEVEL__LOSE));
 		}
 		return violations;
 	}
@@ -255,26 +237,29 @@ public final class GamemodeConstraints {
 	}
 
 	/**
-	 * A mode in which the player can be hurt is lost when the player runs out of health. Otherwise a
-	 * player without hearts would be removed from the arena while the round goes on.
+	 * A level in which the player can be hurt, by its enemies or by the power-ups of its mode, is lost
+	 * when the player runs out of health. Otherwise a player without hearts would be removed from the
+	 * arena while the round goes on.
 	 */
-	public static List<Violation> healthDepletedWhenHarmful(GameMode mode) {
+	public static List<Violation> healthDepletedWhenHarmful(Level level) {
 		List<Violation> violations = new ArrayList<>();
-		if (mode.getLose() != null && mode.getLose().isHealthDepleted()) {
+		if (level.getLose().stream().anyMatch(HealthDepleted.class::isInstance)) {
 			return violations;
 		}
 		List<PlayerEffect> effects = new ArrayList<>();
-		for (EnemyType type : mode.getEnemyTypes()) {
+		for (EnemyType type : GamemodeDerivations.enemyTypes(level)) {
 			effects.addAll(type.getContactEffects());
 		}
-		for (PowerUp powerUp : mode.getPowerUps()) {
-			effects.addAll(powerUp.getEffects());
+		if (level.eContainer() instanceof GameMode mode) {
+			for (PowerUp powerUp : mode.getPowerUps()) {
+				effects.addAll(powerUp.getEffects());
+			}
 		}
 		// Harmful means the effect can lower the player's health; a new effect that does so belongs here.
 		if (effects.stream().anyMatch(effect -> effect instanceof Damage || effect instanceof Poison)) {
 			violations.add(new Violation(HEALTH_NOT_DECISIVE,
-					"The player can be hurt in mode " + mode.getName() + ", so it must be lost when health is depleted",
-					mode, GamemodePackage.Literals.GAME_MODE__LOSE));
+					about(level, "The player can be hurt in this " + kind(level) + ", so it must be lost when health is depleted"),
+					level, GamemodePackage.Literals.LEVEL__LOSE));
 		}
 		return violations;
 	}

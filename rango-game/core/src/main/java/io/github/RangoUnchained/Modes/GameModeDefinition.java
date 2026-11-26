@@ -73,7 +73,9 @@ public abstract class GameModeDefinition {
     /** Applies the effects of a power-up the player has caught. */
     public abstract void onPowerUpCaught(String powerUp, ModeContext context);
 
-    public abstract boolean isWon(ModeStats stats);
+    /** Whether the round of the given level is won: each level has its own win conditions. */
+    public abstract boolean isWon(int level, ModeStats stats);
 
-    public abstract boolean isLost(ModeStats stats);
+    /** Whether the round of the given level is lost: each level has its own lose conditions. */
+    public abstract boolean isLost(int level, ModeStats stats);
 }

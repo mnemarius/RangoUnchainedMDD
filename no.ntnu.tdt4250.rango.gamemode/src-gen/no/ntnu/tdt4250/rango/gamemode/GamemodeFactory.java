@@ -238,22 +238,49 @@ public interface GamemodeFactory extends EFactory {
 	Drop createDrop();
 
 	/**
-	 * Returns a new object of class '<em>Win Condition</em>'.
+	 * Returns a new object of class '<em>Cleared</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Win Condition</em>'.
+	 * @return a new object of class '<em>Cleared</em>'.
 	 * @generated
 	 */
-	WinCondition createWinCondition();
+	Cleared createCleared();
 
 	/**
-	 * Returns a new object of class '<em>Lose Condition</em>'.
+	 * Returns a new object of class '<em>Time Survived</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Lose Condition</em>'.
+	 * @return a new object of class '<em>Time Survived</em>'.
 	 * @generated
 	 */
-	LoseCondition createLoseCondition();
+	TimeSurvived createTimeSurvived();
+
+	/**
+	 * Returns a new object of class '<em>Waves Survived</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Waves Survived</em>'.
+	 * @generated
+	 */
+	WavesSurvived createWavesSurvived();
+
+	/**
+	 * Returns a new object of class '<em>Health Depleted</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Health Depleted</em>'.
+	 * @generated
+	 */
+	HealthDepleted createHealthDepleted();
+
+	/**
+	 * Returns a new object of class '<em>Time Limit</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Time Limit</em>'.
+	 * @generated
+	 */
+	TimeLimit createTimeLimit();
 
 	/**
 	 * Returns a new object of class '<em>Difficulty</em>'.

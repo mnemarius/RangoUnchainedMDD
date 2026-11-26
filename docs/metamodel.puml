@@ -11,6 +11,31 @@ skinparam class {
 hide empty members
 hide circle
 left to right direction
+abstract class WinCondition {
+}
+class WaveSchedule {
+  loop : Boolean [0..1]
+  escalation : Int [0..1]
+  --
+  <<nonNegativeEscalation>>
+  <<escalationNeedsLoop>>
+}
+enum Direction {
+  LEFT
+  RIGHT
+}
+class Level {
+  title : String [0..1]
+  /number : Int [0..1]
+  /popsToClear : Int [0..1]
+  /maxScore : Int [0..1]
+  --
+  <<distinctConditionKinds>>
+  <<noSimultaneousOutcome>>
+  <<winnable>>
+  <<endsSomehow>>
+  <<healthDepletedWhenHarmful>>
+}
 abstract class NamedElement {
   name : String
   --
@@ -21,9 +46,6 @@ abstract class Positioned {
   y : Float
   --
   <<insideArena>>
-}
-class Edition {
-  title : String [0..1]
 }
 class EnemyType {
   sprite : String
@@ -40,21 +62,13 @@ class EnemyType {
   <<distinctEffectKinds>>
   <<oneInstantEffect>>
 }
-abstract class SplitRule {
+class Edition {
+  title : String [0..1]
 }
-class Vanish {
-}
-class Split {
-  fragments : Int
-  launchSpeed : Float [0..1]
-  /resultType : EnemyType
-  /spacing : Float
-  --
-  <<atLeastOneFragment>>
-  <<atMostSixteenFragments>>
-  <<positiveLaunchSpeed>>
-}
-abstract class PlayerEffect {
+enum DifficultyTier {
+  EASY
+  MEDIUM
+  HARD
 }
 abstract class InstantEffect {
   amount : Int
@@ -63,6 +77,8 @@ abstract class InstantEffect {
 }
 class Damage {
 }
+abstract class Obstacle {
+}
 class Heal {
 }
 abstract class TimedEffect {
@@ -70,7 +86,7 @@ abstract class TimedEffect {
   --
   <<positiveDuration>>
 }
-class Shield {
+abstract class SplitRule {
 }
 class SpeedChange {
   factor : Float
@@ -116,17 +132,7 @@ class GameMode {
   /effectiveDrops : DropTable [*]
   --
   <<positiveGravity>>
-  <<noSimultaneousOutcome>>
-  <<winnable>>
-  <<endsSomehow>>
-  <<healthDepletedWhenHarmful>>
   <<everyEnemyDrops>>
-}
-class Level {
-  title : String [0..1]
-  /number : Int [0..1]
-  /popsToClear : Int [0..1]
-  /maxScore : Int [0..1]
 }
 class SpeedBonus {
   maxFactor : Float [0..1]
@@ -135,13 +141,20 @@ class SpeedBonus {
   <<bonusAboveOne>>
   <<positiveDuration>>
 }
+class Wave {
+  delay : Float [0..1]
+  /number : Int [0..1]
+  /popsToClear : Int [0..1]
+  --
+  <<nonNegativeDelay>>
+}
+abstract class PlayerEffect {
+}
 class Arena {
   background : String
   playerStart : Float [0..1]
   --
   <<playerStartInside>>
-}
-abstract class Obstacle {
 }
 class Block {
   width : Int
@@ -172,20 +185,6 @@ abstract class SpawnStrategy {
 }
 class FixedLayout {
 }
-class WaveSchedule {
-  loop : Boolean [0..1]
-  escalation : Int [0..1]
-  --
-  <<nonNegativeEscalation>>
-  <<escalationNeedsLoop>>
-}
-class Wave {
-  delay : Float [0..1]
-  /number : Int [0..1]
-  /popsToClear : Int [0..1]
-  --
-  <<nonNegativeDelay>>
-}
 class EnemySpawn {
   size : Int [0..1]
   count : Int [0..1]
@@ -194,10 +193,6 @@ class EnemySpawn {
   --
   <<sizeInRange>>
   <<positiveCount>>
-}
-enum Direction {
-  LEFT
-  RIGHT
 }
 class DropTable {
   chance : Float
@@ -220,10 +215,7 @@ class Difficulty {
   <<distinctTargets>>
   <<onePerTier>>
 }
-enum DifficultyTier {
-  EASY
-  MEDIUM
-  HARD
+class Vanish {
 }
 class Modifier {
   target : ModifierTarget
@@ -239,73 +231,93 @@ enum ModifierTarget {
   DROP_CHANCE
   WAVE_DELAY
 }
-class WinCondition {
-  cleared : Boolean [0..1]
-  surviveSeconds : Float [0..1]
-  points : Int [0..1]
-  enemiesPopped : Int [0..1]
-  wavesSurvived : Int [0..1]
-  --
-  <<nonNegativeValues>>
-  <<setsACondition>>
+abstract class LoseCondition {
 }
-class LoseCondition {
-  healthDepleted : Boolean [0..1]
-  timeLimit : Float [0..1]
-  enemiesAlive : Int [0..1]
-  --
-  <<nonNegativeValues>>
-  <<setsACondition>>
+class Cleared {
 }
-Edition *--> "enemyTypes *" EnemyType
-Edition *--> "powerUps *" PowerUp
-Edition *--> "players 1..*" PlayerProfile
-Edition *--> "modes 1..*" GameMode
-Edition *--> "drops *" DropTable
-Edition *--> "difficulties *" Difficulty
-Difficulty *--> "modifiers *" Modifier
+class Split {
+  fragments : Int
+  launchSpeed : Float [0..1]
+  /resultType : EnemyType
+  /spacing : Float
+  --
+  <<atLeastOneFragment>>
+  <<atMostSixteenFragments>>
+  <<positiveLaunchSpeed>>
+}
+class TimeSurvived {
+  seconds : Float
+  --
+  <<positiveSeconds>>
+}
+class Shield {
+}
+class WavesSurvived {
+  count : Int
+  --
+  <<positiveCount>>
+}
+class HealthDepleted {
+}
+class TimeLimit {
+  seconds : Float
+  --
+  <<positiveSeconds>>
+}
+Edition *--> "*" PowerUp : powerUps
+WinCondition <|-- Cleared
+Edition *--> "1..*" PlayerProfile : players
+Trigger <|-- Teleporter
+Edition *--> "*" EnemyType : enemyTypes
+Edition *--> "1..*" GameMode : modes
+NamedElement <|-- Obstacle
+Difficulty *--> "*" Modifier : modifiers
+EnemyType *--> "1" SplitRule : splitRule
 NamedElement <|-- Edition
-EnemyType *--> "splitRule 1" SplitRule
-EnemyType *--> "contactEffects 1..*" PlayerEffect
-NamedElement <|-- EnemyType
+Edition *--> "*" DropTable : drops
 SplitRule <|-- Vanish
-Split --> "fragmentType 0..1" EnemyType
-SplitRule <|-- Split
-PlayerEffect <|-- InstantEffect
-InstantEffect <|-- Damage
 InstantEffect <|-- Heal
+Level *--> "*" WinCondition : win
+InstantEffect <|-- Damage
 PlayerEffect <|-- TimedEffect
 TimedEffect <|-- Shield
-TimedEffect <|-- SpeedChange
-TimedEffect <|-- Poison
-PowerUp *--> "effects 1..*" PlayerEffect
+PowerUp *--> "1..*" PlayerEffect : effects
 NamedElement <|-- PowerUp
 NamedElement <|-- PlayerProfile
-GameMode --> "player 1" PlayerProfile
-GameMode *--> "levels 1..*" Level
-Level *--> "arena 1" Arena
-Level *--> "spawning 1" SpawnStrategy
-GameMode *--> "speedBonus 0..1" SpeedBonus
-GameMode *--> "drops *" DropTable
-GameMode *--> "win 0..1" WinCondition
-GameMode *--> "lose 1" LoseCondition
+GameMode --> "1" PlayerProfile : player
+TimedEffect <|-- Poison
+Level *--> "1" Arena : arena
+Level *--> "1" SpawnStrategy : spawning
+Edition *--> "*" Difficulty : difficulties
+SplitRule <|-- Split
+Level *--> "1..*" LoseCondition : lose
+PlayerEffect <|-- InstantEffect
+WinCondition <|-- TimeSurvived
+WinCondition <|-- WavesSurvived
+LoseCondition <|-- TimeLimit
+GameMode *--> "1..*" Level : levels
+FixedLayout *--> "1..*" EnemySpawn : spawns
+GameMode *--> "0..1" SpeedBonus : speedBonus
+GameMode *--> "*" DropTable : drops
 NamedElement <|-- GameMode
-Arena *--> "obstacles *" Obstacle
-NamedElement <|-- Obstacle
 Positioned <|-- Obstacle
+Arena *--> "*" Obstacle : obstacles
 Obstacle <|-- Block
+Wave *--> "1..*" EnemySpawn : spawns
 Obstacle <|-- Trigger
 Trigger <|-- JumpPad
-Teleporter --> "target 1" Teleporter
-Trigger <|-- Teleporter
-FixedLayout *--> "spawns 1..*" EnemySpawn
+Teleporter --> "1" Teleporter : target
+LoseCondition <|-- HealthDepleted
 SpawnStrategy <|-- FixedLayout
-WaveSchedule *--> "waves 1..*" Wave
 SpawnStrategy <|-- WaveSchedule
-Wave *--> "spawns 1..*" EnemySpawn
-EnemySpawn --> "type 1" EnemyType
+EnemySpawn --> "1" EnemyType : type
+WaveSchedule *--> "1..*" Wave : waves
 Positioned <|-- EnemySpawn
-DropTable *--> "entries 1..*" Drop
-DropTable --> "enemyType 1" EnemyType
-Drop --> "powerUp 1" PowerUp
+Split --> "0..1" EnemyType : fragmentType
+DropTable *--> "1..*" Drop : entries
+DropTable --> "1" EnemyType : enemyType
+Drop --> "1" PowerUp : powerUp
+TimedEffect <|-- SpeedChange
+NamedElement <|-- EnemyType
+EnemyType *--> "1..*" PlayerEffect : contactEffects
 @enduml

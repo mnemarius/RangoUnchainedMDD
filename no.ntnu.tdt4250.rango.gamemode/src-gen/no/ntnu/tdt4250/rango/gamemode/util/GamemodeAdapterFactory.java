@@ -204,8 +204,28 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 				return createWinConditionAdapter();
 			}
 			@Override
+			public Adapter caseCleared(Cleared object) {
+				return createClearedAdapter();
+			}
+			@Override
+			public Adapter caseTimeSurvived(TimeSurvived object) {
+				return createTimeSurvivedAdapter();
+			}
+			@Override
+			public Adapter caseWavesSurvived(WavesSurvived object) {
+				return createWavesSurvivedAdapter();
+			}
+			@Override
 			public Adapter caseLoseCondition(LoseCondition object) {
 				return createLoseConditionAdapter();
+			}
+			@Override
+			public Adapter caseHealthDepleted(HealthDepleted object) {
+				return createHealthDepletedAdapter();
+			}
+			@Override
+			public Adapter caseTimeLimit(TimeLimit object) {
+				return createTimeLimitAdapter();
 			}
 			@Override
 			public Adapter caseDifficulty(Difficulty object) {
@@ -712,6 +732,48 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.Cleared <em>Cleared</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Cleared
+	 * @generated
+	 */
+	public Adapter createClearedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.TimeSurvived <em>Time Survived</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.TimeSurvived
+	 * @generated
+	 */
+	public Adapter createTimeSurvivedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.WavesSurvived <em>Waves Survived</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.WavesSurvived
+	 * @generated
+	 */
+	public Adapter createWavesSurvivedAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.LoseCondition <em>Lose Condition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -722,6 +784,34 @@ public class GamemodeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLoseConditionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.HealthDepleted <em>Health Depleted</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.HealthDepleted
+	 * @generated
+	 */
+	public Adapter createHealthDepletedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link no.ntnu.tdt4250.rango.gamemode.TimeLimit <em>Time Limit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see no.ntnu.tdt4250.rango.gamemode.TimeLimit
+	 * @generated
+	 */
+	public Adapter createTimeLimitAdapter() {
 		return null;
 	}
 

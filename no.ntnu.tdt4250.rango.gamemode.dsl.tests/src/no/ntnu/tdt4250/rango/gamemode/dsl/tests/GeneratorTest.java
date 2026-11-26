@@ -112,12 +112,41 @@ public class GeneratorTest {
 	@Test
 	public void endConditionsBecomeChecks() {
 		InMemoryFileSystemAccess files = generate("arcade");
-		assertTrue(file(files, JAVA + "TimeAttackMode.java").contains("return stats.score() >= 1500;"));
+		String timeAttack = file(files, JAVA + "TimeAttackMode.java");
+		assertTrue(timeAttack.contains("return stats.wavesCleared() >= 6;"), timeAttack);
+		// the checks follow the order of the conditions in the text
+		assertTrue(timeAttack.contains("return stats.elapsed() >= 90.0f\n            || stats.playerHealth() <= 0;"), timeAttack);
 		String popFrenzy = file(files, JAVA + "PopFrenzyMode.java");
-		// the checks follow the order of the conditions in the metamodel, not in the text
-		assertTrue(popFrenzy.contains("return stats.cleared()\n            || stats.popped() >= 20;"), popFrenzy);
+		assertTrue(popFrenzy.contains("return stats.cleared();"), popFrenzy);
 		assertTrue(popFrenzy.contains("return stats.playerHealth() <= 0\n            || stats.elapsed() >= 120.0f;"));
 		assertTrue(file(generate("classic"), JAVA + "EndlessMode.java").contains("return false; // endless"));
+	}
+
+	@Test
+	public void eachLevelGetsItsOwnEndConditions() {
+		String campaign = file(generate("classic"), JAVA + "CampaignMode.java");
+		// levels with the same conditions share a case
+		assertTrue(campaign.contains("""
+				    public boolean isWon(int level, ModeStats stats) {
+				        switch (level) {
+				            case 0:
+				            case 1:
+				            case 2:
+				            case 4:
+				                return stats.cleared();
+				            case 3:
+				                return stats.cleared()
+				                    || stats.elapsed() >= 60.0f;
+				            default:
+				                return false;
+				        }
+				    }
+				"""), campaign);
+		assertTrue(campaign.contains("""
+				            case 4:
+				                return stats.playerHealth() <= 0
+				                    || stats.elapsed() >= 45.0f;
+				"""), campaign);
 	}
 
 	@Test

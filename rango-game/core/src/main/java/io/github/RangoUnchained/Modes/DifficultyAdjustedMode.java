@@ -127,13 +127,13 @@ public final class DifficultyAdjustedMode extends GameModeDefinition {
     }
 
     @Override
-    public boolean isWon(ModeStats stats) {
-        return mode.isWon(stats);
+    public boolean isWon(int level, ModeStats stats) {
+        return mode.isWon(level, stats);
     }
 
     @Override
-    public boolean isLost(ModeStats stats) {
-        return mode.isLost(stats);
+    public boolean isLost(int level, ModeStats stats) {
+        return mode.isLost(level, stats);
     }
 
     /** The round as seen by the rules of a pop: points and drop chances are scaled, the rest is passed on. */

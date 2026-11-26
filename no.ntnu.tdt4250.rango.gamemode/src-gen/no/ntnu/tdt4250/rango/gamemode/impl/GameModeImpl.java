@@ -9,11 +9,9 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Level;
-import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus;
-import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -43,8 +41,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getSpeedBonus <em>Speed Bonus</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getLevels <em>Levels</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getDrops <em>Drops</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getWin <em>Win</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getLose <em>Lose</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getPowerUps <em>Power Ups</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getPopsToClear <em>Pops To Clear</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.GameModeImpl#getMaxScore <em>Max Score</em>}</li>
@@ -153,26 +149,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	 * @ordered
 	 */
 	protected EList<DropTable> drops;
-
-	/**
-	 * The cached value of the '{@link #getWin() <em>Win</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getWin()
-	 * @generated
-	 * @ordered
-	 */
-	protected WinCondition win;
-
-	/**
-	 * The cached value of the '{@link #getLose() <em>Lose</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLose()
-	 * @generated
-	 * @ordered
-	 */
-	protected LoseCondition lose;
 
 	/**
 	 * The default value of the '{@link #getPopsToClear() <em>Pops To Clear</em>}' attribute.
@@ -406,96 +382,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public WinCondition getWin() {
-		return win;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetWin(WinCondition newWin, NotificationChain msgs) {
-		WinCondition oldWin = win;
-		win = newWin;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__WIN, oldWin, newWin);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setWin(WinCondition newWin) {
-		if (newWin != win) {
-			NotificationChain msgs = null;
-			if (win != null)
-				msgs = ((InternalEObject)win).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__WIN, null, msgs);
-			if (newWin != null)
-				msgs = ((InternalEObject)newWin).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__WIN, null, msgs);
-			msgs = basicSetWin(newWin, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__WIN, newWin, newWin));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public LoseCondition getLose() {
-		return lose;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetLose(LoseCondition newLose, NotificationChain msgs) {
-		LoseCondition oldLose = lose;
-		lose = newLose;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__LOSE, oldLose, newLose);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setLose(LoseCondition newLose) {
-		if (newLose != lose) {
-			NotificationChain msgs = null;
-			if (lose != null)
-				msgs = ((InternalEObject)lose).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__LOSE, null, msgs);
-			if (newLose != null)
-				msgs = ((InternalEObject)newLose).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GamemodePackage.GAME_MODE__LOSE, null, msgs);
-			msgs = basicSetLose(newLose, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GamemodePackage.GAME_MODE__LOSE, newLose, newLose));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	@Override
@@ -547,10 +433,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return ((InternalEList<?>)getLevels()).basicRemove(otherEnd, msgs);
 			case GamemodePackage.GAME_MODE__DROPS:
 				return ((InternalEList<?>)getDrops()).basicRemove(otherEnd, msgs);
-			case GamemodePackage.GAME_MODE__WIN:
-				return basicSetWin(null, msgs);
-			case GamemodePackage.GAME_MODE__LOSE:
-				return basicSetLose(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -580,10 +462,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return getLevels();
 			case GamemodePackage.GAME_MODE__DROPS:
 				return getDrops();
-			case GamemodePackage.GAME_MODE__WIN:
-				return getWin();
-			case GamemodePackage.GAME_MODE__LOSE:
-				return getLose();
 			case GamemodePackage.GAME_MODE__POWER_UPS:
 				return getPowerUps();
 			case GamemodePackage.GAME_MODE__POPS_TO_CLEAR:
@@ -628,12 +506,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				getDrops().clear();
 				getDrops().addAll((Collection<? extends DropTable>)newValue);
 				return;
-			case GamemodePackage.GAME_MODE__WIN:
-				setWin((WinCondition)newValue);
-				return;
-			case GamemodePackage.GAME_MODE__LOSE:
-				setLose((LoseCondition)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -667,12 +539,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 			case GamemodePackage.GAME_MODE__DROPS:
 				getDrops().clear();
 				return;
-			case GamemodePackage.GAME_MODE__WIN:
-				setWin((WinCondition)null);
-				return;
-			case GamemodePackage.GAME_MODE__LOSE:
-				setLose((LoseCondition)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -701,10 +567,6 @@ public class GameModeImpl extends NamedElementImpl implements GameMode {
 				return levels != null && !levels.isEmpty();
 			case GamemodePackage.GAME_MODE__DROPS:
 				return drops != null && !drops.isEmpty();
-			case GamemodePackage.GAME_MODE__WIN:
-				return win != null;
-			case GamemodePackage.GAME_MODE__LOSE:
-				return lose != null;
 			case GamemodePackage.GAME_MODE__POWER_UPS:
 				return !getPowerUps().isEmpty();
 			case GamemodePackage.GAME_MODE__POPS_TO_CLEAR:

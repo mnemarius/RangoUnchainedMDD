@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A way to play the game: the rules its rounds are played by, from what popping an enemy does to when a round ends, and the levels it is played in.
+ * A way to play the game: the rules its rounds are played by, from the player and gravity to what popping an enemy drops, and the levels it is played in.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -25,8 +25,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getSpeedBonus <em>Speed Bonus</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLevels <em>Levels</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getDrops <em>Drops</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getWin <em>Win</em>}</li>
- *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLose <em>Lose</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPowerUps <em>Power Ups</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPopsToClear <em>Pops To Clear</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getMaxScore <em>Max Score</em>}</li>
@@ -34,7 +32,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity noSimultaneousOutcome winnable endsSomehow healthDepletedWhenHarmful everyEnemyDrops'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='positiveGravity everyEnemyDrops'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/LPG positiveGravity='gravity &gt; 0'"
  * @generated
  */
@@ -186,7 +184,7 @@ public interface GameMode extends NamedElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The levels of the mode, in the order they are played. Each level is one round under the rules of the mode; winning it unlocks the next.
+	 * The levels of the mode, in the order they are played. Each level is one round under the rules of the mode, with its own goal; winning it unlocks the next.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Levels</em>' containment reference list.
 	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Levels()
@@ -209,56 +207,6 @@ public interface GameMode extends NamedElement {
 	 * @generated
 	 */
 	EList<DropTable> getDrops();
-
-	/**
-	 * Returns the value of the '<em><b>Win</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * When a round is won. A mode without a win condition is endless: its rounds only end when they are lost.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Win</em>' containment reference.
-	 * @see #setWin(WinCondition)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Win()
-	 * @model containment="true"
-	 * @generated
-	 */
-	WinCondition getWin();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getWin <em>Win</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Win</em>' containment reference.
-	 * @see #getWin()
-	 * @generated
-	 */
-	void setWin(WinCondition value);
-
-	/**
-	 * Returns the value of the '<em><b>Lose</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * When a round is lost.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Lose</em>' containment reference.
-	 * @see #setLose(LoseCondition)
-	 * @see no.ntnu.tdt4250.rango.gamemode.GamemodePackage#getGameMode_Lose()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	LoseCondition getLose();
-
-	/**
-	 * Sets the value of the '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLose <em>Lose</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Lose</em>' containment reference.
-	 * @see #getLose()
-	 * @generated
-	 */
-	void setLose(LoseCondition value);
 
 	/**
 	 * Returns the value of the '<em><b>Power Ups</b></em>' reference list.

@@ -6,7 +6,7 @@ TDT4250 final project, group 6, autumn 2026.
 modes into the source code.
 
 The motivation and the design choices are explained in the report,
-[`docs/report/report.pdf`](docs/report/report.pdf). This README is the reference: how to build and
+[`docs/report/Model_Driven_Development_Rango_Unchained.pdf`](docs/report/Model_Driven_Development_Rango_Unchained.pdf). This README is the reference: how to build and
 use the tools, and the details of the metamodel, the editor and the generated code.
 
 ## Contents
@@ -22,7 +22,7 @@ use the tools, and the details of the metamodel, the editor and the generated co
 | `no.ntnu.tdt4250.rango.gamemode.examples/` | **The three example editions** (`classic.rango`, `arcade.rango`, `hardcore.rango`). |
 | `no.ntnu.tdt4250.rango.gamemode.feature/`, `.repository/`, `.target/` | Eclipse feature, p2 update site and target platform of the build. |
 | `rango-game/` | **The game**, with the hand-written mode runtime and the generated game modes of one edition. |
-| `docs/` | Class diagram of the metamodel (`metamodel.png`, generated from the Ecore model via `metamodel.puml`), and the project report (`report/report.tex` and `report.pdf`, IEEE format). |
+| `docs/` | Class diagram of the metamodel (`metamodel.png`, generated from the Ecore model via `metamodel.puml`), and the project report (`report/Model_Driven_Development_Rango_Unchained.pdf`, IEEE format). |
 | `pom.xml`, `mvnw` | Maven/Tycho build of the plug-ins. |
 
 ## Quick start
@@ -98,21 +98,24 @@ well, so an effect means the same in both places. A `PlayerEffect` is either an 
 `Poison`, which share a `duration`).
 
 **Modes and levels.** A `GameMode` names its player profile and contains one or more `Level`s. A level
-has an `Arena` (a background and `Obstacle`s: `Block`s and the `Trigger`s `JumpPad` and `Teleporter`)
-and a `SpawnStrategy`: a `FixedLayout` or a `WaveSchedule` that can loop and escalate. Obstacles and
-enemy spawns share the abstract `Positioned`. A mode can also have a `SpeedBonus` and its own drop
-tables, which replace the edition's.
+has an `Arena` (a background and `Obstacle`s: `Block`s and the `Trigger`s `JumpPad` and `Teleporter`),
+a `SpawnStrategy` (a `FixedLayout` or a `WaveSchedule` that can loop and escalate) and its own end
+conditions. Obstacles and enemy spawns share the abstract `Positioned`. A mode can also have a
+`SpeedBonus` and its own drop tables, which replace the edition's.
 
-**End conditions.** A `GameMode` owns one `WinCondition` (optional: without it the mode is endless)
-and one `LoseCondition`. Each class has one field per condition that fits its role: a win condition
-can be "all enemies cleared", a time to survive, a score, a number of pops or of waves survived; a
-lose condition can be "health depleted", a time limit or a number of enemies alive at once. A round
-ends as soon as any condition that is set holds (a flag that is true, or a value above 0). End
-conditions are the one kind of behaviour that does not use subclasses, for two reasons. Some
-conditions are only valid in one role, which a single hierarchy could only enforce with an extra
-constraint, whereas a class per role makes the wrong condition impossible to write. And each
-condition is a single value, so it fits a field; effects, by contrast, keep their subclasses, since a
-kind such as `Poison` groups several values (amount, interval, duration).
+**End conditions.** Each `Level` owns its win and lose conditions, so the levels of a mode can have
+different goals: one level is won by clearing the arena, the next by reaching a score. A round of the
+level is won or lost as soon as any of its conditions of that role holds. There is one abstract class
+per role, and each kind of condition is a subclass of it:
+
+- `WinCondition`: `Cleared`, `TimeSurvived` (seconds) and `WavesSurvived` (a count). A level has any
+  number of them (`win *`); a level without any is endless.
+- `LoseCondition`: `HealthDepleted` and `TimeLimit` (seconds). A level has at least one (`lose 1..*`).
+
+Two hierarchies rather than one keep each condition in its role: "health depleted" cannot be written
+as a win condition, since it is not a `WinCondition`. A condition whose kind carries a value always
+has it (`[1..1]`), so whether a condition applies is shown by whether its object exists, not by a
+special value.
 
 ### Derived features (Java, in `GamemodeDerivations`)
 
@@ -138,7 +141,7 @@ delegates. Standalone code registers the delegates through `GamemodeOCL.initiali
 `chanceIsPercentage` (a drop chance is above 0 and at most 100), `distinctPowerUps`
 (`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bonusAboveOne` (a speed bonus is worth more than plain points),
 `distinctTargets` (a difficulty modifies each value at most once), `positiveFactor`,
-`setsACondition` (a win or lose condition sets at least one condition).
+`positiveSeconds` and `positiveCount` (the value of an end condition).
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes:
@@ -148,37 +151,41 @@ codes:
 | `nameUniqueAmongSiblings` | 101 | No two elements of a list share a name. |
 | `distinctEffectKinds` | 102 | An enemy type or power-up has at most one effect of each kind. |
 | `oneInstantEffect` | 115 | An enemy type or power-up does not both damage and heal: they would happen at the same moment and cancel each other out. |
-| `noSimultaneousOutcome` | 105, 106 | In no level can a round be won and lost by the same event (survive 60 s vs. a 60 s time limit), nor start already lost (enemies alive at or below the starting number of enemies). |
-| `winnable` | 107 | Every win condition can be met in every level: no "all enemies cleared" with looping waves, no "8 waves survived" with 5 non-looping waves, no more pops or points than the mode can give. |
-| `endsSomehow` | 108 | A mode without a win condition must loop its waves, and a mode of several levels needs a win condition to move on. |
+| `distinctConditionKinds` | 116 | A level has at most one condition of each kind per role: "time reaches 60 s or time reaches 90 s" is decided by the shorter time alone. |
+| `noSimultaneousOutcome` | 105 | A round of a level cannot be won and lost by the same event (survive 60 s vs. a 60 s time limit). |
+| `winnable` | 107 | Every win condition of a level can be met: no "all enemies cleared" with looping waves, no "8 waves survived" with 5 non-looping waves or with a fixed layout. |
+| `endsSomehow` | 108 | A level without a win condition must loop its waves, and must be the last level of its mode, since only winning a level unlocks the next. |
 | `targetInSameArena` | 110 | A teleporter leads to a teleporter of the same arena. |
-| `healthDepletedWhenHarmful` | 111 | If anything can hurt the player, the mode is lost when health runs out. |
+| `healthDepletedWhenHarmful` | 111 | If anything in a level can hurt the player (its enemies, or the power-ups of the mode), the level is lost when health runs out. |
 | `everyEnemyDrops` | 112 | Every enemy type that can appear in a mode has a drop table there (the mode's own, or the edition's), so popping any enemy has a chance to drop a power-up. |
 | `oneTablePerEnemy` | 113 | A list of drop tables (of a mode or of the edition) has at most one table per enemy type. |
 | `onePerTier` | 114 | An edition defines each difficulty tier at most once. |
 
 ## Concrete syntax and editor
 
-The grammar is `RangoMode.xtext`. Tuning can be written in any order (unordered groups). End
-conditions read as `win when 20 enemies popped or all enemies cleared`, and difficulties as the
-factors they apply (`difficulty hard { enemy.speed * 1.3  player.health * 0.5 }`).
+The grammar is `RangoMode.xtext`. Tuning can be written in any order (unordered groups). A mode gives
+its rules first (player, gravity, speed bonus, drops) and then its levels. A level is an arena, its
+spawning and its end conditions, which read as `win when 5 waves survived or all enemies cleared` and
+`lose when health depleted or time reaches 90 s`. A mode of one level writes these directly, without a
+`level { }` block. Difficulties read as the factors they apply
+(`difficulty hard { enemy.speed * 1.3  player.health * 0.5 }`).
 
 The editor adds:
 
 - **Validation**: the OCL and Java constraints of the metamodel, plus warnings for unused building
   blocks, sprite paths that are not images, backgrounds given as a path instead of a name, duplicate
-  titles, drop tables for enemies that never appear where the table applies, a harder difficulty
+  titles, drop tables for enemies that never appear where the table applies, and a harder difficulty
   that makes something easier than the tier below it (such as slower enemies on hard than on medium),
-  and a value of 0 in an end condition (which sets nothing), as well as a note on endless modes. The one DSL error is an end condition written twice
-  (`score reaches 500 or score reaches 1000`), since the model can hold only one value per condition.
+  as well as a note on endless modes and levels. All errors come from the constraints of the
+  metamodel; the DSL adds warnings and notes only.
 - **Scoping**: a teleporter can only target another teleporter of its own arena.
-- **Quick fixes**: make a mode end (win when cleared, or loop the waves), add "lose when health depleted",
-  add drop tables for the enemies without one, remove an unused element or a drop table without
-  effect, fix sprite and background paths.
-- **Hovers** that show the derived facts: the enemy types of a mode, pops to clear, maximum score, drop
-  probabilities, what an enemy breaks into, shots per second, and what each difficulty multiplies in
-  which modes.
-- **Outline** with icons and summaries ("Mine: splits into 4 Weed", "win when score reaches 1500",
+- **Quick fixes**: make a level end (win when cleared, or loop the waves), add "lose when health depleted"
+  to a level, add drop tables for the enemies without one, remove an unused element or a drop table
+  without effect, fix sprite and background paths.
+- **Hovers** that show the derived facts: the enemy types of a mode, pops to clear, maximum score, how
+  each level is won and lost, drop probabilities, what an enemy breaks into, shots per second, and
+  what each difficulty multiplies in which modes.
+- **Outline** with icons and summaries ("Mine: splits into 4 Weed", "win when 6 waves survived",
   "enemy.speed ×1.3").
 - **Content assist** for the images the game ships and for enemy sizes, and **templates** for enemy
   types, power-ups, players, difficulties, modes, levels, waves, teleporter pairs and drop tables.
@@ -190,7 +197,7 @@ The editor adds:
 
 | Generated file | Content |
 | --- | --- |
-| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split` calls (with the derived spacing), effects become calls on the player, each enemy type's drop table becomes a chance roll and a weighted pick inside that enemy's case of `onEnemyPopped` (commented with the derived shares and probabilities), fixed layouts become spawn calls at the start of a level and waves become spawn schedules with escalation, triggers become arena-building calls, and end conditions become the boolean expressions of `isWon` and `isLost`. |
+| `core/src/generated/java/.../Modes/Generated/<Mode>Mode.java` | One class per mode, extending the runtime's `GameModeDefinition`. Split rules become `split` calls (with the derived spacing), effects become calls on the player, each enemy type's drop table becomes a chance roll and a weighted pick inside that enemy's case of `onEnemyPopped` (commented with the derived shares and probabilities), fixed layouts become spawn calls at the start of a level and waves become spawn schedules with escalation, triggers become arena-building calls, and the end conditions of each level become the boolean expressions of `isWon` and `isLost` for that level (one check per condition class, joined by `\|\|`; levels with the same conditions share a case). |
 | `assets/modes/<Mode>-<n>.json` | The arena of each level in the game's existing level format: background, player, walls, floor and roof, and blocks. Positions are relative to the arena. |
 | `core/src/generated/java/.../Modes/Generated/GeneratedEdition.java` | The product name, the modes in menu order, and the difficulties from the easiest tier to the hardest, each with the factors of its modifiers (`new Difficulty("hard", "Hard").with(Difficulty.ENEMY_SPEED, 1.3f)`). Read by the main menu, the difficulty menu and the desktop launcher's window title. |
 | `android/res/values/edition.xml` | The product name for the Android launcher label. |
@@ -201,7 +208,8 @@ Earlier generated files are removed first, so a mode deleted from the model disa
 
 The generated classes plug into a small runtime added to the game:
 
-- `GameModeDefinition` is the contract. Level-specific parts (arena, triggers, waves) take the level.
+- `GameModeDefinition` is the contract. Level-specific parts (arena, triggers, waves, win and lose
+  checks) take the level.
 - `ModeSession` runs a round, that is one level: the wave scheduler, timed effects (shield, speed, poison), grace time,
   teleports, and the statistics the end conditions check.
 - `ModeContactRules` replaces the original fixed contact strategies when a mode is played.
@@ -231,8 +239,8 @@ The tutorial and multiplayer are unchanged from the base game and not modelled.
 
 | Edition | Product | What it shows |
 | --- | --- | --- |
-| `classic.rango` | *Rango Unchained*, two modes | **Campaign**: the original game's five levels, each with its own arena (stone blocks) and layout, cleared one after the other to unlock the next. **Endless**: looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, no win condition, and lost when overrun by 25 enemies. Four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*) and three power-ups. Both modes use the *edition's drop tables*: the tougher the enemy, the likelier and better its drop. Three *difficulty tiers* apply to both modes, mostly through the calm between waves. |
-| `arcade.rango` | *Rango Unchained: Arcade*, five modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: score with a speed bonus under a time limit. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. **Wave Rush**: five waves to survive under higher gravity. **Minefield**: clear the mines in heavy gravity within 45 s. Every mode has *its own drop tables* (no edition defaults), so the same Mine drops a Rush in Time Attack but a trap in Minefield. |
+| `classic.rango` | *Rango Unchained*, two modes | **Campaign**: the original game's five levels, each with its own arena (stone blocks), layout and *goal*, won one after the other to unlock the next: most are cleared, one against a 120 s clock, one is won by clearing it or holding out for 60 s, and the last is cleared within 45 s. **Endless**: looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, no win condition, and lost only when health runs out. Four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*) and three power-ups. Both modes use the *edition's drop tables*: the tougher the enemy, the likelier and better its drop. Three *difficulty tiers* apply to both modes, mostly through the calm between waves. |
+| `arcade.rango` | *Rango Unchained: Arcade*, five modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: six growing waves to survive under a time limit, with a speed bonus for early pops. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. **Wave Rush**: five waves to survive under higher gravity. **Minefield**: clear the mines in heavy gravity within 45 s. Every mode has *its own drop tables* (no edition defaults), so the same Mine drops a Rush in Time Attack but a trap in Minefield. |
 | `hardcore.rango` | *Rango Unchained: Hardcore*, one mode | **Gauntlet**: one heart and no healing (the only power-up is a short shield), against fast enemies that split into more of themselves: a Bomb bursts into four Armadillos, an Armadillo into three, a Cactus poisons. The edition has *no difficulty tiers*, so its mode plays exactly as modelled. |
 
 The tests check that all three are valid and that together they use every concrete class, every
@@ -243,13 +251,14 @@ feature and every enumeration literal of the metamodel.
 `./mvnw verify` runs:
 
 - `no.ntnu.tdt4250.rango.gamemode.tests`: every derived feature, every OCL invariant of every class
-  (also where several classes share a name, such as `setsACondition`), and every Java constraint. Each
+  (also where several classes share a name, such as `positiveCount`), and every Java constraint. Each
   test breaks one rule of a valid fixture and checks that exactly that rule fires. The one exception
-  is a lose condition that sets nothing in a mode where enemies hurt the player, which also breaks
-  `healthDepletedWhenHarmful`.
+  is a level without lose conditions whose enemies hurt the player, which breaks both the lower bound
+  of `Level.lose` and `healthDepletedWhenHarmful`.
 - `no.ntnu.tdt4250.rango.gamemode.dsl.tests`: the examples (validity and metamodel coverage),
-  constraint and DSL errors in the editor with their issue codes, scoping of teleporters, the
-  generated files and their content, the formatter, and the serializer that quick fixes rely on.
+  constraint errors and DSL warnings in the editor with their issue codes, levels with goals of their
+  own, scoping of teleporters, the generated files and their content, the formatter, and the
+  serializer that quick fixes rely on.
 
 ## Building blocks of the build
 

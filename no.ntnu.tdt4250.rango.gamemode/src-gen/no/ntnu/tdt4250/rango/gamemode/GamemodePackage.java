@@ -1043,31 +1043,13 @@ public interface GamemodePackage extends EPackage {
 	int GAME_MODE__DROPS = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Win</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GAME_MODE__WIN = NAMED_ELEMENT_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Lose</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GAME_MODE__LOSE = NAMED_ELEMENT_FEATURE_COUNT + 9;
-
-	/**
 	 * The feature id for the '<em><b>Power Ups</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE__POWER_UPS = NAMED_ELEMENT_FEATURE_COUNT + 10;
+	int GAME_MODE__POWER_UPS = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
@@ -1076,7 +1058,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE__POPS_TO_CLEAR = NAMED_ELEMENT_FEATURE_COUNT + 11;
+	int GAME_MODE__POPS_TO_CLEAR = NAMED_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Max Score</b></em>' attribute.
@@ -1085,7 +1067,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE__MAX_SCORE = NAMED_ELEMENT_FEATURE_COUNT + 12;
+	int GAME_MODE__MAX_SCORE = NAMED_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Effective Drops</b></em>' reference list.
@@ -1094,7 +1076,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE__EFFECTIVE_DROPS = NAMED_ELEMENT_FEATURE_COUNT + 13;
+	int GAME_MODE__EFFECTIVE_DROPS = NAMED_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of structural features of the '<em>Game Mode</em>' class.
@@ -1103,7 +1085,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_MODE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 14;
+	int GAME_MODE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 12;
 
 	/**
 	 * The number of operations of the '<em>Game Mode</em>' class.
@@ -1152,13 +1134,31 @@ public interface GamemodePackage extends EPackage {
 	int LEVEL__SPAWNING = 2;
 
 	/**
+	 * The feature id for the '<em><b>Win</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEVEL__WIN = 3;
+
+	/**
+	 * The feature id for the '<em><b>Lose</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEVEL__LOSE = 4;
+
+	/**
 	 * The feature id for the '<em><b>Number</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LEVEL__NUMBER = 3;
+	int LEVEL__NUMBER = 5;
 
 	/**
 	 * The feature id for the '<em><b>Pops To Clear</b></em>' attribute.
@@ -1167,7 +1167,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LEVEL__POPS_TO_CLEAR = 4;
+	int LEVEL__POPS_TO_CLEAR = 6;
 
 	/**
 	 * The feature id for the '<em><b>Max Score</b></em>' attribute.
@@ -1176,7 +1176,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LEVEL__MAX_SCORE = 5;
+	int LEVEL__MAX_SCORE = 7;
 
 	/**
 	 * The number of structural features of the '<em>Level</em>' class.
@@ -1185,7 +1185,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LEVEL_FEATURE_COUNT = 6;
+	int LEVEL_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Level</em>' class.
@@ -2085,58 +2085,13 @@ public interface GamemodePackage extends EPackage {
 	int WIN_CONDITION = 33;
 
 	/**
-	 * The feature id for the '<em><b>Cleared</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WIN_CONDITION__CLEARED = 0;
-
-	/**
-	 * The feature id for the '<em><b>Survive Seconds</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WIN_CONDITION__SURVIVE_SECONDS = 1;
-
-	/**
-	 * The feature id for the '<em><b>Points</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WIN_CONDITION__POINTS = 2;
-
-	/**
-	 * The feature id for the '<em><b>Enemies Popped</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WIN_CONDITION__ENEMIES_POPPED = 3;
-
-	/**
-	 * The feature id for the '<em><b>Waves Survived</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WIN_CONDITION__WAVES_SURVIVED = 4;
-
-	/**
 	 * The number of structural features of the '<em>Win Condition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIN_CONDITION_FEATURE_COUNT = 5;
+	int WIN_CONDITION_FEATURE_COUNT = 0;
 
 	/**
 	 * The number of operations of the '<em>Win Condition</em>' class.
@@ -2148,6 +2103,108 @@ public interface GamemodePackage extends EPackage {
 	int WIN_CONDITION_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl <em>Cleared</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getCleared()
+	 * @generated
+	 */
+	int CLEARED = 34;
+
+	/**
+	 * The number of structural features of the '<em>Cleared</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLEARED_FEATURE_COUNT = WIN_CONDITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Cleared</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLEARED_OPERATION_COUNT = WIN_CONDITION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeSurvivedImpl <em>Time Survived</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeSurvivedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeSurvived()
+	 * @generated
+	 */
+	int TIME_SURVIVED = 35;
+
+	/**
+	 * The feature id for the '<em><b>Seconds</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_SURVIVED__SECONDS = WIN_CONDITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Time Survived</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_SURVIVED_FEATURE_COUNT = WIN_CONDITION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Time Survived</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_SURVIVED_OPERATION_COUNT = WIN_CONDITION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWavesSurvived()
+	 * @generated
+	 */
+	int WAVES_SURVIVED = 36;
+
+	/**
+	 * The feature id for the '<em><b>Count</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WAVES_SURVIVED__COUNT = WIN_CONDITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Waves Survived</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WAVES_SURVIVED_FEATURE_COUNT = WIN_CONDITION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Waves Survived</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WAVES_SURVIVED_OPERATION_COUNT = WIN_CONDITION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.LoseConditionImpl <em>Lose Condition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2155,34 +2212,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getLoseCondition()
 	 * @generated
 	 */
-	int LOSE_CONDITION = 34;
-
-	/**
-	 * The feature id for the '<em><b>Health Depleted</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOSE_CONDITION__HEALTH_DEPLETED = 0;
-
-	/**
-	 * The feature id for the '<em><b>Time Limit</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOSE_CONDITION__TIME_LIMIT = 1;
-
-	/**
-	 * The feature id for the '<em><b>Enemies Alive</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOSE_CONDITION__ENEMIES_ALIVE = 2;
+	int LOSE_CONDITION = 37;
 
 	/**
 	 * The number of structural features of the '<em>Lose Condition</em>' class.
@@ -2191,7 +2221,7 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOSE_CONDITION_FEATURE_COUNT = 3;
+	int LOSE_CONDITION_FEATURE_COUNT = 0;
 
 	/**
 	 * The number of operations of the '<em>Lose Condition</em>' class.
@@ -2203,6 +2233,71 @@ public interface GamemodePackage extends EPackage {
 	int LOSE_CONDITION_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl <em>Health Depleted</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHealthDepleted()
+	 * @generated
+	 */
+	int HEALTH_DEPLETED = 38;
+
+	/**
+	 * The number of structural features of the '<em>Health Depleted</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEALTH_DEPLETED_FEATURE_COUNT = LOSE_CONDITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Health Depleted</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEALTH_DEPLETED_OPERATION_COUNT = LOSE_CONDITION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeLimitImpl <em>Time Limit</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeLimitImpl
+	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeLimit()
+	 * @generated
+	 */
+	int TIME_LIMIT = 39;
+
+	/**
+	 * The feature id for the '<em><b>Seconds</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_LIMIT__SECONDS = LOSE_CONDITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Time Limit</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_LIMIT_FEATURE_COUNT = LOSE_CONDITION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Time Limit</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_LIMIT_OPERATION_COUNT = LOSE_CONDITION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DifficultyImpl <em>Difficulty</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2210,7 +2305,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDifficulty()
 	 * @generated
 	 */
-	int DIFFICULTY = 35;
+	int DIFFICULTY = 40;
 
 	/**
 	 * The feature id for the '<em><b>Tier</b></em>' attribute.
@@ -2256,7 +2351,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getModifier()
 	 * @generated
 	 */
-	int MODIFIER = 36;
+	int MODIFIER = 41;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' attribute.
@@ -2302,7 +2397,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTarget()
 	 * @generated
 	 */
-	int TARGET = 37;
+	int TARGET = 42;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.Direction <em>Direction</em>}' enum.
@@ -2312,7 +2407,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 38;
+	int DIRECTION = 43;
 
 
 	/**
@@ -2323,7 +2418,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getDifficultyTier()
 	 * @generated
 	 */
-	int DIFFICULTY_TIER = 39;
+	int DIFFICULTY_TIER = 44;
 
 	/**
 	 * The meta object id for the '{@link no.ntnu.tdt4250.rango.gamemode.ModifierTarget <em>Modifier Target</em>}' enum.
@@ -2333,7 +2428,7 @@ public interface GamemodePackage extends EPackage {
 	 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getModifierTarget()
 	 * @generated
 	 */
-	int MODIFIER_TARGET = 40;
+	int MODIFIER_TARGET = 45;
 
 
 	/**
@@ -3012,28 +3107,6 @@ public interface GamemodePackage extends EPackage {
 	EReference getGameMode_Drops();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getWin <em>Win</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Win</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getWin()
-	 * @see #getGameMode()
-	 * @generated
-	 */
-	EReference getGameMode_Win();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getLose <em>Lose</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Lose</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.GameMode#getLose()
-	 * @see #getGameMode()
-	 * @generated
-	 */
-	EReference getGameMode_Lose();
-
-	/**
 	 * Returns the meta object for the reference list '{@link no.ntnu.tdt4250.rango.gamemode.GameMode#getPowerUps <em>Power Ups</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3119,6 +3192,28 @@ public interface GamemodePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getLevel_Spawning();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Level#getWin <em>Win</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Win</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Level#getWin()
+	 * @see #getLevel()
+	 * @generated
+	 */
+	EReference getLevel_Win();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link no.ntnu.tdt4250.rango.gamemode.Level#getLose <em>Lose</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Lose</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Level#getLose()
+	 * @see #getLevel()
+	 * @generated
+	 */
+	EReference getLevel_Lose();
 
 	/**
 	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.Level#getNumber <em>Number</em>}'.
@@ -3667,59 +3762,56 @@ public interface GamemodePackage extends EPackage {
 	EClass getWinCondition();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.WinCondition#isCleared <em>Cleared</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Cleared <em>Cleared</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Cleared</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.WinCondition#isCleared()
-	 * @see #getWinCondition()
+	 * @return the meta object for class '<em>Cleared</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.Cleared
 	 * @generated
 	 */
-	EAttribute getWinCondition_Cleared();
+	EClass getCleared();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.WinCondition#getSurviveSeconds <em>Survive Seconds</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.TimeSurvived <em>Time Survived</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Survive Seconds</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.WinCondition#getSurviveSeconds()
-	 * @see #getWinCondition()
+	 * @return the meta object for class '<em>Time Survived</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.TimeSurvived
 	 * @generated
 	 */
-	EAttribute getWinCondition_SurviveSeconds();
+	EClass getTimeSurvived();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.WinCondition#getPoints <em>Points</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.TimeSurvived#getSeconds <em>Seconds</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Points</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.WinCondition#getPoints()
-	 * @see #getWinCondition()
+	 * @return the meta object for the attribute '<em>Seconds</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.TimeSurvived#getSeconds()
+	 * @see #getTimeSurvived()
 	 * @generated
 	 */
-	EAttribute getWinCondition_Points();
+	EAttribute getTimeSurvived_Seconds();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.WinCondition#getEnemiesPopped <em>Enemies Popped</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.WavesSurvived <em>Waves Survived</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Enemies Popped</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.WinCondition#getEnemiesPopped()
-	 * @see #getWinCondition()
+	 * @return the meta object for class '<em>Waves Survived</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.WavesSurvived
 	 * @generated
 	 */
-	EAttribute getWinCondition_EnemiesPopped();
+	EClass getWavesSurvived();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.WinCondition#getWavesSurvived <em>Waves Survived</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.WavesSurvived#getCount <em>Count</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Waves Survived</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.WinCondition#getWavesSurvived()
-	 * @see #getWinCondition()
+	 * @return the meta object for the attribute '<em>Count</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.WavesSurvived#getCount()
+	 * @see #getWavesSurvived()
 	 * @generated
 	 */
-	EAttribute getWinCondition_WavesSurvived();
+	EAttribute getWavesSurvived_Count();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.LoseCondition <em>Lose Condition</em>}'.
@@ -3732,37 +3824,35 @@ public interface GamemodePackage extends EPackage {
 	EClass getLoseCondition();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.LoseCondition#isHealthDepleted <em>Health Depleted</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.HealthDepleted <em>Health Depleted</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Health Depleted</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.LoseCondition#isHealthDepleted()
-	 * @see #getLoseCondition()
+	 * @return the meta object for class '<em>Health Depleted</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.HealthDepleted
 	 * @generated
 	 */
-	EAttribute getLoseCondition_HealthDepleted();
+	EClass getHealthDepleted();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.LoseCondition#getTimeLimit <em>Time Limit</em>}'.
+	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.TimeLimit <em>Time Limit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Time Limit</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.LoseCondition#getTimeLimit()
-	 * @see #getLoseCondition()
+	 * @return the meta object for class '<em>Time Limit</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.TimeLimit
 	 * @generated
 	 */
-	EAttribute getLoseCondition_TimeLimit();
+	EClass getTimeLimit();
 
 	/**
-	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.LoseCondition#getEnemiesAlive <em>Enemies Alive</em>}'.
+	 * Returns the meta object for the attribute '{@link no.ntnu.tdt4250.rango.gamemode.TimeLimit#getSeconds <em>Seconds</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Enemies Alive</em>'.
-	 * @see no.ntnu.tdt4250.rango.gamemode.LoseCondition#getEnemiesAlive()
-	 * @see #getLoseCondition()
+	 * @return the meta object for the attribute '<em>Seconds</em>'.
+	 * @see no.ntnu.tdt4250.rango.gamemode.TimeLimit#getSeconds()
+	 * @see #getTimeLimit()
 	 * @generated
 	 */
-	EAttribute getLoseCondition_EnemiesAlive();
+	EAttribute getTimeLimit_Seconds();
 
 	/**
 	 * Returns the meta object for class '{@link no.ntnu.tdt4250.rango.gamemode.Difficulty <em>Difficulty</em>}'.
@@ -4432,22 +4522,6 @@ public interface GamemodePackage extends EPackage {
 		EReference GAME_MODE__DROPS = eINSTANCE.getGameMode_Drops();
 
 		/**
-		 * The meta object literal for the '<em><b>Win</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GAME_MODE__WIN = eINSTANCE.getGameMode_Win();
-
-		/**
-		 * The meta object literal for the '<em><b>Lose</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GAME_MODE__LOSE = eINSTANCE.getGameMode_Lose();
-
-		/**
 		 * The meta object literal for the '<em><b>Power Ups</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4512,6 +4586,22 @@ public interface GamemodePackage extends EPackage {
 		 * @generated
 		 */
 		EReference LEVEL__SPAWNING = eINSTANCE.getLevel_Spawning();
+
+		/**
+		 * The meta object literal for the '<em><b>Win</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LEVEL__WIN = eINSTANCE.getLevel_Win();
+
+		/**
+		 * The meta object literal for the '<em><b>Lose</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LEVEL__LOSE = eINSTANCE.getLevel_Lose();
 
 		/**
 		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
@@ -4952,44 +5042,50 @@ public interface GamemodePackage extends EPackage {
 		EClass WIN_CONDITION = eINSTANCE.getWinCondition();
 
 		/**
-		 * The meta object literal for the '<em><b>Cleared</b></em>' attribute feature.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl <em>Cleared</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.ClearedImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getCleared()
 		 * @generated
 		 */
-		EAttribute WIN_CONDITION__CLEARED = eINSTANCE.getWinCondition_Cleared();
+		EClass CLEARED = eINSTANCE.getCleared();
 
 		/**
-		 * The meta object literal for the '<em><b>Survive Seconds</b></em>' attribute feature.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeSurvivedImpl <em>Time Survived</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeSurvivedImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeSurvived()
 		 * @generated
 		 */
-		EAttribute WIN_CONDITION__SURVIVE_SECONDS = eINSTANCE.getWinCondition_SurviveSeconds();
+		EClass TIME_SURVIVED = eINSTANCE.getTimeSurvived();
 
 		/**
-		 * The meta object literal for the '<em><b>Points</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Seconds</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute WIN_CONDITION__POINTS = eINSTANCE.getWinCondition_Points();
+		EAttribute TIME_SURVIVED__SECONDS = eINSTANCE.getTimeSurvived_Seconds();
 
 		/**
-		 * The meta object literal for the '<em><b>Enemies Popped</b></em>' attribute feature.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl <em>Waves Survived</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.WavesSurvivedImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getWavesSurvived()
 		 * @generated
 		 */
-		EAttribute WIN_CONDITION__ENEMIES_POPPED = eINSTANCE.getWinCondition_EnemiesPopped();
+		EClass WAVES_SURVIVED = eINSTANCE.getWavesSurvived();
 
 		/**
-		 * The meta object literal for the '<em><b>Waves Survived</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute WIN_CONDITION__WAVES_SURVIVED = eINSTANCE.getWinCondition_WavesSurvived();
+		EAttribute WAVES_SURVIVED__COUNT = eINSTANCE.getWavesSurvived_Count();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.LoseConditionImpl <em>Lose Condition</em>}' class.
@@ -5002,28 +5098,32 @@ public interface GamemodePackage extends EPackage {
 		EClass LOSE_CONDITION = eINSTANCE.getLoseCondition();
 
 		/**
-		 * The meta object literal for the '<em><b>Health Depleted</b></em>' attribute feature.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl <em>Health Depleted</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.HealthDepletedImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getHealthDepleted()
 		 * @generated
 		 */
-		EAttribute LOSE_CONDITION__HEALTH_DEPLETED = eINSTANCE.getLoseCondition_HealthDepleted();
+		EClass HEALTH_DEPLETED = eINSTANCE.getHealthDepleted();
 
 		/**
-		 * The meta object literal for the '<em><b>Time Limit</b></em>' attribute feature.
+		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.TimeLimitImpl <em>Time Limit</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.TimeLimitImpl
+		 * @see no.ntnu.tdt4250.rango.gamemode.impl.GamemodePackageImpl#getTimeLimit()
 		 * @generated
 		 */
-		EAttribute LOSE_CONDITION__TIME_LIMIT = eINSTANCE.getLoseCondition_TimeLimit();
+		EClass TIME_LIMIT = eINSTANCE.getTimeLimit();
 
 		/**
-		 * The meta object literal for the '<em><b>Enemies Alive</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Seconds</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LOSE_CONDITION__ENEMIES_ALIVE = eINSTANCE.getLoseCondition_EnemiesAlive();
+		EAttribute TIME_LIMIT__SECONDS = eINSTANCE.getTimeLimit_Seconds();
 
 		/**
 		 * The meta object literal for the '{@link no.ntnu.tdt4250.rango.gamemode.impl.DifficultyImpl <em>Difficulty</em>}' class.

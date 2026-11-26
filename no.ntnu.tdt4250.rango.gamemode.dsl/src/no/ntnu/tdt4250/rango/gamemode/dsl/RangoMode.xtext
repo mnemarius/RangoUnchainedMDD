@@ -116,18 +116,19 @@ PlayerProfile returns PlayerProfile:
 	'}';
 
 // ---------------------------------------------------------------------------------------------
-// Game modes. A mode is played in one or more levels: a mode of one level just gives its arena and
-// spawning, a mode of several levels gives them per level, in the order they are played.
+// Game modes. The rules of the mode come first, then the levels it is played in. A level is an arena,
+// its spawning and its end conditions. A mode of one level writes them directly; a mode of several
+// levels writes them per level, in the order the levels are played.
 //
 //   mode Campaign "Campaign" {
 //       player Rango
 //       level "First steps" {
 //           arena { background "Desert" }
 //           layout { Tumbleweed size 2 at (60%, 40%) moving left }
+//           win when all enemies cleared
+//           lose when health depleted
 //       }
 //       level { ... }
-//       win when all enemies cleared
-//       lose when health depleted
 //   }
 
 GameMode returns GameMode:
@@ -137,21 +138,21 @@ GameMode returns GameMode:
 	(	('gravity' gravity=Decimal)?
 	&	(speedBonus=SpeedBonus)?
 	)
-	(levels+=SingleLevel | levels+=Level+)
 	Drops?
-	('win' 'when' win=WinCondition)?
-	'lose' 'when' lose=LoseCondition
+	(levels+=SingleLevel | levels+=Level+)
 	'}';
 
 // The only level of a mode, written without a level block.
 SingleLevel returns Level:
 	arena=Arena
-	spawning=SpawnStrategy;
+	spawning=SpawnStrategy
+	EndConditions;
 
 Level returns Level:
 	'level' (title=STRING)? '{'
 	arena=Arena
 	spawning=SpawnStrategy
+	EndConditions
 	'}';
 
 // Early pops are worth more, e.g. "speed bonus up to 2 times over 60 s". Without it, a pop is worth
@@ -233,30 +234,37 @@ Drop returns Drop:
 	powerUp=[PowerUp] ('weight' weight=INT)?;
 
 // ---------------------------------------------------------------------------------------------
-// End conditions. A round is won or lost as soon as one of the conditions of that role holds. Each
-// clause sets one field of the role's condition, so only the conditions that fit a role can be
-// written for it.
+// End conditions of a level. A round is won or lost as soon as one of the conditions of that role
+// holds. Each role has its own kinds of condition, so only the conditions that fit a role can be
+// written for it. A level without win conditions is endless.
 //
-//   win when 20 enemies popped or all enemies cleared
+//   win when 5 waves survived or all enemies cleared
 //   lose when health depleted or time reaches 120 s
 
-WinCondition returns WinCondition:
-	{WinCondition} WinClause ('or' WinClause)*;
+fragment EndConditions returns Level:
+	('win' 'when' win+=WinCondition ('or' win+=WinCondition)*)?
+	'lose' 'when' lose+=LoseCondition ('or' lose+=LoseCondition)*;
 
-fragment WinClause returns WinCondition:
-		cleared?='all' 'enemies' 'cleared'
-	|	'time' 'reaches' surviveSeconds=Decimal 's'
-	|	'score' 'reaches' points=INT
-	|	enemiesPopped=INT 'enemies' 'popped'
-	|	wavesSurvived=INT 'waves' 'survived';
+WinCondition returns WinCondition:
+	Cleared | TimeSurvived | WavesSurvived;
+
+Cleared returns Cleared:
+	{Cleared} 'all' 'enemies' 'cleared';
+
+TimeSurvived returns TimeSurvived:
+	'time' 'reaches' seconds=Decimal 's';
+
+WavesSurvived returns WavesSurvived:
+	count=INT 'waves' 'survived';
 
 LoseCondition returns LoseCondition:
-	{LoseCondition} LoseClause ('or' LoseClause)*;
+	HealthDepleted | TimeLimit;
 
-fragment LoseClause returns LoseCondition:
-		healthDepleted?='health' 'depleted'
-	|	'time' 'reaches' timeLimit=Decimal 's'
-	|	enemiesAlive=INT 'enemies' 'alive';
+HealthDepleted returns HealthDepleted:
+	{HealthDepleted} 'health' 'depleted';
+
+TimeLimit returns TimeLimit:
+	'time' 'reaches' seconds=Decimal 's';
 
 // ---------------------------------------------------------------------------------------------
 

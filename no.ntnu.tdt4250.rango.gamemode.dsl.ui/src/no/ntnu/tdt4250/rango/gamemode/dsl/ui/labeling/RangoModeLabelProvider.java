@@ -3,29 +3,28 @@
  */
 package no.ntnu.tdt4250.rango.gamemode.dsl.ui.labeling;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
 import com.google.inject.Inject;
 
 import no.ntnu.tdt4250.rango.gamemode.Arena;
-import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
-import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.Block;
+import no.ntnu.tdt4250.rango.gamemode.Cleared;
 import no.ntnu.tdt4250.rango.gamemode.Damage;
 import no.ntnu.tdt4250.rango.gamemode.Difficulty;
 import no.ntnu.tdt4250.rango.gamemode.Drop;
 import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
+import no.ntnu.tdt4250.rango.gamemode.EnemySpawn;
+import no.ntnu.tdt4250.rango.gamemode.EnemyType;
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
+import no.ntnu.tdt4250.rango.gamemode.Heal;
+import no.ntnu.tdt4250.rango.gamemode.HealthDepleted;
+import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
-import no.ntnu.tdt4250.rango.gamemode.Heal;
-import no.ntnu.tdt4250.rango.gamemode.JumpPad;
 import no.ntnu.tdt4250.rango.gamemode.Modifier;
 import no.ntnu.tdt4250.rango.gamemode.PlayerEffect;
 import no.ntnu.tdt4250.rango.gamemode.PlayerProfile;
@@ -36,9 +35,12 @@ import no.ntnu.tdt4250.rango.gamemode.SpeedChange;
 import no.ntnu.tdt4250.rango.gamemode.Split;
 import no.ntnu.tdt4250.rango.gamemode.SplitRule;
 import no.ntnu.tdt4250.rango.gamemode.Teleporter;
+import no.ntnu.tdt4250.rango.gamemode.TimeLimit;
+import no.ntnu.tdt4250.rango.gamemode.TimeSurvived;
 import no.ntnu.tdt4250.rango.gamemode.Vanish;
 import no.ntnu.tdt4250.rango.gamemode.Wave;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
+import no.ntnu.tdt4250.rango.gamemode.WavesSurvived;
 import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 
@@ -264,40 +266,36 @@ public class RangoModeLabelProvider extends DefaultEObjectLabelProvider {
 		return "";
 	}
 
-	/** The win conditions that are set, as they are written. */
+	/** A win condition as it is written. */
 	static String describe(WinCondition win) {
-		List<String> conditions = new ArrayList<>();
-		if (win.isCleared()) {
-			conditions.add("all enemies cleared");
+		if (win instanceof Cleared) {
+			return "all enemies cleared";
+		} else if (win instanceof TimeSurvived time) {
+			return "time reaches " + number(time.getSeconds()) + " s";
+		} else if (win instanceof WavesSurvived waves) {
+			return waves.getCount() + " waves survived";
 		}
-		if (win.getSurviveSeconds() > 0) {
-			conditions.add("time reaches " + number(win.getSurviveSeconds()) + " s");
-		}
-		if (win.getPoints() > 0) {
-			conditions.add("score reaches " + win.getPoints());
-		}
-		if (win.getEnemiesPopped() > 0) {
-			conditions.add(win.getEnemiesPopped() + " enemies popped");
-		}
-		if (win.getWavesSurvived() > 0) {
-			conditions.add(win.getWavesSurvived() + " waves survived");
-		}
-		return String.join(" or ", conditions);
+		return "";
 	}
 
-	/** The lose conditions that are set, as they are written. */
+	/** A lose condition as it is written. */
 	static String describe(LoseCondition lose) {
-		List<String> conditions = new ArrayList<>();
-		if (lose.isHealthDepleted()) {
-			conditions.add("health depleted");
+		if (lose instanceof HealthDepleted) {
+			return "health depleted";
+		} else if (lose instanceof TimeLimit time) {
+			return "time reaches " + number(time.getSeconds()) + " s";
 		}
-		if (lose.getTimeLimit() > 0) {
-			conditions.add("time reaches " + number(lose.getTimeLimit()) + " s");
-		}
-		if (lose.getEnemiesAlive() > 0) {
-			conditions.add(lose.getEnemiesAlive() + " enemies alive");
-		}
-		return String.join(" or ", conditions);
+		return "";
+	}
+
+	/** The win conditions of a level, as they are written; empty for an endless level. */
+	public static String describeWin(Level level) {
+		return String.join(" or ", level.getWin().stream().map(RangoModeLabelProvider::describe).toList());
+	}
+
+	/** The lose conditions of a level, as they are written. */
+	public static String describeLose(Level level) {
+		return String.join(" or ", level.getLose().stream().map(RangoModeLabelProvider::describe).toList());
 	}
 
 	/** A number without a needless ".0". */

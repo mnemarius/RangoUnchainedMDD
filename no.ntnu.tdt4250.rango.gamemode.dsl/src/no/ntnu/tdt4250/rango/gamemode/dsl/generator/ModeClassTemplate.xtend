@@ -1,23 +1,27 @@
 package no.ntnu.tdt4250.rango.gamemode.dsl.generator
 
+import java.util.List
+import no.ntnu.tdt4250.rango.gamemode.Cleared
 import no.ntnu.tdt4250.rango.gamemode.Damage
 import no.ntnu.tdt4250.rango.gamemode.DropTable
 import no.ntnu.tdt4250.rango.gamemode.EnemySpawn
 import no.ntnu.tdt4250.rango.gamemode.FixedLayout
 import no.ntnu.tdt4250.rango.gamemode.GameMode
 import no.ntnu.tdt4250.rango.gamemode.Heal
+import no.ntnu.tdt4250.rango.gamemode.HealthDepleted
 import no.ntnu.tdt4250.rango.gamemode.JumpPad
 import no.ntnu.tdt4250.rango.gamemode.Level
-import no.ntnu.tdt4250.rango.gamemode.LoseCondition
 import no.ntnu.tdt4250.rango.gamemode.Poison
 import no.ntnu.tdt4250.rango.gamemode.Shield
 import no.ntnu.tdt4250.rango.gamemode.SpeedChange
 import no.ntnu.tdt4250.rango.gamemode.SpeedBonus
 import no.ntnu.tdt4250.rango.gamemode.Split
 import no.ntnu.tdt4250.rango.gamemode.Teleporter
+import no.ntnu.tdt4250.rango.gamemode.TimeLimit
+import no.ntnu.tdt4250.rango.gamemode.TimeSurvived
 import no.ntnu.tdt4250.rango.gamemode.Vanish
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule
-import no.ntnu.tdt4250.rango.gamemode.WinCondition
+import no.ntnu.tdt4250.rango.gamemode.WavesSurvived
 
 import static extension no.ntnu.tdt4250.rango.gamemode.dsl.generator.GeneratorNames.*
 
@@ -25,8 +29,8 @@ import static extension no.ntnu.tdt4250.rango.gamemode.dsl.generator.GeneratorNa
  * Generates the Java class of a game mode: a subclass of the game's {@code GameModeDefinition} whose
  * methods carry out the rules of the mode. Every rule of the model becomes code here: split rules
  * become calls that create fragments, effects become calls on the player, drop tables become
- * weighted rolls, fixed layouts and waves become spawn calls, and end conditions become the boolean expressions that
- * decide when a round is won or lost.
+ * weighted rolls, fixed layouts and waves become spawn calls, and the end conditions of each level become the
+ * boolean expressions that decide when a round of that level is won or lost.
  */
 class ModeClassTemplate {
 
@@ -302,20 +306,44 @@ class ModeClassTemplate {
 		    }
 
 		    @Override
-		    public boolean isWon(ModeStats stats) {
-		        «IF mode.win === null»
-		        return false; // endless: a round only ends when it is lost
-		        «ELSE»
-		        return «mode.win.checks.join('\n    || ')»;
-		        «ENDIF»
+		    public boolean isWon(int level, ModeStats stats) {
+		        «outcome(mode.levels.map[level | level.win.map[check].toList])»
 		    }
 
 		    @Override
-		    public boolean isLost(ModeStats stats) {
-		        return «mode.lose.checks.join('\n    || ')»;
+		    public boolean isLost(int level, ModeStats stats) {
+		        «outcome(mode.levels.map[level | level.lose.map[check].toList])»
 		    }
 		}
 	'''
+
+	/**
+	 * The body of isWon or isLost, given the checks of each level. Levels with the same checks share a
+	 * case; if all levels have the same checks, there is no switch at all.
+	 */
+	def outcome(List<List<CharSequence>> checksPerLevel) {
+		val levelsPerResult = <String, List<Integer>>newLinkedHashMap
+		for (i : 0 ..< checksPerLevel.size) {
+			val checks = checksPerLevel.get(i)
+			val result = if (checks.empty) 'false; // endless: a round only ends when it is lost' else checks.join('\n    || ') + ';'
+			levelsPerResult.computeIfAbsent(result)[newArrayList] += i
+		}
+		if (levelsPerResult.size == 1) {
+			return '''return «levelsPerResult.keySet.head»'''
+		}
+		'''
+			switch (level) {
+			    «FOR entry : levelsPerResult.entrySet»
+			    «FOR index : entry.value»
+			    case «index»:
+			    «ENDFOR»
+			        return «entry.key»
+			    «ENDFOR»
+			    default:
+			        return false;
+			}
+		'''
+	}
 
 	def dispatch spawnWaves(FixedLayout layout, Level level) '''
 		// all enemies are placed at the start, by placeEnemies
@@ -390,23 +418,15 @@ class ModeClassTemplate {
 		context.poison(«effect.amount», «effect.interval.javaFloat», «effect.duration.javaFloat», «icon.javaString»);
 	'''
 
-	/** The checks of the win conditions that are set, in the order the class declares them. */
-	def checks(WinCondition win) {
-		val checks = <CharSequence>newArrayList
-		if (win.cleared) checks += 'stats.cleared()'
-		if (win.surviveSeconds > 0) checks += '''stats.elapsed() >= «win.surviveSeconds.javaFloat»'''
-		if (win.points > 0) checks += '''stats.score() >= «win.points»'''
-		if (win.enemiesPopped > 0) checks += '''stats.popped() >= «win.enemiesPopped»'''
-		if (win.wavesSurvived > 0) checks += '''stats.wavesCleared() >= «win.wavesSurvived»'''
-		checks
-	}
+	// The check of each kind of end condition against the statistics of the round.
 
-	/** The checks of the lose conditions that are set, in the order the class declares them. */
-	def checks(LoseCondition lose) {
-		val checks = <CharSequence>newArrayList
-		if (lose.healthDepleted) checks += 'stats.playerHealth() <= 0'
-		if (lose.timeLimit > 0) checks += '''stats.elapsed() >= «lose.timeLimit.javaFloat»'''
-		if (lose.enemiesAlive > 0) checks += '''stats.enemiesAlive() >= «lose.enemiesAlive»'''
-		checks
-	}
+	def dispatch CharSequence check(Cleared condition) '''stats.cleared()'''
+
+	def dispatch CharSequence check(TimeSurvived condition) '''stats.elapsed() >= «condition.seconds.javaFloat»'''
+
+	def dispatch CharSequence check(WavesSurvived condition) '''stats.wavesCleared() >= «condition.count»'''
+
+	def dispatch CharSequence check(HealthDepleted condition) '''stats.playerHealth() <= 0'''
+
+	def dispatch CharSequence check(TimeLimit condition) '''stats.elapsed() >= «condition.seconds.javaFloat»'''
 }

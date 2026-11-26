@@ -106,8 +106,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/speedBonus"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/levels"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/drops"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/win"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/lose"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gamemode.ecore#//GameMode/powerUps"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/popsToClear"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//GameMode/maxScore"/>
@@ -117,6 +115,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/title"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Level/arena"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Level/spawning"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Level/win"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gamemode.ecore#//Level/lose"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/number"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/popsToClear"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Level/maxScore"/>
@@ -181,17 +181,18 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Drop/probability"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Drop/share"/>
     </genClasses>
-    <genClasses ecoreClass="gamemode.ecore#//WinCondition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//WinCondition/cleared"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//WinCondition/surviveSeconds"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//WinCondition/points"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//WinCondition/enemiesPopped"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//WinCondition/wavesSurvived"/>
+    <genClasses image="false" ecoreClass="gamemode.ecore#//WinCondition"/>
+    <genClasses ecoreClass="gamemode.ecore#//Cleared"/>
+    <genClasses ecoreClass="gamemode.ecore#//TimeSurvived">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//TimeSurvived/seconds"/>
     </genClasses>
-    <genClasses ecoreClass="gamemode.ecore#//LoseCondition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//LoseCondition/healthDepleted"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//LoseCondition/timeLimit"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//LoseCondition/enemiesAlive"/>
+    <genClasses ecoreClass="gamemode.ecore#//WavesSurvived">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//WavesSurvived/count"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gamemode.ecore#//LoseCondition"/>
+    <genClasses ecoreClass="gamemode.ecore#//HealthDepleted"/>
+    <genClasses ecoreClass="gamemode.ecore#//TimeLimit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//TimeLimit/seconds"/>
     </genClasses>
     <genClasses ecoreClass="gamemode.ecore#//Difficulty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gamemode.ecore#//Difficulty/tier"/>

@@ -1,9 +1,10 @@
-// An arcade edition: five short modes with different goals (a score to reach under a time limit, a
-// number of pops, a time to survive, a number of waves, a minefield to clear against the clock), two
-// player profiles to choose between per mode, harmless bubbles that vanish when popped but slow the
-// player down, and a trap among the power-ups. Each mode has its own drop tables, and the mine, the
-// most dangerous enemy, drops the best power-up. Players choose between three difficulty tiers, which
-// apply to all modes: hard gives faster enemies, less health and fewer drops, but more points per pop.
+// An arcade edition: five short modes with different goals (growing waves to survive under a time
+// limit, a sky of bubbles to clear, a time to survive, a number of waves, a minefield to clear against
+// the clock), two player profiles to choose between per mode, harmless bubbles that vanish when popped
+// but slow the player down, and a trap among the power-ups. Each mode has its own drop tables, and the
+// mine, the most dangerous enemy, drops the best power-up. Players choose between three difficulty
+// tiers, which apply to all modes: hard gives faster enemies, less health and fewer drops, but more
+// points per pop.
 
 edition Arcade "Rango Unchained: Arcade"
 
@@ -90,9 +91,14 @@ difficulty hard {
 }
 
 mode TimeAttack "Time Attack" {
-	description "Score 1500 points before 90 seconds have passed. Early pops are worth up to double."
+	description "Get through six growing waves before 90 seconds have passed. Early pops are worth up to double."
 	player Sprinter
 	speed bonus up to 2 times over 60 s
+	drops {
+		Tumbleweed 10% { Heart }
+		Weed 15% { Heart weight 2, Thorns }
+		Mine 50% { Rush weight 3, Heart }
+	}
 	arena {
 		background "Desert"
 		block Bumper at (50%, 55%) size 120 by 24
@@ -107,19 +113,18 @@ mode TimeAttack "Time Attack" {
 			Weed size 2 at (20%, 70%) moving right
 		}
 	}
-	drops {
-		Tumbleweed 10% { Heart }
-		Weed 15% { Heart weight 2, Thorns }
-		Mine 50% { Rush weight 3, Heart }
-	}
-	win when score reaches 1500
+	win when 6 waves survived
 	lose when time reaches 90 s or health depleted
 }
 
 mode PopFrenzy "Pop Frenzy" {
-	description "A sky full of bubbles in low gravity. Pop 20 enemies, or everything there is."
+	description "A sky full of bubbles in low gravity. Pop everything there is."
 	player Tank
 	gravity 6
+	drops {
+		Bubble 10% { Thorns }
+		Tumbleweed 20% { Heart, Thorns }
+	}
 	arena {
 		background "Desert"
 		player starts at 50%
@@ -129,17 +134,17 @@ mode PopFrenzy "Pop Frenzy" {
 		Tumbleweed size 3 at (15%, 60%) moving right
 		Tumbleweed size 3 at (85%, 60%) moving left
 	}
-	drops {
-		Bubble 10% { Thorns }
-		Tumbleweed 20% { Heart, Thorns }
-	}
-	win when 20 enemies popped or all enemies cleared
+	win when all enemies cleared
 	lose when health depleted or time reaches 120 s
 }
 
 mode Survivor "Survivor" {
 	description "Stay alive for a minute. A pillar splits the arena: use the teleporters to cross it."
 	player Tank
+	drops {
+		Weed 20% { Heart weight 2, Thorns }
+		Mine 40% { Heart weight 2, Rush }
+	}
 	arena {
 		background "Desert"
 		block Pillar at (50%, 20%) size 40 by 160
@@ -154,10 +159,6 @@ mode Survivor "Survivor" {
 			2 * Weed size 3 at (50%, 75%) moving left
 		}
 	}
-	drops {
-		Weed 20% { Heart weight 2, Thorns }
-		Mine 40% { Heart weight 2, Rush }
-	}
 	win when time reaches 60 s
 	lose when health depleted
 }
@@ -166,6 +167,10 @@ mode WaveRush "Wave Rush" {
 	description "Five waves with hardly a break between them. Get through all of them."
 	player Sprinter
 	gravity 12
+	drops {
+		Tumbleweed 5% { Heart }
+		Weed 20% { Heart weight 3, Rush }
+	}
 	arena {
 		background "Desert"
 	}
@@ -187,10 +192,6 @@ mode WaveRush "Wave Rush" {
 			Tumbleweed size 3 at (70%, 70%) moving left
 		}
 	}
-	drops {
-		Tumbleweed 5% { Heart }
-		Weed 20% { Heart weight 3, Rush }
-	}
 	win when 5 waves survived
 	lose when health depleted
 }
@@ -199,16 +200,16 @@ mode Minefield "Minefield" {
 	description "Heavy gravity and nothing but mines. Clear them all within 45 seconds."
 	player Tank
 	gravity 14
+	drops {
+		Weed 10% { Thorns }
+		Mine 50% { Heart weight 2, Thorns }
+	}
 	arena {
 		background "Desert"
 	}
 	layout {
 		Mine size 2 at (25%, 70%) moving right
 		Mine size 2 at (75%, 70%) moving left
-	}
-	drops {
-		Weed 10% { Thorns }
-		Mine 50% { Heart weight 2, Thorns }
 	}
 	win when all enemies cleared
 	lose when health depleted or time reaches 45 s

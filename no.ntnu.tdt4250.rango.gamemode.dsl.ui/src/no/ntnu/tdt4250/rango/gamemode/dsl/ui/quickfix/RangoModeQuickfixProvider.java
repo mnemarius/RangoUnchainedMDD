@@ -20,9 +20,9 @@ import no.ntnu.tdt4250.rango.gamemode.DropTable;
 import no.ntnu.tdt4250.rango.gamemode.Edition;
 import no.ntnu.tdt4250.rango.gamemode.GameMode;
 import no.ntnu.tdt4250.rango.gamemode.GamemodeFactory;
+import no.ntnu.tdt4250.rango.gamemode.Level;
 import no.ntnu.tdt4250.rango.gamemode.PowerUp;
 import no.ntnu.tdt4250.rango.gamemode.WaveSchedule;
-import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import no.ntnu.tdt4250.rango.gamemode.dsl.validation.RangoModeValidator;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeConstraints;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
@@ -34,17 +34,13 @@ import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Fix(GamemodeConstraints.ISSUE_NEVER_ENDS)
-	public void makeModeEnd(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "Win when all enemies are cleared", "Adds the win condition 'all enemies cleared'.", "win.png",
-				(EObject element, IModificationContext context) -> {
-					WinCondition win = GamemodeFactory.eINSTANCE.createWinCondition();
-					win.setCleared(true);
-					((GameMode) element).setWin(win);
-				});
-		acceptor.accept(issue, "Make the waves loop", "Makes the mode endless: its waves start over once cleared.",
+	public void makeLevelEnd(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Win when all enemies are cleared", "Adds the win condition 'all enemies cleared' to the level.",
+				"win.png", (EObject element, IModificationContext context) -> ((Level) element).getWin()
+						.add(GamemodeFactory.eINSTANCE.createCleared()));
+		acceptor.accept(issue, "Make the waves loop", "Makes the level endless: its waves start over once cleared.",
 				"waves.png", (EObject element, IModificationContext context) -> {
-					GameMode mode = (GameMode) element;
-					if (mode.getLevels().size() == 1 && mode.getLevels().get(0).getSpawning() instanceof WaveSchedule schedule) {
+					if (((Level) element).getSpawning() instanceof WaveSchedule schedule) {
 						schedule.setLoop(true);
 					}
 				});
@@ -52,14 +48,9 @@ public class RangoModeQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Fix(GamemodeConstraints.ISSUE_HEALTH_NOT_DECISIVE)
 	public void loseOnHealth(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "Lose when health is depleted", "Adds the lose condition 'health depleted'.", "lose.png",
-				(EObject element, IModificationContext context) -> {
-					GameMode mode = (GameMode) element;
-					if (mode.getLose() == null) {
-						mode.setLose(GamemodeFactory.eINSTANCE.createLoseCondition());
-					}
-					mode.getLose().setHealthDepleted(true);
-				});
+		acceptor.accept(issue, "Lose when health is depleted", "Adds the lose condition 'health depleted' to the level.",
+				"lose.png", (EObject element, IModificationContext context) -> ((Level) element).getLose()
+						.add(0, GamemodeFactory.eINSTANCE.createHealthDepleted()));
 	}
 
 	/**

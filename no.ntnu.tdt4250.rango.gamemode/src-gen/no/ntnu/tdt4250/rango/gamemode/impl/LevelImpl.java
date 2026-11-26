@@ -2,20 +2,26 @@
  */
 package no.ntnu.tdt4250.rango.gamemode.impl;
 
+import java.util.Collection;
 import no.ntnu.tdt4250.rango.gamemode.util.GamemodeDerivations;
 import no.ntnu.tdt4250.rango.gamemode.Arena;
 import no.ntnu.tdt4250.rango.gamemode.GamemodePackage;
 import no.ntnu.tdt4250.rango.gamemode.Level;
+import no.ntnu.tdt4250.rango.gamemode.LoseCondition;
 import no.ntnu.tdt4250.rango.gamemode.SpawnStrategy;
 
+import no.ntnu.tdt4250.rango.gamemode.WinCondition;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +34,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getArena <em>Arena</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getSpawning <em>Spawning</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getWin <em>Win</em>}</li>
+ *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getLose <em>Lose</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getNumber <em>Number</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getPopsToClear <em>Pops To Clear</em>}</li>
  *   <li>{@link no.ntnu.tdt4250.rango.gamemode.impl.LevelImpl#getMaxScore <em>Max Score</em>}</li>
@@ -75,6 +83,26 @@ public class LevelImpl extends EObjectImpl implements Level {
 	 * @ordered
 	 */
 	protected SpawnStrategy spawning;
+
+	/**
+	 * The cached value of the '{@link #getWin() <em>Win</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWin()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<WinCondition> win;
+
+	/**
+	 * The cached value of the '{@link #getLose() <em>Lose</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLose()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<LoseCondition> lose;
 
 	/**
 	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
@@ -241,6 +269,32 @@ public class LevelImpl extends EObjectImpl implements Level {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<WinCondition> getWin() {
+		if (win == null) {
+			win = new EObjectContainmentEList<WinCondition>(WinCondition.class, this, GamemodePackage.LEVEL__WIN);
+		}
+		return win;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<LoseCondition> getLose() {
+		if (lose == null) {
+			lose = new EObjectContainmentEList<LoseCondition>(LoseCondition.class, this, GamemodePackage.LEVEL__LOSE);
+		}
+		return lose;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	@Override
@@ -280,6 +334,10 @@ public class LevelImpl extends EObjectImpl implements Level {
 				return basicSetArena(null, msgs);
 			case GamemodePackage.LEVEL__SPAWNING:
 				return basicSetSpawning(null, msgs);
+			case GamemodePackage.LEVEL__WIN:
+				return ((InternalEList<?>)getWin()).basicRemove(otherEnd, msgs);
+			case GamemodePackage.LEVEL__LOSE:
+				return ((InternalEList<?>)getLose()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -298,6 +356,10 @@ public class LevelImpl extends EObjectImpl implements Level {
 				return getArena();
 			case GamemodePackage.LEVEL__SPAWNING:
 				return getSpawning();
+			case GamemodePackage.LEVEL__WIN:
+				return getWin();
+			case GamemodePackage.LEVEL__LOSE:
+				return getLose();
 			case GamemodePackage.LEVEL__NUMBER:
 				return getNumber();
 			case GamemodePackage.LEVEL__POPS_TO_CLEAR:
@@ -313,6 +375,7 @@ public class LevelImpl extends EObjectImpl implements Level {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -324,6 +387,14 @@ public class LevelImpl extends EObjectImpl implements Level {
 				return;
 			case GamemodePackage.LEVEL__SPAWNING:
 				setSpawning((SpawnStrategy)newValue);
+				return;
+			case GamemodePackage.LEVEL__WIN:
+				getWin().clear();
+				getWin().addAll((Collection<? extends WinCondition>)newValue);
+				return;
+			case GamemodePackage.LEVEL__LOSE:
+				getLose().clear();
+				getLose().addAll((Collection<? extends LoseCondition>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -346,6 +417,12 @@ public class LevelImpl extends EObjectImpl implements Level {
 			case GamemodePackage.LEVEL__SPAWNING:
 				setSpawning((SpawnStrategy)null);
 				return;
+			case GamemodePackage.LEVEL__WIN:
+				getWin().clear();
+				return;
+			case GamemodePackage.LEVEL__LOSE:
+				getLose().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -364,6 +441,10 @@ public class LevelImpl extends EObjectImpl implements Level {
 				return arena != null;
 			case GamemodePackage.LEVEL__SPAWNING:
 				return spawning != null;
+			case GamemodePackage.LEVEL__WIN:
+				return win != null && !win.isEmpty();
+			case GamemodePackage.LEVEL__LOSE:
+				return lose != null && !lose.isEmpty();
 			case GamemodePackage.LEVEL__NUMBER:
 				return getNumber() != NUMBER_EDEFAULT;
 			case GamemodePackage.LEVEL__POPS_TO_CLEAR:
