@@ -80,6 +80,9 @@ lists the files it writes.
 3. In the new Eclipse, import `no.ntnu.tdt4250.rango.gamemode.examples` and open a `.rango` file.
 4. Right-click it and choose **Generate Game Modes into Game...**, then select `rango-game`.
 
+Saving a model in the editor also writes a preview of the generated files into a `generated-game/`
+folder next to it, laid out like the game. Git ignores this folder.
+
 To install only the editor, use the update site in
 `no.ntnu.tdt4250.rango.gamemode.repository/target/repository/`.
 
@@ -104,7 +107,8 @@ conditions. Obstacles and enemy spawns share the abstract `Positioned`. A mode c
 `SpeedBonus` and its own drop tables, which replace the edition's.
 
 **End conditions.** Each `Level` owns its win and lose conditions, so the levels of a mode can have
-different goals: one level is won by clearing the arena, the next by reaching a score. A round of the
+different goals: one level is won by clearing the arena, the next by surviving a number of seconds or
+waves. A round of the
 level is won or lost as soon as any of its conditions of that role holds. There is one abstract class
 per role, and each kind of condition is a subclass of it:
 
@@ -141,7 +145,8 @@ delegates. Standalone code registers the delegates through `GamemodeOCL.initiali
 `chanceIsPercentage` (a drop chance is above 0 and at most 100), `distinctPowerUps`
 (`entries->isUnique(powerUp)`), `notToItself` (teleporters), `bonusAboveOne` (a speed bonus is worth more than plain points),
 `distinctTargets` (a difficulty modifies each value at most once), `positiveFactor`,
-`positiveSeconds` and `positiveCount` (the value of an end condition).
+`positiveSeconds` (the time of an end condition) and `positiveCount` (the number of enemies in a spawn, or of
+waves to survive).
 
 Rules that span several objects are in **Java** (`GamemodeConstraints`). They have stable diagnostic
 codes:
@@ -152,7 +157,7 @@ codes:
 | `distinctEffectKinds` | 102 | An enemy type or power-up has at most one effect of each kind. |
 | `oneInstantEffect` | 115 | An enemy type or power-up does not both damage and heal: they would happen at the same moment and cancel each other out. |
 | `distinctConditionKinds` | 116 | A level has at most one condition of each kind per role: "time reaches 60 s or time reaches 90 s" is decided by the shorter time alone. |
-| `noSimultaneousOutcome` | 105 | A round of a level cannot be won and lost by the same event (survive 60 s vs. a 60 s time limit). |
+| `noSimultaneousOutcome` | 105 | A level's time to survive is shorter than its time limit; otherwise the round would be lost at the same moment it is won, or before (survive 60 s vs. a 60 s time limit). |
 | `winnable` | 107 | Every win condition of a level can be met: no "all enemies cleared" with looping waves, no "8 waves survived" with 5 non-looping waves or with a fixed layout. |
 | `endsSomehow` | 108 | A level without a win condition must loop its waves, and must be the last level of its mode, since only winning a level unlocks the next. |
 | `targetInSameArena` | 110 | A teleporter leads to a teleporter of the same arena. |
@@ -239,8 +244,8 @@ The tutorial and multiplayer are unchanged from the base game and not modelled.
 
 | Edition | Product | What it shows |
 | --- | --- | --- |
-| `classic.rango` | *Rango Unchained*, two modes | **Campaign**: the original game's five levels, each with its own arena (stone blocks), layout and *goal*, won one after the other to unlock the next: most are cleared, one against a 120 s clock, one is won by clearing it or holding out for 60 s, and the last is cleared within 45 s. **Endless**: looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, no win condition, and lost only when health runs out. Four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*) and three power-ups. Both modes use the *edition's drop tables*: the tougher the enemy, the likelier and better its drop. Three *difficulty tiers* apply to both modes, mostly through the calm between waves. |
-| `arcade.rango` | *Rango Unchained: Arcade*, five modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: six growing waves to survive under a time limit, with a speed bonus for early pops. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. **Wave Rush**: five waves to survive under higher gravity. **Minefield**: clear the mines in heavy gravity within 45 s. Every mode has *its own drop tables* (no edition defaults), so the same Mine drops a Rush in Time Attack but a trap in Minefield. |
+| `classic.rango` | *Rango Unchained*, two modes | **Campaign**: the original game's five levels, each with its own arena (most with stone blocks), layout and *goal*, won one after the other to unlock the next: most are cleared, one against a 120 s clock, one is won by clearing it or holding out for 60 s, and the last is cleared within 45 s. **Endless**: looping waves that grow every round, two ledges, a jump pad, teleporters for enemies, no win condition, and lost only when health runs out. Four enemy types (a Bomb that *explodes into a ring of eight Tumbleweeds*, a Cactus that *poisons*) and three power-ups. Both modes use the *edition's drop tables*: the tougher the enemy, the likelier and better its drop. Three *difficulty tiers* apply to both modes: they change enemy speed, player health and drop chance (hard also gives more points), and in Endless the calm between waves. |
+| `arcade.rango` | *Rango Unchained: Arcade*, five modes | Two player profiles (fast and fragile vs. slow and tough). **Time Attack**: six growing waves to survive under a time limit, with a speed bonus for early pops. **Pop Frenzy**: harmless Bubbles that *vanish* but slow you down, low gravity, a trap power-up. **Survivor**: survive 60 s in an arena split by a pillar, crossing it through player teleporters. **Wave Rush**: five waves to survive under higher gravity. **Minefield**: clear the mines in heavy gravity within 45 s. Every mode has *its own drop tables* (no edition defaults), so the same Mine mostly drops a Rush in Time Attack but can drop a trap in Minefield. |
 | `hardcore.rango` | *Rango Unchained: Hardcore*, one mode | **Gauntlet**: one heart and no healing (the only power-up is a short shield), against fast enemies that split into more of themselves: a Bomb bursts into four Armadillos, an Armadillo into three, a Cactus poisons. The edition has *no difficulty tiers*, so its mode plays exactly as modelled. |
 
 The tests check that all three are valid and that together they use every concrete class, every
@@ -268,3 +273,5 @@ feature and every enumeration literal of the metamodel.
   `xtend-maven-plugin`.
 - The game is built by its own Gradle build. The Android module is only included when an Android
   SDK is configured.
+- GitHub Actions (`.github/workflows/build.yml`) runs `./mvnw verify -Pgame` for each of the three
+  editions on Linux, and the same build of Arcade on Windows in the Command Prompt.

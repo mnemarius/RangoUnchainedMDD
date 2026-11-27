@@ -3,6 +3,7 @@ target/
 bin/
 *.class
 .tycho-consumer-pom.xml
+org.eclipse.m2e.core.prefs
 
 # Downloaded by the Xtext generator when it runs inside Eclipse
 .antlr-generator-*.jar
